@@ -1,0 +1,10 @@
+@startuml
+
+autonumber
+Jellyfish -> Target : Paramiko Authentication
+Jellyfish -> Target : Run Profiling Commands
+Jellyfish -> Jellyfish : Parse Output and Store
+Jellyfish -> Jellyfish : Mine for IP Intel
+Jellyfish -> Jellyfish : Output to Json
+
+@enduml

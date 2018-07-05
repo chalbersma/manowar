@@ -1,0 +1,28 @@
+{% include 'base_header.html' %}
+{% from "error.html" import with_errors %}
+<div class="col-sm-12">
+    <div class="col-md-10">
+        <h1>Jellyfish</h1>
+        <h2>Description</h2>
+        <p>Jellyfish is an auditing tool designed to take an invetory of various
+        pieces of information on our hosts, track those changes through time
+        and run complex audits  based on those collections.</p>
+        <h2>Links</h2>
+        <ul>
+            <li>Source Code</li>
+        </ul>
+        <h2>Search</h2>
+        <ul>
+            <li><a href="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/collected/values_search/">Collected Values Search</a></li>
+            <li><a href="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/collected/subtypes_filtered_search/">Collected Subtypes Search</a></li>
+            <li><a href="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/soc/vipporttohost_search/">Soc VIP & Port to Host Search</a></li>
+            <li><a href="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/hostsearch/search/">Host Search</a></li>
+            <li><a href="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/cve_canonical_check/search/">CVE Population Check</a></li>
+        </ul>
+        <h2>Custom Dashboards</h2>
+        <p>These are still experimental but please view and modify them <a href="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/custdashboardlist/">this</a>
+        as a starting point.</p>
+        <h2>Swagger (API) Documentation</h2>
+    </div>
+</div>
+{% include 'base_footer.html' %}

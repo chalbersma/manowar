@@ -1,0 +1,45 @@
+@startuml
+
+' Excedingly High Level, Probably Not Useful
+
+rectangle parse_csv
+queue host_queue
+queue results_queue
+
+node created_threads
+rectangle results_obj
+
+package thread_actions {
+	interface grab_host
+	component collection
+	component storage
+	interface result
+}
+
+database jellyfish2 {
+	rectangle collections
+	rectangle hosts
+}
+
+parse_csv --- host_queue : Entry Per Host
+
+created_threads ---> grab_host
+
+parse_csv ---> created_threads : After Completion
+
+grab_host <---> host_queue : Target Details
+
+grab_host ----> collection
+grab_host ----> storage
+
+result --- storage
+result --- collection
+
+storage ---> hosts : Inserts/Updates
+storage --> collections : Inserts/Updates
+
+result ---> results_queue : writes to
+
+results_obj ---> results_queue : reads from
+
+@enduml

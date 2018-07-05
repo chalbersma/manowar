@@ -1,0 +1,3 @@
+# Precise Repo For MariaDB
+deb [arch=amd64] http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu precise main
+deb [arch=amd64] http://mirrors.accretive-networks.net/mariadb/repo/10.1/ubuntu precise main

@@ -1,0 +1,126 @@
+{% include 'base_header.html' %}
+{% from "error.html" import with_errors %}
+<link rel="stylesheet" type="text/css" href="/static/css/jellyfish.css" media="screen" />
+<div class="container">
+    <div class="row row-eq-height">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h3>Host Description</h3>
+            </div>
+            <div class="row placeholders">
+                <div id="data_div">
+					{% for host in hosts_list %}
+						<h1>{{ host["hostname"] }}</h1>
+						<h2>Host Data</h2>
+						<table id='{{ host["host_id"] }}_details'>
+							<thead>
+								<tr>
+									<th>Item</th>
+									<th>Value</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>Status</td>
+								<td>{{ host["hoststatus"] }}</td>
+							</tr>
+							<tr>
+								<td>Uber ID</td>
+								<td>{{ host["host_uber_id"] }}</td>
+							</tr>
+							<tr>
+								<td>POP</td>
+								<td>{{ host["pop"] }}</td>
+							</tr>
+							<tr>
+								<td>SRVTYPE</td>
+								<td>{{ host["srvtype"] }}</td>
+							</tr>
+							<tr>
+								<td>Jellyfish ID</td>
+								<td>{{ host["host_id"] }}</td>
+							</tr>
+							<tr>
+								<td>Last Update</td>
+								<td>{{ host["last_update"] | ctime }}</td>
+							</tr>
+							</tbody>
+						</table>
+						<script>
+							// Prettyize the Table
+							$(document).ready(function() {
+								$('#{{ host["host_id"] }}_details').DataTable();
+							} );
+						</script>
+						<h2>Host Audit Results</h2>
+							<table id='{{ host["host_id"] }}_audit_results'>
+								<thead>
+									<tr>
+										<th>Result No.</th>
+										<th>Audit No.</th>
+										<th>Result</th>
+										<th>Bucket</th>
+										<th>First Audit</th>
+										<th>Last Audit</th>
+										<th>Result Text</th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for ahost in host["ahost_data"] %}
+									<tr>
+										<td>{{ ahost["audit_result_id"] }}</td>
+										<td>{{ ahost["fk_audits_id"] }}</td>
+										<td>{{ ahost["audit_result"] }}</td>
+										<td>{{ ahost["bucket"] }}</td>
+										<td>{{ ahost["initial_audit"] | ctime }}</td>
+										<td>{{ ahost["last_audit"] | ctime }}</td>
+										<td>{{ ahost["audit_result_text"] }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+							<script>
+								// Prettyize the Table
+								$(document).ready(function() {
+									$('#{{ host["host_id"] }}_audit_results').DataTable();
+								} );
+							</script>
+						<h2>Host Collections</h2>
+							<table id='{{ host["host_id"] }}_collection_results'>
+								<thead>
+									<tr>
+										<td>Collection ID</td>
+										<td>Collection Type</td>
+										<td>Collection Sub-Type</td>
+										<td>Collection Value</td>
+										<td>Initial Collection</td>
+										<td>Last Collection</td>
+									</tr>
+								</thead>
+								<tbody>
+								{% for collection in host["collection_data"] %}
+									<tr>
+										<td>{{ collection["collection_id"] }}</td>
+										<td>{{ collection["collection_type"] }}</td>
+										<td>{{ collection["collection_subtype"] }}</td>
+										<td>{{ collection["collection_value"] }}</td>
+										<td>{{ collection["initial_update"] | ctime }}</td>
+										<td>{{ collection["last_update"] | ctime }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+							<script>
+								// Prettyize the Table
+								$(document).ready(function() {
+									$('#{{ host["host_id"] }}_collection_results').DataTable();
+								} );
+							</script>
+					{% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'base_footer.html' %}

@@ -1,0 +1,72 @@
+{% include 'base_header.html' %}
+{% from "error.html" import with_errors %}
+<link rel="stylesheet" type="text/css" href="/jellyfish/static/css/jellyfish.css" media="screen" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+	google.charts.load('current', {'packages':['corechart']});
+</script>
+<div class="container">
+    <div class="row row-eq-height">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h3>Audit Description</h3>
+            </div>
+            <div class="row placeholders">
+                <div id="data_div">
+					{% for audit in audits_list %}
+					<h2><a href='{{ audit["audit_primary_link"] }}' >{{ audit["audit_name"]|upper }}</a></h2>
+					<h3>Description</h3>
+						<p>{{ audit["audit_short_description"] }}</p>
+					<h3>Historical Buckets</h3>
+						{% for bucket in audit["histdata"] %}
+							<h4>{{ bucket|upper }}</h4>
+							<h5>Summary:</h5>
+							<ul>
+								<li style="color:black;display:inline-block;width:200px;">Date: {{ audit["histdata"][bucket][-1][0] }}</li>
+								<li style="color:red;display:inline-block;width:200px;">Failed: <a style="color:red" href='/jellyfish/display/audit_table/{{ audit["audit_id"] }}/fail'>{{ audit["histdata"][bucket][-1][1] }}</a></li>
+								<li style="color:green;display:inline-block;width:200px;">Passed: <a style="color:green" href='/jellyfish/display/audit_table/{{ audit["audit_id"] }}/pass'>{{ audit["histdata"][bucket][-1][2] }}</a></li>
+								<li style="color:grey;display:inline-block;width:200px;">Not Afflicted: {{ audit["histdata"][bucket][-1][3] }}</li>
+							</ul>
+							<h5>Historical:</h5>
+							<script>
+								google.charts.setOnLoadCallback(drawchart_{{ audit["audit_name"]|replace("-","") }}_{{ bucket|replace("-","") }});
+								
+								function drawchart_{{ audit["audit_name"]|replace("-","") }}_{{ bucket|replace("-","") }}(){
+									var data = google.visualization.arrayToDataTable({{ audit["histdata"][bucket]|safe }}) ;
+									var options = { title : "Performance for Bucket : {{ bucket|safe}} ",
+													legend : { position: 'bottom' },
+													series: {
+														0 : { color: "#ff0000" },
+														1 : { color: "#008000" },
+														2 : { color: "#808080" }
+													}
+													};
+									var chart=new google.visualization.LineChart(document.getElementById('{{ audit["audit_name"]|replace("-","") }}_{{ bucket|replace("-","") }}_chart'));
+									
+									chart.draw(data,options);
+								}
+							</script>
+							<div id='{{ audit["audit_name"]|replace("-","") }}_{{ bucket|replace("-","") }}_chart'></div>
+						{% endfor %}
+					<h3>Links</h3>
+						<ul>
+							{% for link in audit["audit_secondary_links"] %}
+								<li><a href='{{ audit["audit_secondary_links"][link] }}'>{{ link }}</a></li>
+							{% endfor %}
+						</ul>
+					<h3>Long Description</h3>
+						<p><strong>Audit Priority :  {{ audit["audit_priority"] }}</strong></p>
+						<p>{{ audit["audit_long_description"] }}</p>
+					<h3>Match Data</h3>
+						<h4>Bucket Match</h4>
+							<pre>{{ audit["audit_comparison"] }}</pre>
+						<h4>Collection Match</h4>
+							<pre>{{ audit["audit_filters"] }}</pre>
+					{% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'base_footer.html' %}

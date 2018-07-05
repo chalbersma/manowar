@@ -1,0 +1,78 @@
+{% include 'base_header.html' %}
+{% from "error.html" import with_errors %}
+<link rel="stylesheet" type="text/css" href="/jellyfish/static/css/jellyfish.css" media="screen" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+	google.charts.load('current', {'packages':['corechart']});
+</script>
+<div class="col-md-10">
+<h1>Custom Dashboards</h1>
+{% if content["data"]|length >= 1 %}
+<div id="data_div">
+    <table id="custdashboardlist" class="display" width="100%">
+        <thead>
+			<tr>
+				<td>Dashboard Name</td>
+				<td>Owner Name</td>
+			    <td>Modify</td>
+			    <td>Description</td>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td>Dashboard Name</td>
+				<td>Owner Name</td>
+			    <td>Modify</td>
+			    <td>Description</td>
+			</tr>
+		</tfoot>
+		<tbody>
+			{% for dashboard in content["data"] %}
+			<tr>
+				<td><a href="/#/{{ dashboard['attributes']['custdashboardid'] }}/">{{ dashboard['attributes']['dashboard_name']|lower }}</a></td>
+				<td>{{ dashboard['attributes']['owner'] }}</td>
+				<td><a href="/jellyfish/display/v2/custdashboard/modify/{{ dashboard['attributes']['custdashboardid'] }}/">Modify Link</a></td>
+				<td>{{ dashboard['attributes']['dashboard_description'] }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<script>
+		// Prettyize the Table
+		$(document).ready(function() {
+
+			$('#custdashboardlist tfoot tr td').each( function () {
+				var title = $(this).text();
+				//console.log(title)
+				$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+			} );
+
+			var table = $('#custdashboardlist').DataTable({
+				dom: 'Bfrtip',
+				buttons: [
+					'copy', 'csv', 'excel', 'pdf', 'print'
+				]
+			} );
+
+			table.columns().every( function () {
+				var that = this;
+				$( 'input', this.footer() ).on( 'keyup change', function () {
+					if ( that.search() !== this.value ) {
+						that
+							.search( this.value )
+							.draw();
+							default_data=table.rows({ search: 'applied' }).data().toArray()
+					}
+				} );
+			} );
+		} );
+	</script>
+</div>
+{% else %}
+<p>No Results Found</p>
+{% endif %}
+{% include 'endpoint_link.html' %}
+</div>
+
+
+{% include 'base_footer.html' %}

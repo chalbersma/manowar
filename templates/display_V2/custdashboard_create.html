@@ -1,0 +1,74 @@
+{% include 'base_header.html' %}
+{% from "error.html" import with_errors %}
+<link rel="stylesheet" type="text/css" href="/jellyfish/static/css/jellyfish.css" media="screen" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+    google.charts.load('current', {'packages':['corechart']});
+</script>
+<div class="col-md-10">
+<h1>Create Custom Dashboard</h1>
+<script type="text/javascript">
+function do_search(){
+    base_url="{{ g.config_items["v2api"]["preroot"] }}{{ g.config_items["v2api"]["root"] }}/custdashboard/create/?"
+    console.log("Jazz hands")
+    query_string=""
+    val_query = {
+        "dashboard_name" : $('#dashboard_name').val(),
+        "dashboard_description" : $('#dashboard_description').val(),
+    }
+
+    for (var key in val_query){
+        if (val_query[key].length > 0 ){
+                query_string=query_string+key+"='''"+encodeURIComponent(val_query[key]).replace(/[\'\^\/()]/g, escape)+"'''&"
+        }
+    }
+
+    url=base_url + query_string
+    console.log(url)
+    //$(location).attr('href',url)
+    $.getJSON(url, function(data, success, xhr){
+            console.log(data)
+            console.log(success)
+            if ("errors" in data) {
+                // do errorr stuff
+                error_src="{{ g.config_items["v2ui"]["preroot"] }}{{ url_for('static', filename='img/failed.png') }}"
+                $("#status").attr("src", error_src)
+                console.log("Go to " + url )
+                console.log("That's the Error.jpeg")
+            } else if ( "data" in data) {
+                dash_id = data["data"]["dash_id"]
+                success_src="{{ g.config_items["v2ui"]["preroot"] }}{{ url_for('static', filename='img/changegud.png') }}"
+                $("#status").attr("src", success_src)
+                // Redirect to new dash_id modify Page
+                modify_url = "{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/custdashboard/modify/" + dash_id + "/?"
+                $(location).attr('href',modify_url)
+            }
+            console.log(xhr)
+    })
+
+}
+</script>
+<form id="SearchForm" method="POST">
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="dashboard_name">Dashboard Name:</label>
+        <input id="dashboard_name" type="text" name="dashboard_name" class="form-control ember-text-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="dashboard_description">Dashboard Description:</label>
+        <textarea rows="4" cols="50" maxlength="512" id="dashboard_description" name="dashboard_description" class="form-control ember-textarea-field"></textarea>
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <input type="button" value="Search" onclick="do_search()">
+        <img id="status" src="{{ g.config_items["v2ui"]["preroot"] }}{{ url_for('static', filename='img/nochanges.png') }}" height="24"/>
+    </div>
+</div>
+</form>
+</div>
+
+
+{% include 'base_footer.html' %}

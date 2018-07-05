@@ -1,0 +1,37 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides: jellyfish2-sapi
+# Required-Start: $syslog
+# Required-Stop: $syslog
+# Default-Start: 3 5
+# Default-Stop: 0 1 6
+# Short-Description: jellyfish2-sapi
+# Description: This file starts and stops Jellyfish2 Storage API's Flask Server
+# 
+### END INIT INFO
+
+J2Loc_dir=/EdgeCast/secops
+USER=jellyfish
+SHELL=/bin/bash
+
+case "$1" in
+ start)
+   su ${USER} -s ${SHELL} -c "${J2Loc_dir}/run_sapi.sh"
+   ;;
+ stop)
+   su ${USER} -s ${SHELL} -c "${J2Loc_dir}/stop_sapi.sh"
+   sleep 2
+   ;;
+ restart)
+   su ${USER} -s ${SHELL} -c "${J2Loc_dir}/stop_sapi.sh"
+   sleep 3 
+   su ${USER} -s ${SHELL} -c "${J2Loc_dir}/run_sapi.sh"
+   ;;
+ status)
+   su ${USER} -s ${SHELL} -c "${J2Loc_dir}/status_sapi.sh"
+   ;;
+ *)
+   echo "Usage: jellyfish2-sapi {start|stop|restart|status}" >&2
+   exit 3
+   ;;
+esac

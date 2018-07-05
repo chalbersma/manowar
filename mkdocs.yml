@@ -1,0 +1,5 @@
+site_name: Jellyfish Documentation
+theme: readthedocs
+docs_dir: source_docs
+site_dir: docs
+
