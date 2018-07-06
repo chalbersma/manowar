@@ -10,5 +10,4 @@ import binascii
 
 rand = binascii.b2a_hex(os.urandom(16)).decode()
 
-# Just doing some things
 print(rand)
