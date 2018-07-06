@@ -28,6 +28,8 @@ cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 # Ensure SSHD Enabled
 sudo service ssh restart
 
+cat /etc/ssh/sshd_config
+
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null localhost echo test
 
 # Add Fake Hosts to /etc/hosts
