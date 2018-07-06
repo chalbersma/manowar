@@ -18,11 +18,6 @@ sudo add-apt-repository 'deb [arch=amd64] http://sfo1.mirrors.digitalocean.com/m
 
 sudo apt-get update
 
-
-# Allow self ssh login
-ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
-
-
 # Make Clean Docs
 rm -rf docs/
 
