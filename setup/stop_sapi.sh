@@ -15,7 +15,8 @@ PIDFile=jfish2-sapi.pid
 if [[ -w ${PIDFile} ]] ; then
 	pid=$(cat ${PIDFile})
 	kill -0 "${pid}"
-	if [[ $? -eq 0 ]] ; then
+	foundpid=$?
+	if [[ ${foundpid} -eq 0 ]] ; then
 		# PID Exists Kill it
 		kill "${pid}"
 		# Check if it worked (Ignore errors for no)
