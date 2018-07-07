@@ -2,6 +2,11 @@
 
 ls ~/.ssh
 
+# Create a new ssh key
+ssh-keygen -t rsa -N ""
+
+cat ~/.ssh/authorized_keys
+
 # Setup SSH Things for Testing
 ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
 
