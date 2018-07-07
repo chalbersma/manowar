@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+ls ~/.ssh
+
 # Setup SSH Things for Testing
 ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
 
@@ -13,9 +15,9 @@ sudo service ssh restart
 
 cat /etc/ssh/sshd_config
 
-cat /var/log/auth.log
-
 timeout 1m ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null localhost echo test
+
+sudo cat /var/log/auth.log
 
 testsshsuccess=$?
 
