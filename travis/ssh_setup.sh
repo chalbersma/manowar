@@ -5,22 +5,14 @@ ls ~/.ssh
 # Create a new ssh key
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
-cat ~/.ssh/authorized_keys
-
-
 # Authorized Keys
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
-
-cat ~/.ssh/authorized_keys
 
 # Ensure SSHD Enabled
 sudo service ssh restart
 
-cat /etc/ssh/sshd_config
 
 timeout 1m ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null localhost echo test
-
-sudo cat /var/log/auth.log
 
 testsshsuccess=$?
 
