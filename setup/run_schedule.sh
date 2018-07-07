@@ -12,7 +12,6 @@ J2RunLoc=secops
 SchedLog=schedlog.log
 SchedLockFile=jfish2-scheduler.lock
 StoreConfig=storage.ini
-TunSocket=jfish_ctrl_socket
 
 RUN_LOC=/tmp
 # Exit if it fails
