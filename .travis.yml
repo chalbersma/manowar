@@ -10,6 +10,9 @@ notifications:
   on_failure: always
 
 before_script:
+  - pwd
+  - ls
+  - ls ~/
   - sudo apt-get -y install openssh-server
   - ./travis/pre_build.sh
   - export DEBIAN_FRONTEND=noninteractive; sudo -E apt-get -y  install python3-pip python-dev shellcheck mariadb-server mariadb-client jq openjdk-7-jre graphviz
