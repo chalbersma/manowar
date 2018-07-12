@@ -45,7 +45,6 @@ if __name__ == "__main__":
     parser.add_argument("-k", "--keyfile", help="SSH Key to use", required=True)
     parser.add_argument("-4", "--ipv4", help="Use IPV4 instead of default", action='store_true')
     parser.add_argument("-6", "--ipv6", help="Use IPV4 instead of default", action='store_true')
-    parser.add_argument("-a", "--appendedgecast", help="add FQDN to host", action='store_true')
     parser.add_argument("-p", "--pop", help="POP of Server")
     parser.add_argument("-s", "--srvtype", help="SRVType of Server")
     parser.add_argument("-m", "--status", help="Status of the Server")
@@ -86,7 +85,7 @@ if __name__ == "__main__":
 
     # Set paramiko_host
 
-def collector(HOST, CONFIG, USERNAME, KEYFILE, POP, SRVTYPE, UBERID, STATUS, IPV4, IPV6, APPEND):
+def collector(HOST, CONFIG, USERNAME, KEYFILE, POP, SRVTYPE, UBERID, STATUS, IPV4, IPV6):
 
     '''
     Main Function for Collector. Calling this with the right variable should allow you to utilize
@@ -105,11 +104,7 @@ def collector(HOST, CONFIG, USERNAME, KEYFILE, POP, SRVTYPE, UBERID, STATUS, IPV
     items_collected["status"] = STATUS
     items_collected["ip_intel"] = list()
 
-    # See if we want to do the Edgecast Specific append
-    if APPEND:
-        rawish_hostname = '{}.edgecastcdn.net'.format(HOST)
-    else:
-        rawish_hostname = HOST
+    rawish_hostname = HOST
 
     # So I'm going to search for both ipv4 & ipv6 addresses. And then add the intel
     # This is for IP Intelligence.
@@ -436,4 +431,4 @@ def collector(HOST, CONFIG, USERNAME, KEYFILE, POP, SRVTYPE, UBERID, STATUS, IPV
 
 if __name__ == "__main__":
     collector(HOST, CONFIG, USERNAME, KEYFILE, POP, SRVTYPE, \
-              UBERID, STATUS, args.ipv4, args.ipv6, args.appendedgecast)
+              UBERID, STATUS, args.ipv4, args.ipv6)
