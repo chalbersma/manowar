@@ -12,7 +12,7 @@ ps "${uipid}" &> /dev/null
 running=$?
 
 if [[ ${running} -eq 0 ]] ; then
-	echo "Jellyfish 2 - UI running with pid ${pid}"
+	echo "Jellyfish 2 - UI running with pid ${uipid}"
 else
 	echo "Jellyfish 2 - UI Not Running. Test Failed"
 	exit 1
