@@ -80,7 +80,7 @@ def analyze(CONFIGDIR, CONFIG):
                     auditfiles.append(onefile)
 
     # Debug
-    #print(auditfiles)
+    print(auditfiles)
     # Config Defaults
     this_time=int(time())
     back_week=this_time-604800
