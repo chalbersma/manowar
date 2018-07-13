@@ -947,6 +947,8 @@ def analyze(CONFIGDIR, CONFIG):
         query_string = query_head + columns + query_mid + this_audit_values + query_tail
 
         # This is a replace and will update the audit no matter.
+        debug_sql = cur.mogrify(query_string, this_audit_value_paramaters)
+        print("Debug SQL {}".format(debug_sql))
         cur.execute(query_string, this_audit_value_paramaters)
         this_row = cur.lastrowid
 
