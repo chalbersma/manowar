@@ -935,7 +935,7 @@ def analyze(CONFIGDIR, CONFIG):
         query_head = "REPLACE into audits ( "
         query_mid = " ) VALUES ( "
 
-        query_tail = " ) ; commit; "
+        query_tail = " ) "
 
 
         if have_audit_id :
@@ -948,14 +948,7 @@ def analyze(CONFIGDIR, CONFIG):
 
         # This is a replace and will update the audit no matter.
         debug_sql = cur.mogrify(query_string, this_audit_value_paramaters)
-        print("Debug SQL {}".format(debug_sql))
-        try:
-            cur.execute(query_string, this_audit_value_paramaters)
-        except Exception as msyql_except:
-            print("Error Adding Audit: {}".format(str(mysql_except)))
-            raise Exception("Unable to Insert Audit")
-        else:
-            pass
+        cur.execute(query_string, this_audit_value_paramaters)
 
         this_row = cur.lastrowid
 
