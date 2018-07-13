@@ -949,7 +949,14 @@ def analyze(CONFIGDIR, CONFIG):
         # This is a replace and will update the audit no matter.
         debug_sql = cur.mogrify(query_string, this_audit_value_paramaters)
         print("Debug SQL {}".format(debug_sql))
-        cur.execute(query_string, this_audit_value_paramaters)
+        try:
+            cur.execute(query_string, this_audit_value_paramaters)
+        except Exception as msyql_exception:
+            print("Error Adding Audit: {}".format(str(mysql_exception)))
+            raise Exception("Unable to Insert Audit")
+        else:
+            pass
+
         this_row = cur.lastrowid
 
         cur.close()
