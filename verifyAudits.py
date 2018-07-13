@@ -83,7 +83,7 @@ def verifySingleAudit(auditfile) :
 					try:
 					    if item == "vuln-long-description" :
 					        parsed = ast.literal_eval("'''{}'''".format(onelinethisstuff))
-					    else
+					    else:
 					        parsed = ast.literal_eval(onelinethisstuff)
 					except Exception as e:
 						print("Issue with file ", auditfile, " when attempting to parse", item, "Error ", str(e), onelinethisstuff)
