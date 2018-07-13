@@ -951,8 +951,8 @@ def analyze(CONFIGDIR, CONFIG):
         print("Debug SQL {}".format(debug_sql))
         try:
             cur.execute(query_string, this_audit_value_paramaters)
-        except Exception as msyql_exception:
-            print("Error Adding Audit: {}".format(str(mysql_exception)))
+        except Exception as msyql_except:
+            print("Error Adding Audit: {}".format(str(mysql_except)))
             raise Exception("Unable to Insert Audit")
         else:
             pass
