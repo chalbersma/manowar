@@ -16,7 +16,7 @@ echo "${TRAVIS_PULL_REQUEST_SLUG}"
 
 
 git branch
-git checkout ${TRAVIS_BRANCH}
+git checkout "${TRAVIS_BRANCH}"
 git branch
 git pull
 
