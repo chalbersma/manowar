@@ -9,6 +9,10 @@ git config push.default matching
 
 git branch
 
+echo "${TRAVIS_PULL_REQUEST_BRANCH}"
+echo "${TRAVIS_BRANCH}"
+echo "${TRAVIS_PULL_REQUEST_SLUG}"
+
 # Only on Blessed Pull requests
 # Pull requests from /EdgeCast/jellyfishaudits 's Staging Branch to it's Master Branch.
 if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "EdgeCast/secops" ]] ; then
