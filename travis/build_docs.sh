@@ -56,6 +56,8 @@ git status
 
 if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "chalbersma/manowar" ]] ; then
 
+  echo -e "${TRAVIS_PULL_REQUEST_BRANCH} ${TRAVIS_BRANCH} ${TRAVIS_PULL_REQUEST_SLUG}"
+
   # Pull request is from staging into master; the "blessed path"
   echo -e 'Pull is from Staging to Master, generating latest documentation.'
 
@@ -64,6 +66,8 @@ if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master"
   git -i travis-manowar push origin staging
 
 else
+
+  echo -e "${TRAVIS_PULL_REQUEST_BRANCH} ${TRAVIS_BRANCH} ${TRAVIS_PULL_REQUEST_SLUG}"
 
   # Pull request is not blessed
   echo -e 'Non staging to master pull request not generating docs.'
