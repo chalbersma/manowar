@@ -29,5 +29,6 @@ after_success:
 - "./travis/swagger_build.sh"
 - "./travis/build_docs.sh"
 before_install:
+- pwd
 - openssl aes-256-cbc -K $encrypted_1acdf71f7d2b_key -iv $encrypted_1acdf71f7d2b_iv
   -in travis-manowar.enc -out /home/chalbersma/tmp/travis-manowar/travis-manowar -d
