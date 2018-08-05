@@ -20,6 +20,17 @@ git checkout "${TRAVIS_BRANCH}"
 git branch
 git pull
 
+# Diagrams
+mkdir ./docs/plantuml
+cp /home/travis/plantuml/* ./docs/plantuml/
+
+populate_diag=$?
+
+if [[ ${populate_diag} -gt 0 ]] ; then
+    echo -e "Error populating Diagrams"
+    exit 1
+fi
+
 # Do MkDocs
 mkdocs --version
 mkdocs build
@@ -38,21 +49,9 @@ if [[ ${populate_swagger} -gt 0 ]] ; then
     exit 1
 fi
 
-# Diagrams
-mkdir ./docs/plantuml
-cp /home/travis/plantuml/* ./docs/plantuml/
-
-populate_diag=$?
-
-if [[ ${populate_diag} -gt 0 ]] ; then
-    echo -e "Error populating Diagrams"
-    exit 1
-fi
-
 git add -- ./docs/
 
 git status
-
 
 if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "chalbersma/manowar" ]] ; then
 
@@ -63,7 +62,7 @@ if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master"
 
   # Only if it's in the right shall I push.
   git commit -m "[ci skip] Travis is updating the documentation; build no.: ${TRAVIS_BUILD_NUMBER}"
-  git -i travis-manowar push origin staging
+  GIT_SSH="ssh -i travis-manowar" git -i travis-manowar push origin staging
 
 else
 
