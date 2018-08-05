@@ -15,7 +15,7 @@ before_script:
 - "./travis/db_setup.sh"
 - sudo pip3 install --upgrade setuptools
 - sudo pip3 install bandit pylint paramiko pymysql colorama flask flask_cors jsonschema
-  feedparser lxml pika mkdocs requests
+  lxml pika mkdocs requests
 - gem install mdl
 script:
 - "./travis/testing.sh"

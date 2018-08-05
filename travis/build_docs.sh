@@ -47,7 +47,7 @@ git add -- ./docs/
 
 git status
 
-if [[ ${TRAVIS_BRANCH} == "staging" && ${TRAVIS_PULL_REQUEST_SLUG} == "chalbersma/manowar" && ${TRAVIS_EVENT_TYPE} == "push" ]] ; then
+if [[ ${TRAVIS_BRANCH} == "staging" && ${TRAVIS_REPO_SLUG} == "chalbersma/manowar" && ${TRAVIS_EVENT_TYPE} == "push" ]] ; then
 
   echo -e "Vars: ${TRAVIS_PULL_REQUEST_BRANCH} ${TRAVIS_BRANCH} ${TRAVIS_PULL_REQUEST_SLUG}"
 
