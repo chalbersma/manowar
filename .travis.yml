@@ -24,8 +24,8 @@ script:
 - "./travis/sapi_test.sh"
 - "./travis/schedule_test.sh"
 - "./travis/analyze_test.sh"
-- "./travis/build_diag.sh"
 after_success:
+- "./travis/build_diag.sh"
 - "./travis/swagger_build.sh"
 - "./travis/build_docs.sh"
 before_install:
