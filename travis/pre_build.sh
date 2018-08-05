@@ -22,3 +22,8 @@ sudo apt-get update
 rm -rf docs/
 
 mkdir docs
+
+# Var Debug Findings
+echo -e "TRAVIS_PULL_REQUEST_BRANCH : ${TRAVIS_PULL_REQUEST_BRANCH}"
+echo -e "TRAVIS_PULL_REQUEST_SLUG : ${TRAVIS_PULL_REQUEST_SLUG}"
+echo -e "TRAVIS_REPO_SLUG : ${TRAVIS_REPO_SLUG}"

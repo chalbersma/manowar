@@ -53,6 +53,10 @@ git add -- ./docs/
 
 git status
 
+echo -e "TRAVIS_PULL_REQUEST_BRANCH : ${TRAVIS_PULL_REQUEST_BRANCH}"
+echo -e "TRAVIS_PULL_REQUEST_SLUG : ${TRAVIS_PULL_REQUEST_SLUG}"
+echo -e "TRAVIS_REPO_SLUG : ${TRAVIS_REPO_SLUG}"
+
 if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "chalbersma/manowar" ]] ; then
 
   echo -e "Vars: ${TRAVIS_PULL_REQUEST_BRANCH} ${TRAVIS_BRANCH} ${TRAVIS_PULL_REQUEST_SLUG}"
