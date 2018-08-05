@@ -1,3 +1,5 @@
+/* Hey Dummy! Don't use these passwords in Production. These are for Travis testing only. */
+
 /* jellyfish_store User */
 create user 'jellyfish_store'@'localhost' identified by 'travis_store';
 grant insert, update, select, delete on jellyfish2.hosts to 'jellyfish_store'@'localhost';

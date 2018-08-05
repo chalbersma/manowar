@@ -9,58 +9,63 @@ git config push.default matching
 
 git branch
 
-# Only on Blessed Pull requests
-# Pull requests from /EdgeCast/jellyfishaudits 's Staging Branch to it's Master Branch.
-if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "EdgeCast/secops" ]] ; then
-    # Pull request is from staging into master; the "blessed path"
-    echo -e 'Pull is from Staging to Master, generating latest documentation.'
+echo "${TRAVIS_PULL_REQUEST_BRANCH}"
+echo "${TRAVIS_BRANCH}"
+echo "${TRAVIS_PULL_REQUEST_SLUG}"
 
 
-    git branch
-    git checkout staging
-    git branch
-    git pull
 
-    # Do MkDocs
-    mkdocs --version
-    mkdocs build
-    mkdocs build --clean
+git branch
+git checkout "${TRAVIS_BRANCH}"
+git branch
+git pull
 
-    # Add Swagger Stuff
-    mkdir ./docs/swagger/
+# Do MkDocs
+mkdocs --version
+mkdocs build
+mkdocs build --clean
 
-    # Swagger
-    cp /home/travis/swagger/dist/* ./docs/swagger/
+# Add Swagger Stuff
+mkdir ./docs/swagger/
 
-    populate_swagger=$?
+# Swagger
+cp /home/travis/swagger/dist/* ./docs/swagger/
 
-    if [[ ${populate_swagger} -gt 0 ]] ; then
-        echo -e "Error populating swagger"
-        exit 1
-    fi
+populate_swagger=$?
 
-    # Diagrams
-    mkdir ./docs/plantuml
-    cp /home/travis/plantuml/* ./docs/plantuml/
+if [[ ${populate_swagger} -gt 0 ]] ; then
+    echo -e "Error populating swagger"
+    exit 1
+fi
 
-    populate_diag=$?
+# Diagrams
+mkdir ./docs/plantuml
+cp /home/travis/plantuml/* ./docs/plantuml/
 
-    if [[ ${populate_diag} -gt 0 ]] ; then
-        echo -e "Error populating Diagrams"
-        exit 1
-    fi
+populate_diag=$?
 
-    git add -- ./docs/
+if [[ ${populate_diag} -gt 0 ]] ; then
+    echo -e "Error populating Diagrams"
+    exit 1
+fi
 
-    git status
+git add -- ./docs/
 
-        # New Docs so commit
-    git commit -m "[ci skip] Travis is updating the documentation; build no.: ${TRAVIS_BUILD_NUMBER}"
-    git push origin staging
+git status
+
+
+if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "chalbersma/manowar" ]] ; then
+
+  # Pull request is from staging into master; the "blessed path"
+  echo -e 'Pull is from Staging to Master, generating latest documentation.'
+
+  # Only if it's in the right shall I push.
+  git commit -m "[ci skip] Travis is updating the documentation; build no.: ${TRAVIS_BUILD_NUMBER}"
+  git push origin staging
 
 else
 
-    # Pull request is not blessed
-    echo -e 'Non staging to master pull request not generating docs.'
+  # Pull request is not blessed
+  echo -e 'Non staging to master pull request not generating docs.'
 
 fi

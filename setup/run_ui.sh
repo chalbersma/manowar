@@ -16,7 +16,8 @@ UILog=ui.log
 if [[ -w ${PIDFile} ]] ; then
 	pid=$(cat ${PIDFile})
 	ps "${pid}" &> /dev/null
-	if [[ $? -eq 0 ]] ; then
+	foundpid=$?
+	if [[ ${foundpid} -eq 0 ]] ; then
 		echo -e "Jellyfish 2 - UI Currently Running with pid: ${pid}. Exiting" 
 		exit 1
 	else

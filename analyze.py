@@ -80,7 +80,7 @@ def analyze(CONFIGDIR, CONFIG):
                     auditfiles.append(onefile)
 
     # Debug
-    #print(auditfiles)
+    print(auditfiles)
     # Config Defaults
     this_time=int(time())
     back_week=this_time-604800
@@ -935,7 +935,7 @@ def analyze(CONFIGDIR, CONFIG):
         query_head = "REPLACE into audits ( "
         query_mid = " ) VALUES ( "
 
-        query_tail = " ) ; commit; "
+        query_tail = " ) "
 
 
         if have_audit_id :
@@ -947,7 +947,9 @@ def analyze(CONFIGDIR, CONFIG):
         query_string = query_head + columns + query_mid + this_audit_values + query_tail
 
         # This is a replace and will update the audit no matter.
+        debug_sql = cur.mogrify(query_string, this_audit_value_paramaters)
         cur.execute(query_string, this_audit_value_paramaters)
+
         this_row = cur.lastrowid
 
         cur.close()

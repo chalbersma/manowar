@@ -197,16 +197,10 @@ def schedule(hosts, config_items, VERBOSE=False):
             ipv6 = False
             ipv4 = True
 
-        if config_dict["paramiko"]["edgecast_append"] in ["TRUE", "true", "True", "Yes", "yes"]:
-            append = True
-        else:
-            append = False
-
-
         #Do Collection
         this_host_collection_result = collector(hostname, collector_config_file, \
                                                 username, keyfile, pop, srvtype, \
-                                                uberid, status, ipv4, ipv6, append)
+                                                uberid, status, ipv4, ipv6)
 
         collection_host_failures = False
         collection_host_failures_prod = False

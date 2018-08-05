@@ -17,7 +17,8 @@ PIDFile=jfish2-ui.pid
 if [[ -w ${PIDFile} ]] ; then
 	pid=$(cat ${PIDFile})
 	ps "${pid}" &> /dev/null
-	if [[ $? -eq 0 ]] ; then
+	foundpid=$?
+	if [[ ${foundpid} -eq 0 ]] ; then
 		# PID Exists Kill it
 		kill "${pid}"
 		# Check if it worked (Ignore errors for no)
