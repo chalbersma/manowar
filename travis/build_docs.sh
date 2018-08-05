@@ -9,12 +9,6 @@ git config push.default matching
 
 git branch
 
-echo "${TRAVIS_PULL_REQUEST_BRANCH}"
-echo "${TRAVIS_BRANCH}"
-echo "${TRAVIS_PULL_REQUEST_SLUG}"
-
-
-
 git branch
 git checkout "${TRAVIS_BRANCH}"
 git branch
@@ -53,11 +47,7 @@ git add -- ./docs/
 
 git status
 
-echo -e "TRAVIS_PULL_REQUEST_BRANCH : ${TRAVIS_PULL_REQUEST_BRANCH}"
-echo -e "TRAVIS_PULL_REQUEST_SLUG : ${TRAVIS_PULL_REQUEST_SLUG}"
-echo -e "TRAVIS_REPO_SLUG : ${TRAVIS_REPO_SLUG}"
-
-if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "chalbersma/manowar" ]] ; then
+if [[ ${TRAVIS_BRANCH} == "staging" && ${TRAVIS_PULL_REQUEST_SLUG} == "chalbersma/manowar" && ${TRAVIS_EVENT_TYPE} == "push" ]] ; then
 
   echo -e "Vars: ${TRAVIS_PULL_REQUEST_BRANCH} ${TRAVIS_BRANCH} ${TRAVIS_PULL_REQUEST_SLUG}"
 
