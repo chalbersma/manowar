@@ -61,7 +61,7 @@ if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master"
 
   # Only if it's in the right shall I push.
   git commit -m "[ci skip] Travis is updating the documentation; build no.: ${TRAVIS_BUILD_NUMBER}"
-  git push origin staging
+  git -i travis-manowar push origin staging
 
 else
 
