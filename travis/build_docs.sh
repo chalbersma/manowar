@@ -45,6 +45,9 @@ fi
 
 git add -- ./docs/
 
+ssh-add -l
+ssh git@github.com
+
 git status
 
 if [[ ${TRAVIS_BRANCH} == "staging" && ${TRAVIS_REPO_SLUG} == "chalbersma/manowar" && ${TRAVIS_EVENT_TYPE} == "push" ]] ; then
