@@ -15,14 +15,14 @@ git branch
 git pull
 
 # Diagrams
-mkdir ./docs/plantuml
+mkdir ./source_docs/plantuml
 cp /home/travis/plantuml/* ./source_docs/plantuml/
 
 populate_diag=$?
 
 if [[ ${populate_diag} -gt 0 ]] ; then
     echo -e "Error populating Diagrams"
-    exit 1
+    #exit 1
 fi
 
 # Do MkDocs
