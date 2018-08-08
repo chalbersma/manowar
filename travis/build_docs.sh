@@ -47,7 +47,7 @@ git add -- ./docs/
 
 ssh-add -l
 ssh git@github.com
-git remote set-url origin git@github.com/chalbersma/manowar.git
+git remote set-url origin git@github.com:chalbersma/manowar.git
 
 git status
 
