@@ -3,9 +3,10 @@
 # Build the Diagrams
 set -x
 
-cd plantuml
+# Move to diagram directory, fail build if failure
+cd plantuml || exit 1
 
-diagrams=$(find -type f -regex ".*\.pu$")
+diagrams=$(find . -type f -regex ".*\.pu$")
 
 all_good=1
 

@@ -15,7 +15,8 @@ python_files=$(find . -type d  -wholename ./jelly_api -prune -o \
 for file in ${python_files} ; do
   this_temp=$(mktemp /tmp/banditout.XXXXX)
   bandit "${file}" > "${this_temp}"
-  if [[ $? -gt 0 ]] ; then
+  this_file_good=$?
+  if [[ ${this_file_good} -gt 0 ]] ; then
     echo -e "BANDIT: ${file} had issues please investigate."
     cat "${this_temp}"
     exit 1
@@ -33,13 +34,15 @@ for file in ${python_files} ; do
 
 done
 
-bash_files=$(find -type f -regex ".*\.sh$")
+bash_files=$(find . -type f -regex ".*\.sh$")
 
 ################### Bash Checks ######################################
 for file in ${bash_files} ; do
   shellcheck "${file}"
 
-  if [[ $? -gt 0 ]] ; then
+  was_shellcheck_good=$?
+
+  if [[ ${was_shellcheck_good} -gt 0 ]] ; then
     echo -e "SHELLCHECK: ${file} had issues please investigate."
     exit 1
   else

@@ -14,7 +14,8 @@ SAPILog=storageAPI.log
 if [[ -w ${PIDFile} ]] ; then
 	pid=$(cat ${PIDFile})
 	kill -0 "${pid}"
-	if [[ $? -eq 0 ]] ; then
+	foundpid=$?
+	if [[ ${foundpid} -eq 0 ]] ; then
 		echo -e "Jellyfish 2 - SAPI Currently Running with pid: ${pid}. Exiting"
 		exit 1
 	else

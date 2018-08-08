@@ -12,7 +12,7 @@ ps "${sapipid}" &> /dev/null
 running=$?
 
 if [[ ${running} -eq 0 ]] ; then
-	echo "Jellyfish SAPI 2 - UI running with pid ${pid}"
+	echo "Jellyfish SAPI 2 - UI running with pid ${sapipid}"
 else
 	echo "Jellyfish SAPI 2 - UI Not Running. Test Failed"
 	exit 1

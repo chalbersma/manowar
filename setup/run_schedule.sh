@@ -12,7 +12,6 @@ J2RunLoc=secops
 SchedLog=schedlog.log
 SchedLockFile=jfish2-scheduler.lock
 StoreConfig=storage.ini
-TunSocket=jfish_ctrl_socket
 
 RUN_LOC=/tmp
 # Exit if it fails
@@ -40,10 +39,6 @@ for i in {8..1} ; do
 	last_loc="${SchedLog}.${i}"
 done
 
-# Check if Tunnelling Desired
-# Disabling Tunnelling EC Specific Thing
-
-
 # Copy the latest to the latest
 cp ${SchedLog} ${SchedLog}.1
 
@@ -58,8 +53,3 @@ ${J2RunLoc}/schedule2.py -b ${CSVFile} -c ${SCHEDConfig} -V &> ${SchedLog}
 
 # Run The Archive Script
 ${J2RunLoc}/collection_archive.py -c ${StoreConfig} -V &>> ${SchedLog}
-
-if [[ ${use_tun} == true ]] ; then
-	# We're using a tunnel so Kill it
-	ssh -S ${TunSocket} -O exit jellyfish@deputy001.bur
-fi

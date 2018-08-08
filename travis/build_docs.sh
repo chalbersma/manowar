@@ -9,58 +9,64 @@ git config push.default matching
 
 git branch
 
-# Only on Blessed Pull requests
-# Pull requests from /EdgeCast/jellyfishaudits 's Staging Branch to it's Master Branch.
-if [[ ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_BRANCH} == "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "EdgeCast/secops" ]] ; then
-    # Pull request is from staging into master; the "blessed path"
-    echo -e 'Pull is from Staging to Master, generating latest documentation.'
+git branch
+git checkout "${TRAVIS_BRANCH}"
+git branch
+git pull
 
+# Diagrams
+mkdir ./source_docs/plantuml
+cp /home/travis/plantuml/* ./source_docs/plantuml/
 
-    git branch
-    git checkout staging
-    git branch
-    git pull
+populate_diag=$?
 
-    # Do MkDocs
-    mkdocs --version
-    mkdocs build
-    mkdocs build --clean
+if [[ ${populate_diag} -gt 0 ]] ; then
+    echo -e "Error populating Diagrams"
+    #exit 1
+fi
 
-    # Add Swagger Stuff
-    mkdir ./docs/swagger/
+# Do MkDocs
+mkdocs --version
+mkdocs build
+mkdocs build --clean
 
-    # Swagger
-    cp /home/travis/swagger/dist/* ./docs/swagger/
+# Add Swagger Stuff
+mkdir ./docs/swagger/
 
-    populate_swagger=$?
+# Swagger
+cp /home/travis/swagger/dist/* ./docs/swagger/
 
-    if [[ ${populate_swagger} -gt 0 ]] ; then
-        echo -e "Error populating swagger"
-        exit 1
-    fi
+populate_swagger=$?
 
-    # Diagrams
-    mkdir ./docs/plantuml
-    cp /home/travis/plantuml/* ./docs/plantuml/
+if [[ ${populate_swagger} -gt 0 ]] ; then
+    echo -e "Error populating swagger"
+    exit 1
+fi
 
-    populate_diag=$?
+git add -- ./docs/
 
-    if [[ ${populate_diag} -gt 0 ]] ; then
-        echo -e "Error populating Diagrams"
-        exit 1
-    fi
+ssh-add -l
+ssh git@github.com
+git remote set-url origin git@github.com:chalbersma/manowar.git
 
-    git add -- ./docs/
+git status
 
-    git status
+if [[ ${TRAVIS_BRANCH} == "staging" && ${TRAVIS_REPO_SLUG} == "chalbersma/manowar" && ${TRAVIS_EVENT_TYPE} == "push" ]] ; then
 
-        # New Docs so commit
-    git commit -m "[ci skip] Travis is updating the documentation; build no.: ${TRAVIS_BUILD_NUMBER}"
-    git push origin staging
+  echo -e "Vars: ${TRAVIS_PULL_REQUEST_BRANCH} ${TRAVIS_BRANCH} ${TRAVIS_PULL_REQUEST_SLUG}"
+
+  # Pull request is from staging into master; the "blessed path"
+  echo -e 'Pull is from Staging to Master, generating latest documentation.'
+
+  # Only if it's in the right shall I push.
+  git commit -m "[ci skip] Travis is updating the documentation; build no.: ${TRAVIS_BUILD_NUMBER}"
+  git push
 
 else
 
-    # Pull request is not blessed
-    echo -e 'Non staging to master pull request not generating docs.'
+  echo -e "Vars: ${TRAVIS_PULL_REQUEST_BRANCH} ${TRAVIS_BRANCH} ${TRAVIS_PULL_REQUEST_SLUG}"
+
+  # Pull request is not blessed
+  echo -e 'Non staging to master pull request not generating docs.'
 
 fi
