@@ -16,10 +16,7 @@ git pull
 
 # Diagrams
 mkdir ./docs/plantuml
-cp /home/travis/plantuml/* ./docs/plantuml/
-
-ls -l ./docs/*
-ls -l ./docs/plantuml/
+cp /home/travis/plantuml/* ./source_docs/plantuml/
 
 populate_diag=$?
 
@@ -59,7 +56,7 @@ if [[ ${TRAVIS_BRANCH} == "staging" && ${TRAVIS_REPO_SLUG} == "chalbersma/manowa
 
   # Only if it's in the right shall I push.
   git commit -m "[ci skip] Travis is updating the documentation; build no.: ${TRAVIS_BUILD_NUMBER}"
-  GIT_SSH="ssh -i travis-manowar" git push origin staging
+  GIT_SSH="ssh -i /home/travis/build/chalbersma/manowar/travis-manowar" git push origin staging
 
 else
 
