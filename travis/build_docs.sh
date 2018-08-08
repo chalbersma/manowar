@@ -45,6 +45,10 @@ fi
 
 git add -- ./docs/
 
+ssh-add -l
+ssh git@github.com
+git remote set-url origin git@github.com:chalbersma/manowar.git
+
 git status
 
 if [[ ${TRAVIS_BRANCH} == "staging" && ${TRAVIS_REPO_SLUG} == "chalbersma/manowar" && ${TRAVIS_EVENT_TYPE} == "push" ]] ; then
@@ -56,7 +60,7 @@ if [[ ${TRAVIS_BRANCH} == "staging" && ${TRAVIS_REPO_SLUG} == "chalbersma/manowa
 
   # Only if it's in the right shall I push.
   git commit -m "[ci skip] Travis is updating the documentation; build no.: ${TRAVIS_BUILD_NUMBER}"
-  git push origin staging
+  git push
 
 else
 
