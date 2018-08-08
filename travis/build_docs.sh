@@ -47,6 +47,7 @@ git add -- ./docs/
 
 ssh-add -l
 ssh git@github.com
+git config --get remote.origin.url
 
 git status
 
