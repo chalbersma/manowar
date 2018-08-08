@@ -59,7 +59,7 @@ if [[ ${TRAVIS_BRANCH} == "staging" && ${TRAVIS_REPO_SLUG} == "chalbersma/manowa
 
   # Only if it's in the right shall I push.
   git commit -m "[ci skip] Travis is updating the documentation; build no.: ${TRAVIS_BUILD_NUMBER}"
-  git push origin staging
+  git push
 
 else
 
