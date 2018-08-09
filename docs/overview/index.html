@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Jellyfish - Jellyfish Documentation</title>
+  <title>Man o' War - Man o' War Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,7 +17,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Jellyfish";
+    var mkdocs_page_name = "Man o' War";
     var mkdocs_page_input_path = "overview.md";
     var mkdocs_page_url = null;
   </script>
@@ -36,7 +36,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Jellyfish Documentation</a>
+        <a href=".." class="icon icon-home"> Man o' War Documentation</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -50,7 +50,7 @@
           
             <li class="toctree-l1">
 		
-    <span class="caption-text">Jellyfish</span>
+    <span class="caption-text">Man o' War</span>
 	    </li>
           
             <li class="toctree-l1">
@@ -60,16 +60,16 @@
           
             <li class="toctree-l1 current">
 		
-    <a class="current" href="./">Jellyfish</a>
+    <a class="current" href="./">Man o' War</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#jellyfish">Jellyfish</a></li>
+    <li class="toctree-l2"><a href="#man-o-war">Man o' War</a></li>
     
         <ul>
         
             <li><a class="toctree-l3" href="#introduction">Introduction</a></li>
         
-            <li><a class="toctree-l3" href="#jellyfish-2-overview">Jellyfish 2 Overview</a></li>
+            <li><a class="toctree-l3" href="#man-o-war-overview">Man o' War Overview</a></li>
         
             <li><a class="toctree-l3" href="#modules">Modules</a></li>
         
@@ -120,7 +120,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Jellyfish Documentation</a>
+        <a href="..">Man o' War Documentation</a>
       </nav>
 
       
@@ -132,7 +132,7 @@
     
       
     
-    <li>Jellyfish</li>
+    <li>Man o' War</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -142,14 +142,14 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="jellyfish">Jellyfish</h1>
+                <h1 id="man-o-war">Man o' War</h1>
 <h2 id="introduction">Introduction</h2>
-<p>Jellyfish has a goal of collecting more data, allowing historical lookbacks, and
+<p>Man o' War has a goal of collecting more data, allowing historical lookbacks, and
 providing a more flexible auditing solution. Additionally it has a goal of having
 a flexible model for metadata storage so that future collection and analysis needs
 can be met.</p>
-<h2 id="jellyfish-2-overview">Jellyfish 2 Overview</h2>
-<p>Jellyfish is a follows the Unix philosophy of designing small modules to do a job
+<h2 id="man-o-war-overview">Man o' War Overview</h2>
+<p>Man o' War is a follows the Unix philosophy of designing small modules to do a job
 well and then tie those modules together to do more complex things. At the moment
 Jellyfish is composed of 12 modules (with more being added as needed):</p>
 <ul>
@@ -178,26 +178,26 @@ collector utilizes paramiko/ssh to log onto it's host, run a series of commands
 configured in <code>collector.ini</code> (and stored in SVN). If ran by hand you can utilize
 command line flags to test the data being given by a particular host. The collector
 will return a json or python dictionary that meets the standards specified in
-<code>jellyfish_storage.json.schema</code> (also stored in SVN). You can utilize the
+<code>travis/artifacts/jellyfish_storage.json.schema</code>. You can utilize the
 StorageJSONVerify module to confirm the goodness (or badness) of a particular set
 of data.</p>
 <h3 id="storage">Storage</h3>
 <p>The storage module is designed to take json from a collector (that meets the
-<code>jellyfish_storage.json.schema</code> specification) and "do the right thing" for storage.
-For each collector it will query the database to see if there are changes. If there
+<code>travis/artifacts/jellyfish_storage.json.schema</code> specification) and "do the right thing" for storage.
+For each collection it will query the database to see if there are changes. If there
 are, it will insert a new record with the proper timestamps. If there are not, it
 will update the existing record with the the current time (more specifically the
 time noted in the json); unless the time given is less than the time currently on
 disk (think of race conditions). Data is stored in the database as "Vectors" with
 the time being the magnitude of the vector &amp; the various data as the direction (See
 Diagram).</p>
-<p>The Database the storage module uses is a MariaDB 10.1 database. It's connection
+<p>The Database the storage module uses is a MariaDB 10.1 (or higher) database. It's connection
 details are configured in <code>storage.ini</code>. Additionally it's schema is stored in the
-<code>/EdgeCast/secops/setup/jellyfish2_db_schema.sql</code>.</p>
+<code>setup/jellyfish2_db_schema.sql</code>.</p>
 <h3 id="scheduler">Scheduler</h3>
 <p>The scheduler is called by cron (at the moment) and it is fenced with a lockfile
-in <code>/var/run/jellyfish</code>. The scheduler utilizes a configurable amount of threads
-(configured in <code>scheduler.ini</code> in SVN) to run a number of instances of the Collector
+in <code>/var/run/jellyfish</code> (should be somewhat configurable). The scheduler utilizes a configurable amount of threads
+(configured in <code>travis/artifacts/scheduler.ini</code> as an example) to run a number of instances of the Collector
 &amp; Storage modules. It uses the <code>server4.csv</code> file located in the netinfo svn
 location to grab a list of servers it needs to check.</p>
 <p>The module will quit after a certain amount of time where it can't reach all the
@@ -231,12 +231,12 @@ audit makes sense before it is analyzed.</p>
 <h3 id="pull-swagger">Pull Swagger</h3>
 <p>PullSwagger is a little tool that will recurse through a direcotry of python files
 and pull the first fenced swagger definition out of that file. Then it utilizes
-a jinja template (currenltly located at <code>jellyfish2/swagger/api.yaml.jinja</code> in SVN)
+a jinja template (currenltly located at <code>openapi3/openapi3.yml.jinja</code> in SVN)
 to build a Swagger definition file from it. Currently it's used for the
-<code>/EdgeCast/secops/jelly_api_2</code> directory to pull a file that get's displayed here.</p>
+<code>jelly_api_2</code> directory to pull a file that get's displayed here.</p>
 <h3 id="storage-json-verify">Storage JSON Verify</h3>
 <p>Is a module that will check a particular JSON file against json schema file
-(<code>jellyfish_storage.json.schema</code> in SVN) to see if it's valid. In theory it can
+(<code>travis/jellyfish_storage.json.schema</code> in SVN) to see if it's valid. In theory it can
 check any given json against any given json schema file.</p>
 <h3 id="ui">UI</h3>
 <p>It's a flask app that can be controlled on the main box by a service command
