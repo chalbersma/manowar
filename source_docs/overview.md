@@ -1,4 +1,4 @@
-# Man o' War 
+# Man o' War
 
 ## Introduction
 
