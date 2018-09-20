@@ -21,7 +21,7 @@ import ipaddress
 import yaml
 import logging
 import logging.handlers
-
+import pprint
 
 #
 # Process
@@ -60,7 +60,7 @@ if __name__ == "__main__":
         if VERBOSE == 1:
 
             # Standard Debug Logging
-            logging.basicConfig(level=logging.DEBUG,
+            logging.basicConfig(level=logging.INFO,
                                 format=FORMAT)
 
             # Turn down logging to Warning for these
@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
 
         if VERBOSE >= 2 :
-            logging.basicConfig(level=logging.INFO,
+            logging.basicConfig(level=logging.DEBUG,
                                 format=FORMAT)
 
 
@@ -166,8 +166,6 @@ def local_ipintel(config_items=False, verbose=False, hostname=False, collections
                         elif isipv6 :
                             ipv6.append(this_unvalidated_ip)
 
-        print(ipv4)
-        print(ipv6)
         unduped_ipv4 = list(set(ipv4))
         unduped_ipv6 = list(set(ipv6))
 
@@ -230,49 +228,17 @@ def stingcell(configfile=False, verbose=False, ignoreupload=False, LOGGER=False)
             pass
 
     # Step 2 Grab Collection Configuration
-    collection_configuration = ConfigParser()
+    collection_configuration_file = config_items["stingcell"]["collection_config_file"]
 
-    generic_auth_header = { 'Authorization' : config_items["sapi"]["sapi_username"] + ":" + config_items["sapi"]["sapi_token"] }
-
-    # Step 2 Get Collector Configuration
-    if config_items["stingcell"]["collection_use_api"] == True :
-        # Grab Collection From API and store it to a temporary file
-        getconfig_url = config_items["sapi"]["sapi_endpoint"] + "/v2/sapi/getconfig/"
-
+    with open(collection_configuration_file, "r") as coll_conf_file:
+        # Parse Yaml File
         try:
-            config_request = requests.get(getconfig_url, headers=generic_auth_header)
-        except Exception as e :
-            LOGGER.error("Error getting dynamic collection configuration.")
-            LOGGER.debug("Debug Config URL : {}".format(getconfig_url))
-            LOGGER.debug("Error Message : {}".format(str(e)))
-            sys.exit('Bad Request to Grab Configuration {}'.format(e))
-        else :
-            # Getting Stuff was successful
-            if config_request.status_code == 200 :
-                # It good continue
-                collection_configuration_string = config_request.text
-                collection_configuration.read_string(collection_configuration_string)
-            elif config_request.status_code == 403 :
-                # Toekn is Likely Wrong
-                LOGGER.error("Unable to get dynamic collection configuration. Likely a Token Problem.")
-                LOGGER.debug("Response {}".format(config_request.status_code))
-                sys.exit('Request failed with response of {}'.format(config_request.status_code))
-            else :
-                LOGGER.error("Unable to get dynamic collection configuration.")
-                LOGGER.debug("Response {} ".format(config_request.status_code))
-                sys.exit('Request failed with response of {}'.format(config_request.status_code))
-    else :
-        collection_configuration_file = config_items["stingcell"]["collection_config_file"]
-        collection_configuration.read(collection_configuration_file)
-
-    to_collect_items = dict()
-
-    for section in collection_configuration:
-        if section != "DEFAULT" and section != "GLOBAL" :
-            # Ignore the Default and Global Stuff
-            to_collect_items[section]= { "multi" : collection_configuration[section]["multi"], \
-                                        "collection" : collection_configuration[section]["collection"] , \
-                                        "timeout" : collection_configuration[section].get("timeout", config_items["stingcell"]["default_collection_timeout"]) }
+            to_collect_items = yaml.load(coll_conf_file)
+        except yaml.YAMLError as yaml_error:
+            LOGGER.error("Unable to read collection configuration file {} with error : \n{}".format(collection_configuration_file, str(yaml_error)))
+            sys.exit("Bad Collection Configuration File {}".format(collection_config_file))
+        else:
+            pass
 
     # Local Collections
     if config_items["stingcell"].get("local_collections", False) == True :
@@ -290,17 +256,13 @@ def stingcell(configfile=False, verbose=False, ignoreupload=False, LOGGER=False)
         for collection_file in collections_files :
             try:
                 # Read Our INI with our data collection rules
-                this_coll_config = ConfigParser()
-                this_coll_config.read(collection_file)
+                this_local_coll = yaml.load(collection_file)
             except Exception as e: # pylint: disable=broad-except, invalid-name
                 sys.stderr.write("Bad collection configuration file {} cannot parse: {}".format(collection_file, str(e)))
             else:
-                # I've read this file let's add the things
-                for section in this_coll_config :
-                    if section not in ["DEFAULT", "GLOBAL"] :
-                        to_collect_items[section]={ "multi" : this_coll_config[section]["multi"], \
-                                        "collection" : this_coll_config[section]["collection"] , \
-                                        "timeout" : this_coll_config[section].get("timeout", config_items["stingcell"]["default_collection_timeout"]) }
+                # I've read and parsed this file let's add the things
+                for this_new_coll_key in this_local_coll.get("collections", {}).keys():
+                    to_collect_items[this_new_coll_key]=this_local_coll[this_new_coll_key]
 
     # Step 3 Collect Results
 
@@ -308,10 +270,17 @@ def stingcell(configfile=False, verbose=False, ignoreupload=False, LOGGER=False)
     results_dictionary["collection_data"] = dict()
 
     # Collect Configurables
-    for collection in to_collect_items :
 
-        if verbose == True :
-            LOGGER.debug("Running collection : {} with command {} ".format(collection, to_collect_items[collection]["collection"]))
+    for collection in to_collect_items["collections"].keys() :
+
+
+        is_multi = to_collect_items["collections"][collection]["multi"]
+        coll_command = to_collect_items["collections"][collection]["collection"]
+        timeout = to_collect_items["collections"][collection].get("timeout", config_items["stingcell"]["default_collection_timeout"])
+
+        LOGGER.debug("Running collection : '{}' ({}, {}) with command {} ".format(collection, \
+                                                                                is_multi, timeout, \
+                                                                                coll_command))
 
         parsed_data = dict()
 
@@ -322,12 +291,14 @@ def stingcell(configfile=False, verbose=False, ignoreupload=False, LOGGER=False)
             # also controlled by SVN/Salt.
             #
             # Running configurable commands is the core of how Jellyfish collects data.
-            raw_output = subprocess.check_output(to_collect_items[collection]["collection"], shell=True, executable="/bin/bash", timeout=int(to_collect_items[collection]["timeout"]), stderr=FNULL) # nosec
+            raw_output = subprocess.check_output(coll_command, shell=True, executable="/bin/bash", timeout=int(timeout), stderr=FNULL) # nosec
         except subprocess.CalledProcessError as e :
             error_dict = { "collection_failed" : "Error running command in collection : " + str(collection) + " error : " + str(e) }
+            LOGGER.warn(error_dict["collection_failed"])
             parsed_data = error_dict
         except subprocess.TimeoutExpired as e :
-            error_dict = { "collection_timenout" : "Error running command in collection : " + str(collection) + " timeout at " + str(to_collect_items[collection]["timeout"]) + " seconds." }
+            error_dict = { "collection_timenout" : "Error running command in collection : " + str(collection) + " timeout at " + str(timeout) + " seconds." }
+            LOGGER.warn(error_dict["collection_timeout"])
             parsed_data = error_dict
         else :
             string_output = raw_output.decode()
@@ -335,9 +306,10 @@ def stingcell(configfile=False, verbose=False, ignoreupload=False, LOGGER=False)
             if len(string_output) == 0 :
                 # No String Ouptut
                 parsed_data = { "default" : "no_output" }
+                LOGGER.warn("Collection {} returned no output".format(collection))
             else :
 
-                if to_collect_items[collection]["multi"] == "TRUE" :
+                if is_multi is True:
                     # Multi Line Output to Record
                     multiD_dict = dict()
 

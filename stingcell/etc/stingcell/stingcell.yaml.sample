@@ -15,4 +15,7 @@ stingcell:
   default_collection_timeout: 60
   local_collections: true
   local_collections_location: /etc/stingcell/collections.d/
+  collection_config_file: etc/stingcell/collector.yaml.sample
+ipintel:
+  dointel: true
 version: 2

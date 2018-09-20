@@ -866,7 +866,7 @@ def analyze(CONFIGDIR, CONFIG):
         # Literals
         this_audit_name = audit["vuln-name"]
         this_audit_short = audit["vuln-short-description"]
-        this_audit_long_description = re.sub(r'[\'|\;]',r'',audit["vuln-long-description"])
+        this_audit_long_description = re.sub(r'[\'|\;]',r'',audit["vuln-long-description"][:511])
         this_audit_primary_link = audit["vuln-primary-link"]
         this_audit_secondary_links = audit["vuln-additional-links"]
         this_audit_filters = audit["filters"]
@@ -923,11 +923,11 @@ def analyze(CONFIGDIR, CONFIG):
                              " , %s , %s , %s "
 
 
-        this_audit_value_paramaters=[ str(this_audit_name), str(this_audit_short), str(this_audit_long_description), str(this_audit_primary_link) ]
+        this_audit_value_paramaters=[ str(this_audit_name), str(this_audit_short)[:63], str(this_audit_long_description), str(this_audit_primary_link) ]
         this_audit_value_paramaters.extend(dynamic_column_args)
 
 
-        temp_list = [ str(this_audit_filters).replace('\'', '"') , str(this_audit_comparison).replace('\'', '"') , \
+        temp_list = [ str(this_audit_filters).replace('\'', '"')[:511] , str(this_audit_comparison).replace('\'', '"')[:511] , \
                         str(this_audit_priority) , str(this_audit_filename) ]
 
         this_audit_value_paramaters.extend(temp_list)
