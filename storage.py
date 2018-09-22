@@ -81,7 +81,7 @@ def storage(CONFIG, JSONFILE, VERBOSE=False, sapi=False):
     storage_stats["storage_timestamp"] = STORAGE_TIME
 
     try:
-        db_conn = pymysql.connect(host=db_config_items['dbhostname'], port=int(db_config_items['dbport']), user=db_config_items['dbusername'], passwd=db_config_items['dbpassword'], db=db_config_items['dbdb'] )
+        db_conn = pymysql.connect(host=db_config_items['dbhostname'], port=int(db_config_items['dbport']), user=db_config_items['dbusername'], passwd=db_config_items['dbpassword'], db=db_config_items['dbdb'])
         dbmessage = "Good, connected to " + db_config_items['dbusername'] + "@" + db_config_items['dbhostname'] + ":" + db_config_items['dbport'] + "/" + db_config_items['dbdb']
         storage_stats["db-status"] = dbmessage
     except Exception as e:
@@ -128,6 +128,7 @@ def storage(CONFIG, JSONFILE, VERBOSE=False, sapi=False):
 
 
     try:
+        db_conn.commit()
         db_conn.close()
     except Exception as e:
         print(Fore.RED, "Error Closing DB Connection", Style.RESET_ALL)
@@ -171,6 +172,7 @@ def parse_json_file(JSONFILE=False, VERBOSE=False):
 
     else :
         # Failed for some reason. Ignoring any results.
+        print(collection_results["status"])
         collection_good = False
         hostdata = dict()
         results_data = dict()
@@ -482,7 +484,7 @@ def insert_update_collections(db_conn, host_id, results_data, MAX, timestamp, ho
                     # Because there was no collection (new Collection) Or Old Collection Didn't Match
                     insert_query_head = " INSERT into collection ( fk_host_id, initial_update, last_update, collection_type, collection_subtype, collection_value ) "
                     insert_query_mid  = " VALUES (%s, FROM_UNIXTIME(%s), FROM_UNIXTIME(%s), %s , %s , %s)"
-                    insert_query_tail = ";"
+                    insert_query_tail = "; commit ;"
 
                     insert_query = insert_query_head + insert_query_mid + insert_query_tail
 
@@ -507,6 +509,7 @@ def insert_update_collections(db_conn, host_id, results_data, MAX, timestamp, ho
 
     # Loop Completed
     # Close Cursor
+    db_conn.commit()
     cur.close()
 
     # Return Statistics

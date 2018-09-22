@@ -1,0 +1,87 @@
+jellyfish_version: 2
+
+collections:
+  packages:
+    multi: true
+    collection: dpkg --list | grep -E '^ii' | awk '{print $2"\011"$3}'
+  releases:
+    multi: false
+    collection: "lsb_release -cs"
+  rkernel:
+    multi: false
+    collection: "uname -r"
+  lsmod:
+    multi: true
+    collection: lsmod |  awk '{print $1"\011RequiredBy:"$4}' | tail -n +2
+  users:
+    multi: true
+    collection: "cat /etc/passwd | cut -d ':' -f 1,7 | tr ':' '\t'"
+  services:
+    multi: true
+    collection: |
+      if [[ `lsb_release -cs` == 'precise' ]] ; then
+        service --status-all 2>&1 | awk  '{print \$4,\$2;}' | sed -e 's/+/running/g'  -e 's/-/stopped/g' -e 's/?/unknown/g'
+      else
+        service --status-all 2>&1 | awk  '{print $4,$2;}' | sed -e 's/+/running/g'  -e 's/-/stopped/g' -e 's/?/unknown/g'
+      fi
+  reboot-needed:
+    multi: false
+    collection: |
+      if [[ $(dpkg -l update-notifier-common | grep ii | wc -l) -gt 0 ]] ; then
+        if [ -f /var/run/reboot-required ] ; then
+            echo "REBOOT-REQUIRED"
+        else
+            echo "NO-REBOOT-REQUIRED"
+        fi
+      else
+        echo "NO-UPDATE-NOTIFIER"
+      fi
+  cpu-info:
+    multi: true
+    collection: lscpu
+  pci-info:
+    multi: true
+    collection: lspci
+  uname:
+    multi: false
+    collection: uname -a
+  rsyslog-config:
+    multi: true
+    collection: egrep -nv '^#|^ *$' /etc/rsyslog.conf /etc/rsyslog.d/*.conf 2>/dev/null |  sed --regexp-extended 's/(:[0-9]*)(:)/\1\t\t/g'
+  ssl-cipher-support:
+    multi: true
+    collection: |
+      ciphers=$(openssl ciphers 'ALL:eNULL' | sed -e 's/:/ /g');
+      listening=$(netstat -nap 2>/dev/null | grep -i :443.*LISTEN | wc -l);
+      if [[ ${listening} -gt 0 ]] ; then
+        for cipher in ${ciphers[@]}; do
+            result=$(echo -n | timeout 1 openssl s_client -cipher ${cipher} -connect localhost:443 2>&1);
+            if [[ "$result" =~ ":error:" ]] ; then
+                echo -e "${cipher}\tNO";
+            else
+                echo -e "${cipher}\tYES";
+            fi;
+        done;
+      else
+        echo -e "NO443\tTRUE";
+      fi
+    timeout: 300
+  ssh-host-key-age:
+    multi: true
+    collection: stat -c %n"     "%Y /etc/ssh/*.pub | tr '[/.]' '_'
+  ssh-host-key-hash:
+    multi: true
+    collection: md5sum /etc/ssh/*.pub | awk '{ print $2"  "$1 }' | tr '[/.]' '_'
+  ssh-config:
+    multi: true
+    collection: egrep -v '^#|^ *$' /etc/ssh/sshd_config 2>/dev/null
+  boottime:
+    multi: false
+    collection: date -d "$(who -b | xargs | cut -f 3,4 -d ' ')" +%%s
+  listening:
+    multi: true
+    collection: |
+        for port in $(netstat -6 -lunt | tail -n +3 | grep -vE "127.0.0.1|::1" | awk '{print $4"_"$1}' | grep -o '[^:]*$' ) $(netstat -4 -lunt | tail -n +3 | grep -vE "127.0.0.1|::1" | awk '{print $4"_"$1}' | cut -f 2 -d :) ; do
+            echo -e "${port}\t\tYES";
+        done
+

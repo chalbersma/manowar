@@ -271,7 +271,7 @@ def collate(CONFIG):
                 update_query = update_query + "audits_by_" + table + " SET " + table +\
                                  "_last_audit = FROM_UNIXTIME( %s ) where " +\
                                   table +\
-                                  "_id in ( " + update_ids_string + " ) ; commit ; "
+                                  "_id in ( " + update_ids_string + " ) "
 
                 try:
                     cur.execute(update_query, update_query_parameters)

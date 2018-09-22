@@ -7,7 +7,7 @@ info:
     collected and analyzed by Jellyfish 2.
   version: "2.0"
 servers:
-  - url: https://jellyfish.edgecast.com/jellyfish/v2
+  - url: https://manowar.yourfqdn.tld/manowar/v2
 components:
   securitySchemes:
     basicAuth:
