@@ -484,7 +484,7 @@ def insert_update_collections(db_conn, host_id, results_data, MAX, timestamp, ho
                     # Because there was no collection (new Collection) Or Old Collection Didn't Match
                     insert_query_head = " INSERT into collection ( fk_host_id, initial_update, last_update, collection_type, collection_subtype, collection_value ) "
                     insert_query_mid  = " VALUES (%s, FROM_UNIXTIME(%s), FROM_UNIXTIME(%s), %s , %s , %s)"
-                    insert_query_tail = "; commit ;"
+                    insert_query_tail = "; "
 
                     insert_query = insert_query_head + insert_query_mid + insert_query_tail
 
