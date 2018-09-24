@@ -219,7 +219,7 @@ def stingcell(configfile=False, verbose=False, ignoreupload=False, LOGGER=False)
     # Step 1 Base Configuration Grab Configuration
     with open(configfile) as configuration_file:
         try:
-            config_items = yaml.load(configuration_file)
+            config_items = yaml.safe_load(configuration_file)
         except yaml.YAMLError as yaml_error:
             LOGGER.error("Configuration file parse failure.")
             LOGGER.debug("Error {}".format(yaml_error))
@@ -233,7 +233,7 @@ def stingcell(configfile=False, verbose=False, ignoreupload=False, LOGGER=False)
     with open(collection_configuration_file, "r") as coll_conf_file:
         # Parse Yaml File
         try:
-            to_collect_items = yaml.load(coll_conf_file)
+            to_collect_items = yaml.safe_load(coll_conf_file)
         except yaml.YAMLError as yaml_error:
             LOGGER.error("Unable to read collection configuration file {} with error : \n{}".format(collection_configuration_file, str(yaml_error)))
             sys.exit("Bad Collection Configuration File {}".format(collection_config_file))
@@ -249,14 +249,14 @@ def stingcell(configfile=False, verbose=False, ignoreupload=False, LOGGER=False)
             for singlefile in filenames :
                 onefile = dirpath + "/" +  singlefile
                 #print(singlefile.find(".ini", -4))
-                if singlefile.find(".ini", -4) > 0 :
-                    # File ends with .ini Last 4 chars
+                if singlefile.find(".yaml", -5) > 0 :
+                    # File ends with .yaml Last 5 chars
                     collections_files.append(onefile)
 
         for collection_file in collections_files :
             try:
                 # Read Our INI with our data collection rules
-                this_local_coll = yaml.load(collection_file)
+                this_local_coll = yaml.safe_load(collection_file)
             except Exception as e: # pylint: disable=broad-except, invalid-name
                 sys.stderr.write("Bad collection configuration file {} cannot parse: {}".format(collection_file, str(e)))
             else:
