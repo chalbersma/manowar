@@ -50,7 +50,7 @@
           
             <li class="toctree-l1">
 		
-    <span class="caption-text">Man o' War</span>
+    <a class="" href="../..">Man o' War</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -153,7 +153,7 @@ costly. So we moved to a system where we analyze and then we collate our data se
 This module does that. It figures passed, failed and exempt audits on a per-audit,
 per-pop and per-srvtype basis.</p>
 <h2 id="arch">Arch</h2>
-<p><img alt="Collate Architecture" src="../../plantuml/collate_diagram.svg" /></p>
+<p><img alt="Collate Architecture" src="/plantuml/collate_diagram.svg" /></p>
 <p>The idea here is simple. It will cycle through the various by factors (pop, srvtype
 audit/acoll). It counts up the results in <code>audits_by_host</code> for each of these
 factors and then update the related numbers in <code>audits_by_factor</code>.</p>

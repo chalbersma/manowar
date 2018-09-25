@@ -50,7 +50,7 @@
           
             <li class="toctree-l1">
 		
-    <span class="caption-text">Man o' War</span>
+    <a class="" href="../..">Man o' War</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -155,7 +155,7 @@
 <p>The scheduler is a module that essentially interacts with three other modules,
 <code>collector</code>, <code>storage</code> and <code>sapicheck</code>. It ties these together and in a big ole
 loop enumerates the systems in Uber and attempts to profile them.</p>
-<p><img alt="Scheduler Highlevel" src="../../plantuml/scheduler_highlevel.svg" /></p>
+<p><img alt="Scheduler Highlevel" src="/plantuml/scheduler_highlevel.svg" /></p>
 <h2 id="performance">Performance</h2>
 <p>As of this writing, the scheduler is configured to utilize 256 threads for collecting.
 Because of the nature of collections (it's a lot of do wait), most of the time
@@ -206,7 +206,7 @@ stingcell would utlize the API to make it's storage calls. While the document on
 shows one LC, it's likely we'd have a node in every LC that we had along with
 (potentially) additional nodes for Cloud Assets if that was the direction we wanted
 to go.</p>
-<p><img alt="Scheduler Proposed Future State" src="../../plantuml/scheduler_future_state.svg" /></p>
+<p><img alt="Scheduler Proposed Future State" src="/plantuml/scheduler_future_state.svg" /></p>
 <p>In a fully realized, microservices architecture the Scheduler would be obsolete.</p>
               
             </div>

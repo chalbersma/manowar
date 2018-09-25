@@ -288,7 +288,7 @@ paths:
         - name: audit_id
           in: path
           description: |
-            The id of the audit you wish to see. You need to either specify it in path or optionally 
+            The id of the audit you wish to see. You need to either specify it in path or optionally
             in the query string. This parameter is not technically required. There is not good way to document
             this in swagger.
           required: true
@@ -578,7 +578,7 @@ paths:
           required: false
         - name: exact
           in: query
-          description: | 
+          description: |
             Boolean use exact matches instead of regex
           schema:
             type: string
@@ -768,8 +768,8 @@ paths:
         - name: timestamp
           in: path
           description: |
-            A Unix Timestamp that you want to check for the date against. 
-            Must be a positive integer. This variable is required. If you 
+            A Unix Timestamp that you want to check for the date against.
+            Must be a positive integer. This variable is required. If you
             wish to get the "latest" you shoul utilize the /auditresults
             endpoint.
           schema:
@@ -987,7 +987,7 @@ paths:
         x-astliteraleval: true
         in: query
         description: |
-          By default this will be `4` (as in ipv4). But you can set it to 
+          By default this will be `4` (as in ipv4). But you can set it to
           `6` which will allow you to look for ipv6 ports and protocols on
           ipv6 vips.
         schema:
@@ -1424,7 +1424,7 @@ paths:
           x-astliteraleval: true
           in: query
           description: |
-            An audit ID to check against. Will filter results to just the auditID that you're interested in. For example, specifying 
+            An audit ID to check against. Will filter results to just the auditID that you're interested in. For example, specifying
             7 with a collatedType of "pop" will lead to all of the pops returning their pass/fail/exempt amounts for auditID #7.
           schema:
             type: string
