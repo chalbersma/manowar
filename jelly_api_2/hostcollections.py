@@ -110,7 +110,7 @@ def api2_hostcollections(host_id=0, collection_subtype=False, collection_value=F
         try:
             where_clause_string = " and ".join(where_clauses)
             hash_string=str(where_clause_args)+str(host_id)
-            cache_hash_object = hashlib.sha1(hash_string.encode())
+            cache_hash_object = hashlib.sha1(hash_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)

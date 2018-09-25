@@ -107,7 +107,7 @@ auditresults = Blueprint('api2_auditresults', __name__)
 @auditresults.route("/auditresults/", methods=['GET'])
 @auditresults.route("/auditresults/<int:audit_id>", methods=['GET'])
 @auditresults.route("/auditresults/<int:audit_id>/", methods=['GET'])
-def api2_auditresults(audit_id=0, hostname=False, pop=False, srvtype=False, bucket=False, auditResult=False, auditResultText=False, status=False): 
+def api2_auditresults(audit_id=0, hostname=False, pop=False, srvtype=False, bucket=False, auditResult=False, auditResultText=False, status=False):
 
     meta_dict = dict()
     request_data = list()
@@ -220,7 +220,7 @@ def api2_auditresults(audit_id=0, hostname=False, pop=False, srvtype=False, buck
         try:
             where_clause_string = " and ".join(where_clauses)
             hash_string=str(where_clause_args)+str(audit_id)
-            cache_hash_object = hashlib.sha1(hash_string.encode())
+            cache_hash_object = hashlib.sha1(hash_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)
@@ -358,4 +358,4 @@ def api2_auditresults(audit_id=0, hostname=False, pop=False, srvtype=False, buck
 
         return jsonify(**response_dict)
 
-    
+
