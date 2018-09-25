@@ -49,7 +49,7 @@ Allow the Soc to give us a vip (ipv4 or 6), a port and protocol (like tcp/22)
       x-astliteraleval: true
       in: query
       description: |
-        By default this will be `4` (as in ipv4). But you can set it to 
+        By default this will be `4` (as in ipv4). But you can set it to
         `6` which will allow you to look for ipv6 ports and protocols on
         ipv6 vips.
       schema:
@@ -72,7 +72,7 @@ soc_vipporttohost = Blueprint('api2_soc_vipporttohost', __name__)
 
 @soc_vipporttohost.route("/soc/vipporttohost", methods=['GET'])
 @soc_vipporttohost.route("/soc/vipporttohost/", methods=['GET'])
-def api2_soc_vipporttohost(ctype="none"): 
+def api2_soc_vipporttohost(ctype="none"):
 
     meta_dict = dict()
     request_data = list()
@@ -208,13 +208,24 @@ def api2_soc_vipporttohost(ctype="none"):
     if do_query :
         # Means that the cache file doesn't exit or isn't fresh ADD: listening_string
         vipporttohost_args = [ g.twoDayTimestamp, listening_string, vips_type, vip, g.twoDayTimestamp ]
-        print(vipporttohost_args)
-        vip_host_part = "select fk_host_id from collection where collection_type=%s and collection_subtype=%s and last_update >= FROM_UNIXTIME(%s)"
-        vipporttohost_query = " SELECT hosts.host_id, hosts.hostname, hosts.hoststatus,  hosts.pop, " + \
-                                                        "hosts.srvtype, UNIX_TIMESTAMP(collection.initial_update) as initial_update, " + \
-                                                        "UNIX_TIMESTAMP(collection.last_update) as last_update FROM collection JOIN hosts ON fk_host_id = hosts.host_id " + \
-                                                        "where collection.last_update >= FROM_UNIXTIME(%s) and collection_type = 'listening' and collection_subtype = %s " + \
-                                                        "and fk_host_id in (" + vip_host_part + ")"
+        vipporttohost_query = '''SELECT hosts.host_id,
+       hosts.hostname,
+       hosts.hoststatus,
+       hosts.pop,
+       hosts.srvtype,
+       UNIX_TIMESTAMP(collection.initial_update) AS initial_update,
+       UNIX_TIMESTAMP(collection.last_update) AS last_update
+FROM collection
+JOIN hosts ON fk_host_id = hosts.host_id
+WHERE collection.last_update >= FROM_UNIXTIME(%s)
+  AND collection_type = 'listening'
+  AND collection_subtype = %s
+  AND fk_host_id IN
+    (SELECT fk_host_id
+     FROM collection
+     WHERE collection_type=%s
+       AND collection_subtype=%s
+       AND last_update >= FROM_UNIXTIME(%s))'''
 
         print(vipporttohost_query)
 
@@ -275,4 +286,4 @@ def api2_soc_vipporttohost(ctype="none"):
 
         return jsonify(**response_dict)
 
-    
+
