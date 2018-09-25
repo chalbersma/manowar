@@ -168,7 +168,7 @@ def api2_srvtypelist(srvtype_name=None, with_pop=None, with_hostname=None, with_
             query_tuple = ( useRegex, srvtype_name, with_pop, with_status, with_hostname )
             meta_info["query_tuple"] = query_tuple
             query_string = str(query_tuple)
-            cache_hash_object = hashlib.sha1(query_string.encode())
+            cache_hash_object = hashlib.sha1(query_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)

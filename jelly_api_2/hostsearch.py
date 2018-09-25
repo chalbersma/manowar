@@ -28,7 +28,7 @@ Should return data about the host & return the collections for this particular h
         required: false
       - name: exact
         in: query
-        description: | 
+        description: |
           Boolean use exact matches instead of regex
         schema:
           type: string
@@ -269,7 +269,7 @@ def api2_hostsearch(exact=False, hostname=False, pop=False, srvtype=False, \
             query_tuple = ( useRegex, hostname , pop, srvtype, hoststatus, matchcollection, ctype, csubtype, cvalue)
             meta_dict["query_tuple"] = query_tuple
             query_string = str(query_tuple)
-            cache_hash_object = hashlib.sha1(query_string.encode())
+            cache_hash_object = hashlib.sha1(query_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)

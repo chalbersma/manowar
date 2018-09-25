@@ -33,8 +33,8 @@ Grab the historical list of servers that failed an audit at a particular time
       - name: timestamp
         in: path
         description: |
-          A Unix Timestamp that you want to check for the date against. 
-          Must be a positive integer. This variable is required. If you 
+          A Unix Timestamp that you want to check for the date against.
+          Must be a positive integer. This variable is required. If you
           wish to get the "latest" you shoul utilize the /auditresults
           endpoint.
         schema:
@@ -121,7 +121,7 @@ auditresults_timestamp = Blueprint('api2_auditresults_timestamp', __name__)
 
 @auditresults_timestamp.route("/auditresults/<int:audit_id>/<int:request_timestamp>", methods=['GET'])
 @auditresults_timestamp.route("/auditresults/<int:audit_id>/<int:request_timestamp>/", methods=['GET'])
-def api2_auditresults_timestamp(request_timestamp=0, audit_id=0, hostname=False, pop=False, srvtype=False, bucket=False, auditResult=False, auditResultText=False, status=False): 
+def api2_auditresults_timestamp(request_timestamp=0, audit_id=0, hostname=False, pop=False, srvtype=False, bucket=False, auditResult=False, auditResultText=False, status=False):
     # Stuff
 
     meta_dict = dict()
@@ -262,7 +262,7 @@ def api2_auditresults_timestamp(request_timestamp=0, audit_id=0, hostname=False,
             where_clause_args.append(request_timestamp)
             where_clause_args.append(request_timestamp)
 
-            cache_hash_object = hashlib.sha1(hash_string.encode())
+            cache_hash_object = hashlib.sha1(hash_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)

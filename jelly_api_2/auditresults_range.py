@@ -121,7 +121,7 @@ auditresults_range = Blueprint('api2_auditresults_range', __name__)
 
 @auditresults_range.route("/auditresults/<int:audit_id>/range/<int:backdays>", methods=['GET'])
 @auditresults_range.route("/auditresults/<int:audit_id>/range/<int:backdays>/", methods=['GET'])
-def api2_auditresults_range(backdays=0, audit_id=0, hostname=False, pop=False, srvtype=False, bucket=False, auditResult=False, auditResultText=False, status=False): 
+def api2_auditresults_range(backdays=0, audit_id=0, hostname=False, pop=False, srvtype=False, bucket=False, auditResult=False, auditResultText=False, status=False):
 
     meta_dict = dict()
     request_data = list()
@@ -257,7 +257,7 @@ def api2_auditresults_range(backdays=0, audit_id=0, hostname=False, pop=False, s
         try:
             where_clause_string = " and ".join(where_clauses)
             hash_string=str(where_clause_args)+str(audit_id)+str(backdays)
-            cache_hash_object = hashlib.sha1(hash_string.encode())
+            cache_hash_object = hashlib.sha1(hash_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)

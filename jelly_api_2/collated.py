@@ -41,7 +41,7 @@ Accepts a regex filter for the main name
         x-astliteraleval: true
         in: query
         description: |
-          An audit ID to check against. Will filter results to just the auditID that you're interested in. For example, specifying 
+          An audit ID to check against. Will filter results to just the auditID that you're interested in. For example, specifying
           7 with a collatedType of "pop" will lead to all of the pops returning their pass/fail/exempt amounts for auditID #7.
         schema:
           type: string
@@ -61,7 +61,7 @@ collated = Blueprint('api2_collated', __name__)
 @collated.route("/collated/", methods=['GET'])
 @collated.route("/collated/<collatedType>", methods=['GET'])
 @collated.route("/collated/<collatedType>/", methods=['GET'])
-def api2_collated(collatedType=False, typefilter=False, auditID=False): 
+def api2_collated(collatedType=False, typefilter=False, auditID=False):
 
     meta_dict = dict()
     request_data = list()
@@ -122,7 +122,7 @@ def api2_collated(collatedType=False, typefilter=False, auditID=False):
     if argument_error == False :
         try:
             hash_string=str(query_tuple)
-            cache_hash_object = hashlib.sha1(hash_string.encode())
+            cache_hash_object = hashlib.sha1(hash_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)
@@ -255,4 +255,4 @@ def api2_collated(collatedType=False, typefilter=False, auditID=False):
 
         return jsonify(**response_dict)
 
-    
+
