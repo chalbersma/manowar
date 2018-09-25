@@ -325,10 +325,10 @@ def api2_auditresults_range(backdays=0, audit_id=0, hostname=False, pop=False, s
         # NOSec is okay here. We've properly paramertization this application.
         audit_result_query_head="select %s as date, count(*) as hosts, '%s' as timestamp "
 
-        audit_result_query_head=audit_result_query_head + "from ( select * " +\
-                                    " from audits_by_host " +\
-                                    " join hosts on fk_host_id = host_id " +\
-                                    " join audits on fk_audits_id = audit_id "
+        audit_result_query_head='''select %s as date, count(*) as hosts, '%s' as timestamp
+from ( select * from audits_by_host
+                join hosts on fk_host_id = host_id
+                join audits on fk_audits_id = audit_id'''
 
         if len(where_clause_string) > 0 :
             where_joiner = " and "
@@ -336,10 +336,11 @@ def api2_auditresults_range(backdays=0, audit_id=0, hostname=False, pop=False, s
             where_joiner = " "
 
         audit_result_query_where=" where " + audit_where_clause + " and " + where_clause_string + where_joiner +\
-                                    " initial_audit <= FROM_UNIXTIME(%s) and last_audit >= FROM_UNIXTIME(%s) "
+                                 " initial_audit <= FROM_UNIXTIME(%s) and last_audit >= FROM_UNIXTIME(%s) "
+
         audit_result_query_tail=" group by fk_host_id ) as this_hosts"
 
-        audit_result_query = audit_result_query_head + audit_result_query_where + audit_result_query_tail
+        audit_result_query = audit_result_query_head + audit_result_query_where + audit_result_query_tail # nosec
 
     if do_query and argument_error == False :
 
