@@ -121,7 +121,7 @@ auditresults_range = Blueprint('api2_auditresults_range', __name__)
 
 @auditresults_range.route("/auditresults/<int:audit_id>/range/<int:backdays>", methods=['GET'])
 @auditresults_range.route("/auditresults/<int:audit_id>/range/<int:backdays>/", methods=['GET'])
-def api2_auditresults_range(backdays=0, audit_id=0, hostname=False, pop=False, srvtype=False, bucket=False, auditResult=False, auditResultText=False, status=False): 
+def api2_auditresults_range(backdays=0, audit_id=0, hostname=False, pop=False, srvtype=False, bucket=False, auditResult=False, auditResultText=False, status=False):
 
     meta_dict = dict()
     request_data = list()
@@ -257,7 +257,7 @@ def api2_auditresults_range(backdays=0, audit_id=0, hostname=False, pop=False, s
         try:
             where_clause_string = " and ".join(where_clauses)
             hash_string=str(where_clause_args)+str(audit_id)+str(backdays)
-            cache_hash_object = hashlib.sha1(hash_string.encode())
+            cache_hash_object = hashlib.sha1(hash_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)
@@ -325,10 +325,10 @@ def api2_auditresults_range(backdays=0, audit_id=0, hostname=False, pop=False, s
         # NOSec is okay here. We've properly paramertization this application.
         audit_result_query_head="select %s as date, count(*) as hosts, '%s' as timestamp "
 
-        audit_result_query_head=audit_result_query_head + "from ( select * " +\
-                                    " from audits_by_host " +\
-                                    " join hosts on fk_host_id = host_id " +\
-                                    " join audits on fk_audits_id = audit_id "
+        audit_result_query_head='''select %s as date, count(*) as hosts, '%s' as timestamp
+from ( select * from audits_by_host
+                join hosts on fk_host_id = host_id
+                join audits on fk_audits_id = audit_id'''
 
         if len(where_clause_string) > 0 :
             where_joiner = " and "
@@ -336,10 +336,11 @@ def api2_auditresults_range(backdays=0, audit_id=0, hostname=False, pop=False, s
             where_joiner = " "
 
         audit_result_query_where=" where " + audit_where_clause + " and " + where_clause_string + where_joiner +\
-                                    " initial_audit <= FROM_UNIXTIME(%s) and last_audit >= FROM_UNIXTIME(%s) "
+                                 " initial_audit <= FROM_UNIXTIME(%s) and last_audit >= FROM_UNIXTIME(%s) "
+
         audit_result_query_tail=" group by fk_host_id ) as this_hosts"
 
-        audit_result_query = audit_result_query_head + audit_result_query_where + audit_result_query_tail
+        audit_result_query = audit_result_query_head + audit_result_query_where + audit_result_query_tail # nosec
 
     if do_query and argument_error == False :
 

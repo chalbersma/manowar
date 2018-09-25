@@ -131,13 +131,14 @@ def generic_large_analysis_store(db_conn, audit_id, audit_results_dict, FRESH):
                 update_query_parameters.extend(this_bucket_update_ids)
 
                 # This query is properly paramertizized
-                update_query = "UPDATE audits_by_host SET last_audit = FROM_UNIXTIME( %s ) where audit_result_id in (" + update_query_parameter_string + ") ; commit ; " # nosec
+                update_query = "UPDATE audits_by_host SET last_audit = FROM_UNIXTIME( %s ) where audit_result_id in (" + update_query_parameter_string + ") " # nosec
 
                 try:
+                    example_sql = cur.mogrify(update_query, update_query_parameters)
                     cur.execute(update_query, update_query_parameters)
                     updates += len(this_bucket_update_ids)
-                except Exception as e:
-                    print("Error updating hosts for audit", audit_id , " : ", e )
+                except Exception as mysql_error:
+                    print("Error updating hosts for audit", audit_id , " : ", str(mysql_error) )
         except Exception as e :
             print("Error doing Updates. ", e)
 
@@ -181,4 +182,4 @@ def generic_large_analysis_store(db_conn, audit_id, audit_results_dict, FRESH):
 
 
 
-    
+

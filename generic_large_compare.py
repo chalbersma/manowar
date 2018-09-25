@@ -272,14 +272,3 @@ def generic_large_compare(db_conn, host_list_dict, mtype, ctype, csubtype, \
     cur.close()
 
     return results_dict
-
-
-
-
-
-
-
-
-
-
-    

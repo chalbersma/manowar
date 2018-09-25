@@ -1,0 +1,21 @@
+---
+hostinfo:
+  externalid: 10001
+  pop: pop
+  srvtype: srvtype
+  status: status
+sapi:
+  #sapi_endpoint: "https://sapi.manowar.example.com/"
+  sapi_endpoint: "https://sapi.manowar.example.com/"
+  sapi_token: InsertToken
+  sapi_username: ChangeMe
+stingcell:
+  #collection_use_api: true
+  collection_use_api: false
+  default_collection_timeout: 60
+  local_collections: true
+  local_collections_location: /etc/stingcell/collections.d/
+  collection_config_file: etc/stingcell/collector.yaml.sample
+ipintel:
+  dointel: true
+version: 2

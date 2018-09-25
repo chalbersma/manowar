@@ -188,7 +188,7 @@ def api2_cve_canonical_check(cve_name=None, hostname=False, pop=False, srvtype=F
             query_tuple = ( cve_name , exact, hostname, pop, srvtype, hoststatus)
             meta_info["query_tuple"] = query_tuple
             query_string = str(query_tuple)
-            cache_hash_object = hashlib.sha1(query_string.encode())
+            cache_hash_object = hashlib.sha1(query_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)

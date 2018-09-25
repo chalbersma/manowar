@@ -18,14 +18,14 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
       - name: audit_id
         in: path
         description: |
-          The id of the audit you wish to see. You need to either specify it in path or optionally 
+          The id of the audit you wish to see. You need to either specify it in path or optionally
           in the query string. This parameter is not technically required. There is not good way to document
           this in swagger.
         required: true
         schema:
           type: integer
 ```
-        
+
 '''
 
 from flask import current_app, Blueprint, g, request, jsonify
@@ -100,7 +100,8 @@ def api2_auditinfo(audit_id=0):
     # Clean Secondary Links
     if collections_good :
         try:
-            this_secondary_link = ast.literal_eval(bytes.decode(requested_audit["audit_secondary_links"]))
+
+            this_secondary_link = ast.literal_eval(requested_audit["audit_secondary_links"])
             #print(this_secondary_link)
             #print(type(this_secondary_link))
 

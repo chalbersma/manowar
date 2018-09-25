@@ -354,7 +354,8 @@ def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=Fal
 
             meta_dict["query_tuple"] = query_tuple
             query_string = str(query_tuple)
-            cache_hash_object = hashlib.sha1(query_string.encode())
+            # Sha1 used as a unique id it's fine if you can reverse it.
+            cache_hash_object = hashlib.sha1(query_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)

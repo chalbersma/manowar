@@ -166,7 +166,7 @@ def api2_poplist(pop_name=None, with_srvtype=None, with_hostname=None, with_stat
             query_tuple = ( useRegex, pop_name, with_srvtype, with_status, with_hostname )
             meta_info["query_tuple"] = query_tuple
             query_string = str(query_tuple)
-            cache_hash_object = hashlib.sha1(query_string.encode())
+            cache_hash_object = hashlib.sha1(query_string.encode()) # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
             error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)
