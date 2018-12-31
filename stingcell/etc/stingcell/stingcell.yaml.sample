@@ -1,7 +1,7 @@
 ---
 hostinfo:
   externalid: 10001
-  pop: pop
+  pop: location
   srvtype: srvtype
   status: status
 sapi:
@@ -13,9 +13,11 @@ stingcell:
   #collection_use_api: true
   collection_use_api: false
   default_collection_timeout: 60
-  local_collections: true
+  local_collections: false
   local_collections_location: /etc/stingcell/collections.d/
-  collection_config_file: etc/stingcell/collector.yaml.sample
+  collection_config_file: etc/stingcell/collector2.yaml.sample
 ipintel:
   dointel: true
-version: 2
+version: 3
+salt:
+  minion_file: etc/stingcell/minion

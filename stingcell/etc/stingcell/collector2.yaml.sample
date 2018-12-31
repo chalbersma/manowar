@@ -1,0 +1,145 @@
+manowar_version: 3
+
+minion_config: minion
+
+collections:
+  packages:
+    salt: true
+    multi: true
+    saltfactor: "pkg.list_pkgs"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: "."
+  release:
+    salt: true
+    multi: false
+    saltfactor: "cmd.run"
+    saltargs: ["lsb_release -sc"]
+    saltkwargs: {}
+    jq_parse: "."
+  rkernel:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["kernelrelease"]
+    saltkwargs: {}
+    jq_parse: "."
+  lsmod:
+    salt: true
+    multi: true
+    saltfactor: "kmod.lsmod"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[.[] | { (.module) : (.deps | join(",")) }] | add'
+  users:
+    salt: true
+    multi: true
+    saltfactor: "user.getent"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: "[.[] | { (.name) : (.shell) }] | add"
+  services:
+    salt: true
+    multi: true
+    saltfactor: "service.get_enabled"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[ .[] | { (.) : "ENABLED" } ] | add'
+  cpu-info:
+    salt: true
+    multi: true
+    saltfactor: "status.cpuinfo"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[ to_entries | .[] | { (.key) : (.value| tostring ) }] | add'
+  interfaces:
+    salt: true
+    multi: true
+    saltfactor: "network.interfaces"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[ to_entries | .[] | { "\(.key)-mac" : .value.hwaddr|tostring, "\(.key)-up" : .value.up|tostring, "\(.key)-ipv4" : .value.inet[0].address|tostring, "\(.key)-ipv6" : .value.inet6[0].address|tostring } ] | add'
+  mounts:
+    salt: true
+    multi: true
+    saltfactor: "mount.fstab"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[to_entries | .[] | { "\(.key)-device" : .value.device, "\(.key)-fstype" : .value.fstype }] | add'
+  listen:
+    salt: true
+    multi: true
+    saltfactor: "network.netstat"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[ .[] | if .state == "LISTEN" then {"\(.proto)_\(."local-address"|split(":")[-1])" : ."remote-address"} else {} end ] | add'
+  local-hosts:
+    salt: true
+    multi: true
+    saltfactor: "hosts.list_hosts"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[ to_entries | .[] | .  as $u | .value[] | { (.) : $u.key } ] | add'
+  os_family:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["os_family"]
+    saltkwargs: {}
+    jq_parse: "."
+  os:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["os"]
+    saltkwargs: {}
+    jq_parse: "."
+  os_version:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["osversion"]
+    saltkwargs: {}
+    jq_parse: "."
+  kernelrelease:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["kernelrelease"]
+    saltkwargs: {}
+    jq_parse: "."
+  cpuarch:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["cpuarch"]
+    saltkwargs: {}
+    jq_parse: "."
+  locale:
+    salt: true
+    multi: true
+    saltfactor: "grains.get"
+    saltargs: ["locale_info"]
+    saltkwargs: {}
+    jq_parse: '[ to_entries | .[] | { (.key) : (.value| tostring ) }] | add'
+  virtual:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["virtual"]
+    saltkwargs: {}
+    jq_parse: "."
+  ipv4_addr:
+    salt: true
+    multi: true
+    saltfactor: "network.ip_addrs"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[ .[] | { (.) : "IPV4" } ] | add'
+  ipv6_addr:
+    salt: true
+    multi: true
+    saltfactor: "network.ip_addrs6"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[ .[] | { (.) : "IPV6" } ] | add'
