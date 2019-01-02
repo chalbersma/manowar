@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     with open(args.config, "r") as config_file:
         try:
-            configs = yaml.load(config_file)
+            configs = yaml.safe_load(config_file)
         except yaml.YAMLError as parse_error:
             print("Unable to parse file {} with error : \n {}".format(args.config, parse_error))
             sys.exit(1)
