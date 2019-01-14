@@ -21,4 +21,12 @@ setuptools.setup(
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent"
     ],
+    install_requires=[
+        "Jinja2",
+        "jq",
+        "PyYAML",
+        "requests",
+        "salt"
+    ]
+    scripts=["bin/saltcell.py"]
 )
