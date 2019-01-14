@@ -17,6 +17,7 @@ before_script:
 - sudo pip3 install bandit pylint paramiko pymysql colorama flask flask_cors jsonschema
   lxml pika mkdocs requests
 - gem install mdl
+- gem install fpm
 script:
 - "./travis/testing.sh"
 - "./travis/swagger_test.sh"

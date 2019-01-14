@@ -1,0 +1,17 @@
+certifi
+chardet
+idna
+Jinja2
+jq
+MarkupSafe
+msgpack
+pycrypto
+PyYAML
+pyzmq
+requests
+salt
+tornado
+urllib3
+virtualenv
+virtualenv-clone
+virtualenv-tools

@@ -13,7 +13,7 @@ import json
 #import salt.config
 #import salt.client
 
-from saltcell.clientcollector import Host
+from clientcollector import Host
 
 #
 # Process
