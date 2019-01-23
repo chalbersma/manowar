@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
 import setuptools
+import sys
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="stingcell",
-    version="0.0.1",
+    version=,
     author="Chris Halbersma",
     author_email="chris+manowar@halbersma.us",
     description="Package to Add as a Collector",
@@ -27,6 +28,6 @@ setuptools.setup(
         "PyYAML",
         "requests",
         "salt"
-    ]
-    scripts=["bin/saltcell.py"]
+    ],
+    scripts=["manowar_saltcell"]
 )
