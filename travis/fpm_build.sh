@@ -6,8 +6,8 @@
 # Should use FPM to build the package.
 #
 
-current_branch=$(git rev-parse --abbrev-ref HEAD)
-last_tag=$(git tag --merged ${current_branch})
+#current_branch=$(git rev-parse --abbrev-ref HEAD)
+#last_tag=$(git tag --merged ${current_branch})
 
 echo -e "Moved to manowar_agent repository."
 
