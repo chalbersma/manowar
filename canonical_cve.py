@@ -8,7 +8,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 # Line below is Nosec'ed because lxml is in the standard library and the suggested
 # Script isn't. To reach the widest range we want to use python3 libraries that
 # are in the standard library
-from lxml import html #nosec
+#from lxml import html #nosec
 
 # Function that takes a CVE # and pulls information about it down
 # From Ubuntu's site.

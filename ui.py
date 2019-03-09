@@ -231,170 +231,19 @@ def ui(CONFIG, FDEBUG):
             db.close()
         return response
 
-
-
-
-
-
-    # Import Blue Print Files
-    ## API Imports
-    '''
-    from jelly_api import audit_endpoints
-    from jelly_api import host_endpoints
-    from jelly_api import collection_endpoints
-    from jelly_api import acoll_endpoints
-    from jelly_api import ahost_endpoints
-    from jelly_api import apop_endpoints
-    from jelly_api import asrvtype_endpoints
-    from jelly_api import bucketcount_endpoints
-    ## Display Imports
-    from jelly_display import byaudit_display
-    from jelly_display import audit_display
-    from jelly_display import bypop_display
-    from jelly_display import bysrvtype_display
-    from jelly_display import host_display
-    from jelly_display import dashboard_display
-    from jelly_display import audit_display_table
-    '''
-
     ## API 2 Imports
     from jelly_api_2 import root
-    from jelly_api_2 import dashboard
-    from jelly_api_2 import collected_root
-    from jelly_api_2 import collected_types
-    from jelly_api_2 import collected_subtypes
-    from jelly_api_2 import collected_values
-    from jelly_api_2 import auditinfo
-    from jelly_api_2 import auditinfo_buckets
-    from jelly_api_2 import auditresults
-    from jelly_api_2 import auditresults_timestamp
-    from jelly_api_2 import auditresults_range
-    from jelly_api_2 import hostcollections
-    from jelly_api_2 import collated
-    from jelly_api_2 import collected_subtypes_filtered
-    from jelly_api_2 import soc_vipporttohost
     from jelly_api_2 import sapi_listusers
     from jelly_api_2 import sapi_adduser
     from jelly_api_2 import sapi_addtoken
     from jelly_api_2 import hostsearch
-    from jelly_api_2 import custdashboard_list
-    from jelly_api_2 import custdashboard_dashboard
-    from jelly_api_2 import custdashboard_create
-    from jelly_api_2 import custdashboard_modify
-    from jelly_api_2 import auditlist
-    from jelly_api_2 import poplist
-    from jelly_api_2 import srvtypelist
-    from jelly_api_2 import cve_canonical
-    from jelly_api_2 import genericlargecompare
-    from jelly_api_2 import cve_canonical_check
-    from jelly_api_2 import getconfig
-    from jelly_api_2 import puthostjson
-    from jelly_api_2 import extendpopulationjson
-    from jelly_api_2 import ipsearch
-    from jelly_api_2 import ipreport
-
-    ## Display for Jelly 2 API
-    from jelly_display_2 import display_auditinfo
-    from jelly_display_2 import display_auditresults
-    from jelly_display_2 import display_hostcollections
-    from jelly_display_2 import display_collected_values
-    from jelly_display_2 import display_collected_subtype_filtered
-    from jelly_display_2 import display_collected_values_search
-    from jelly_display_2 import display_collected_subtypes_filtered_search
-    from jelly_display_2 import display_soc_vipporttohost
-    from jelly_display_2 import display_soc_vipporttohost_search
-    from jelly_display_2 import display_auditslist
-    from jelly_display_2 import display_hostsearchresults
-    from jelly_display_2 import display_custdashboard_create
-    from jelly_display_2 import display_custdashboard_modify
-    #from jelly_display_2 import display_custdashboard_create_results
-    from jelly_display_2 import display_hostsearch_search
-    from jelly_display_2 import display_cve_canonical_check_results
-    from jelly_display_2 import display_cve_canonical_search
-    from jelly_display_2 import display_collatedresults
-    from jelly_display_2 import display_mainfactor
-    from jelly_display_2 import display_custdashboardlist
-
 
     # Register API Blueprints for Version 2
     app.register_blueprint(root.root, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(dashboard.dashboard, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(collected_root.collected_root, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(collected_types.collected_types, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(collected_subtypes.collected_subtypes, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(collected_values.collected_values, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(auditinfo.auditinfo, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(auditinfo_buckets.auditinfo_buckets, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(auditresults.auditresults, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(auditresults_timestamp.auditresults_timestamp, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(auditresults_range.auditresults_range, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(hostcollections.hostcollections, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(collated.collated, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(collected_subtypes_filtered.collected_subtypes_filtered, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(soc_vipporttohost.soc_vipporttohost, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(sapi_listusers.sapi_listusers, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(sapi_adduser.sapi_adduser, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(sapi_addtoken.sapi_addtoken, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(hostsearch.hostsearch, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(custdashboard_list.custdashboard_list, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(custdashboard_dashboard.custdashboard_dashboard, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(custdashboard_create.custdashboard_create, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(custdashboard_modify.custdashboard_modify, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(auditlist.auditlist, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(poplist.poplist, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(srvtypelist.srvtypelist, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(cve_canonical.cve_canonical, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(genericlargecompare.genericlargecompare, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(cve_canonical_check.cve_canonical_check, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(getconfig.getconfig, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(puthostjson.puthostjson, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(extendpopulationjson.extendpopulationjson, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(ipsearch.ipsearch, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(ipreport.ipreport, url_prefix=config_items["v2api"]["root"])
-
-    '''
-    # Register API Blueprints
-    app.register_blueprint(audit_endpoints.audits, url_prefix= "/api")
-    app.register_blueprint(host_endpoints.hosts, url_prefix="/api")
-    app.register_blueprint(collection_endpoints.collections, url_prefix="/api")
-    app.register_blueprint(acoll_endpoints.acolls, url_prefix="/api")
-    app.register_blueprint(ahost_endpoints.ahost, url_prefix="/api")
-    app.register_blueprint(apop_endpoints.apop, url_prefix="/api")
-    app.register_blueprint(asrvtype_endpoints.asrvtype, url_prefix="/api")
-    app.register_blueprint(bucketcount_endpoints.bucketcount, url_prefix="/api")
-
-
-    # Register Display Blueprints
-    app.register_blueprint(byaudit_display.byaudit, url_prefix="/display")
-    app.register_blueprint(audit_display.audit, url_prefix="/display")
-    app.register_blueprint(bypop_display.bypop, url_prefix="/display")
-    app.register_blueprint(bysrvtype_display.bysrvtype, url_prefix="/display")
-    app.register_blueprint(host_display.host, url_prefix="/display")
-    app.register_blueprint(dashboard_display.dashboard, url_prefix="/display")
-    app.register_blueprint(audit_display_table.audit_table, url_prefix="/display")
-    '''
-
-    # Register Display
-    app.register_blueprint(display_auditresults.auditresults, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_auditinfo.auditinfo, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_hostcollections.hostcollections, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_collected_values.display_collected_values, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_collected_subtype_filtered.display_subtypes_filtered, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_collected_values_search.display_collected_values_search, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_collected_subtypes_filtered_search.display_collected_subtypes_filtered_search, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_soc_vipporttohost.display_soc_vipporttohost, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_soc_vipporttohost_search.display_soc_vipporttohost_search, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_auditslist.auditslist, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_hostsearchresults.hostsearchresults, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_custdashboard_create.display_custdashboard_create , url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_custdashboard_modify.display_custdashboard_modify , url_prefix=config_items["v2ui"]["root"])
-    #app.register_blueprint(display_custdashboard_create_results.display_custdashboard_create_results, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_hostsearch_search.display_hostsearch_search, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_cve_canonical_check_results.display_cve_canonical_check_results, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_cve_canonical_search.display_cve_canonical_search, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_collatedresults.collatedresults, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_mainfactor.mainfactor, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_custdashboardlist.custdashboardlist, url_prefix=config_items["v2ui"]["root"])
 
     @app.template_filter('ctime')
     def timectime(s):

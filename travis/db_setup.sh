@@ -6,7 +6,7 @@ set -x
 
 sudo mysql -u root -e "show full processlist;"
 
-sudo bash -c "mysql -u root < setup/jellyfish2_db_schema.sql"
+sudo bash -c "mysql -u root < setup/manowar_db_schema.sql"
 
 schema_success=$?
 
