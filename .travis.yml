@@ -9,29 +9,13 @@ notifications:
 before_script:
 - sudo apt-get -y install openssh-server
 - "./travis/pre_build.sh"
-- "./travis/ssh_setup.sh"
-- export DEBIAN_FRONTEND=noninteractive; sudo -E apt-get -y  install python3-pip python-dev
-  shellcheck mariadb-server mariadb-client jq openjdk-7-jre graphviz
+- export DEBIAN_FRONTEND=noninteractive; sudo -E apt-get -y  install python3-pip python-dev shellcheck mariadb-server mariadb-client jq openjdk-7-jre graphviz
 - "./travis/db_setup.sh"
 - sudo pip3 install --upgrade setuptools
-- sudo pip3 install bandit pylint paramiko pymysql colorama flask flask_cors jsonschema
-  lxml pika mkdocs requests
-- gem install mdl
+- sudo pip3 install -r requirements.txt
 script:
 - "./travis/testing.sh"
-- "./travis/swagger_test.sh"
-- "./travis/api_test.sh"
-- "./travis/sapi_test.sh"
-- "./travis/schedule_test.sh"
-- "./travis/analyze_test.sh"
 after_success:
-- "./travis/build_diag.sh"
-- "./travis/swagger_build.sh"
-- "./travis/build_docs.sh"
+- echo "build_process"
 before_install:
-- pwd
-- openssl aes-256-cbc -K $encrypted_1acdf71f7d2b_key -iv $encrypted_1acdf71f7d2b_iv
-  -in /home/travis/build/chalbersma/manowar/travis-manowar.enc -out /home/travis/build/chalbersma/manowar/travis-manowar -d
-- chmod 600 /home/travis/build/chalbersma/manowar/travis-manowar
-- eval `ssh-agent -s`
-- ssh-add /home/travis/build/chalbersma/manowar/travis-manowar
+- echo "future stuff here"
