@@ -1,0 +1,6 @@
+PyYAML
+flask
+flask-graphQL
+graphene
+pymysql
+manowar_agent

@@ -1,0 +1,15 @@
+global:
+  jellyfish_version: 4
+flask:
+  port: 5000
+  host: 127.0.0.1
+database:
+  host: localhost
+  user: manowar_api
+  pass: manowar_api
+  db: manowar
+  port: 3306
+
+
+
+

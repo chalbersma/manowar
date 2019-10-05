@@ -1,0 +1,43 @@
+---
+hostinfo:
+  # Alternatively
+  # uri: mown://thing:thing:thing:thing
+  # or
+  # uri: arn://thing:thing:thing
+  # This system will add the hostname as the resource
+  uri:
+    partition: partition
+    service: servertype
+    region: location
+    accountid: account
+    arguments:
+      externalid: 10001
+      status: status
+      taga: true
+sapi:
+  #sapi_do_api: true
+  sapi_do_api: false
+
+  sapi_endpoints:
+   - name: default
+     url: "https://sapi.manowar.example.com/sapi/puthostjson/"
+     sapi_token: InsertToken
+     sapi_username: ChangeMe
+     # With these you can authorize and send the output to any endpoint
+     # That will let you configure authorization via headers or query args
+     custom_header:
+       "Content-Type": "application/json"
+     custom_query_args:
+       "sample": "true"
+stingcell:
+  default_collection_timeout: 60
+  local_collections: false
+  local_collections_location: /etc/manowar_agent/collections.d/
+  # Specify Desired Base Collector Configuration here.
+  #collection_config_file: /etc/manowar_agent/collector.yaml
+ipintel:
+  dointel: true
+version: 3
+# Minion File Can Be Customized
+#salt:
+#  minion_file: /etc/path/to/salt/minion
