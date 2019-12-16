@@ -6,6 +6,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 
 API for Host Information
 Should return data about the host & return the collections for this particular host.
+
 ```swagger-yaml
 /genericlargecompare/ :
   x-cached-length: "Every Midnight"
@@ -130,7 +131,7 @@ import hashlib
 import urllib
 import requests
 from generic_large_compare import generic_large_compare
-import apt
+#import apt
 
 genericlargecompare = Blueprint('api2_genericlargecompare', __name__)
 

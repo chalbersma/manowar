@@ -48,8 +48,8 @@ def generic_puthostjson():
 
     this_endpoint_endorsements = ( ("conntype","sapi"), )
 
-    endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements, \
-                                session_endorsements=g.session_endorsements )
+    endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements,
+                                         session_endorsements=g.session_endorsements)
 
 
     argument_error = False
@@ -81,12 +81,14 @@ def generic_puthostjson():
 
         if check_result_passed is True :
             # It's good do the Storage
-            this_store_collection_result = storage(g.config_items["sapi"].get("storageconfig", "storage.ini"), request.json, sapi=True)
+            this_store_collection_result = storage(g.config_items["sapi"].get("storageconfig", "storage.ini"),
+                                                   request.json,
+                                                   sapi=True)
 
             data_dict=dict()
             data_dict["storage_result"] = this_store_collection_result
 
-    if error == False :
+    if error == False:
 
         response_dict = dict()
 
@@ -97,7 +99,7 @@ def generic_puthostjson():
 
         return jsonify(**response_dict)
 
-    else :
+    else:
 
         response_dict = dict()
         response_dict["meta"] = meta_dict

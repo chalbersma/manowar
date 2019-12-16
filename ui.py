@@ -5,17 +5,21 @@ Copyright 2018, VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 '''
 
+import logging
 from configparser import ConfigParser
 import argparse
-from flask import Flask, current_app, g, request, render_template, abort
-from flask_cors import CORS, cross_origin
-import base64
-import pymysql
 import json
 import ast
 import time
 import datetime
 import os
+import sys
+import base64
+
+from flask import Flask, current_app, g, request, render_template, abort
+from flask_cors import CORS, cross_origin
+import pymysql
+
 from tokenmgmt import validate_key
 from canonical_cve import shuttlefish
 from generic_large_compare import generic_large_compare
@@ -24,15 +28,40 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--configfile", help="Config File for Scheduler", required=True)
     parser.add_argument("-d", "--flaskdebug", action='store_true', help="Turn on Flask Debugging")
-    parser._optionals.title = "DESCRIPTION "
+    parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
 
     args = parser.parse_args()
 
-    FDEBUG=args.flaskdebug
-    CONFIG=args.configfile
+    FDEBUG = args.flaskdebug
+    CONFIG = args.configfile
 
+    VERBOSE = len(args.verbose)
+
+    if VERBOSE == 0:
+        logging.basicConfig(level=logging.ERROR)
+
+    elif VERBOSE == 1:
+        logging.basicConfig(level=logging.WARNING)
+
+    elif VERBOSE == 2:
+        logging.basicConfig(level=logging.INFO)
+
+    elif VERBOSE > 2:
+        logging.basicConfig(level=logging.DEBUG)
+
+    LOGGER = logging.getLogger()
+
+    LOGGER.info("Welcome to Man 'o War")
 
 def ui(CONFIG, FDEBUG):
+
+    '''
+    Main Function that Starts up the Flask Service.
+
+    Reads Configs, loads individual api calls etc...
+    '''
+
+    logger = logging.getLogger("ui.ui")
 
     try:
         # Read Our INI with our data collection rules
@@ -48,18 +77,17 @@ def ui(CONFIG, FDEBUG):
 
 
     # Grab me Collections Items Turn them into a Dictionary
-    config_items=dict()
+    config_items = dict()
 
     # Collection Items
-    for section in config :
-        config_items[section]=dict()
+    for section in config:
+        config_items[section] = dict()
         for item in config[section]:
             config_items[section][item] = config[section][item]
 
 
 
-    # Debug
-    #print(config_items)
+    logger.debug("Configuration Items: {}".format(config_items))
 
     # Ensure Cache Dir is There, if not Make it
     cacheDir = config_items['v2api']['cachelocation']
@@ -67,7 +95,7 @@ def ui(CONFIG, FDEBUG):
         try:
             os.makedirs(cacheDir)
         except Exception as e:
-            print("Error creating cache dir " + str(cacheDir) + " with error: " + str(e))
+            logger.error("Error creating cache dir {} with error: {}".format(cacheDir, e))
             return False
 
     # Create db_conn
@@ -79,40 +107,35 @@ def ui(CONFIG, FDEBUG):
 
     # Enable CORS for UI Guys
     # Ad a config option for the domains
-    cors = CORS(app, supports_credentials=True, origins="pages.github.com" )
-    #cors = CORS(app,  support_credentials=True)
-
-
-    # Before my First Request, Please attempt to Connect to the Database
-    '''
-    @app.before_first_request
-    def test_database() :
-        try :
-            g.db = db_conn = pymysql.connect(host=config_items['database']['dbhostname'], port=int(config_items['database']['dbport']), user=config_items['database']['dbusername'], passwd=config_items['database']['dbpassword'], db=config_items['database']['dbdb'] )
-            dbmessage = "Good, connected to " + config_items['database']['dbusername'] + "@" + config_items['database']['dbhostname'] + ":" + config_items['database']['dbport'] + "/" + config_items['database']['dbdb']
-        except Exception as e :
-            dbmessage = "Connection Failed connected to " + config_items['database']['dbusername'] + "@" + config_items['database']['dbhostname'] + ":" + config_items['database']['dbport'] + "/" + config_items['database']['dbdb'] + " With Error " + str(e)
-            if __name__ == "__main__":
-                print(dbmessage)
-                exit
-            return dbmessage
-        if __name__ == "__main__" :
-            print(dbmessage)
-        g.db.close()
-    '''
-
-
-
-
+    CORS(app, supports_credentials=True, origins="pages.github.com")
 
 
     @app.before_request
     def before_request():
-        try :
-            g.db = pymysql.connect(host=config_items['database']['dbhostname'], port=int(config_items['database']['dbport']), user=config_items['database']['dbusername'], passwd=config_items['database']['dbpassword'], db=config_items['database']['dbdb'],  autocommit=True )
-            dbmessage = "Good, connected to " + config_items['database']['dbusername'] + "@" + config_items['database']['dbhostname'] + ":" + config_items['database']['dbport'] + "/" + config_items['database']['dbdb']
-        except Exception as e :
-            dbmessage = "Connection Failed connected to " + config_items['database']['dbusername'] + "@" + config_items['database']['dbhostname'] + ":" + config_items['database']['dbport'] + "/" + config_items['database']['dbdb'] + " With Error " + str(e)
+        try:
+
+            g.db = pymysql.connect(host=config_items['database']['dbhostname'],
+                                   port=int(config_items['database']['dbport']),
+                                   user=config_items['database']['dbusername'],
+                                   passwd=config_items['database']['dbpassword'],
+                                   db=config_items['database']['dbdb'],
+                                   autocommit=True)
+
+            dbmessage = "Good, connected to {}@{}:{}/{}".format(config_items['database']['dbusername'],
+                                                                config_items['database']['dbhostname'],
+                                                                config_items['database']['dbport'],
+                                                                config_items['database']['dbdb'])
+
+            logger.info(dbmessage)
+
+        except Exception as connection_error:
+            dbmessage = "Connection Failed connected to {}@{}:{}/{} with error {}".format(config_items['database']['dbusername'],
+                                                                                          config_items['database']['dbhostname'],
+                                                                                          config_items['database']['dbport'],
+                                                                                          config_items['database']['dbdb'],
+                                                                                          connection_error)
+            logger.error(dbmessage)
+
             return dbmessage
 
         # Endpoint Authorization List of Endosements and Restrictions that Define what you may and may not access
@@ -131,27 +154,32 @@ def ui(CONFIG, FDEBUG):
             decoded_uname_pass = base64.b64decode(uname_pass_64).decode("utf-8")
             username = decoded_uname_pass.split(":")[0]
 
-
-        except Exception as e :
-            # No Basic Auth, either local access or IP whitelist
+        except Exception as no_auth_error:
+            logger.debug("No Authentication token given, either local access or IP whitelist : {}".format(no_auth_error))
             username = "local_or_ip_whitelist"
-            g.session_endorsements.append(("conntype","whitelist"))
-            g.session_restrictions.append(("conntype","whitelist"))
+            g.session_endorsements.append(("conntype", "whitelist"))
+            g.session_restrictions.append(("conntype", "whitelist"))
+
+            logger.warning("Local Flask or Whitelist IP detected.")
 
         else:
 
             # Parsing was successful add ldap endorsment
-            g.session_endorsements.append(("conntype","ldap"))
-            g.session_restrictions.append(("conntype","ldap"))
+            g.session_endorsements.append(("conntype", "ldap"))
+            g.session_restrictions.append(("conntype", "ldap"))
 
         finally:
+            logger.debug("User {} Connected a Session.".format(username))
             g.USERNAME = username
 
         # Robot Authentication
         try:
             robot_header = ast.literal_eval(request.headers.get("robotauth", "False"))
 
-            if robot_header == True :
+            logger.info("Robot Authentication header Set atempting API Authentication.")
+            logger.debug("Robot Header : {}".format(robot_header))
+
+            if robot_header is True:
                 # I need to do robot auth
                 username, apikey = auth_header.split(':')
 
@@ -160,28 +188,27 @@ def ui(CONFIG, FDEBUG):
 
                 auth_cursor = g.db.cursor(pymysql.cursors.DictCursor)
 
-                '''
-                Integrating Token Types. For now new tokens types will be processed
-                here. In the future this "endorsements" section will be replaced
-                with logic to look at our new centralized authorization system.
-                '''
+                # Integrating Token Types. For now new tokens types will be processed
+                # here. In the future this "endorsements" section will be replaced
+                # with logic to look at our new centralized authorization system.
 
                 anyvalid = False
-                for tokentype in ["robot", "sapi", "ipintel"] :
+                for tokentype in ["robot", "sapi", "ipintel"]:
 
                     key_valid = validate_key(username=username, giventoken=apikey, dbcur=auth_cursor, tokentype=tokentype)
 
                     print(tokentype, key_valid)
 
-                    if key_valid == True :
+                    if key_valid is True:
                         # Add Robots Endorsement and Restriction
-                        g.session_endorsements.append(("conntype",tokentype))
-                        g.session_restrictions.append(("conntype",tokentype))
+                        g.session_endorsements.append(("conntype", tokentype))
+                        g.session_restrictions.append(("conntype", tokentype))
                         anyvalid = True
                         # No break loop
                         break
-                if anyvalid == False :
+                if anyvalid is False:
                     # No Valid Token was found
+                    logger.warning("Robot Token Out of Date.")
                     abort(403)
 
                 auth_cursor.close()
@@ -189,22 +216,23 @@ def ui(CONFIG, FDEBUG):
             else:
                 # This isn't a robot call
                 pass
-        except AttributeError as e :
+        except AttributeError as attribute_error:
+            logger.error("Attribute Error parsing Robot Items. Killing. {}".format(attribute_error))
             abort(403)
-        except SyntaxError as e:
+        except SyntaxError as syntax_error:
+            logger.error("Syntax Error parsing Robot Items. Killing. {}".format(syntax_error))
             abort(500)
         finally:
             pass
 
         # Default Endorsement
-        g.session_endorsements.append(("username","{}".format(g.USERNAME)))
+        g.session_endorsements.append(("username", "{}".format(g.USERNAME)))
 
         # DEFAULT Fresh. Use this instead of "Fresh" Values to allow for query caching.
         NOW = int(time.time())
         seconds_after_midnight = NOW % 86400
         MIDNIGHT = NOW - seconds_after_midnight
         oldest = MIDNIGHT - (86400*2)
-
 
         g.NOW = NOW
         g.MIDNIGHT = MIDNIGHT
@@ -214,7 +242,7 @@ def ui(CONFIG, FDEBUG):
         g.config_items = config_items
 
     @app.after_request
-    def after_request(response) :
+    def after_request(response):
         # Add CORS Header
         #response.headers["Access-Control-Allow-Credentials"] = "true"
         # Close My Cursor JK Do that in teardown request
@@ -230,32 +258,6 @@ def ui(CONFIG, FDEBUG):
         if db is not None:
             db.close()
         return response
-
-
-
-
-
-
-    # Import Blue Print Files
-    ## API Imports
-    '''
-    from jelly_api import audit_endpoints
-    from jelly_api import host_endpoints
-    from jelly_api import collection_endpoints
-    from jelly_api import acoll_endpoints
-    from jelly_api import ahost_endpoints
-    from jelly_api import apop_endpoints
-    from jelly_api import asrvtype_endpoints
-    from jelly_api import bucketcount_endpoints
-    ## Display Imports
-    from jelly_display import byaudit_display
-    from jelly_display import audit_display
-    from jelly_display import bypop_display
-    from jelly_display import bysrvtype_display
-    from jelly_display import host_display
-    from jelly_display import dashboard_display
-    from jelly_display import audit_display_table
-    '''
 
     ## API 2 Imports
     from jelly_api_2 import root
@@ -352,28 +354,6 @@ def ui(CONFIG, FDEBUG):
     app.register_blueprint(ipsearch.ipsearch, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(ipreport.ipreport, url_prefix=config_items["v2api"]["root"])
 
-    '''
-    # Register API Blueprints
-    app.register_blueprint(audit_endpoints.audits, url_prefix= "/api")
-    app.register_blueprint(host_endpoints.hosts, url_prefix="/api")
-    app.register_blueprint(collection_endpoints.collections, url_prefix="/api")
-    app.register_blueprint(acoll_endpoints.acolls, url_prefix="/api")
-    app.register_blueprint(ahost_endpoints.ahost, url_prefix="/api")
-    app.register_blueprint(apop_endpoints.apop, url_prefix="/api")
-    app.register_blueprint(asrvtype_endpoints.asrvtype, url_prefix="/api")
-    app.register_blueprint(bucketcount_endpoints.bucketcount, url_prefix="/api")
-
-
-    # Register Display Blueprints
-    app.register_blueprint(byaudit_display.byaudit, url_prefix="/display")
-    app.register_blueprint(audit_display.audit, url_prefix="/display")
-    app.register_blueprint(bypop_display.bypop, url_prefix="/display")
-    app.register_blueprint(bysrvtype_display.bysrvtype, url_prefix="/display")
-    app.register_blueprint(host_display.host, url_prefix="/display")
-    app.register_blueprint(dashboard_display.dashboard, url_prefix="/display")
-    app.register_blueprint(audit_display_table.audit_table, url_prefix="/display")
-    '''
-
     # Register Display
     app.register_blueprint(display_auditresults.auditresults, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_auditinfo.auditinfo, url_prefix=config_items["v2ui"]["root"])
@@ -386,8 +366,8 @@ def ui(CONFIG, FDEBUG):
     app.register_blueprint(display_soc_vipporttohost_search.display_soc_vipporttohost_search, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_auditslist.auditslist, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_hostsearchresults.hostsearchresults, url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_custdashboard_create.display_custdashboard_create , url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_custdashboard_modify.display_custdashboard_modify , url_prefix=config_items["v2ui"]["root"])
+    app.register_blueprint(display_custdashboard_create.display_custdashboard_create, url_prefix=config_items["v2ui"]["root"])
+    app.register_blueprint(display_custdashboard_modify.display_custdashboard_modify, url_prefix=config_items["v2ui"]["root"])
     #app.register_blueprint(display_custdashboard_create_results.display_custdashboard_create_results, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_hostsearch_search.display_hostsearch_search, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_cve_canonical_check_results.display_cve_canonical_check_results, url_prefix=config_items["v2ui"]["root"])
@@ -401,7 +381,7 @@ def ui(CONFIG, FDEBUG):
         return time.ctime(s)
 
     @app.template_filter('firstx')
-    def firstx(s,x):
+    def firstx(s, x):
         return s[:x]
 
     @app.route("/")
@@ -409,10 +389,10 @@ def ui(CONFIG, FDEBUG):
         # Index
         return render_template("index.html")
 
-
-    app.run(debug=FDEBUG, port=int(config_items['webserver']['port']) , threaded=True, host=config_items['webserver']['bindaddress'])
-
-
+    app.run(debug=FDEBUG,
+            port=int(config_items['webserver']['port']),
+            threaded=True,
+            host=config_items['webserver']['bindaddress'])
 
 # Run if Execute from CLI
 if __name__ == "__main__":
