@@ -16,6 +16,7 @@ import pymysql
 import json
 import re
 #import apt_pkg
+import packaging.version
 from copy import deepcopy
 from time import time
 from time import sleep
@@ -168,14 +169,25 @@ def generic_large_compare(db_conn, host_list_dict, mtype, ctype, csubtype, \
                                     host not in passhost ]
 
                 elif mtype == "aptge" :
-                    exempthost = [ host for host in query_results_list \
-                                    if len(host[1]) <= 0 ]
-                    passhost = [ host for host in query_results_list \
-                                    if apt_pkg.version_compare( host[1], \
-                                       massaged_mvalue[index_value] ) >= 0 ]
-                    failhost = [ host for host in query_results_list \
-                                    if host not in exempthost and \
-                                    host not in passhost ]
+
+                    match_version = packaging.version.parse(massaged_mvalue[index_value])
+
+                    exempthost = list()
+                    passhost = list()
+                    failhost = list()
+
+                    for host in query_results_list:
+
+                        # This was broke out to make the version parsing done here more readable.
+                        collected_version = packaging.version.parse(host[1])
+
+                        if len(host[1]) <= 0:
+                            exempthost.append(host)
+                        elif collected_version >= match_version:
+                            passhost.append(host)
+                        else:
+                            failhost.append(host)
+
 
                 elif mtype == "gt" :
                     exempthost = [ host for host in query_results_list \

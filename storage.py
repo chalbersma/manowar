@@ -13,12 +13,12 @@ import logging
 import json
 import sys
 import ast
+import pprint
 
 import pymysql
 
 # Printing Stuff
 from colorama import Fore, Back, Style
-import pprint
 
 # IP Intelligence
 from process_ip_intel import process_ip_intel
@@ -29,8 +29,6 @@ if __name__ == "__main__":
     parser.add_argument("-c", "--config", help="JSON Config File with our Storage Info", required=True)
     parser.add_argument("-j", "--json", help="json file to store", required=True)
     parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
-
-    parser._optionals.title = "DESCRIPTION "
 
     # Parser Args
     args = parser.parse_args()
@@ -58,7 +56,11 @@ if __name__ == "__main__":
     LOGGER.info("Welcome to Storage Module")
 
 
-def storage(CONFIG, JSONFILE, VERBOSE=False, sapi=False):
+def storage(CONFIG, JSONFILE, sapi=False):
+
+    '''
+    Does a Storage of an Object.
+    '''
 
     logger = logging.getLogger("storage.py")
 
@@ -81,7 +83,6 @@ def storage(CONFIG, JSONFILE, VERBOSE=False, sapi=False):
             exit(1)
 
         return storage_stats
-
 
 
     db_config_items = dict()
@@ -158,7 +159,7 @@ def storage(CONFIG, JSONFILE, VERBOSE=False, sapi=False):
 
             logger.debug("Doing IP Intel. ({} Statement).".format(do_ipintel))
 
-            if do_ipintel == True and "ip_intel" in hostdata.keys():
+            if do_ipintel is True and "ip_intel" in hostdata.keys():
                 # Process the IP Intelligence for this host
                 result = process_ip_intel(config_dict={"ip_intel" : ip_intel_config},
                                           multireport=hostdata["ip_intel"],
@@ -186,6 +187,10 @@ def storage(CONFIG, JSONFILE, VERBOSE=False, sapi=False):
     return storage_stats
 
 def parse_json_file(JSONFILE=False, VERBOSE=False):
+
+    '''
+    Parse JSON File. Pretty self explanatory. Parse that JSON file using the json module
+    '''
 
     logger = logging.getLogger("storage:parse_json_file")
 
@@ -242,163 +247,99 @@ def null_or_value(data_to_check, VERBOSE=False):
 
 def insert_update_host(hostdata, db_conn, VERBOSE=False):
 
+    '''
+    This updates the Host table (not the collections, sapi or ip_intel tables.
+
+    The first step is to query for an existing record either by hostname or by hostid
+
+    Important to note that this one opens it's own cursor from a connection to be more
+    threadsafe. So it must close the cursor at the end of the query.
+    '''
+
+
     logger = logging.getLogger("storage:insert_update_host")
 
     cur = db_conn.cursor()
 
-    # TODO Replace this with
-    # Always Columns
-    column_string = "hostname, last_update"
-    # Always Values
-    values_string = "'{}', FROM_UNIXTIME({}) ".format(hostdata['hostname'], str(hostdata['last_update']))
+    insert_columns = ["hostname", "last_update"]
+    insert_values = ["%s", "FROM_UNIXTIME(%s)"]
+    insert_columns_args = [hostdata["hostname"], hostdata["last_update"]]
+
+    host_id_query_params = list()
 
     # SELECT * Specification
-    if hostdata['host_uber_id'] != "N/A":
-        # Host_uber_id Given
-        # <SELECT host_id> from hosts where [ host_uber_id = hostdata['host_uber_id']
-        select_tail_specification = "from hosts where host_uber_id =  '" + str(hostdata['host_uber_id']) + "' ;"
+    if isinstance(hostdata["host_uber_id"], int):
+        select_tail_specification = "from hosts where host_uber_id = %s "
+        host_id_query_params.append(hostdata["host_uber_id"])
     else:
-        select_tail_specification = "from hosts where hostname =  '" + str(hostdata['hostname']) + "' ;"
+        select_tail_specification = "from hosts where hostname = %s"
+        host_id_query_params.append(hostdata["hostname"])
+
+    # TODO Add MOWN Logic here someday
 
     ####################################################################
-    # Add host_id
-    # No If there's not specifing this
+    # Add host_id to Query.
     select_head_specification = "SELECT host_id "
-    host_id_query = select_head_specification + select_tail_specification
+    host_id_query = "SELECT host_id {}".format(select_tail_specification)
 
     try:
-        cur.execute(host_id_query)
+        host_id_debug_query = cur.mogrify(host_id_query, host_id_query_params)
+        logger.debug("Host ID Query : {}".format(host_id_debug_query))
+        cur.execute(host_id_query, host_id_query_params)
+
     except Exception as insert_update_query_error:
-        logger.error("{}Trouble with query {} : {}{}".format(Fore.RED, str(host_id_query), str(e), Style.RESET_ALL))
-
-    if not cur.rowcount:
-        # No Results
-        host_id_data = "NULL"
+        logger.error("{}Trouble with query for {} : {}{}".format(Fore.RED, str(host_id_query), str(e), Style.RESET_ALL))
     else:
-        this_host_id_data = cur.fetchone()[0]
-        host_id_data = null_or_value(this_host_id_data)
-
-    column_string = "host_id, " + column_string
-    values_string = host_id_data + ", " + values_string
-    ####################################################################
-
-    ####################################################################
-    # Add POP
-    if hostdata['pop'] == "N/A":
-        # Do a Select to see if POP is in the DB
-        select_head_specification = "SELECT pop "
-        pop_query = select_head_specification + select_tail_specification
-
-        try:
-            cur.execute(pop_query)
-        except Exception as pop_query_error:
-            logger.error("{}Trouble with query {}:{}{}".format(Fore.RED, pop_query, pop_query_error, Style.RESET_ALL))
-
         if not cur.rowcount:
             # No Results
-            pop_data = "NULL"
+            host_id = None
         else:
-            this_pop_data = cur.fetchone()[0]
-            pop_data = null_or_value(this_pop_data)
-    else:
-        # POP Data Given Always Overwrite
-        pop_data = "'{}'".format(hostdata['pop'])
+            # Not a Dict Response
+            host_id = cur.fetchone()[0]
 
-    column_string = column_string + ", pop"
-    values_string = values_string + ", " + pop_data
+    logger.debug("Current Host to Insert Id : {}".format(host_id))
 
-    # Add srvtype
-    if hostdata['srvtype'] == "N/A":
-        # Do a Select to see if SRVTYPE is in the DB
-        select_head_specification = "SELECT srvtype "
-        srvtype_query = select_head_specification + select_tail_specificationkj
+    # Add HostID Data To Columns, Matches and Values
+    if host_id is not None:
+        insert_columns.append("host_id")
+        insert_values.append("%s")
+        insert_columns_args.append(host_id)
 
-        try:
-            cur.execute(srvtype_query)
-        except Exception as srvtype_select_error:
-            logger.error("{}Trouble with query {}:{}{}".format(Fore.RED, srvtype_query, srvtype_select_error, Style.RESET_ALL))
-
-        if not cur.rowcount:
-            # No Results
-            srvtype_data = "NULL"
+    ## V2 Factors like pop srvtype and the like
+    for v2factor in [("pop", "pop"), ("srvtype", "srvtype"), ("status", "hoststatus"), ("host_uber_id", "host_uber_id")]:
+        if hostdata[v2factor[0]] != "N/A" and hostdata[v2factor[0]] is not None:
+            insert_columns.append(v2factor[1])
+            insert_values.append("%s")
+            insert_columns_args.append(hostdata[v2factor[0]])
         else:
-            this_srvtype_data = cur.fetchone()[0]
-            srvtype_data = null_or_value(this_srvtype_data)
+            logger.warning("No {0} given for host {1}, ignoring {0} column.".format(v2factor[0], hostdata["hostname"]))
+
+    replace_query = "REPLACE into hosts ( {} ) VALUES ( {} )".format(" , ".join(insert_columns),
+                                                                     " , ".join(insert_values))
+
+    try:
+        replace_query_debug = cur.mogrify(replace_query, insert_columns_args)
+        logger.debug("Replace Query for Host {} : {}".format(hostdata["hostname"], replace_query_debug))
+        cur.execute(replace_query, insert_columns_args)
+    except Exception as replace_error:
+        logger.error("Unable to do Replace Query for host {} with error : {}".format(hostdata["hostname"], replace_query_debug))
     else:
-        # POP Data Given Always Overwrite
-        srvtype_data = "'{}'".format(hostdata['srvtype'])
+        host_id = cur.lastrowid
 
-    column_string = column_string + ", srvtype"
-    values_string = values_string + ", " + srvtype_data
+    finally:
+        db_conn.commit()
+        cur.close()
 
-    # Add hoststatus
-    if hostdata['status'] == "N/A":
-        # Do a Select to see if SRVTYPE is in the DB
-        select_head_specification = "SELECT hoststatus "
-        status_query = select_head_specification + select_tail_specification
-
-        try:
-            cur.execute(status_query)
-        except Exception as select_hoststatus_error:
-            logger.error("{}Trouble with query {}:{}{}".format(Fore.RED, status_query, select_hoststatus_error, Style.RESET_ALL))
-
-        if not cur.rowcount:
-            # No Results
-            status_data = "NULL"
-        else:
-            this_status_data = cur.fetchone()[0]
-            status_data = null_or_value(this_status_data)
-    else:
-        # POP Data Given Always Overwrite
-        status_data = "'{}'".format(hostdata['status'])
-
-    column_string = column_string + ", hoststatus"
-    values_string = values_string + ", " + status_data
-
-    # Add host_uber_id
-    if hostdata['host_uber_id'] == "N/A":
-        # Do a Select to see if SRVTYPE is in the DB
-        select_head_specification = "SELECT host_uber_id "
-        host_uber_id_query = select_head_specification + select_tail_specification
-
-        try:
-            cur.execute(host_uber_id_query)
-        except Exception as select_host_uber_id:
-            logger.error("{}Trouble with query {}:{}{}".format(Fore.RED, host_uber_id_query, select_host_uber_id, Style.RESET_ALL))
-
-        if not cur.rowcount:
-            # No Results
-            host_uber_id_data = "NULL"
-        else:
-            this_host_uber_id_data = cur.fetchone()[0]
-            host_uber_id_data = null_or_value(this_host_uber_id_data)
-    else:
-        # POP Data Given Always Overwrite
-        host_uber_id_data = "'{}'".format(hostdata['host_uber_id'])
-
-    column_string = column_string + ", host_uber_id"
-    values_string = values_string + ", " + host_uber_id_data
-    ####################################################################
-
-    query_head = "REPLACE into hosts ( "
-    query_mid = " ) VALUES ( "
-    query_tail = " ) ; "
-    query_string = query_head + column_string + query_mid + values_string + query_tail
-    #print(query_string)
-
-    cur.execute(query_string)
-    #print("Problem with query : " + query_string )
-    #print("Error: " + str(sys.exc_info()[0] )
-
-    this_row = cur.lastrowid
-    db_conn.commit()
-    cur.close()
-
-    return this_row
-
-
+    return host_id
 
 def store_as_SAPI_host(host_id, db_conn, hostname, VERBOSE=False):
+
+    '''
+    Store as SAPI host. When we have a SAPI host we want to update the sapiActiveHosts table with that hostname
+    so that we know we don't need to ssh to that in collections.
+    '''
+
+    logger = logging.getLogger("storage.py:store_as_SAPI_host")
 
     SAPI_STORE_TIME = int(time())
 
@@ -478,11 +419,12 @@ def insert_update_collections(db_conn, host_id, results_data, MAX, timestamp, ho
 
     cur = db_conn.cursor()
 
-
     error_count = 0
     inserts = 0
     updates = 0
+
     for item in results_data:
+
         if "collection_failed" in results_data[item]:
 
             logger.info("{}{}Collection Failed for {} on host: {}{}".format(Back.CYAN, Fore.BLACK,
@@ -507,12 +449,10 @@ def insert_update_collections(db_conn, host_id, results_data, MAX, timestamp, ho
                                             str(collection_subtype),
                                             str(collection_value)]
 
-                find_existing_query = "SELECT "
-                find_existing_query = find_existing_query +\
-                                         " collection_value, collection_id, last_update FROM collection " +\
-                                        "WHERE fk_host_id = %s AND collection_type = %s " +\
-                                        "AND collection_subtype = %s AND collection_value = %s " +\
-                                        " Order by last_update desc limit 1 ; "
+                find_existing_query = "SELECT {} {} {} {}".format(" collection_value, collection_id, last_update FROM collection ",
+                                                                  "WHERE fk_host_id = %s AND collection_type = %s ",
+                                                                  "AND collection_subtype = %s AND collection_value = %s ",
+                                                                  " Order by last_update desc limit 1 ")
 
                 try:
                     cur.execute(find_existing_query, find_existing_query_args)

@@ -1,6 +1,5 @@
 PyYAML
 flask
-flask-graphQL
 flask_cors
 graphene
 pymysql
@@ -9,3 +8,9 @@ lxml
 jsonschema
 colorama
 paramiko
+packaging
+cssselect
+cvss
+cpe
+feedparser
+pyjq

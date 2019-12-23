@@ -15,7 +15,7 @@ import pprint
 import pymysql
 import json
 import re
-import apt_pkg
+#import apt_pkg
 from copy import deepcopy
 from time import time
 from time import sleep
