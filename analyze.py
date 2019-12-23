@@ -15,10 +15,11 @@ import pprint
 import pymysql
 import json
 import re
-import apt_pkg
+import packaging.version
 from copy import deepcopy
 from time import time
 from time import sleep
+import logging
 
 import threading
 import multiprocessing
@@ -30,13 +31,14 @@ from generic_large_compare import generic_large_compare
 from generic_large_analysis_store import generic_large_analysis_store
 from subtype_large_compare import subtype_large_compare
 
-
+import audittools
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-a", "--auditdir", help="Directory that Contains the audits", required=True, action='append')
     parser.add_argument("-c", "--config", help="Main analyze.ini file", required=True)
-    parser.add_argument("-V", "--verbose", action='store_true', help="Verbose Mode Show more Stuff")
+    parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
+
     parser._optionals.title = "DESCRIPTION "
 
     # Parser Args
@@ -54,92 +56,61 @@ if __name__ == "__main__":
     #
     CONFIG=args.config
 
-    if args.verbose:
-        VERBOSE=True
-    else:
-        VERBOSE=False
+    VERBOSE = len(args.verbose)
 
+    if VERBOSE == 0:
+        logging.basicConfig(level=logging.ERROR)
+    elif VERBOSE == 1:
+        logging.basicConfig(level=logging.WARNING)
+    elif VERBOSE == 2:
+        logging.basicConfig(level=logging.INFO)
+    else:
+        logging.basicConfig(level=logging.DEBUG)
+
+    LOGGER = logging.getLogger("analyze.py")
 
 
 def analyze(CONFIGDIR, CONFIG):
 
     # Init apt system
-    apt_pkg.init_system()
+    #apt_pkg.init_system()
+
+    logger = logging.getLogger("analyze.py:analyze")
 
     ANALYZE_TIME = int(time())
 
-    # Grab all my Audits in CONFIGDIR Stuff
-    auditfiles = []
-    for thisconfigdir in CONFIGDIR :
-        for (dirpath, dirnames, filenames) in os.walk(thisconfigdir) :
-            for singlefile in filenames :
-                onefile = dirpath + "/" +  singlefile
-                #print(singlefile.find(".ini", -4))
-                if singlefile.find(".ini", -4) > 0 :
-                    # File ends with .ini Last 4 chars
-                    auditfiles.append(onefile)
-
-    # Debug
-    print(auditfiles)
-    # Config Defaults
-    this_time=int(time())
-    back_week=this_time-604800
-    back_month=this_time-2628000
-    back_quarter=this_time-7844000
-    back_year=this_time-31540000
-    back_3_year=this_time-94610000
-    time_defaults={ "now" : str(this_time), "weekago" : str(back_week), "monthago" : str(back_month), "quarterago" : str(back_quarter), "yearago" : str(back_year), "threeyearago" : str(back_3_year) }
-
-
-    # Parse Information
+    # Parse my General Configuration
     try:
         # Read Our INI with our data collection rules
-        config = ConfigParser(time_defaults)
+        config = ConfigParser()
         config.read(CONFIG)
-        # Debug
-        #for i in config :
-            #for key in config[i] :
-                #print (i, "-", key, ":", config[i][key])
-    except Exception as e: # pylint: disable=broad-except, invalid-name
-        sys.exit('Bad configuration file {}'.format(e))
+    except Exception as general_config_error:
+        sys.exit('Bad configuration file {} {}'.format(CONFIG, general_config_error))
+    else:
+        # DB Config Items
+        db_config_items=dict()
+        for section in config:
+            if section in ["database"] :
+                for item in config[section]:
+                    db_config_items[item] = config[section][item]
 
 
-    # DB Config Items
-    db_config_items=dict()
-    for section in config:
-        if section in ["database"] :
-            for item in config[section]:
-                db_config_items[item] = config[section][item]
+    # Grab all my Audits in CONFIGDIR Stuff
+    auditfiles = audittools.walk_auditd_dir(CONFIGDIR)
 
-    # Parse the Dicts
-    audits=dict()
+    # Read all my Audits
+    audits = dict()
     for auditfile in auditfiles :
-        try:
-            # Try to Parse
-            this_audit_config = ConfigParser(time_defaults)
-            this_audit_config.read(auditfile)
-        except Exception as e:
-            # Error if Parse
-            print("File ", auditfile, " not paresed because of " , format(e))
-        else:
-            # It's good so toss that shit in
-            for section in this_audit_config :
-                if section not in ["GLOBAL", "DEFAULT"] :
-                    audits[section] = dict()
-                    audits[section]["filename"] = auditfile
-                    for item in this_audit_config[section]:
-                        onelinethisstuff = "".join(this_audit_config[section][item].splitlines())
-                        try:
-                           if item == "vuln-long-description" :
-                                audits[section][item] = ast.literal_eval("'''{}'''".format(onelinethisstuff))
-                           else:
-                                audits[section][item] = ast.literal_eval(onelinethisstuff)
-                        except Exception as e:
-                            print("Verification Failed. Use verifyAudits.py for more details")
-                            exit(1)
 
-    # Debug
-    #print(audits)
+        these_audits = audittools.load_auditfile(auditfile)
+
+        for found_audit_name in these_audits.keys():
+            if found_audit_name in audits.keys():
+                logger.warning("Duplicate definition for {} found. Ignoring definition in file {}".format(found_audit_name, auditfile))
+            else:
+                # Add that audit
+                audits[found_audit_name] = these_audits[found_audit_name]
+
 
     def null_or_value(data_to_check):
         if data_to_check == None :
@@ -153,19 +124,19 @@ def analyze(CONFIGDIR, CONFIG):
 
         cur = db_conn.cursor(pymysql.cursors.DictCursor)
 
-        host_query_head = '''select
+        host_query = '''select
                                 host_id, pop, srvtype, last_update
                              from
                                 hosts
                              where
-                                last_update >= now() - INTERVAL '''
-        host_query_tail = " SECOND;"
-        host_query = host_query_head + FRESH + host_query_tail
+                                last_update >= now() - INTERVAL %s SECOND'''
+
+        host_query_args = [FRESH]
 
 
-        cur.execute(host_query)
+        cur.execute(host_query, host_query_args)
+
         all_hosts = cur.fetchall()
-
 
         amount_of_hosts = len(all_hosts)
 
@@ -232,15 +203,15 @@ def analyze(CONFIGDIR, CONFIG):
                 else :
                     pfe_value = "fail"
 
-            # aptge = apt_pkg.version_compare( match, collection )
-            elif mtype == "aptge" :
-                #print("Aptge_Result")
-                #print(apt_pkg.version_compare( this_collected_value, mvalue ))
-                if apt_pkg.version_compare(  this_collected_value, mvalue ) < 0 :
+            elif mtype == "aptge" or mtype == "verge" :
+
+                collected_version = packaging.version.parse(this_collected_value)
+                match_version = packaging.version.parse(mvalue)
+                if collected_version >= match_version:
                     # If it's Less than Zero
-                    pfe_value = "fail"
-                else :
                     pfe_value = "pass"
+                else :
+                    pfe_value = "fail"
 
             # Greater Than
             elif mtype == "gt" :
@@ -616,6 +587,9 @@ def analyze(CONFIGDIR, CONFIG):
 
 
     def dequeue_hosts(db_config_items, list_of_hosts):
+
+        logger = logging.getLogger("analyze:dequeue_hosts")
+
         while True:
             # Pull Stats Stuff
             # Pull Enqueued Host
@@ -654,8 +628,8 @@ def analyze(CONFIGDIR, CONFIG):
             # Insert Update the Audit in the Database
             try:
                 audit_id = insert_update_audit(db_config_items, oneAudit)
-            except Exception as e:
-                print("Failure to Create Audit", auditName, " in Database: ", e)
+            except Exception as update_audit_db_error:
+                logger.error("Failure to Create Audit {} in DB with error {}".format(auditName, update_audit_db_error))
                 audit_queue.task_done()
                 return
 
@@ -861,7 +835,7 @@ def analyze(CONFIGDIR, CONFIG):
 
     def insert_update_audit(db_config_items, audit) :
 
-        #print(audit)
+        logger = logging.getLogger("analyze:insert_update_audit")
 
         # Literals
         this_audit_name = audit["vuln-name"]
