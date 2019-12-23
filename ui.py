@@ -27,7 +27,7 @@ from generic_large_compare import generic_large_compare
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--configfile", help="Config File for Scheduler", required=True)
-    parser.add_argument("-d", "--flaskdebug", action='store_true', help="Turn on Flask Debugging")
+    parser.add_argument("-d", "--flaskdebug", action='store_true', help="Turn on Flask Debugging", default=False)
     parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
 
     args = parser.parse_args()
@@ -128,6 +128,9 @@ def ui(CONFIG, FDEBUG):
 
             logger.info(dbmessage)
 
+            g.logger = logger
+            g.debug = FDEBUG
+
         except Exception as connection_error:
             dbmessage = "Connection Failed connected to {}@{}:{}/{} with error {}".format(config_items['database']['dbusername'],
                                                                                           config_items['database']['dbhostname'],
@@ -176,7 +179,6 @@ def ui(CONFIG, FDEBUG):
         try:
             robot_header = ast.literal_eval(request.headers.get("robotauth", "False"))
 
-            logger.info("Robot Authentication header Set atempting API Authentication.")
             logger.debug("Robot Header : {}".format(robot_header))
 
             if robot_header is True:
@@ -240,6 +242,9 @@ def ui(CONFIG, FDEBUG):
         g.cur = g.db.cursor(pymysql.cursors.DictCursor)
         g.HTTPENDPOINT = config_items["webserver"]["accesslink"]
         g.config_items = config_items
+
+        logger.debug("Current Session Endorsements : {}".format(g.session_endorsements))
+
 
     @app.after_request
     def after_request(response):

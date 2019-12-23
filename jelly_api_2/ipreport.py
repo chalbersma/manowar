@@ -65,7 +65,7 @@ def api2_ipreport():
     this_endpoint_endorsements = ( ("conntype","ipintel"),("conntype","ldap"),("conntype","whitelist") )
 
     endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements, \
-                                session_endorsements=g.session_endorsements, do_abort=True)
+                                session_endorsements=g.session_endorsements, ignore_abort=g.debug)
 
     argument_error = False
     where_clause_args = list()

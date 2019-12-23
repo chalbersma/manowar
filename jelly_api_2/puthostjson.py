@@ -25,9 +25,13 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 ```
 """
 
-from flask import current_app, Blueprint, g, request, jsonify
+
 import json
 import ast
+import logging
+
+from flask import current_app, Blueprint, g, request, jsonify
+
 import endorsementmgmt
 
 from storageJSONVerify import storageJSONVerify
@@ -35,60 +39,72 @@ from storage import storage
 
 puthostjson = Blueprint('puthostjson', __name__)
 
-@puthostjson.route("/puthostjson", methods=['GET','POST'])
-@puthostjson.route("/puthostjson/", methods=['GET','POST'])
-@puthostjson.route("/sapi/puthostjson", methods=['GET','POST'])
-@puthostjson.route("/sapi/puthostjson/", methods=['GET','POST'])
+@puthostjson.route("/puthostjson", methods=['GET', 'POST'])
+@puthostjson.route("/puthostjson/", methods=['GET', 'POST'])
+@puthostjson.route("/sapi/puthostjson", methods=['GET', 'POST'])
+@puthostjson.route("/sapi/puthostjson/", methods=['GET', 'POST'])
 def generic_puthostjson():
 
+    '''
+    Runs the /puthostjson endpoint. This stores the data sent from manowar_agent
+    '''
+
     meta_dict = dict()
-    request_data = list()
+    #request_data = list()
     links_dict = dict()
     error_dict = dict()
 
-    this_endpoint_endorsements = ( ("conntype","sapi"), )
+    g.logger.warning("Recieved Upload Request.")
+
+    this_endpoint_endorsements = (("conntype", "sapi"),)
 
     endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements,
-                                         session_endorsements=g.session_endorsements)
+                                         session_endorsements=g.session_endorsements,
+                                         ignore_abort=g.debug)
 
 
-    argument_error = False
-    where_clauses = list()
-
-    meta_dict["version"]  = 2
+    meta_dict["version"] = 2
     meta_dict["name"] = "Jellyfish SAPI PutHostJSON "
     meta_dict["status"] = "In Progress"
 
-    error=False
 
-    if request.json == None :
+    error = False
+
+    g.logger.debug("Recieved Authenticated Request Request")
+
+    if request.json is None:
         # No Json Data Given
         error_dict["nodata"] = True
-        error=True
+        error = True
 
 
     #print(type(g.SCHEMAFILE))
 
-    if error == False :
+    if error is False:
+
+        # Note that this is an API host
+        request.json["collection_status"] = "STINGCELL"
 
         # Do a Storage Verify on this Mofo.
-        check_result=storageJSONVerify(g.config_items["sapi"].get("puthost_schema", "puthost_schema.json"), \
-                                       request.json)
+        check_result = storageJSONVerify(g.config_items["sapi"].get("puthost_schema", "puthost_schema.json"), \
+                                         request.json)
 
         # Parse Result
-        check_result_passed=check_result[0]
-        check_result_message=check_result[1]
+        check_result_passed = check_result[0]
+        check_result_message = check_result[1]
 
-        if check_result_passed is True :
+        if check_result_passed is True:
             # It's good do the Storage
             this_store_collection_result = storage(g.config_items["sapi"].get("storageconfig", "storage.ini"),
                                                    request.json,
                                                    sapi=True)
 
-            data_dict=dict()
+            data_dict = dict()
             data_dict["storage_result"] = this_store_collection_result
+        else:
+            g.logger.warning("Abnormal Check Result Storage Not Attempted : {}".format(check_result_message))
 
-    if error == False:
+    if error is False:
 
         response_dict = dict()
 
@@ -97,8 +113,6 @@ def generic_puthostjson():
         response_dict["data"] = data_dict
         response_dict["links"] = links_dict
 
-        return jsonify(**response_dict)
-
     else:
 
         response_dict = dict()
@@ -106,4 +120,4 @@ def generic_puthostjson():
         response_dict["errors"] = error_dict
         response_dict["links"] = links_dict
 
-        return jsonify(**response_dict)
+    return jsonify(**response_dict)
