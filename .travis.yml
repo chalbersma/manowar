@@ -1,5 +1,9 @@
 language: python
+cache: pip
+python:
+  - 3.7
 sudo: required
+dist: xenial
 notifications:
   email:
     recipients:
@@ -7,15 +11,14 @@ notifications:
   on_success: always
   on_failure: always
 before_script:
-- sudo apt-get -y install openssh-server
 - "./travis/pre_build.sh"
 - "./travis/ssh_setup.sh"
 - export DEBIAN_FRONTEND=noninteractive; sudo -E apt-get -y  install python3-pip python-dev
-  shellcheck mariadb-server mariadb-client jq openjdk-7-jre graphviz
+  shellcheck mariadb-server mariadb-client jq openjdk-7-jre graphviz openssh-server
 - "./travis/db_setup.sh"
 - sudo pip3 install --upgrade setuptools
-- sudo pip3 install bandit pylint paramiko pymysql colorama flask flask_cors jsonschema
-  lxml pika mkdocs requests
+- sudo pip3 install -r requirements.txt
+- sudo pip3 install mkdocs
 - gem install mdl
 script:
 - "./travis/testing.sh"
