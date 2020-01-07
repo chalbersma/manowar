@@ -72,6 +72,7 @@ class mowCVE:
         self.score_override = kwargs.get("score_override", None)
         self.cpe_list = [cpe.CPE(indv_cpe) for indv_cpe in kwargs.get("cpe_list", list())]
         self.capec_list = kwargs.get("capec_list", list())
+        self.cwe_list = kwargs.get("cwe_list", list())
         self.references = kwargs.get("references", dict())
         self.primary_reference = kwargs.get("primary_reference", None)
         self.last_updated = kwargs.get("last_updated", None)
@@ -83,6 +84,34 @@ class mowCVE:
         # Audit Items
         self.filters = kwargs.get("bucket_def", {})
         self.comparisons = kwargs.get("comparisons", {})
+
+    def summarize(self):
+
+        '''
+        Give a Dict Summarization
+        '''
+
+        the_thing = {"cve_id" : self.cve_id,
+                     "title" : self.title,
+                     "description" : self.description,
+                     "severity_override" : self.severity_override,
+                     "score_override" : self.score_override,
+                     "cpe_list" : [plat.as_uri_2_3() for plat in self.cpe_list],
+                     "capec_list" : self.capec_list,
+                     "cwe_list" : self.cwe_list,
+                     "references" : self.references,
+                     "primary_reference" : self.primary_reference,
+                     "last_updated" : self.last_updated,
+                     "published" : self.published,
+                     "self_updated" : self.self_updated
+                    }
+
+        if self.cvss2 is not None:
+            the_thing["cvss2"] = self.cvss2.clean_vector()
+        if self.cvss3 is not None:
+            the_thing["cvss3"] = self.cvss3.clean_vector()
+
+        return the_thing
 
     def get_severity(self):
 

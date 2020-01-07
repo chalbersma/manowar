@@ -1,0 +1,217 @@
+{
+  "USN-4227-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-powerpc-e500mc",
+          "linux-image-aws",
+          "linux-image-oracle",
+          "linux-image-4.15.0-74-generic",
+          "linux-image-gke-4.15",
+          "linux-image-4.15.0-1066-oem",
+          "linux-image-oracle-lts-18.04",
+          "linux-image-4.15.0-1031-oracle",
+          "linux-image-virtual",
+          "linux-image-snapdragon",
+          "linux-image-powerpc64-emb",
+          "linux-image-gke",
+          "linux-image-4.15.0-1070-snapdragon",
+          "linux-image-aws-lts-18.04",
+          "linux-image-4.15.0-74-lowlatency",
+          "linux-image-generic",
+          "linux-image-oem",
+          "linux-image-4.15.0-1053-raspi2",
+          "linux-image-4.15.0-1050-gke",
+          "linux-image-kvm",
+          "linux-image-raspi2",
+          "linux-image-powerpc-smp",
+          "linux-image-4.15.0-1057-aws",
+          "linux-image-generic-lpae",
+          "linux-image-4.15.0-1052-kvm",
+          "linux-image-powerpc64-smp",
+          "linux-image-4.15.0-74-generic-lpae",
+          "linux-image-lowlatency"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.15.0.74.76",
+          "4.15.0.1057.58",
+          "4.15.0.1031.36",
+          "4.15.0-74.84",
+          "4.15.0.1050.53",
+          "4.15.0-1066.76",
+          "4.15.0.1031.36",
+          "4.15.0-1031.34",
+          "4.15.0.74.76",
+          "4.15.0.1070.73",
+          "4.15.0.74.76",
+          "4.15.0.1050.53",
+          "4.15.0-1070.77",
+          "4.15.0.1057.58",
+          "4.15.0-74.84",
+          "4.15.0.74.76",
+          "4.15.0.1066.70",
+          "4.15.0-1053.57",
+          "4.15.0-1050.53",
+          "4.15.0.1052.52",
+          "4.15.0.1053.51",
+          "4.15.0.74.76",
+          "4.15.0-1057.59",
+          "4.15.0.74.76",
+          "4.15.0-1052.52",
+          "4.15.0.74.76",
+          "4.15.0-74.84",
+          "4.15.0.74.76"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-gke",
+          "linux-image-4.15.0-1057-aws",
+          "linux-image-azure-edge",
+          "linux-image-aws-hwe",
+          "linux-image-4.15.0-74-lowlatency",
+          "linux-image-gcp",
+          "linux-image-generic-hwe-16.04",
+          "linux-image-oem",
+          "linux-image-4.15.0-74-generic",
+          "linux-image-lowlatency-hwe-16.04",
+          "linux-image-4.15.0-1066-azure",
+          "linux-image-4.15.0-74-generic-lpae",
+          "linux-image-virtual-hwe-16.04",
+          "linux-image-4.15.0-1031-oracle",
+          "linux-image-oracle",
+          "linux-image-4.15.0-1052-gcp",
+          "linux-image-azure",
+          "linux-image-generic-lpae-hwe-16.04"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.15.0.1052.66",
+          "4.15.0-1057.59~16.04.1",
+          "4.15.0.1066.69",
+          "4.15.0.1057.57",
+          "4.15.0-74.83~16.04.1",
+          "4.15.0.1052.66",
+          "4.15.0.74.94",
+          "4.15.0.74.94",
+          "4.15.0-74.83~16.04.1",
+          "4.15.0.74.94",
+          "4.15.0-1066.71",
+          "4.15.0-74.83~16.04.1",
+          "4.15.0.74.94",
+          "4.15.0-1031.34~16.04.1",
+          "4.15.0.1031.24",
+          "4.15.0-1052.56",
+          "4.15.0.1066.69",
+          "4.15.0.74.94"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14895_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14895.html",
+      "CVE-2019-14896_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14896.html",
+      "CVE-2019-14897_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14897.html",
+      "CVE-2019-14901_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14901.html",
+      "CVE-2019-16231_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-16231.html",
+      "CVE-2019-16233_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-16233.html",
+      "CVE-2019-18660_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18660.html",
+      "CVE-2019-19045_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19045.html",
+      "CVE-2019-19052_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19052.html",
+      "CVE-2019-19083_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19083.html",
+      "CVE-2019-19524_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19524.html",
+      "CVE-2019-19529_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19529.html",
+      "CVE-2019-19534_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19534.html",
+      "CVE-2019-19807_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19807.html",
+      "USN-4227-1": "https://usn.ubuntu.com/4227-1/"
+    },
+    "vuln-long-description": "It was discovered that a heap-based buffer overflow existed in the Marvell\nWiFi-Ex Driver for the Linux kernel. A physically proximate attacker could\nuse this to cause a denial of service (system crash) or possibly execute\narbitrary code. (CVE-2019-14895, CVE-2019-14901)\n\nIt was discovered that a heap-based buffer overflow existed in the Marvell\nLibertas WLAN Driver for the Linux kernel. A physically proximate attacker\ncould use this to cause a denial of service (system crash) or possibly\nexecute arbitrary code. (CVE-2019-14896, CVE-2019-14897)\n\nIt was discovered that the Fujitsu ES network device driver for the Linux\nkernel did not properly check for errors in some situations, leading to a\nNULL pointer dereference. A local attacker could use this to cause a denial\nof service. (CVE-2019-16231)\n\nIt was discovered that the QLogic Fibre Channel driver in the Linux kernel\ndid not properly check for error, leading to a NULL pointer dereference. A\nlocal attacker could possibly use this to cause a denial of service (system\ncrash). (CVE-2019-16233)\n\nAnthony Steinhauser discovered that the Linux kernel did not properly\nperform Spectre_RSB mitigations to all processors for PowerPC architecture\nsystems in some situations. A local attacker could use this to expose\nsensitive information. (CVE-2019-18660)\n\nIt was discovered that the Mellanox Technologies Innova driver in the Linux\nkernel did not properly deallocate memory in certain failure conditions. A\nlocal attacker could use this to cause a denial of service (kernel memory\nexhaustion). (CVE-2019-19045)\n\nIt was discovered that Geschwister Schneider USB CAN interface driver in\nthe Linux kernel did not properly deallocate memory in certain failure\nconditions. A physically proximate attacker could use this to cause a\ndenial of service (kernel memory exhaustion). (CVE-2019-19052)\n\nIt was discovered that the AMD Display Engine Driver in the Linux kernel\ndid not properly deallocate memory in certain error conditions. A local\nattack could use this to cause a denial of service (memory exhaustion).\n(CVE-2019-19083)\n\nIt was discovered that the driver for memoryless force-feedback input\ndevices in the Linux kernel contained a use-after-free vulnerability. A\nphysically proximate attacker could possibly use this to cause a denial of\nservice (system crash) or execute arbitrary code. (CVE-2019-19524)\n\nIt was discovered that the Microchip CAN BUS Analyzer driver in the Linux\nkernel contained a use-after-free vulnerability on device disconnect. A\nphysically proximate attacker could use this to cause a denial of service\n(system crash) or possibly execute arbitrary code. (CVE-2019-19529)\n\nIt was discovered that the PEAK-System Technik USB driver in the Linux\nkernel did not properly sanitize memory before sending it to the device. A\nphysically proximate attacker could use this to expose sensitive\ninformation (kernel memory). (CVE-2019-19534)\n\nTristan Madani discovered that the ALSA timer implementation in the Linux\nkernel contained a use-after-free vulnerability. A local attacker could use\nthis to cause a denial of service (system crash) or possibly execute\narbitrary code. (CVE-2019-19807)\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4227-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4227-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in the Linux kernel.\n"
+  }
+}

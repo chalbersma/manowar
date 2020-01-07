@@ -10,6 +10,7 @@ import logging
 import argparse
 import re
 import datetime
+import json
 
 from urllib.parse import urljoin
 from configparser import ConfigParser
@@ -20,7 +21,10 @@ import requests
 
 # Library doesn't exist
 # import capec
-import audittools.cve_class
+if __name__ in ["__main__", "ubuntu_cve", "redhat_cve"]:
+    from cve_class import mowCVE
+else:
+    from audittools.cve_class import mowCVE
 
 if __name__ == "__main__" :
     parser = argparse.ArgumentParser()
@@ -47,7 +51,7 @@ if __name__ == "__main__" :
 
     LOGGER.debug("Welcome to Ubuntu CVE.")
 
-class mowCVEUbuntu(audittools.cve_class.mowCVE):
+class mowCVEUbuntu(mowCVE):
 
     '''
     Ubuntu CVE Class that Updates mowCVE with Data from CVE
@@ -67,7 +71,7 @@ class mowCVEUbuntu(audittools.cve_class.mowCVE):
         if cve is None:
             raise ValueError("CVE ID Required")
 
-        audittools.cve_class.mowCVE.__init__(self, cve=cve, **kwargs)
+        mowCVE.__init__(self, cve=cve, **kwargs)
 
         '''
         self.description = kwargs.get("description", None)
@@ -241,7 +245,7 @@ if __name__ == "__main__" :
 
     my_usn = mowCVEUbuntu(cve=CVE)
 
-    print(my_usn.comparisons)
+    print(json.dumps(my_usn.summarize(), sort_keys=True, indent=2))
     #print(my_usn.get_severity())
     #print(my_usn.best_numeric_score())
 

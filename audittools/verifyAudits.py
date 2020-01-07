@@ -246,6 +246,13 @@ def verifySingleAudit(auditfile):
                     verified = False
 
             ## Compare buckets
+            total_buckets_check = [bucket for bucket in comparison_object.keys()]
+
+            if len(total_buckets_check) == 0:
+                logger.error("Issue with file {} audit {} 0 Buckets Defined.".format(audit_file_name, section))
+                logger.debug("No Buckets defined in Comparisons.")
+                verified = False
+
             comparison_okay = [bucket for bucket in comparison_object.keys() if bucket not in filter_object.keys()]
             filter_okay = [bucket for bucket in comparison_object.keys() if bucket not in filter_object.keys()]
 

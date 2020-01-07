@@ -14,7 +14,10 @@ import os.path
 import requests
 import yaml
 
-from audittools.verifyAudits import verifySingleAudit
+if __name__ == "__main__" or __name__ == "audit_source":
+    from verifyAudits import verifySingleAudit
+else:
+    from audittools.verifyAudits import verifySingleAudit
 
 class AuditSource:
 
@@ -154,9 +157,3 @@ class AuditSource:
                 written = [True, "File written to {}".format(audit_file)]
 
         return written
-
-
-
-
-
-

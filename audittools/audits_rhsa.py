@@ -62,6 +62,7 @@ class AuditSourceRHSA(AuditSource):
 
     __rhsa_regex = r"[Rr][Hh][Ss][Aa]-\d{4}\:\d{1,6}"
     __redhat_security_endpoint = "https://access.redhat.com/hydra/rest/securitydata/cvrf/"
+    __redhat_oval_endpoint = "https://access.redhat.com/hydra/rest/securitydata/oval/"
 
     __epoch_regex = "^(\d)\:"
     __el_regex = "^(\S+)\.el(\d{0,2})"
@@ -80,6 +81,7 @@ class AuditSourceRHSA(AuditSource):
         self.rhsa_comparisons = dict()
 
         self.rhsa_data = self.get_rhsa_data()
+        self.oval_data = self.get_oval_data()
 
         self.populate_audit()
 
@@ -90,7 +92,7 @@ class AuditSourceRHSA(AuditSource):
         parent function.
         '''
 
-        self.audit_name = self.rhsa_data["cvrfdoc"]["document_title"]
+        self.audit_name = self.source_key
 
 
         self.audit_data = {**self.audit_data,
@@ -162,51 +164,101 @@ class AuditSourceRHSA(AuditSource):
 
                 if "cve" in this_vuln.keys():
                     this_cve = mowCVERedHat(cve=this_vuln["cve"])
-
-                    self.logger.debug(this_cve.rh_cust_package_fixed)
-
-                    if self.source_key in this_cve.rh_cust_package_fixed.keys():
-                        for package_string in this_cve.rh_cust_package_fixed[self.source_key]:
-
-                            try:
-                                cve_split = self.break_package_release(package_string, extended=False)
-                            except Exception as cve_package_parse_error:
-                                self.logger.error("From CVE {} Found Package {} that has a parse error.".format(this_cve.cve_id,
-                                                                                                                package_string))
-                                self.logger.debug("From CVE {} Found Package {} that has a parse error {}.".format(this_cve.cve_id,
-                                                                                                                   package_string))
-                            else:
-                                self.insert_into_matrix(**cve_split)
-
+                    rhsa_data["RHCVE : {}".format(this_cve.cve_id)] = this_cve.primary_reference
 
                 for this_product_vuln in this_vuln["product_statuses"]["status"]["product_id"]:
-
-                    if this_vuln["product_statuses"]["status"]["type"] == "Fixed":
-                        # This is a Fixed Vuln
-
-                        try:
-                            i_split = self.break_package_release(this_product_vuln, extended=True)
-                        except Exception as parse_error:
-                            self.logger.error("Not parsing {} as I ran into an issue.".format(this_product_vuln))
-                            self.logger.info("Error {} when parsing {}".format(parse_error, this_product_vuln))
-                        else:
-                            # I split it well let's put it in the buckets/keys
-
-                            self.insert_into_matrix(**i_split)
-
-                    else:
-                        self.logger.warning("Ignoring Product {} as it's not listed as fixed.".format(this_product_vuln))
-
 
                     this_prioirty = this_vuln.get("threats", dict()).get("ordinal", 0)
                     if this_prioirty > highest_priority:
                         highest_priority = this_priority
 
-            rhsa_data["filters"] = filters
-            rhsa_data["comparisons"] = comparisons
             rhsa_data["highest_priority"] = highest_priority
 
         return rhsa_data
+
+    def get_oval_data(self):
+
+        '''
+        Gets the OVAL data for this Finding
+        '''
+
+        endpoint = "{}{}.json".format(self.__redhat_oval_endpoint, self.source_key)
+
+        oval_data = {"has_oval" : False}
+
+        try:
+            self.logger.debug("Requesting {} URL of {}".format(self.source_key, endpoint))
+            response = requests.get(endpoint)
+        except Exception as get_oval_url_error:
+            self.logger.error("Error when Requesting OVAL data for RHSA {}".format(self.source_key))
+            self.logger.info("Error for RHSA OVAL Request : {}".format(get_hrsa_url_error))
+        else:
+            if response.status_code == requests.codes.ok:
+                # Good Data
+                oval_data["data"] = response.json()
+                if oval_data["data"].get("message", None) == "Not Found":
+                    oval_data["has_oval"] = False
+                    self.logger.warning("RHSA {} has no OVAL data for this valid RHSA.".format(self.source_key))
+                else:
+                    oval_data["has_oval"] = True
+
+            elif response.status_code == 404:
+                self.logger.warning("RHSA {} has no OVAL data.".format(self.source_key))
+            else:
+                self.logger.error("RHSA {} unable to Query for RHSA Recieved {}".format(self.source_key, response.status_code))
+
+        finally:
+
+            if oval_data["has_oval"] is True:
+
+                self.logger.debug("RHSA {} has Oval Data.".format(self.source_key))
+
+                # " packages -> releases -> comparisons "
+                versions_matrix = dict()
+
+                for oval_comparison in oval_data["data"]["oval_definitions"]["states"].get("rpminfo_state", list()):
+                    self.logger.debug("Found oval comparison thing for Comparsion named : {}".format(oval_comparison["id"]))
+                    versions_matrix[oval_comparison["id"]] = oval_comparison
+
+                    if "evr" not in oval_comparison:
+                        # It's really just useless to me.
+                        versions_matrix[oval_comparison["id"]]["isversion"] = False
+                    else:
+                        versions_matrix[oval_comparison["id"]]["isversion"] = True
+
+                package_matrix = dict()
+
+                for package_obj in oval_data["data"]["oval_definitions"]["objects"].get("rpminfo_object", list()):
+                    self.logger.debug("Found oval for RPM Package named : {}".format(package_obj["name"]))
+                    package_matrix[package_obj["id"]] = package_obj
+
+                # Testing Comprehension
+                for oval_test in oval_data["data"]["oval_definitions"]["tests"].get("rpminfo_test", list()):
+                    self.logger.debug("Found oval for Test Case : {}".format(oval_test["id"]))
+
+                    test_id = oval_test["id"]
+                    tested_thing_id = oval_test["object"]["object_ref"]
+                    case_covered_id = oval_test["state"]["state_ref"]
+
+                    if versions_matrix[case_covered_id]["isversion"] is True:
+                        # We Use it
+                        self.logger.debug("Adding Comparison for OVAL ID {}".format(test_id))
+                        i_split = self.break_package_release(extended=False,
+                                                            package_name=package_matrix[tested_thing_id]["name"],
+                                                            package_version=versions_matrix[case_covered_id]["evr"])
+
+                        self.logger.debug("ISplit Found : {}".format(i_split))
+
+                        # I have my Split let's add it
+                        self.insert_into_matrix(**i_split)
+
+                    else:
+                        self.logger.debug("Oval Test {} Isn't useful to us. Ignoring.".format(test_id))
+
+            else:
+                self.logger.debug("RHSA {} has no Oval Data but is a valid RHSA".format(self.source_key))
+
+        return oval_data
 
     def insert_into_matrix(self, bucket_name=None, release_number=None, package=None, version=None, **kwargs):
 
@@ -251,7 +303,7 @@ class AuditSourceRHSA(AuditSource):
 
         return
 
-    def break_package_release(self, package_text, extended=True):
+    def break_package_release(self, package_text=None, extended=True, **kwargs):
 
         '''
         Takes a package text like : 7Server-7.6.EUS:kpatch-patch-3_10_0-957_38_1-0:1-3.el7 or kernel-2.6.32-754.24.2.el6
@@ -267,47 +319,59 @@ class AuditSourceRHSA(AuditSource):
 
             fixed_product = ":".join(package_text.split(":")[1:])
         else:
-
             application_stream = "ns"
+            # This will be none if I've given explicit package name and package version information
             fixed_product = package_text
 
-        product_regex = re.match(self.__el_regex, str(fixed_product))
+        if kwargs.get("package_name", None) is None and kwargs.get("package_version", None) is None:
+            # I have a package_text with package-version<bits>
+            product_regex = re.match(self.__el_regex, str(fixed_product))
 
-        if product_regex is not None:
-            release_number = int(product_regex.group(2))
-            package_n_version = product_regex.group(1)
+            if product_regex is not None:
+                release_number = int(product_regex.group(2))
+                package_n_version = product_regex.group(1)
 
-        self.logger.debug("Found Package for Release {} : {}".format(release_number, package_n_version))
+            self.logger.debug("Found Package for Release {} : {}".format(release_number, package_n_version))
 
-        # Split Package Name from Version
-        pnv_array = package_n_version.split("-")
+            # Split Package Name from Version
+            pnv_array = package_n_version.split("-")
 
-        for chunk_index in range(1, len(pnv_array)-1):
-            if pnv_array[chunk_index][0].isdigit():
-                # This is the chunk that starts the version
-                package = "-".join(pnv_array[:chunk_index])
-                full_version = "-".join(pnv_array[chunk_index:])
-                best_version = full_version
+            for chunk_index in range(1, len(pnv_array)-1):
+                if pnv_array[chunk_index][0].isdigit():
+                    # This is the chunk that starts the version
+                    package = "-".join(pnv_array[:chunk_index])
+                    full_version = "-".join(pnv_array[chunk_index:])
+        else:
+            # I was given package and version split
+            package = kwargs["package_name"]
 
+            product_regex = re.match(self.__el_regex, str(kwargs["package_version"]))
 
-                if re.match(self.__epoch_regex, full_version) is not None:
-                    best_version = full_version.split(":")[1]
-                    epoch = full_version.split(":")[0]
-                else:
-                    epoch = None
-
-                if len(best_version.split("-")) == 2:
-                    version_release = best_version.split("-")[1]
-                    best_version = best_version.split("-")[0]
-                else:
-                    version_release = None
-
-                break
+            if product_regex is not None:
+                release_number = int(product_regex.group(2))
+                # Since I was given it split, I don't have to worry about understanding the package
+                # vs. Version split. I can go straight to full_version
+                full_version = product_regex.group(1)
 
 
+        # Okay Now let's handle Version stuff.
+        best_version = full_version
+
+        # Let's see if I have an epoch, if so let's handle that
+        if re.match(self.__epoch_regex, full_version) is not None:
+            best_version = full_version.split(":")[1]
+            epoch = full_version.split(":")[0]
+        else:
+            epoch = None
+
+        # Strip out Release Information if it exists
+        if len(best_version.split("-")) == 2:
+            version_release = best_version.split("-")[1]
+            best_version = best_version.split("-")[0]
+        else:
+            version_release = None
 
         bucket_name = "{}-bucket".format(release_number)
-
 
         return_data = {"application_stream" : application_stream,
                        "bucket_name" : bucket_name,
@@ -326,11 +390,15 @@ if __name__ == "__main__" :
 
     my_rhsa = AuditSourceRHSA(source_key=RHSA)
 
-    #validated = my_usn.validate_audit_live()
+    if my_rhsa.oval_data["has_oval"] is True:
 
-    #LOGGER.info("validated : {}".format(validated))
+        validated = my_rhsa.validate_audit_live()
 
-    print(json.dumps(my_rhsa.return_audit(), indent=2, sort_keys=True))
+        LOGGER.info("validated : {}".format(validated))
+
+        print(json.dumps(my_rhsa.return_audit(), indent=2, sort_keys=True))
+    else:
+        print(json.dumps({"no_audit" : True}, indent=2, sort_keys=True))
 
 
 

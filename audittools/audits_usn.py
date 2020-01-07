@@ -16,8 +16,12 @@ import re
 
 import requests
 
-import audittools.audit_source
-import audittools.ubuntu_cve
+if __name__ == "__main__":
+    from audit_source import AuditSource
+    from ubuntu_cve import mowCVEUbuntu
+else:
+    from audittools.audit_source import AuditSource
+    from audittools.ubuntu_cve import mowCVEUbuntu
 
 
 
@@ -54,7 +58,7 @@ if __name__ == "__main__" :
 
     LOGGER.debug("Welcome to Audits USN.")
 
-class AuditSourceUSN(audittools.audit_source.AuditSource):
+class AuditSourceUSN(AuditSource):
 
     '''
     Implements a Public AuditSource object for Ubuntu Security Notices
@@ -69,7 +73,7 @@ class AuditSourceUSN(audittools.audit_source.AuditSource):
     def __init__(self, **kwargs):
 
         # Run My Parent Init Function
-        audittools.audit_source.AuditSource.__init__(self, **kwargs)
+        AuditSource.__init__(self, **kwargs)
 
         self.cachefile = kwargs.get("cachefile", self.__default_cachefile)
         self.cacheage = kwargs.get("cacheage", self.__default_cacheage)
@@ -150,7 +154,7 @@ class AuditSourceUSN(audittools.audit_source.AuditSource):
 
             for cve_string in usn_data["cves"]:
                 try:
-                    this_cve_obj = audittools.ubuntu_cve.mowCVEUbuntu(cve=cve_string)
+                    this_cve_obj = mowCVEUbuntu(cve=cve_string)
                 except ValueError as cve_parse_error:
                     self.logger.warning("Ignoring CVE of : {}".format(cve_string))
 
@@ -193,15 +197,18 @@ class AuditSourceUSN(audittools.audit_source.AuditSource):
 
             bucket_name = "{}-bucket".format(this_release)
 
-            filters[bucket_name] = {"filter-collection-type" : ["os", "release"],
-                                    "filter-collection-subtype" : ["default", "default"],
-                                    "filter-match-value" : ["Ubuntu", this_release],
-                                    "filter-match" : "is"}
+            if bucket_name not in filters.keys():
 
-            comparisons[bucket_name] = {"comparison-collection-type" : list(),
-                                        "comparison-collection-subtype" : list(),
-                                        "comparison-match-value" : list(),
-                                        "comparison-match" : "aptge"}
+                # Populate Blank Buckets/Comparisons
+                filters[bucket_name] = {"filter-collection-type" : ["os", "release"],
+                                        "filter-collection-subtype" : ["default", "default"],
+                                        "filter-match-value" : ["Ubuntu", this_release],
+                                        "filter-match" : "is"}
+
+                comparisons[bucket_name] = {"comparison-collection-type" : list(),
+                                            "comparison-collection-subtype" : list(),
+                                            "comparison-match-value" : list(),
+                                            "comparison-match" : "aptge"}
 
             for package in self.usn_data["releases"][this_release]["binaries"].keys():
                 # For Each Package populate it's relevant comparison
