@@ -11,6 +11,7 @@ import feedparser
 import pyjq
 
 import audittools.audits_usn
+import audittools.audits_rhsa
 
 
 _known_feeds = {"usn" : {"url" : "https://usn.ubuntu.com/usn/atom.xml",
@@ -20,7 +21,16 @@ _known_feeds = {"usn" : {"url" : "https://usn.ubuntu.com/usn/atom.xml",
                          "update_existing" : False,
                          "audit_source_obj" : audittools.audits_usn.AuditSourceUSN,
                          "format" : "json"
-                        }
+                        },
+                "rhsa" : {"url" : "https://linuxsecurity.com/advisories/red-hat?format=feed&type=rss",
+                          "subdir": "redhat_rhsa",
+                          "jq_obj_source_key" : ".title",
+                          "regex_obj_source_key" : r"^RedHat: (RHSA-\d{4}-\d{1,4})",
+                          "regex_obj_replace" : [r"(RHSA-\d{4})-(\d{1,4})", r"\1:\2"],
+                          "update_existing" : False,
+                          "audit_source_obj" : audittools.audits_rhsa.AuditSourceRHSA,
+                          "format" : "json"
+                         }
                }
 
 
@@ -102,7 +112,6 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
         logger.error("Unable to Read RSS Feed Returning Empty")
         feed_obj = {"entries" : list()}
 
-
     if len(feed_obj["entries"]) == 0:
         logger.warning("No Entries in Given URL.")
     else:
@@ -110,6 +119,7 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
         current_num = 0
 
         for entry in feed_obj["entries"]:
+            logger.debug("Entry : {}".format(entry))
             current_num = current_num + 1
 
             best_source_key = None
@@ -132,6 +142,16 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
 
             logger.debug("Best Source key After Regex : {}".format(best_source_key))
 
+            if "regex_obj_replace" in feed_config.keys():
+
+                regex_replace = re.sub(*[*feed_config["regex_obj_replace"], str(best_source_key)])
+
+                if regex_replace is not None:
+                    best_source_key = regex_replace
+
+            logger.debug("Best Source key After Replace : {}".format(best_source_key))
+
+
 
 
             if best_source_key is not None and len(best_source_key) > 0:
@@ -143,31 +163,35 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
 
                 as_args = list()
 
-                as_obj = feed_config["audit_source_obj"](*as_args, **as_kwargs)
+                try:
 
-                if as_obj.validate_audit_live() is True:
-
-                    # See if File Exists
-                    if as_obj.audit_file_exists() is False:
-                        # Add to Object
-                        if confirm is False:
-                            logger.info("Audit {} File Not Written to {} Confirm not Set.".format(best_source_key, as_obj.audit_filename))
-                            audit_source_items[best_source_key] = ["False", "Confirm not Set"]
-                        else:
-                            logger.info("Audit {} Writing to {}.".format(best_source_key, as_obj.audit_filename))
-
-                            audit_source_items[best_source_key] = as_obj.write_audit(file_format=feed_config["format"])
-                    else:
-                        logger.info("Audit File {} Has existing File.".format(best_source_key))
-                        audit_source_items[best_source_key] = [False, "Pre-Existing File."]
+                    as_obj = feed_config["audit_source_obj"](*as_args, **as_kwargs)
+                except Exception as audit_source_error:
+                    logger.error("Unable to Pull Audit {}.".format(best_source_key))
+                    logger.debug("Pull Error : {}".format(audit_source_error))
+                    audit_source_items[best_source_key] = [False, "Error on Creation."]
                 else:
-                    logger.warning("Audit Finding for Source {} Not Valid.".format(best_source_key))
-                    audit_source_items[best_source_key] = [False, "Invalid Audit on Creation"]
+                    if as_obj.validate_audit_live() is True:
+
+                        # See if File Exists
+                        if as_obj.audit_file_exists() is False:
+                            # Add to Object
+                            if confirm is False:
+                                logger.info("Audit {} File Not Written to {} Confirm not Set.".format(best_source_key, as_obj.audit_filename))
+                                audit_source_items[best_source_key] = ["False", "Confirm not Set"]
+                            else:
+                                logger.info("Audit {} Writing to {}.".format(best_source_key, as_obj.audit_filename))
+
+                                audit_source_items[best_source_key] = as_obj.write_audit(file_format=feed_config["format"])
+                        else:
+                            logger.info("Audit File {} Has existing File.".format(best_source_key))
+                            audit_source_items[best_source_key] = [False, "Pre-Existing File."]
+                    else:
+                        logger.warning("Audit Finding for Source {} Not Valid.".format(best_source_key))
+                        audit_source_items[best_source_key] = [False, "Invalid Audit on Creation"]
 
             else:
                 logger.warning("No Source Key found for Entry : {}".format(entry["id"]))
-
-
 
             if max_audit is not None and max_audit != -1 and current_num > (max_audit - 1):
                 logger.info("Reached Maximum of {} Audits Processed.".format(current_num))
