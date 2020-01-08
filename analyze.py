@@ -88,7 +88,7 @@ def analyze(CONFIGDIR, CONFIG):
         sys.exit('Bad configuration file {} {}'.format(CONFIG, general_config_error))
     else:
         # DB Config Items
-        db_config_items=dict()
+        db_config_items = dict()
         for section in config:
             if section in ["database"] :
                 for item in config[section]:

@@ -1,0 +1,46 @@
+[DEFAULT]
+
+#
+# Sample Yoyo Configuration file
+# Big thing is to replace the database parameter with
+# the location of your databasredentials
+#
+
+sources = %(here)s/migrations
+
+# Target Database
+database = mysql://administrator:administrator@localhost/manowar2
+
+# Verbosity
+verbosity = 3
+
+# Batch Mode
+batch_mode = on
+
+[manowar]
+# Require an Encrypted connection. Useful if using TLS encryption in transit
+# with an RDS instance as you can force an encrypted connection
+# Options are NONE, SSL or X509 you'll have to do custom work to make
+# Certificate auth work (or just request it and I'll hack on it)
+req_enc = SSL
+
+# User for API that does most of everything nowadays.
+# In the future almost everything should go through this
+# and the anayze user
+api_username = manowar
+#api_password = replaceme
+api_hostmask = %
+
+# This is for the old SSH collector system. In the future
+# This should get replaced with either an SSH collector that
+# uses the api or manowar_agent directly
+store_username = manowar_store
+#store_password = replaceme
+store_hostmask = %
+
+# User for the analyze audit processes
+# Seperates out the two for better splitting of things.
+# Mainly read
+analyze_username = manowar_store
+#analyze_password = replaceme
+analyze_hostmask = %

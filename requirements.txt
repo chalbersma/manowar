@@ -14,3 +14,4 @@ cvss
 cpe
 feedparser
 pyjq
+yoyo-database-migrations
