@@ -11,12 +11,10 @@ schema_success=$?
 
 echo -e "Copying Yoyo Travis Config"
 
-ls -l
-
-cp -v ./travis/artifacts/yoyo.ini ./yoyo_migrations/
+cp -v ./travis/artifacts/yoyo.ini ./yoyo_steps/
 
 echo -e "Using Yoyo Travis Configs"
 
-cd yoyo_migrations
+cd ./yoyo_steps
 
 yoyo apply
