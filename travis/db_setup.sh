@@ -11,6 +11,8 @@ schema_success=$?
 
 echo -e "Copying Yoyo Travis Config"
 
+file ./travis/artifacts/yoyo.ini
+
 cp -v ./travis/artifacts/yoyo.ini ./yoyo_steps/
 
 echo -e "Using Yoyo Travis Configs"
