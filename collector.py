@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     # Set paramiko_host
 
-def collector(HOST, CONFIG, USERNAME, KEYFILE, POP, SRVTYPE, UBERID, STATUS, IPV4, IPV6):
+def collector(HOST, CONFIG, USERNAME, KEYFILE, POP, SRVTYPE, UBERID, STATUS, IPV4, IPV6, **kwargs):
 
     '''
     Main Function for Collector. Calling this with the right variable should allow you to utilize
