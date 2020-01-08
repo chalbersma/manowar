@@ -13,7 +13,7 @@ notifications:
 before_script:
 - "./travis/pre_build.sh"
 - export DEBIAN_FRONTEND=noninteractive; sudo -E apt-get -y  install python3-pip python-dev
-  shellcheck mariadb-server mariadb-client jq openjdk-7-jre graphviz openssh-server
+  shellcheck mariadb-server mariadb-client jq openjdk-8-jre graphviz openssh-server
 - "./travis/ssh_setup.sh"
 - "./travis/db_setup.sh"
 - sudo pip3 install --upgrade setuptools
