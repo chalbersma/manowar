@@ -1,0 +1,33 @@
+---
+global:
+  jellyfish_version: 4
+webserver:
+  bindaddress: 127.0.0.1
+  accesslink: http://localhost:5000
+  port: 5000
+database:
+  dbhostname: localhost
+  dbusername: manowar
+  dbpassword: longshittypassword_api
+  dbport: 3306
+  dbdb: manowar2
+v2api:
+  root: /v2
+  preroot: /jellyfish
+  cachelocation: /opt/manowar/cache
+  cachelocation: /home/travis/build/chalbersma/manowar/travis/cache
+v2ui:
+  root: /display/v2
+  preroot: /jellyfish
+#tokenmgmt:
+#  vt_types:
+#    - sapi
+#    - robot
+#    - ipintel
+#sapi:
+#  collection_config: /etc/manowar/collector.ini
+#  puthost_schema: /etc/manowar/jellyfish_storage.json.schema
+#  extendhost_schema: /etc/manowar/jellyfish_extension_schema.json.schema
+#  storageconfig: /etc/manowar/storage.ini
+#  storagemaxchars: 255
+
