@@ -13,6 +13,7 @@ python_files=$(find . -type d  -wholename ./jelly_api -prune -o \
                     -type d -wholename ./lib -prune -o \
                     -type f -regex ".*\.py$")
 
+bandit_failure="pass"
 for file in ${python_files} ; do
   this_temp=$(mktemp /tmp/banditout.XXXXX)
   bandit "${file}" > "${this_temp}"
@@ -20,7 +21,7 @@ for file in ${python_files} ; do
   if [[ ${this_file_good} -gt 0 ]] ; then
     echo -e "BANDIT: ${file} had issues please investigate."
     cat "${this_temp}"
-    exit 1
+    failure="fail"
   else
     echo -e "BANDIT: ${file} good."
   fi
@@ -34,6 +35,13 @@ for file in ${python_files} ; do
   #fi
 
 done
+
+if [[ $bandit_failure == "fail" ]] ; then
+  echo -e "Bandit Failures Detected"
+  exit 1
+else
+  echo -e "Bandit Checks Passed"
+fi
 
 bash_files=$(find . -type d -wholename ./lib -prune -o \
              -type d -wholename ./setup -prune -o \
