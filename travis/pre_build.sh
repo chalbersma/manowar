@@ -8,7 +8,7 @@ echo -e "Enabling Trusty Backports for Shellcheck"
 
 echo -e "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse" | sudo tee /etc/apt/sources.list.d/backports.list
 
-echo -e "Enabling Mariadb 10.2 Repo"
+echo -e "Enabling Mariadb 10.4 Repo"
 
 sudo apt-get install software-properties-common
 
