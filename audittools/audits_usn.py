@@ -13,6 +13,7 @@ import os
 import os.path
 import time
 import re
+import tempfile
 
 import requests
 
@@ -31,7 +32,7 @@ if __name__ == "__main__" :
     parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
     parser.add_argument("--nocache", action="store_true", help="Don't use local usn_db.json")
     parser.add_argument("--cacheage", default=21600, help="How long (in seconds) to accept local usn_db.json file default 6 hours 21600 seconds")
-    parser.add_argument("--cachefile", default="/tmp/usn_db.json", help="Location of Cachefile default /tmp/usn_db.json")
+    parser.add_argument("--cachefile", default=None, help="Use this if you want to cache the db.json between runs")
     parser.add_argument("-o", "--output", default=False, help="File to output to")
     parser.add_argument("-p", "--print", action="store_true", help="Print Audit to Screen")
     parser.add_argument("-u", "--usn", required=True)
@@ -67,7 +68,7 @@ class AuditSourceUSN(AuditSource):
     __usn_regex = "[Uu][Ss][Nn]-\d{4}-\d{1}"
     __usn_url = "https://usn.ubuntu.com/usn-db/database.json"
 
-    __default_cachefile = "/tmp/usn_db.json"
+    __default_cachefile = None
     __default_cacheage = 21600
 
     def __init__(self, **kwargs):
@@ -77,6 +78,7 @@ class AuditSourceUSN(AuditSource):
 
         self.cachefile = kwargs.get("cachefile", self.__default_cachefile)
         self.cacheage = kwargs.get("cacheage", self.__default_cacheage)
+        self.cachedata = None
 
         # Confirm I have a USN
         if re.match(self.__usn_regex, self.source_key) is None:
@@ -124,11 +126,15 @@ class AuditSourceUSN(AuditSource):
 
         usn_num = "-".join(self.source_key.split("-")[1:])
 
-        with open(self.cachefile) as cachefile_obj:
-            try:
-                all_data = json.load(cachefile_obj)
-            except Exception as json_fomat_error:
-                self.logger.error("JSON Formatting Error, Try removing Cache file.")
+        if self.cachedata is None:
+            with open(self.cachefile) as cachefile_obj:
+                try:
+                    all_data = json.load(cachefile_obj)
+                except Exception as json_fomat_error:
+                    self.logger.error("JSON Formatting Error, Try removing Cache file.")
+        else:
+            self.logger.debug("Cachedata not loaded from file, already have in memory.")
+            all_data = self.cachedata
 
         try:
             usn_data = all_data[usn_num]
@@ -230,47 +236,58 @@ class AuditSourceUSN(AuditSource):
 
         get_file = False
 
-        if os.path.isfile(self.cachefile):
-            file_create_time = os.path.getmtime(self.cachefile)
+        if self.cachefile is not None:
 
-            time_left = file_create_time - (now - self.cacheage)
+            if os.path.isfile(self.cachefile):
+                file_create_time = os.path.getmtime(self.cachefile)
 
-            self.logger.info("File has {} Seconds before expiration.".format(time_left))
+                time_left = file_create_time - (now - self.cacheage)
 
-            if time_left <= 0:
-                self.logger.info("File {} seconds {} too old. Pulling New Version.".format(abs(time_left), self.cachefile))
+                self.logger.info("File has {} Seconds before expiration.".format(time_left))
 
-                get_file = True
+                if time_left <= 0:
+                    self.logger.info("File {} seconds {} too old. Pulling New Version.".format(abs(time_left), self.cachefile))
 
+                    get_file = True
+
+                else:
+                    self.logger.debug("File {} new enough. {} seconds left.".format(self.cachefile, time_left))
             else:
-                self.logger.debug("File {} new enough. {} seconds left.".format(self.cachefile, time_left))
+                self.logger.debug("File {} missing. Pulling it.".format(self.cachefile))
+                get_file = True
         else:
-            self.logger.debug("File {} missing. Pulling it.".format(self.cachefile))
+            self.logger.debug("Not cacheing results to disk.")
             get_file = True
 
 
         if get_file is True:
 
-            with open(self.cachefile, "wb") as new_cachefile:
-                try:
-                    response = requests.get(self.__usn_url)
-                except Exception as get_json_error:
-                    self.logger.error("Unable to Get usn db with error : {}".format(get_json_error))
-                    raise get_json_error
+            try:
+                response = requests.get(self.__usn_url)
+            except Exception as get_json_error:
+                self.logger.error("Unable to Get usn db with error : {}".format(get_json_error))
+                raise get_json_error
+            else:
+                if response.status_code == requests.codes.ok:
+                    self.logger.info("Writing new Cache File.")
+
+                    if self.cachefile is not None:
+                        self.logger.info("Persistent Cache File Requested, utilizing")
+                        with open(self.cachefile, "wb") as new_cachefile:
+                            new_cachefile.write(response.content)
+
+                    self.cachedata = response.json()
+
                 else:
-                    if response.status_code == requests.codes.ok:
-                        self.logger.info("Writing new Cache File.")
-                        new_cachefile.write(response.content)
-                    else:
-                        self.logger.error("Error getting DB. HTTP Response Code {}".format(response.status_code))
-                        raise ValueError("Response {} Recieved".format(respone.status_code))
-                finally:
-                    self.logger.debug("New Cache File Written.")
+                    self.logger.error("Error getting DB. HTTP Response Code {}".format(response.status_code))
+                    raise ValueError("Response {} Recieved".format(respone.status_code))
+            finally:
+                self.logger.debug("Upstream Data Acquired.")
 
 
 if __name__ == "__main__" :
 
-    my_usn = AuditSourceUSN(source_key=USN)
+    my_usn = AuditSourceUSN(source_key=USN, cachefile=CACHEFILE, cacheage=CACHEAGE)
 
     validated = my_usn.validate_audit_live()
 

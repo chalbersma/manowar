@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
 
+'''
+Given an RSS Feed of Vulnerability Intelligence
+Utilize an audit source object and some generic regex/jq rules
+to build and store an audit for that bit of intel.
+'''
+
 import argparse
 import os
 import os.path
 import logging
 import re
 import json
+import sys
 
 import feedparser
 import pyjq
@@ -20,6 +27,8 @@ _known_feeds = {"usn" : {"url" : "https://usn.ubuntu.com/usn/atom.xml",
                          "regex_obj_source_key" : r"(USN-\d{1,4}-\d{1,2})",
                          "update_existing" : False,
                          "audit_source_obj" : audittools.audits_usn.AuditSourceUSN,
+                         "audit_source_kwargs" : {"cachefile" : "/tmp/usn_db.json", #nosec
+                                                  "cacheage" : 21600},
                          "format" : "json"
                         },
                 "rhsa" : {"url" : "https://linuxsecurity.com/advisories/red-hat?format=feed&type=rss",
@@ -34,7 +43,7 @@ _known_feeds = {"usn" : {"url" : "https://usn.ubuntu.com/usn/atom.xml",
                }
 
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     #parser.add_argument("-v", "--verbose", action='store_true', help="Turn on Verbosity")
     parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
@@ -110,6 +119,7 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
         feed_obj = feedparser.parse(feed_config["url"])
     except Exception as feed_read_error:
         logger.error("Unable to Read RSS Feed Returning Empty")
+        logger.debug("Feed Read Error : {}".format(feed_read_error))
         feed_obj = {"entries" : list()}
 
     if len(feed_obj["entries"]) == 0:
@@ -158,10 +168,11 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
 
                 as_kwargs = {"source_key" : best_source_key,
                              "audit_filename" : "{}.{}".format(best_source_key, feed_config["format"]),
-                             "audit_path" : this_path
+                             "audit_path" : this_path,
+                             **feed_config.get("audit_source_kwargs", dict())
                             }
 
-                as_args = list()
+                as_args = [*feed_config.get("audit_source_args", list())]
 
                 try:
 
@@ -199,7 +210,7 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
 
     return audit_source_items
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
 
     # Run the Thing
     results = feed_create(FEED, basedir=BASEDIR, confirm=CONFIRM, max_audit=MAX)
