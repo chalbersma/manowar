@@ -25,7 +25,7 @@ fi
 
 hostcollection_test="$(mktemp /tmp/hctest.XXXXX)"
 # Test that it landed properly. Grab the results for host #1
-sudo bash -c "mysql jellyfish2 -u root < travis/artifacts/test_hostcollection.sql > ${hostcollection_test} "
+sudo bash -c "mysql manowar2 -u root < travis/artifacts/test_hostcollection.sql > ${hostcollection_test} "
 
 didit=$?
 
@@ -50,7 +50,7 @@ fi
 ip_intel_test="$(mktemp /tmp/ipintel.XXXXX)"
 
 # Test that it landed properly. Grab the results for host #1
-sudo bash -c "mysql jellyfish2 -u root < travis/artifacts/test_ipintel.sql > ${ip_intel_test} "
+sudo bash -c "mysql manowar2 -u root < travis/artifacts/test_ipintel.sql > ${ip_intel_test} "
 
 didit_ipintel=$?
 
