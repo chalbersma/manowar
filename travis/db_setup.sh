@@ -3,10 +3,8 @@
 set -x
 
 ## Setup DB Schema
-sudo mysql -u root -e "show full processlist;"
-sudo mysql -u root -e "show variables;"
+sudo mysql -u root -e "create database manowar2;"
 
-sudo bash -c "mysql -u root < echo create database manowar2"
 schema_success=$?
 
 echo -e "Copying Yoyo Travis Config"
