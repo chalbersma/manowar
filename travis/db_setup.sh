@@ -20,3 +20,5 @@ echo -e "Using Yoyo Travis Configs"
 cd ./yoyo_steps
 
 yoyo apply
+
+yoyo showmigrations
