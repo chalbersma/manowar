@@ -10,7 +10,10 @@ sudo bash -c "mysql -u root < echo create database manowar2"
 schema_success=$?
 
 echo -e "Copying Yoyo Travis Config"
-cp -v travis/artifacts/yoyo.ini yoyo_migrations/
+
+ls -l
+
+cp -v ./travis/artifacts/yoyo.ini ./yoyo_migrations/
 
 echo -e "Using Yoyo Travis Configs"
 
