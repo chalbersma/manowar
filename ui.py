@@ -19,6 +19,7 @@ import base64
 from flask import Flask, current_app, g, request, render_template, abort
 from flask_cors import CORS, cross_origin
 import pymysql
+import yaml
 
 from tokenmgmt import validate_key
 from canonical_cve import shuttlefish
@@ -64,28 +65,11 @@ def ui(CONFIG, FDEBUG):
     logger = logging.getLogger("ui.ui")
 
     try:
-        # Read Our INI with our data collection rules
-        config = ConfigParser()
-        config.read(CONFIG)
-        # Debug
-        #for i in config :
-            #for key in config[i] :
-                #print (i, "-", key, ":", config[i][key])
-    except Exception as e: # pylint: disable=broad-except, invalid-name
-        sys.exit('Bad configuration file {}'.format(e))
-
-
-
-    # Grab me Collections Items Turn them into a Dictionary
-    config_items = dict()
-
-    # Collection Items
-    for section in config:
-        config_items[section] = dict()
-        for item in config[section]:
-            config_items[section][item] = config[section][item]
-
-
+        with open(CONFIG) as yaml_config:
+            config_items = yaml.safe_load(yaml_config)
+    except Exception as yaml_error: # pylint: disable=broad-except, invalid-name
+        logger.debug("Error when reading yaml config {} ".format(yaml_error))
+        sys.exit("Bad configuration file {}".format(CONFIG))
 
     logger.debug("Configuration Items: {}".format(config_items))
 
