@@ -4,7 +4,7 @@
 
 Setting up the database has been reworked to utilize
 [yoyo](https://marcosschroh.github.io/yoyo-database-migrations/). You need a
-modern mariadb Database (10.x and higher) available to you named `manowar2` and
+modern mariadb Database (10.2 and higher) available to you named `manowar2` and
 and administraive user.
 
 Then in the `yoyo_steps` directory you need to create a `yoyo.ini` file (see the
