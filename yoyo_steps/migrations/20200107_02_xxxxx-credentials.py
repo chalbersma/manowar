@@ -56,22 +56,22 @@ logger = logging.getLogger("yoyo-credentials Step")
 
 logger.info("Finding Configuration File yoyo.ini")
 
-LOGGER.debug("No Config File Given Let's Look in Default Locations.")
-
 possible_config_files =  ["/etc/manowar/manoward.yaml", "./etc/manowar/manoward.yaml", "/usr/local/etc/manowar/manoward.yaml"]
 
 if os.environ.get("TRAVIS", None) is not None:
     logger.info("In a Travis Build Add the Travis Paths to Configuration.")
     possible_config_files.append("./travis/artifacts/manoward.yaml")
 
+manoward_configs = None
 
 for default_file in possible_config_files:
     if os.path.isfile(default_file) and os.access(default_file, os.R_OK):
-        LOGGER.debug("Using Default File : {}".format(default_file))
+        logger.debug("Using Default File : {}".format(default_file))
 
         try:
             with open(default_file, "r") as manoward_config_file:
-                manwoard_configs = yaml.safe_load(manoward_config_file)
+                manoward_configs = yaml.safe_load(manoward_config_file)
+
         except Exception as manoward_config_error:
             logger.error("Unable to Read Manoward Configuration.")
             logger.debug("Error : {}".format(manoward_config_error))
@@ -80,6 +80,10 @@ for default_file in possible_config_files:
         else:
             # I've now Got my Things
             logger.info("Found and loaded manoward.yaml")
+            break
+
+if manoward_configs is None:
+    raise TypeError("No Manowar Configs")
 
 
 
