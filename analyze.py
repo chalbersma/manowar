@@ -7,7 +7,6 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 
 # Run through Analysis
 import os
-
 import ast
 import argparse
 from configparser import ConfigParser
@@ -20,11 +19,13 @@ from copy import deepcopy
 from time import time
 from time import sleep
 import logging
-
+import sys
 import threading
 import multiprocessing
 # Yes I use both!
 from queue import Queue
+
+import yaml
 
 # Analyze Specific
 from generic_large_compare import generic_large_compare
@@ -32,11 +33,13 @@ from generic_large_analysis_store import generic_large_analysis_store
 from subtype_large_compare import subtype_large_compare
 
 import audittools
+import db_helper
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-a", "--auditdir", help="Directory that Contains the audits", required=True, action='append')
-    parser.add_argument("-c", "--config", help="Main analyze.ini file", required=True)
+    parser.add_argument("-a", "--auditdir", help="Directory that Contains the audits", required=False, action='append')
+    parser.add_argument("-c", "--config", help="Main analyze.ini file", required=False, default=False)
     parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
 
     parser._optionals.title = "DESCRIPTION "
@@ -53,8 +56,10 @@ if __name__ == "__main__":
         else :
             CONFIGDIR.append(thisdir)
 
-    #
-    CONFIG=args.config
+    if list(CONFIGDIR) == 0:
+        for this_path in ["/etc/manowar/audits.d", "./etc/manowar/audits.d"]:
+            if os.isdir(this_path) is True:
+                CONFIGDIR.append(this_path)
 
     VERBOSE = len(args.verbose)
 
@@ -69,6 +74,20 @@ if __name__ == "__main__":
 
     LOGGER = logging.getLogger("analyze.py")
 
+    CONFIG = args.config
+
+    if CONFIG is False:
+        # Let's Look for a Default File.
+        LOGGER.debug("No Config File Given Let's Look in Default Locations.")
+        for default_file in ("/etc/manowar/manoward.yaml",
+                               "./etc/manowar/manoward.yaml",
+                               "/usr/local/etc/manowar/manoward.yaml"):
+
+            if os.path.isfile(default_file) and os.access(default_file, os.R_OK):
+                LOGGER.debug("Using Default File : {}".format(default_file))
+                CONFIG = default_file
+                break
+
 
 def analyze(CONFIGDIR, CONFIG):
 
@@ -80,77 +99,91 @@ def analyze(CONFIGDIR, CONFIG):
     ANALYZE_TIME = int(time())
 
     # Parse my General Configuration
-    try:
-        # Read Our INI with our data collection rules
-        config = ConfigParser()
-        config.read(CONFIG)
-    except Exception as general_config_error:
-        sys.exit('Bad configuration file {} {}'.format(CONFIG, general_config_error))
+    if isinstance(CONFIG, dict):
+        config_items = CONFIG
     else:
-        # DB Config Items
-        db_config_items = dict()
-        for section in config:
-            if section in ["database"] :
-                for item in config[section]:
-                    db_config_items[item] = config[section][item]
+        try:
+            with open(CONFIG) as yaml_config:
+                config_items = yaml.safe_load(yaml_config)
+        except Exception as yaml_error:
+            logger.debug("Error when reading yaml config {} ".format(yaml_error))
+            sys.exit("Bad configuration file {}".format(CONFIG))
+
+    logger.debug("Configuration Items: {}".format(config_items))
 
 
-    # Grab all my Audits in CONFIGDIR Stuff
-    auditfiles = audittools.walk_auditd_dir(CONFIGDIR)
+    if isinstance(CONFIGDIR, dict):
+        loggger.debug("CONFIGDIR is given from external process.")
+        audits = CONFIGDIR
+    elif isinstance(CONFIGDIR, list):
+        # Grab all my Audits in CONFIGDIR Stuff
+        auditfiles = audittools.walk_auditd_dir(CONFIGDIR)
 
-    # Read all my Audits
-    audits = dict()
-    for auditfile in auditfiles :
+        # Read all my Audits
+        audits = dict()
+        for auditfile in auditfiles :
 
-        these_audits = audittools.load_auditfile(auditfile)
+            these_audits = audittools.load_auditfile(auditfile)
 
-        for found_audit_name in these_audits.keys():
-            if found_audit_name in audits.keys():
-                logger.warning("Duplicate definition for {} found. Ignoring definition in file {}".format(found_audit_name, auditfile))
-            else:
-                # Add that audit
-                audits[found_audit_name] = these_audits[found_audit_name]
+            for found_audit_name in these_audits.keys():
+                if found_audit_name in audits.keys():
+                    logger.warning("Duplicate definition for {} found. Ignoring definition in file {}".format(found_audit_name, auditfile))
+                else:
+                    # Add that audit
+                    audits[found_audit_name] = these_audits[found_audit_name]
 
 
+    '''
     def null_or_value(data_to_check):
+        # TODO Remove this Eventually
         if data_to_check == None :
             data = "NULL"
             return data
         else :
             data = "'" + str(data_to_check) + "'"
             return data
+    '''
 
-    def grab_host_list(db_conn, FRESH):
+    def grab_host_list(db_conn, FRESH=172800):
+        # Grab a Host List
 
-        cur = db_conn.cursor(pymysql.cursors.DictCursor)
+        logger = logging.getLogger("grab_host_list")
 
-        host_query = '''select
-                                host_id, pop, srvtype, last_update
-                             from
-                                hosts
-                             where
-                                last_update >= now() - INTERVAL %s SECOND'''
+        db_cur = db_conn.cursor(pymysql.cursors.DictCursor)
+
+        host_query = '''select host_id, pop, srvtype, last_update
+                        from hosts
+                        where last_update >= now() - INTERVAL %s SECOND'''
 
         host_query_args = [FRESH]
 
-
-        cur.execute(host_query, host_query_args)
-
-        all_hosts = cur.fetchall()
-
-        amount_of_hosts = len(all_hosts)
-
-        if amount_of_hosts > 0 :
-            host_good = True
-        else :
+        try:
+            host_list_debug_query = db_cur.mogrify(host_query, host_query_args)
+            logger.debug("hostslist Query : {}".format(host_list_debug_query))
+            db_cur.execute(host_query, host_query_args)
+        except Exception as hlq_error:
+            logger.error("Unable to Query for Hostslist.")
+            all_hosts = list()
+            amount_of_hosts = 0
             host_good = False
+        else:
+            all_hosts = db_cur.fetchall()
 
-        cur.close()
+            amount_of_hosts = len(all_hosts)
+
+            if amount_of_hosts > 0 :
+                host_good = True
+            else :
+                host_good = False
+        finally:
+            db_cur.close()
 
         return host_good, amount_of_hosts, all_hosts
 
+    '''
     # Match Type, Collection Type, Collection Subtype, MValue
     def generic_compare(db_conn, host_id, mtype, ctype, csubtype, mvalue, FRESH):
+        # TODO Can remove?
 
         cur = db_conn.cursor()
 
@@ -231,9 +264,11 @@ def analyze(CONFIGDIR, CONFIG):
 
         cur.close()
         return pfe_value, this_collected_value
+    '''
 
-
+    '''
     def subtype_compare(db_conn, host_id, mtype, ctype, csubtype, mvalue, FRESH) :
+        # TODO Can Remove?
 
         # mtype needs to be "subnonhere", "suballhere", "subknowall"
         # csubtype Needs to be an array of subtypes.
@@ -464,17 +499,20 @@ def analyze(CONFIGDIR, CONFIG):
 
         # print("Debug", pfe_value, comparison_result)
         return pfe_value, comparison_result
+    '''
 
 
     def analyze_one_audit(db_config_items, list_of_hosts, oneAudit, auditName, return_dict, audit_id) :
 
+        # Note that db config items is the same as config_itesm
+
+        logger = logging.getLogger("analyze_one_audit")
+
         try:
             # I multithread like a boss now. :) JK But I need to give each audit it's own conn to the DB:
-            db_conn, db_message, analyze_stats = giveMeDB(db_config_items)
-            # oneAudit = audits[audit]
-            # list_of_hosts = list_of_host
-            # pop_results, srvtype_results, audit_result | Need a global lock for updating.
+            db_conn = db_helper.get_conn(db_config_items, prefix="analyze_", tojq=".database", ac_def=True)
 
+            #
             host_buckets = dict()
             host_comparison = dict()
 
@@ -500,20 +538,20 @@ def analyze(CONFIGDIR, CONFIG):
 
             for bucket in oneAudit["filters"] :
 
+                this_mtype = oneAudit["filters"][bucket]["filter-match"]
+                this_ctype = oneAudit["filters"][bucket]["filter-collection-type"]
+                this_csubtype = oneAudit["filters"][bucket]["filter-collection-subtype"]
+                this_mvalue = oneAudit["filters"][bucket]["filter-match-value"]
 
 
-                    #print("in bucket", bucket)
-                    this_mtype = oneAudit["filters"][bucket]["filter-match"]
-                    this_ctype = oneAudit["filters"][bucket]["filter-collection-type"]
-                    this_csubtype = oneAudit["filters"][bucket]["filter-collection-subtype"]
-                    this_mvalue = oneAudit["filters"][bucket]["filter-match-value"]
-
-
-                    #print(this_mtype, this_ctype, this_csubtype, this_mvalue)
-                    try:
-                        bucket_results = generic_large_compare(db_conn, items_left_to_bucket, this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH, exemptfail=True)
-                    except Exception as e:
-                        print("Error on Generic Large Compare on bucket", bucket, " For audit ", auditName)
+                #print(this_mtype, this_ctype, this_csubtype, this_mvalue)
+                try:
+                    bucket_results = generic_large_compare(db_conn, items_left_to_bucket, this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH, exemptfail=True)
+                except Exception as glc_bucket_results_error:
+                    logger.error("Error on Generic Large Compare on bucket {} : audit {}".format(bucket, auditName))
+                    logger.warning("Maybe no Hosts for Bucket {} on audit {}".format(bucket, auditName))
+                    logger.debug("Error : {}".format(glc_bucket_results_error))
+                else:
                     # Grab just the items that passed
                     for result in bucket_results :
                         if "pfe" in result.keys() :
@@ -535,10 +573,7 @@ def analyze(CONFIGDIR, CONFIG):
                     items_left_to_bucket = [ host_id for host_id in list_of_hosts if host_id not in this_bucket_ids ]
 
 
-            #print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            #print(host_buckets)
-            #print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-
+            # Host Bucketing
             for comparison in host_buckets.keys() :
                 #print(comparison)
                 try:
@@ -547,26 +582,34 @@ def analyze(CONFIGDIR, CONFIG):
                     this_csubtype = oneAudit["comparisons"][comparison]["comparison-collection-subtype"]
                     this_mvalue = oneAudit["comparisons"][comparison]["comparison-match-value"]
                     #print(this_mtype, this_ctype, this_csubtype, this_mvalue)
-                except Exception as e:
-                    print("Error grabbing comparisons for audit ", auditName, " : " , e)
-
-                # Check What Type
-                if this_mtype in [ "subnonhere", "suballhere", "subknowall" ] :
-                    # Add Massive Subtype
-                    try:
-                        comparison_results = subtype_large_compare(db_conn, host_buckets[comparison], this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH)
-                    except Exception as e:
-                        print("Error on Subtype Large Compare on Comparison for bucket", comparison, " For audit ", auditName, " : ", e)
+                except Exception as comparison_error:
+                    logger.error("Error grabbing comparisons for audit {} : {}".format(auditName, comparison_error))
                 else:
-                    # Generic Comparison
-                    try:
-                        comparison_results = generic_large_compare(db_conn, host_buckets[comparison], this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH)
-                        #print(comparison_results)
-                    except Exception as e:
-                        print("Error on Generic Large Compare on Comparison for bucket", comparison, " For audit ", auditName, " : " , e)
+                    # Check What Type
+                    if this_mtype in ["subnonhere", "suballhere", "subknowall"] :
+                        # Add Massive Subtype
+                        try:
+                            comparison_results = subtype_large_compare(db_conn, host_buckets[comparison], this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH)
+                        except Exception as subtype_large_compare_error:
+                            logger.error("{} Error on Subtype Large Compare on Comparison for bucket {}".format(auditName,
+                                                                                                                comparison))
 
-                # And Doo it! (But for either collection type
-                host_comparison[comparison] = comparison_results
+                            logger.debug("Error : {}".format(subtype_large_compare_error))
+                        else:
+                            host_comparison[comparison] = comparison_results
+
+                    else:
+                        # Generic Comparison
+                        try:
+                            comparison_results = generic_large_compare(db_conn, host_buckets[comparison], this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH)
+                            #print(comparison_results)
+                        except Exception as generic_large_compare_error:
+                            logger.error("{} Error on Generic Large Compare on Comparison for bucket {}".format(auditName,
+                                                                                                                comparison))
+
+                            logger.debug("Error : {}".format(generic_large_compare_error))
+                        else:
+                            host_comparison[comparison] = comparison_results
 
             #bucket in host_bucket
             #print(auditName, " Results : ", host_comparison)
@@ -575,15 +618,16 @@ def analyze(CONFIGDIR, CONFIG):
             massinserts, massupdates = generic_large_analysis_store(db_conn, audit_id, host_comparison, FRESH)
 
 
+            # Return Dict is a manager.dict() so the "above" process knows what changes here.
             return_dict["host_inserts"]  = massinserts
             return_dict["host_updates"] = massupdates
 
-
-            #print(return_dict)
-            exit(0)
-        except Exception as e :
-            print("Error doing analyze", e)
+        except Exception as analyze_error:
+            logger.error("Error doing analyze for {} : {}".format(auditName, analyze_error))
             exit(1)
+        else:
+            exit(0)
+
 
 
     def dequeue_hosts(db_config_items, list_of_hosts):
@@ -603,27 +647,26 @@ def analyze(CONFIGDIR, CONFIG):
 
             try:
                 oneAudit, auditName = audit_queue.get()
-            except Exception as e:
-                print("Failure to Pull Items off of Queue.")
+            except Exception as audit_get_error:
+                logger.error("Failure to Pull Items off of Queue.")
+                logger.debug("Error : {}".format(audit_get_error))
+
                 audit_queue.task_done()
+
+                # Abnormal Return
                 return
 
             try:
                 manager = multiprocessing.Manager()
-            except Exception as e:
-                print("Failure to Create Manager for audit ", auditName, " with error: ", e)
+            except Exception as multiprocess_error:
+                logger.error("Failure to Create Manager for audit {} with error {}".format(auditName,
+                                                                                            multiprocess_error))
                 audit_queue.task_done()
-                return
 
-            try:
+                # Abnormal Return
+                return
+            else:
                 return_dict = manager.dict()
-            except Exception as e:
-                print("Failure to Create Return Dictionary for audit ", auditName, " with error: ", e)
-                audit_queue.task_done()
-                return
-
-
-
 
             # Insert Update the Audit in the Database
             try:
@@ -632,16 +675,13 @@ def analyze(CONFIGDIR, CONFIG):
                 logger.error("Failure to Create Audit {} in DB with error {}".format(auditName, update_audit_db_error))
                 audit_queue.task_done()
                 return
-
-
-            #print("Audit ID Successufl", audit_id)
-
-            # Grab My Audit ID and store it for future Reference with oneAudit
-            oneAudit["audit_id"] = audit_id
+            else:
+                oneAudit["audit_id"] = audit_id
+                logger.debug("Stored a Record about audit {}/{} in the database.".format(auditName, audit_id))
 
             #print("Pulled Host ", this_one_host_array)
             # Process One Host Pass it the host_array and the config_array
-            try :
+            try:
                 #analyze_one_audit(db_config_items, list_of_hosts, oneAudit, auditName, return_dict, audit_id)
                 # analyze_audit_process is a new instance for every new thread we make.
                 try:
@@ -649,83 +689,54 @@ def analyze(CONFIGDIR, CONFIG):
                     analyze_audit_process.name = auditName
                     analyze_audit_process.daemon = True
                     analyze_audit_process.start()
-                except Exception as e:
-                    print("Error with Analyze Audit", auditName, " Critical Error: ", e)
+                except Exception as analyze_pid_error:
+                    logger.error("Error with Analyze Audit {} : {}".format(auditName, analyze_pid_error))
+
                     analyze_audit_process.terminate()
+                else:
 
-                while multiprocessing.Process.is_alive(analyze_audit_process) == True :
-                    if VERBOSE:
-                        print("Waiting for: ", auditName, multiprocessing.Process.is_alive(analyze_audit_process) )
+                    while multiprocessing.Process.is_alive(analyze_audit_process) == True :
+                        logger.debug("Waiting for: {} {}".format(auditName, multiprocessing.Process.is_alive(analyze_audit_process)))
 
-                    sleep(30)
+                        # Waith 45 Seconds before Asking again
+                        sleep(45)
 
-                try:
                     analyze_audit_process.join()
-                except Exception as e:
-                    print("Join Error on Audit: ", auditName, " : ", e)
 
-            except Exception as e:
-                print("Failure to Analyze Audit", auditName, " Critical Error: ", e)
+            except Exception as audit_analyisis_error:
+                logger.error("Failure to Analyze Audit {} : {}".format(auditName,
+                                                                       audit_analyisis_error))
 
             # I/U Stats only Thing Left
+            logger.debug(return_dict)
             try:
                 with audit_host_counts_lock :
-                    if VERBOSE:
-                        print(auditName, " I/U ", return_dict["host_inserts"], return_dict["host_updates"])
+                    logger.info("{} I:{} U:{}".format(auditName,
+                                                      return_dict["host_inserts"],
+                                                      return_dict["host_updates"]))
 
+                    # This is a Global
                     audit_host_inserts += return_dict["host_inserts"]
                     audit_host_updates += return_dict["host_updates"]
-                    #print("Audit Results", audit_host_inserts, audit_host_updates)
-            except Exception as e :
+
+            except Exception as metrics_error:
                 #print(return_dict)
-                print("Failure on Audit ", auditName, " while updating audit counts:", e)
-                pass
-
-            # moving srvtype, pop & acoll results to own modules
-            '''
-            try:
-                with srvtype_results_lock :
-                    # Add Srvtype Results with Srvtype Lock
-                    if len(return_dict["srvtype_results"]) :
-                        srvtype_results[audit_id] = return_dict["srvtype_results"]
-                        #print("SRVTYPE Results", srvtype_results)
-            except Exception as e :
-                print("Failure on Audit ", auditName, " while updating srvtype_results:", e)
-                pass
-
-            try:
-                with pop_results_lock :
-                    # POP Results From Multiprocess Process
-                    if len(return_dict["pop_results"]) > 0 :
-                        pop_results[audit_id] = return_dict["pop_results"]
-                        #print(pop_results)
-            except Exception as e :
-                print("Failure on Audit ", auditName, " while updating pop results:", e)
-                pass
-
-            try:
-                with audit_results_lock :
-                    # Audit Results
-                    audit_results[audit_id] = return_dict["audit_results"]
-                    #print("Audit Results", audit_results)
-            except Exception as e :
-                print("Failure on Audit ", auditName, " while updating audit_results:", e)
-                #print(return_dict.keys())
-                pass
-            '''
-
-            # Dequeue the Host from host_queue
-
+                logger.error("Failure on Audit when Recording Metrics {} : {}".format(auditName,
+                                                                                      metrics_error))
             audit_queue.task_done()
+
         return
 
     def analyze_all_audits(db_config_items, list_of_hosts, FRESH, MAXTHREADS) :
         # Audits are a global variable
+        logger = logging.getLogger("analyze_all_audits")
 
+        # Copy Time
         results_host = deepcopy(list_of_hosts)
 
         # Create My ThreadPool
         for x  in range(MAXTHREADS):
+            # This is the magic. It calls dequeu hostsk
             t  = threading.Thread(target=dequeue_hosts, args=(db_config_items, list_of_hosts))
             # Make Threads Die if Parent is Killed
             t.daemon = True
@@ -736,102 +747,38 @@ def analyze(CONFIGDIR, CONFIG):
         start = time()
 
         for audit in audits :
-            # Essentially Updates Via Reference. Should be Self Contained
+            # Populate Audit Queue
+            logger.info("About to Queue audit {}".format(audit))
             #try:
-            this_queue_item = audits[audit], audit
-            audit_queue.put( this_queue_item )
+            this_queue_item = [audits[audit], audit]
+            audit_queue.put(this_queue_item)
+
+            # Sleep to allow for better placement
             sleep(1)
 
 
         # If your running verbosely Print out this stuff Else not
         while audit_queue.unfinished_tasks > 0 :
-            if VERBOSE :
-                nowtime = time() - start
-                print("---------------------------------------")
-                print("AuditsLeft \t QSize \t Thread \t QStuff\t Time ")
-                print(audit_queue.unfinished_tasks, "\t\t", audit_queue.qsize(), "\t", threading.active_count(), "\t\t", audit_queue.empty(),"\t", nowtime)
-                print("---------------------------------------")
-                sleep(15)
+
+            nowtime = time() - start
+
+            logger.debug("---------------------------------------")
+            logger.debug("AuditsLeft : {}".format(audit_queue.unfinished_tasks))
+            logger.debug("QSize : {}".format(audit_queue.qsize()))
+            logger.debug("Thread : {}".format(threading.active_count()))
+            logger.debug("QStuff : {}".format(audit_queue.empty()))
+            logger.debug("Time : {}".format(nowtime))
+            logger.debug("---------------------------------------")
+            # Give me an Update every 30 seconds
+            sleep(15)
 
         # When I'm Not Verbose Just wait and don't say shit.
+        # Otherwise when I see a small number of unfinished tasks Let's move back an djoin.
         audit_queue.join()
 
         jobtime = time() - start
 
         return audit_host_inserts, audit_host_updates, jobtime
-
-    '''
-    def store_audit_by_host(db_conn, bucket, audit_id, host, result, collected_value):
-
-        #print(host)
-        cur = db_conn.cursor()
-
-        # Set Variables
-        this_audit_id = audit_id
-        this_host_id = host["host_id"]
-
-        if result == "pass" :
-            result_enum = "'pass'"
-        elif result == "fail" :
-            result_enum = "'fail'"
-        else :
-            # Exempt
-            result_enum = "'notafflicted'"
-
-        #print(result, result_enum)
-
-        if collected_value == "" :
-            collected_value_store = "NULL"
-        else:
-            collected_value_store = collected_value
-
-        columns = " fk_host_id, fk_audits_id, initial_audit, last_audit, bucket, audit_result, audit_result_text "
-        value   = str(this_host_id) + ", " + str(this_audit_id) + ", " + "FROM_UNIXTIME(" + str(ANALYZE_TIME) + "), " + "FROM_UNIXTIME(" + str(ANALYZE_TIME) + "), '" + bucket + "', " + result_enum + ", '" + collected_value_store + "'"
-
-        #print(columns)
-        #print(value)
-        #print("Debug Collected_value", collected_value)
-
-        if collected_value == "" :
-            # No Value to Compare (For Null Values)
-            # Otherwise we insert every notafflicted NULL
-            value_compare_string = " "
-        else :
-            value_compare_string = " and audit_result_text = '" + str(collected_value) + "' "
-
-
-        # Grab the latest selection
-        grab_last_collection_query="SELECT audit_result_id, audit_result from audits_by_host where fk_audits_id = " + str(this_audit_id) + " and fk_host_id = " + str(this_host_id) + " and audit_result = " + result_enum + value_compare_string + " and bucket = '" + bucket + "'  order by last_audit limit 1 ; "
-
-        #print(grab_last_collection_query)
-
-        cur.execute(grab_last_collection_query)
-
-        if cur.rowcount :
-            # There's Data so Just Update last_audit
-            this_audit_result_id = cur.fetchone()[0]
-            #print(this_audit_result_id)
-            update_query = "UPDATE audits_by_host SET last_audit = FROM_UNIXTIME(" + str(ANALYZE_TIME) + ") where audit_result_id = '" + str(this_audit_result_id) + "' ; commit ; "
-            #print(update_query)
-            cur.execute(update_query)
-            have_audit_id = True
-        else:
-            # No Data Do Insert
-            have_audit_id = False
-            insert_query = "Insert into audits_by_host (" + columns + ") VALUES ( " + value + ") ; commit ;"
-            #print(insert_query)
-            cur.execute(insert_query)
-
-        if have_audit_id :
-            inserts = 0
-            updates = 1
-        else :
-            inserts = 1
-            updates = 0
-
-        return inserts, updates
-
-    '''
 
     def insert_update_audit(db_config_items, audit) :
 
@@ -848,7 +795,7 @@ def analyze(CONFIGDIR, CONFIG):
         this_audit_filename = audit["filename"]
         this_audit_priority = audit.get("vuln-priority", 5 )
 
-        db_conn, dbmessage, analyze_stats = giveMeDB(db_config_items)
+        db_conn = db_helper.get_conn(db_config_items, prefix="analyze_", tojq=".database", ac_def=True)
 
         cur = db_conn.cursor()
 
@@ -929,83 +876,6 @@ def analyze(CONFIGDIR, CONFIG):
         cur.close()
         return this_row
 
-    '''
-    def store_sub_results(db_conn, subtable, pop_or_srvtype):
-
-
-        #print(subtable)
-        #print(pop_or_srvtype)
-
-
-        cur = db_conn.cursor(pymysql.cursors.DictCursor)
-
-        for audit_id in pop_or_srvtype :
-            # Cycle Through Audits
-            #print(pop_or_srvtype[audit_id])
-            for popSrvtype in pop_or_srvtype[audit_id].keys() :
-                this_pass = pop_or_srvtype[audit_id][popSrvtype][0]
-                this_fail = pop_or_srvtype[audit_id][popSrvtype][1]
-                this_exem = pop_or_srvtype[audit_id][popSrvtype][2]
-                this_timestamp_columns = subtable + "_initial_audit, " + subtable + "_last_audit"
-                this_tablename = "audits_by_" + subtable
-                # Cycle through audits
-                # Select the The Latest pop for this audit
-                pop_id_column = subtable + "_id, "
-                # Also used on inserts
-                select_columns = subtable + "_passed, " + subtable + "_failed, " + subtable + "_exempt "
-                tablename = " from  " + this_tablename
-                where_clause = " where " + subtable + "_text = '" + popSrvtype + "' "
-                where_fk_audit = " and fk_audits_id = " + str(audit_id) + " "
-                tail = " order by " + subtable + "_last_audit desc limit 1; "
-                select_query = " select " + pop_id_column + select_columns + tablename + where_clause + where_fk_audit + tail
-
-                # Debug
-
-                cur.execute(select_query)
-                if cur.rowcount :
-                    # There's Data Check if it matches and then update or insert
-                    this_pop_or_srvtype_data = cur.fetchone()
-                    #print(this_pop_or_srvtype_data)
-                    fail_column = subtable + "_failed"
-                    pass_column = subtable + "_passed"
-                    exempt_column = subtable + "_exempt"
-                    id_column = subtable + "_id"
-
-                    if this_pop_or_srvtype_data[fail_column] ==  this_fail and this_pop_or_srvtype_data[pass_column] == this_pass and this_pop_or_srvtype_data[exempt_column] == this_exem :
-                        # Equals so update row
-                        update_query = "UPDATE " + this_tablename + " SET " + subtable + "_last_audit = FROM_UNIXTIME(" + str(ANALYZE_TIME) + ") where " + id_column + " = '" + str(this_pop_or_srvtype_data[id_column]) + "' ; commit ; "
-                        #print(update_query)
-                        cur.execute(update_query)
-                        insert_new = False
-                    else:
-                        # Need to do insert
-                        #print(id_column + " needs insert")
-                        insert_new = True
-                else:
-                    #print(id_column + " needs insert")
-                    insert_new = True
-
-                if insert_new :
-                    # We've decided to insert a new row
-                    columns = select_columns + ", fk_audits_id, " + subtable + "_text, " + this_timestamp_columns
-                    values  = str(this_pass) + " , " + str(this_fail) + " , " + str(this_exem) + " , " + str(audit_id) + " , '" + popSrvtype  +\
-                                "' ," + " FROM_UNIXTIME(" + str(ANALYZE_TIME) + "), " + "FROM_UNIXTIME(" + str(ANALYZE_TIME) + ") "
-                    query_string = "INSERT INTO " + this_tablename + " ( " + columns + ") VALUES ( " + values + " ); commit; "
-                    #print(query_string)
-                    cur.execute(query_string)
-
-
-        return "Completed"
-    '''
-
-    def giveMeDB(db_config_items) :
-
-        db_conn = pymysql.connect(host=db_config_items['dbhostname'], port=int(db_config_items['dbport']), user=db_config_items['dbusername'], passwd=db_config_items['dbpassword'], db=db_config_items['dbdb'], autocommit=True)
-        dbmessage = "Good, connected to " + db_config_items['dbusername'] + "@" + db_config_items['dbhostname'] + ":" + db_config_items['dbport'] + "/" + db_config_items['dbdb']
-        analyze_stats["db-status"] = dbmessage
-
-        return db_conn, dbmessage, analyze_stats
-
     # Globals
     global pop_results
     global srvtype_results
@@ -1015,6 +885,7 @@ def analyze(CONFIGDIR, CONFIG):
     global audit_host_updates
 
 
+    # Results dictionaries
     pop_results = dict()
     pop_results_lock = threading.Lock()
     srvtype_results = dict()
@@ -1026,57 +897,45 @@ def analyze(CONFIGDIR, CONFIG):
     audit_host_updates = 0
     audit_host_counts_lock = threading.Lock()
 
-    MAX = db_config_items["collectionmaxchars"]
-    FRESH = db_config_items["freshseconds"]
-    MAXTHREADS = int(db_config_items["maxthreads"])
-
+    # COnfig ITems
+    MAX = config_items["storage"]["collectionmaxchars"]
+    FRESH = config_items["analyze"]["freshseconds"]
+    MAXTHREADS = int(config_items["analyze"]["maxthreads"])
 
     # Create A Queue
     audit_queue = Queue()
 
-    analyze_stats = dict()
-
     #try:
-    db_conn, db_message, analyze_stats = giveMeDB(db_config_items)
+    try:
+        db_conn = db_helper.get_conn(config_items, prefix="analyze_", tojq=".database", ac_def=True)
+        dbmessage = "Connected"
+    except Exception as db_conn_error:
+        dbmessage = "Unable to Connect"
+        logger.debug("DB Connection Error : {}".format(db_conn_error))
+    finally:
+        # Start my analyze_stats with data
+        analyze_stats = {"db-status" : dbmessage}
 
-    #except:
-    #   analyze_stats["db-status"] = "Connection Failed"
-    #   print(analyze_stats)
-
-
+    # Grab Hosts List (Still Single Threaded)
     host_good, analyze_stats["FreshHosts"], host_list = grab_host_list(db_conn, FRESH)
 
     if host_good :
-        analyze_stats["HostCollectionStatus"] = "Success"
-        # To avoid Locking pop stats are being moved to their own modul
-        #analyze_stats["audit_inserts"], analyze_stats["audit_updates"], all_pop_results, all_srvtype_results, all_audit_results, jobtime = analyze_all_audits(db_config_items, host_list, FRESH, MAXTHREADS)
-        analyze_stats["audit_inserts"], analyze_stats["audit_updates"], jobtime = analyze_all_audits(db_config_items, host_list, FRESH, MAXTHREADS)
-        #print(audit_results)
-        # Collation of Population Statistics is Being moved to It's own Module
-        #try:
-        #   analyze_stats["stor_pop_status"] = store_sub_results(db_conn, "pop" , all_pop_results)
-        #except Exception as e :
-        #   print("Error Storing Pop Results", e)
-        #
-        #try:
-        #   analyze_stats["stor_srvytpe_status"] = store_sub_results(db_conn, "srvtype" , all_srvtype_results)
-        #except Exception as e :
-        #   print("Error Storing Srvtype Results", e)
-        #
-        #try:
-        #   analyze_stats["stor_acoll_status"] = store_sub_results(db_conn, "acoll", all_audit_results)
-        #except Exception as e :
-        #   print("Error Storing Audit Results", e)
+        logger.info("Successfully Collected {} Hosts as 'Live'".format(len(host_list)))
 
-        analyze_stats["jobtime"] = str(jobtime)
+        analyze_stats["HostCollectionStatus"] = "Success"
+
+        analyze_stats["audit_inserts"], analyze_stats["audit_updates"], analyze_stats["jobtime"] = analyze_all_audits(config_items, host_list, FRESH, MAXTHREADS)
+
         analyze_stats["threads"] = str(MAXTHREADS)
         analyze_stats["totalaudits"] = len(audits)
 
     else :
         analyze_stats["HostCollectionStatus"] = "Failed"
 
-    print(json.dumps(analyze_stats, sort_keys=True, indent=4))
+    return analyze_stats
 
 
 if __name__ == "__main__":
-    analyze(CONFIGDIR, CONFIG)
+    analyze_stats = analyze(CONFIGDIR, CONFIG)
+
+    print(json.dumps(analyze_stats, sort_keys=True, indent=4))
