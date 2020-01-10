@@ -20,6 +20,7 @@ import packaging.version
 from copy import deepcopy
 from time import time
 from time import sleep
+import logging
 
 import threading
 import multiprocessing
@@ -57,6 +58,8 @@ def generic_large_compare(db_conn, host_list_dict, mtype, ctype, csubtype, \
     FRESH is an array that tells you how far back to look.
 
     '''
+
+    logger = logging.getLogger("generic_large_compare")
 
     # Create my Cursor
     cur = db_conn.cursor()
@@ -122,13 +125,19 @@ def generic_large_compare(db_conn, host_list_dict, mtype, ctype, csubtype, \
 
             if len(host_ids_list) > 0:
                 #print(comparison_query)
-                cur.execute(comparison_query)
-                if cur.rowcount:
-                    query_results_list = cur.fetchall()
+                try:
+                    logger.debug("Comparison Query : {}".format(comparison_query))
+                    cur.execute(comparison_query)
+                except Exception as DB_Error:
+                    logger.error("Unable to Do Database Query on Generic Large Compare.")
+                    query_results_list = list()
                 else:
-                    # No Results
-                    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    query_results_list = []
+                    if cur.rowcount:
+                        query_results_list = cur.fetchall()
+                    else:
+                        # No Results
+                        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        query_results_list = []
             else:
                 query_results_list = []
 
@@ -203,8 +212,9 @@ def generic_large_compare(db_conn, host_list_dict, mtype, ctype, csubtype, \
                     exempthost = [ host for host in query_results_list if len(host[1]) <= 0 ]
                     passhost = [ host for host in query_results_list if int(host[1]) == int(massaged_mvalue[index_value]) ]
                     failhost = [ host for host in query_results_list if host not in exempthost and host not in passhost ]
-            except Exception as e:
-                print("Error Doing Comparisons: ", e)
+            except Exception as comparisons_error:
+                logger.error("Error doing Comparisons for generic_large_compare.")
+                logger.debug(comparisons_error)
 
             # Temporary List of HostID's
             exempthostids = list()
