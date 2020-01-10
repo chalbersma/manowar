@@ -60,7 +60,7 @@ possible_config_files =  ["/etc/manowar/manoward.yaml", "./etc/manowar/manoward.
 
 if os.environ.get("TRAVIS", None) is not None:
     logger.info("In a Travis Build Add the Travis Paths to Configuration.")
-    possible_config_files.append("./travis/artifacts/manoward.yaml")
+    possible_config_files.append("../travis/artifacts/manoward.yaml")
 
 manoward_configs = None
 
