@@ -6,11 +6,22 @@ webserver:
   accesslink: http://localhost:5000
   port: 5000
 database:
-  dbhostname: localhost
-  dbusername: manowar
-  dbpassword: longshittypassword_api
-  dbport: 3306
-  dbdb: manowar2
+  api_dbhostname: localhost
+  api_dbusername: manowar
+  api_dbpassword: longshittypassword_api
+  api_dbport: 3306
+  api_dbdb: manowar2
+  # TLS Ignored
+  #api_ssl: true
+  #api_dbsslca: /path_to_cert
+  analyze_dbhostname: localhost
+  analyze_dbusername: manowar_analyze
+  analyze_dbpassword: longshittypassword_analyze
+  analyze_dbport: 3306
+  analyze_dbdb: manowar2
+  # TLS Ignored
+  #analyze_ssl: true
+  #analyze_dbsslca: /path_to_cert
 v2api:
   root: /v2
   preroot: /jellyfish
@@ -30,4 +41,10 @@ v2ui:
 #  extendhost_schema: /etc/manowar/jellyfish_extension_schema.json.schema
 #  storageconfig: /etc/manowar/storage.ini
 #  storagemaxchars: 255
+storage:
+  collectionmaxchars: 255
+analyze:
+  freshseconds: 172800
+  maxthreads: 32
+
 
