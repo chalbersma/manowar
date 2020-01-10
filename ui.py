@@ -24,17 +24,16 @@ import yaml
 from tokenmgmt import validate_key
 from canonical_cve import shuttlefish
 from generic_large_compare import generic_large_compare
+import db_helper
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--configfile", help="Config File for Scheduler", required=True)
+    parser.add_argument("-c", "--config", help="Config File for Scheduler", required=False, default="/etc/manowar/manoward.yaml")
     parser.add_argument("-d", "--flaskdebug", action='store_true', help="Turn on Flask Debugging", default=False)
     parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
 
     args = parser.parse_args()
-
-    FDEBUG = args.flaskdebug
-    CONFIG = args.configfile
 
     VERBOSE = len(args.verbose)
 
@@ -54,6 +53,22 @@ if __name__ == "__main__":
 
     LOGGER.info("Welcome to Man 'o War")
 
+    FDEBUG = args.flaskdebug
+    CONFIG = args.config
+
+    if CONFIG is False:
+        # Let's Look for a Default File.
+        LOGGER.debug("No Config File Given Let's Look in Default Locations.")
+        for default_file in ("/etc/manowar/manoward.yaml",
+                               "./etc/manowar/manoward.yaml",
+                               "/usr/local/etc/manowar/manoward.yaml"):
+
+            if os.path.isfile(default_file) and os.access(default_file, os.R_OK):
+                LOGGER.debug("Using Default File : {}".format(default_file))
+                CONFIG = default_file
+                break
+
+
 def ui(CONFIG, FDEBUG):
 
     '''
@@ -64,12 +79,17 @@ def ui(CONFIG, FDEBUG):
 
     logger = logging.getLogger("ui.ui")
 
-    try:
-        with open(CONFIG) as yaml_config:
-            config_items = yaml.safe_load(yaml_config)
-    except Exception as yaml_error: # pylint: disable=broad-except, invalid-name
-        logger.debug("Error when reading yaml config {} ".format(yaml_error))
-        sys.exit("Bad configuration file {}".format(CONFIG))
+    if isinstance(CONFIG, dict):
+        logger.info("Using Configuration as a Dict.")
+        config_items = CONFIG
+    else:
+        logger.info("Reading Configuration from String.")
+        try:
+            with open(CONFIG) as yaml_config:
+                config_items = yaml.safe_load(yaml_config)
+        except Exception as yaml_error:
+            logger.debug("Error when reading yaml config {} ".format(yaml_error))
+            sys.exit("Bad configuration file {}".format(CONFIG))
 
     logger.debug("Configuration Items: {}".format(config_items))
 
@@ -98,32 +118,16 @@ def ui(CONFIG, FDEBUG):
     def before_request():
         try:
 
-            g.db = pymysql.connect(host=config_items['database']['dbhostname'],
-                                   port=int(config_items['database']['dbport']),
-                                   user=config_items['database']['dbusername'],
-                                   passwd=config_items['database']['dbpassword'],
-                                   db=config_items['database']['dbdb'],
-                                   autocommit=True)
-
-            dbmessage = "Good, connected to {}@{}:{}/{}".format(config_items['database']['dbusername'],
-                                                                config_items['database']['dbhostname'],
-                                                                config_items['database']['dbport'],
-                                                                config_items['database']['dbdb'])
-
-            logger.info(dbmessage)
+            g.db = db_helper.get_conn(config_items, prefix="api_", tojq=".database", ac_def=True)
 
             g.logger = logger
+
             g.debug = FDEBUG
 
         except Exception as connection_error:
-            dbmessage = "Connection Failed connected to {}@{}:{}/{} with error {}".format(config_items['database']['dbusername'],
-                                                                                          config_items['database']['dbhostname'],
-                                                                                          config_items['database']['dbport'],
-                                                                                          config_items['database']['dbdb'],
-                                                                                          connection_error)
-            logger.error(dbmessage)
+            logger.debug("Connection to DB Error Abandoing Connection Error.")
 
-            return dbmessage
+            return str(connection_error)
 
         # Endpoint Authorization List of Endosements and Restrictions that Define what you may and may not access
         # For endpoints with fine grained controls
