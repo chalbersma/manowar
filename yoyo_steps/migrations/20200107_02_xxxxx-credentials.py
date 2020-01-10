@@ -103,15 +103,17 @@ yoyo_config = manoward_configs["database"]
 
 for user_type in ["api", "store", "analyze"]:
 
-    if yoyo_config.get("manowar", dict()).get("{}_password".format(user_type), None) is  None:
+    if yoyo_config.get("{}_dbpassword".format(user_type), None) is  None:
         # We not doing it
         do_api_attempt = False
-    else:
-        username = yoyo_config.get("manowar", dict()).get("{}_dbusername".format(user_type), None)
-        hostmask = yoyo_config.get("manowar", dict()).get("{}_hostmask".format(user_type), "%")
-        password = yoyo_config.get("manowar", dict()).get("{}_dbpassword".format(user_type), None)
 
-        req_enc = yoyo_config.get("manowar", dict()).get("req_enc", "SSL")
+        raise ValueError("Missing Configuration for {}".format(user_type))
+    else:
+        username = yoyo_config.get("{}_dbusername".format(user_type), None)
+        hostmask = yoyo_config.get("{}_hostmask".format(user_type), "%")
+        password = yoyo_config.get("{}_dbpassword".format(user_type), None)
+
+        req_enc = yoyo_config.get("req_enc", "SSL")
 
 
         this_u = '"{0}"@"{1}"'.format(username, hostmask)
