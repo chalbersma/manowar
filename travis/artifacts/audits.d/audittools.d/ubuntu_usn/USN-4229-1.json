@@ -1,0 +1,99 @@
+{
+  "USN-4229-1": {
+    "comparisons": {
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "ntp"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:4.2.6.p3+dfsg-1ubuntu3.13"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "ntp"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:4.2.6.p5+dfsg-3ubuntu2.14.04.13+esm1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "ntp"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:4.2.8p4+dfsg-3ubuntu5.10"
+        ]
+      }
+    },
+    "filters": {
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-12327_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-12327.html",
+      "USN-4229-1": "https://usn.ubuntu.com/4229-1/"
+    },
+    "vuln-long-description": "It was discovered that ntpq and ntpdc incorrectly handled some arguments.\nAn attacker could possibly use this issue to cause ntpq or ntpdc to crash,\nexecute arbitrary code, or escalate to higher privileges. \n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4229-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4229-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "A security issue was fixed in ntpq and ntpdc.\n"
+  }
+}
