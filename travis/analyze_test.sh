@@ -3,7 +3,7 @@
 set -x
 
 # Run Scheduler Test
-./analyze.py -a travis/artifacts/audits.d -c travis/artifacts/analyze.ini -vvv
+./analyze.py -a travis/artifacts/audits.d -c travis/artifacts/manoward.yaml -vvv
 
 analyze_good=$?
 
