@@ -6,22 +6,43 @@ webserver:
   accesslink: http://localhost:5000
   port: 5000
 database:
+  ## Global Settings ##
+  # Someday Change to SSL for TLS encryption from yoyo
+  req_enc: "NONE"
+
+  ## API User ##
   api_dbhostname: localhost
   api_dbusername: manowar
+  api_hostmask: "%"
   api_dbpassword: longshittypassword_api
   api_dbport: 3306
   api_dbdb: manowar2
-  # TLS Ignored
+  # For TLS At Rest
   #api_ssl: true
-  #api_dbsslca: /path_to_cert
+  #api_dbsslca: /path/to/cacert
+
+  ## Analyze User ##
   analyze_dbhostname: localhost
   analyze_dbusername: manowar_analyze
+  analyze_hostmask: "%"
   analyze_dbpassword: longshittypassword_analyze
   analyze_dbport: 3306
   analyze_dbdb: manowar2
-  # TLS Ignored
+  # For TLS At Rest
   #analyze_ssl: true
-  #analyze_dbsslca: /path_to_cert
+  #analyze_dbsslca: /path/to/cacert
+
+  ## Storage User ##
+  store_dbhostname: localhost
+  store_dbusername: manowar_store
+  store_hostmask: "%"
+  store_dbpassword: longshittypassword_store
+  store_dbport: 3306
+  store_dbdb: manowar2
+  # For TLS At Rest
+  #store_ssl: true
+  #store_dbsslca: /path/to/cacert
+
 v2api:
   root: /v2
   preroot: /jellyfish
