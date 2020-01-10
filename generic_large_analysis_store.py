@@ -19,6 +19,7 @@ import re
 from copy import deepcopy
 from time import time
 from time import sleep
+import logging
 
 import threading
 import multiprocessing
@@ -32,6 +33,7 @@ def generic_large_analysis_store(db_conn, audit_id, audit_results_dict, FRESH):
     # Generic Large Analysis Storage
 
     # Create my Cursor
+    logger = logging.getLogger("generic_large_analysis_store")
 
     ANALYZE_TIME = int(time())
 
@@ -139,8 +141,9 @@ def generic_large_analysis_store(db_conn, audit_id, audit_results_dict, FRESH):
                     updates += len(this_bucket_update_ids)
                 except Exception as mysql_error:
                     print("Error updating hosts for audit", audit_id , " : ", str(mysql_error) )
-        except Exception as e :
-            print("Error doing Updates. ", e)
+        except Exception as updating_hosts_audit:
+            logger.error("Error doing Updates for audit {} with error {}".format(audit_id,
+                                                                                 updating_hosts_audit))
 
 
         #print("Inserts")
@@ -162,9 +165,9 @@ def generic_large_analysis_store(db_conn, audit_id, audit_results_dict, FRESH):
                 except Exception as e :
                     print("Error doing Inserts for audit", audit_id, " : ", e )
 
-        except Exception as e:
-            print("Error doing Inserts. ", e)
-
+        except Exception as inserts_new_host_audit:
+            logger.error("Error doing Inserts for Audit {} with error {}".format(audit_id,
+                                                                                 inserts_new_host_audit))
 
     # Close the MySQL Cursor
     cur.close()
