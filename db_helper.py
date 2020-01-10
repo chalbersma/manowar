@@ -83,7 +83,7 @@ def get_conn(config, prefix=None, tojq=None, **kwargs):
 
         db_conn = pymysql.connect(**pymysql_args)
 
-        logger.info("Connected to {user}@{host}:{port}/{database}".format(**pymysql_args))
+        logger.debug("Connected to {user}@{host}:{port}/{database}".format(**pymysql_args))
 
     except Exception as connection_error:
         logger.warning("Connection Failed to {user}@{host}:{port}/{database}".format(**pymysql_args))
