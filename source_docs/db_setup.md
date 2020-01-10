@@ -9,12 +9,15 @@ and administraive user.
 
 Then in the `yoyo_steps` directory you need to create a `yoyo.ini` file (see the
 `yoyo.ini.sample` as an example). In it you need to edit the target database with
-your administrator username and password. Additionally you'll need to populate
-credentials for your big 3 users, the api user, the storage user and the analyze
-user.
+your administrator username and password.
 
-I'd encourage managing this file with a change management system so that you can
-better manage these secrets contained here.
+Additionally you'll need to populate credentials for your big 3 users,
+the api user, the storage user and the analyze user in your `manoward.yaml`
+file as the system will read that to find the username/password and connection
+methods needed.
+
+I'd encourage managing these files with a change management system so that
+you can better manage these secrets contained here.
 
 ## Application
 

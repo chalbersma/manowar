@@ -56,6 +56,9 @@ logger = logging.getLogger("yoyo-credentials Step")
 
 logger.info("Finding Configuration File yoyo.ini")
 
+# Since Im in a subdirectory when running this I need to do
+# these things by hand instead of using db_helper
+# Because of the way yoyo is setup
 possible_config_files =  ["/etc/manowar/manoward.yaml", "./etc/manowar/manoward.yaml", "/usr/local/etc/manowar/manoward.yaml"]
 
 if os.environ.get("TRAVIS", None) is not None:

@@ -74,20 +74,8 @@ if __name__ == "__main__":
 
     LOGGER = logging.getLogger("analyze.py")
 
-    CONFIG = args.config
-
-    if CONFIG is False:
-        # Let's Look for a Default File.
-        LOGGER.debug("No Config File Given Let's Look in Default Locations.")
-        for default_file in ("/etc/manowar/manoward.yaml",
-                               "./etc/manowar/manoward.yaml",
-                               "/usr/local/etc/manowar/manoward.yaml"):
-
-            if os.path.isfile(default_file) and os.access(default_file, os.R_OK):
-                LOGGER.debug("Using Default File : {}".format(default_file))
-                CONFIG = default_file
-                break
-
+    CONFIG = db_helper.get_manoward(explicit_config=args.config,
+                                    only_file=False)
 
 def analyze(CONFIGDIR, CONFIG):
 
@@ -101,13 +89,11 @@ def analyze(CONFIGDIR, CONFIG):
     # Parse my General Configuration
     if isinstance(CONFIG, dict):
         config_items = CONFIG
+    elif isinstance(CONFIG, str):
+        db_helper.get_manoward(explicit_config=CONFIG)
     else:
-        try:
-            with open(CONFIG) as yaml_config:
-                config_items = yaml.safe_load(yaml_config)
-        except Exception as yaml_error:
-            logger.debug("Error when reading yaml config {} ".format(yaml_error))
-            sys.exit("Bad configuration file {}".format(CONFIG))
+        raise TypeError("No Configuration Given.")
+
 
     logger.debug("Configuration Items: {}".format(config_items))
 

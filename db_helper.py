@@ -13,15 +13,76 @@ dbpassword: password
 dbname: db
 autocommit: bool
 charset: string (default: utf8)
-
-
 '''
+
+import logging
+import os
 
 import pymysql
 import pyjq
-import logging
+import yaml
+
+
+def get_manoward(explicit_config=None, **kwargs):
+
+    _manoward_defaults = ["/etc/manowar/manoward.yaml",
+                          "./etc/manowar/manoward.yaml",
+                          "/usr/local/etc/manowar/manoward.yaml"]
+
+    '''
+    Searches the filesystem for the correct manoward.yaml file and uses it.
+    '''
+
+    logger = logging.getLogger("manoward_configuration")
+
+    if os.environ.get("TRAVIS", None) is not None:
+        logger.info("In a Travis Build Add the Travis Paths to Configuration.")
+        _manoward_defaults.append("../travis/artifacts/manoward.yaml")
+        _manoward_defaults.append("./travis/artifacts/manoward.yaml")
+
+
+    manoward_configs = None
+
+    if isinstance(explicit_config, str):
+        # Overwrite files with only this option.
+        _manoward_defaults = [explicit_config]
+
+    for default_file in _manoward_defaults:
+        if os.path.isfile(default_file) and os.access(default_file, os.R_OK):
+            logger.debug("Using Default File : {}".format(default_file))
+
+            if kwargs.get("only_file", False) is False:
+                # Process the config file and return results
+
+                try:
+                    with open(default_file, "r") as manoward_config_file:
+                        manoward_configs = yaml.safe_load(manoward_config_file)
+
+                except Exception as manoward_config_error:
+                    logger.error("Unable to Read Manoward Configuration.")
+                    logger.debug("Error : {}".format(manoward_config_error))
+
+                    raise manoward_config_error
+                else:
+                    # I've now Got my Things
+                    logger.info("Found and loaded manoward.yaml")
+                    break
+            else:
+                # Return Just the filename
+                manoward_configs = default_file
+
+    if kwargs.get("no_config_okay", False) is True and manoward_configs is None:
+        raise ValueError("No Manowar Configuration Found.")
+
+    return manoward_configs
+
 
 def get_conn(config, prefix=None, tojq=None, **kwargs):
+
+    '''
+    Returns a DB Cursors (with pymysql) that supports all of the
+    hotness
+    '''
 
     # Given a Config Dictionary with an optional prefix and tojq
     # Pull the Data Out and Connect to the Database
