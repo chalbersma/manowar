@@ -10,7 +10,7 @@ analyze_good=$?
 if [[ ${analyze_good} -eq 0 ]] ; then
 	# Analyze Worked, let's try to collate
 	# Collate Here
-	./collate.py -c travis/artifacts/collate.ini -V
+	./collate.py -vvv
 
 	collate_good=$?
 

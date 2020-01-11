@@ -90,7 +90,7 @@ def analyze(CONFIGDIR, CONFIG):
     if isinstance(CONFIG, dict):
         config_items = CONFIG
     elif isinstance(CONFIG, str):
-        db_helper.get_manoward(explicit_config=CONFIG)
+        config_items = db_helper.get_manoward(explicit_config=CONFIG)
     else:
         raise TypeError("No Configuration Given.")
 
