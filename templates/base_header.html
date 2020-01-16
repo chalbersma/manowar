@@ -15,7 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 
     <!-- Jellyfish Specific Javascript -->
-    <script src="/jellyfish{{ url_for('static', filename='js/jellyfish2.js') }}"></script>
+    <script src="{{ g.config_items["v2ui"]["preroot"]}}{{ url_for('static', filename='js/jellyfish2.js') }}"></script>
 
     <!-- Core DataTables Functionality -->
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -29,13 +29,13 @@
     <script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
 
     <!-- Jellyfish Icon -->
-    <link rel="shortcut icon" href="/jellyfish{{ url_for('static', filename='img/jellyfish.png') }}">
+    <link rel="shortcut icon" href="{{ g.config_items["v2ui"]["preroot"]}}{{ url_for('static', filename='img/manowar_small.png') }}">
   </head>
   <body>
     <header class="col-md-10">
         <nav class="vz-top-nav">
             <a class="navbar-brand">
-                <img src="/jellyfish/static/img/jellyfish.png" height="24">
+                <img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/manowar_small.png" height="24">
             </a>
           <ul class="left-menu">
             <li><a class="navbar-brand" href="">Man 'o War</a> </li>
