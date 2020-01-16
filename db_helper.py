@@ -28,7 +28,7 @@ def get_manoward(explicit_config=None, **kwargs):
     _manoward_defaults = ["/etc/manowar/manoward.yaml",
                           "./etc/manowar/manoward.yaml",
                           "/usr/local/etc/manowar/manoward.yaml"]
-
+    
     '''
     Searches the filesystem for the correct manoward.yaml file and uses it.
     '''
@@ -48,7 +48,8 @@ def get_manoward(explicit_config=None, **kwargs):
         _manoward_defaults = [explicit_config]
 
     for default_file in _manoward_defaults:
-        if os.path.isfile(default_file) and os.access(default_file, os.R_OK):
+        
+        if os.path.isfile(default_file) is True and os.access(default_file, os.R_OK):
             logger.debug("Using Default File : {}".format(default_file))
 
             if kwargs.get("only_file", False) is False:

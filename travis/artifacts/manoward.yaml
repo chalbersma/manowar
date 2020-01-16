@@ -67,5 +67,7 @@ storage:
 analyze:
   freshseconds: 172800
   maxthreads: 32
+collate:
+  freshseconds: 86400
 
 

@@ -73,12 +73,8 @@ def generic_puthostjson():
     g.logger.debug("Recieved Authenticated Request Request")
 
     if request.json is None:
-        # No Json Data Given
         error_dict["nodata"] = True
         error = True
-
-
-    #print(type(g.SCHEMAFILE))
 
     if error is False:
 
@@ -86,16 +82,11 @@ def generic_puthostjson():
         request.json["collection_status"] = "STINGCELL"
 
         # Do a Storage Verify on this Mofo.
-        check_result = storageJSONVerify(g.config_items["sapi"].get("puthost_schema", "puthost_schema.json"), \
-                                         request.json)
-
-        # Parse Result
-        check_result_passed = check_result[0]
-        check_result_message = check_result[1]
+        check_result_passed, check_result_message = storageJSONVerify(request.json)
 
         if check_result_passed is True:
             # It's good do the Storage
-            this_store_collection_result = storage(g.config_items["sapi"].get("storageconfig", "storage.ini"),
+            this_store_collection_result = storage(g.config_items,
                                                    request.json,
                                                    sapi=True)
 

@@ -29,19 +29,20 @@ def process_ip_intel(config_dict=False, ip=False, iptype=False, host=False, mult
     if config_dict["ip_intel"].get("use_auth", False) == True :
 
         # Use an auth token when you make the query
-        request_headers["Authorization"] =  "{}:{}".format(self.config_dict["ip_intel"].get("intel_username","nobody"), \
-                                          self.config_dict["ip_intel"].get("intel_token","nothing"))
+        request_headers["Authorization"] =  "{}:{}".format(self.config_dict["ip_intel"].get("intel_username","nobody"),
+                                                           self.config_dict["ip_intel"].get("intel_token","nothing")
+                                                          )
 
-    if ( multireport == False and ( ip == False or iptype == False )) or host == False :
+    if (multireport is False and (ip is False or iptype is False)) or host is False:
         raise Exception("Incomplete Specification")
 
-    if multireport == False :
+    if multireport is False:
         # Use the Given
         query_arguments["ip"] = "'{}'".format(str(ip))
         query_arguments["iptype"] = "'{}'".format(str(iptype))
     else :
         request_headers["Content-Type"] = "application/json"
-        if type(multireport) == list :
+        if isinstance(multireport, list):
             # multireport
             pass
         else :

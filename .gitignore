@@ -78,3 +78,7 @@ tmp*
 
 # Ignore Ini
 *.ini
+/etc/manowar/manoward.yaml
+/etc/manowar_agent/collector.yaml
+/etc/manowar_agent/minion
+/etc/manowar_agent/saltcell.yaml

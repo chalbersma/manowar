@@ -29,7 +29,7 @@ import db_helper
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--config", help="Config File for Scheduler", required=False, default="/etc/manowar/manoward.yaml")
+    parser.add_argument("-c", "--config", help="Config File for Scheduler", required=False, default=None)
     parser.add_argument("-d", "--flaskdebug", action='store_true', help="Turn on Flask Debugging", default=False)
     parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
 
@@ -57,6 +57,7 @@ if __name__ == "__main__":
 
     CONFIG = db_helper.get_manoward(explicit_config=args.config,
                                     only_file=False)
+    
 
 def ui(CONFIG, FDEBUG):
 
