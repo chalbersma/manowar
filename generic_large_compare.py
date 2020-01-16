@@ -148,14 +148,20 @@ def generic_large_compare(db_conn, host_list_dict, mtype, ctype, csubtype, \
 
             try:
                 #print("These Results", str(query_results_list))
+                
+                logger.info("mtype : {}".format(mtype))
+                logger.info("These Results : {}".format(query_results_list))
+                logger.info("massaged_mvalue : {}".format(massaged_mvalue))
+                logger.info("index_value : {}".format(index_value))
+                
                 if mtype == "is" or mtype == "aptis":
-                    exempthost = [ host for host in query_results_list \
-                                    if len(host[1]) <= 0 ]
-                    passhost = [ host for host in query_results_list \
-                                    if host[1] in massaged_mvalue[index_value] ]
-                    failhost = [ host for host in query_results_list \
+                    exempthost = [host for host in query_results_list \
+                                    if len(host[1]) <= 0]
+                    passhost = [host for host in query_results_list \
+                                    if host[1] is str(massaged_mvalue[index_value])]
+                    failhost = [host for host in query_results_list \
                                     if host not in exempthost and \
-                                    host not in passhost ]
+                                    host not in passhost]
 
                 elif mtype == "match" or mtype == "aptmatch":
                     exempthost = [ host for host in query_results_list \
