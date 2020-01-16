@@ -1,0 +1,99 @@
+{
+  "RHSA-2020:0124": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "git-svn",
+          "git-gnome-keyring",
+          "git-daemon",
+          "perl-Git-SVN",
+          "gitweb",
+          "gitk",
+          "git-p4",
+          "git-instaweb",
+          "git-hg",
+          "git-gui",
+          "git-email",
+          "git-cvs",
+          "git-bzr",
+          "git-all",
+          "emacs-git-el",
+          "emacs-git",
+          "perl-Git",
+          "git"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1",
+          "1.8.3.1"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-1387": "https://access.redhat.com/security/cve/CVE-2019-1387",
+      "bz#1781127: CVE-2019-1387 git: Remote code execution in recursive clones with nested submodules": "https://bugzilla.redhat.com/show_bug.cgi?id=1781127",
+      "https://access.redhat.com/errata/RHSA-2020:0124": "https://access.redhat.com/errata/RHSA-2020:0124",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://github.com/git/git/security/advisories/GHSA-4wfr-gwrh-8mj2": "https://github.com/git/git/security/advisories/GHSA-4wfr-gwrh-8mj2"
+    },
+    "vuln-long-description": "An update for git is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nGit is a distributed revision control system with a decentralized architecture. As opposed to centralized version control systems with a client-server model, Git ensures that each working copy of a Git repository is an exact copy with complete revision history. This not only allows the user to work on and contribute to projects without the need to have permission to push the changes to their official repositories, but also makes it possible for the user to work with no network connection.\nSecurity Fix(es):\n* git: Remote code execution in recursive clones with nested submodules (CVE-2019-1387)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0124",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0124",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for git is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

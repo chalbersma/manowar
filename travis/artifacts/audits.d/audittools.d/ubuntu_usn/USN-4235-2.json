@@ -1,0 +1,57 @@
+{
+  "USN-4235-2": {
+    "comparisons": {
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "nginx-extras",
+          "nginx-full",
+          "nginx-common",
+          "nginx-light",
+          "nginx-core"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.4.6-1ubuntu3.9+esm1",
+          "1.4.6-1ubuntu3.9+esm1",
+          "1.4.6-1ubuntu3.9+esm1",
+          "1.4.6-1ubuntu3.9+esm1",
+          "1.4.6-1ubuntu3.9+esm1"
+        ]
+      }
+    },
+    "filters": {
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-20372_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-20372.html",
+      "USN-4235-2": "https://usn.ubuntu.com/4235-2/"
+    },
+    "vuln-long-description": "USN-4235-1 fixed a vulnerability in nginx. This update provides\nthe corresponding update for Ubuntu 14.04 ESM.\n\nOriginal advisory details:\n\n Bert JW Regeer and Francisco Oca Gonzalez discovered that nginx incorrectly\n handled certain error_page configurations. A remote attacker could possibly\n use this issue to perform HTTP request smuggling attacks and access\n resources contrary to expectations.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4235-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4235-2/",
+    "vuln-priority": 5,
+    "vuln-short-description": "nginx could be made to expose sensitive information over the\nnetwork.\n"
+  }
+}

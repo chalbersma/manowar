@@ -1,0 +1,45 @@
+{
+  "USN-4221-2": {
+    "comparisons": {
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "libpcap0.8"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.1.1-10ubuntu0.1"
+        ]
+      }
+    },
+    "filters": {
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-15165_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15165.html",
+      "USN-4221-2": "https://usn.ubuntu.com/4221-2/"
+    },
+    "vuln-long-description": "USN-4221-1 fixed a vulnerability in libpcap. This update provides\nthe corresponding update for Ubuntu 12.04 ESM.\n\nOriginal advisory details:\n\n It was discovered that libpcap did not properly validate PHB headers in\n some situations. An attacker could use this to cause a denial of service\n (memory exhaustion).\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4221-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4221-2/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Applications using libpcap could be made to crash if given specially\ncrafted data.\n"
+  }
+}
