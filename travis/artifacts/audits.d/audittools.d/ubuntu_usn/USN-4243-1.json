@@ -1,0 +1,154 @@
+{
+  "USN-4243-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libbsd0"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.8.7-1ubuntu0.1"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "libbsd0"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.9.1-2ubuntu0.1"
+        ]
+      },
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "libbsd0"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.3.0-2ubuntu0.1"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libbsd0"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.6.0-2ubuntu1+esm1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libbsd0"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.8.2-1ubuntu0.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2016-2090_(Unknown)": null,
+      "CVE-2019-20367_(Unknown)": null,
+      "USN-4243-1": "https://usn.ubuntu.com/4243-1/"
+    },
+    "vuln-long-description": "It was discovered that libbsd incorrectly handled certain inputs.\nAn attacker could possibly use this issue to execute arbitrary code.\nThis issue only affected Ubuntu 14.04 ESM. (CVE-2016-2090)\n\nIt was discovered that libbsd incorrectly handled certain strings.\nAn attacker could possibly use this issue to access sensitive information.\n(CVE-2019-20367)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4243-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4243-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "Several security issues were fixed in libbsd.\n"
+  }
+}
