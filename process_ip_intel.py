@@ -12,13 +12,14 @@ import requests
 import logging
 import json
 
-def process_ip_intel(config_dict=False, ip=False, iptype=False, host=False, multireport=False, mylogger=False):
+def process_ip_intel(config_dict=False, ip=False, iptype=False, host=False, multireport=False, **kwargs):
 
-    if mylogger == False :
-        # Setup a Default Logger
-        FORMAT="%(levelname)s %(asctime)s %(name)s : %(message)s"
-        logging.basicConfig(level=logging.ERROR, format=FORMAT)
-        mylogger = logging.getLogger("process_ip_intel.py")
+    '''
+    Does the needful on IP Intelligence
+    #TODO Allow direct storage for zero API storage activities
+    '''
+
+    mylogger = logging.getLogger("process_ip_intel.py")
 
     request_headers = dict()
     query_arguments = dict()
@@ -65,7 +66,7 @@ def process_ip_intel(config_dict=False, ip=False, iptype=False, host=False, mult
             this_request = requests.post(report_url, headers=request_headers, params=query_arguments, data=multireport_in_json)
 
         mylogger.debug("Reporting Intel for hostname : {} ".format(str(host)))
-    except Exception as e :
+    except Exception as reporting_error:
         # Do some error thing here.
         mylogger.error("Error Reporting Intel for hostname {} with error {}".format(str(host), str(e)))
         response_code = 0
