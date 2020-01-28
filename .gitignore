@@ -84,3 +84,6 @@ tmp*
 /etc/manowar_agent/saltcell.yaml
 /travis/artifacts/salt/ssh/salt_key
 /travis/artifacts/salt/ssh/salt_key.pub
+/etc/manowar/salt/roster
+/etc/manowar/salt/ssh/salt_key
+/etc/manowar/salt/ssh/salt_key.pub

@@ -1,0 +1,3 @@
+For Saltssh specifically I don't think this is a used directory,
+But it's needed because it is used with the classic salt master
+setup.
