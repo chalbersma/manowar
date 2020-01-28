@@ -1,6 +1,6 @@
 {% include 'base_header.html' %}
 {% from "error.html" import with_errors %}
-<link rel="stylesheet" type="text/css" href="/jellyfish/static/css/jellyfish.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish.css" media="screen" />
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 	google.charts.load('current', {'packages':['corechart']});
@@ -100,8 +100,8 @@
 		</div>
 		<div id="bytypegraph" style="display:none;">
 			<div id="graphcontrols-type">
-				<a href="javascript:drawCharts('By Type', 'bytypegraph', default_data, 1, 'TYPE', 'FALSE', 'FALSE')" ><img src="/jellyfish/static/img/refresh.png" /></a>
-				<a href="javascript:drawCharts('By Type', 'bytypegraph', default_data, 1, 'TYPE', 'FALSE', 'TRUE')" ><img src="/jellyfish/static/img/expand.png" /></a>
+				<a href="javascript:drawCharts('By Type', 'bytypegraph', default_data, 1, 'TYPE', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+				<a href="javascript:drawCharts('By Type', 'bytypegraph', default_data, 1, 'TYPE', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
 			</div>
 			<div id="graphs-meat-type">
 				<div id="bytypegraph-pie"></div>
@@ -110,8 +110,8 @@
 		</div>
 		<div id="bysubtypegraph" style="display:none;">
 			<div id="graphcontrols-subtype">
-				<a href="javascript:drawCharts('By SubType', 'bysubtypegraph', default_data, 2, 'SUBTYPE', 'FALSE', 'FALSE')" ><img src="/jellyfish/static/img/refresh.png" /></a>
-				<a href="javascript:drawCharts('By SubType', 'bysubtypegraph', default_data, 2, 'SUBTYPE', 'FALSE', 'TRUE')" ><img src="/jellyfish/static/img/expand.png" /></a>
+				<a href="javascript:drawCharts('By SubType', 'bysubtypegraph', default_data, 2, 'SUBTYPE', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+				<a href="javascript:drawCharts('By SubType', 'bysubtypegraph', default_data, 2, 'SUBTYPE', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
 			</div>
 			<div id="graphs-meat-subtype">
 				<div id="bysubtypegraph-pie"></div>
@@ -120,8 +120,8 @@
 		</div>
 		<div id="byvaluegraph" style="display:none;">
 			<div id="graphcontrols-value">
-				<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 3, 'VALUE', 'FALSE', 'FALSE')" ><img src="/jellyfish/static/img/refresh.png" /></a>
-				<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 3, 'VALUE', 'FALSE', 'TRUE')" ><img src="/jellyfish/static/img/expand.png" /></a>
+				<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 3, 'VALUE', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+				<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 3, 'VALUE', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
 			</div>
 			<div id="graphs-meat-value">
 				<div id="byvaluegraph-pie"></div>
