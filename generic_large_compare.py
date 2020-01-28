@@ -30,7 +30,7 @@ from queue import Queue
 
 
 def generic_large_compare(db_conn, host_list_dict, mtype, ctype, csubtype, \
-                          mvalue, FRESH=172800, exemptfail=False):
+                          mvalue, FRESH=172800, exemptfail=False, audit_name="not_given"):
 
     '''
     generic_large_compare
@@ -147,18 +147,16 @@ def generic_large_compare(db_conn, host_list_dict, mtype, ctype, csubtype, \
             failhost = list()
 
             try:
-                #print("These Results", str(query_results_list))
-                
-                logger.info("mtype : {}".format(mtype))
-                logger.info("These Results : {}".format(query_results_list))
-                logger.info("massaged_mvalue : {}".format(massaged_mvalue))
-                logger.info("index_value : {}".format(index_value))
                 
                 if mtype == "is" or mtype == "aptis":
                     exempthost = [host for host in query_results_list \
                                     if len(host[1]) <= 0]
+                    ## TODO Why the hell does is not work here but in does?
+                    ## Figure it out find the "best"
+                    ## Currently this will "overmatch". So if you have a match of bionical
+                    ## And the value is bionic it will match.
                     passhost = [host for host in query_results_list \
-                                    if host[1] is str(massaged_mvalue[index_value])]
+                                    if host[1] in str(massaged_mvalue[index_value])]
                     failhost = [host for host in query_results_list \
                                     if host not in exempthost and \
                                     host not in passhost]
