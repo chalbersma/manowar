@@ -114,101 +114,13 @@ def read_hosts(config_items, regex=None, shard=None):
                 final_roster = roster
     
     return final_roster
-    
-# Work Function ( host array, config_items
-def process_one_host(host_array, config_dict):
 
-    # Grab my Literals
-    hostname = host_array[0]
-    srvtype = host_array[1]
-    pop = host_array[2]
-    status = host_array[3]
-    # I Never have an uber id in the scheduler
-    # Feature is not yet supported
-    uberid = "N/A"
-
-    # For Missing Data
-    if pop is None:
-        pop = "N/A"
-    if srvtype is None:
-        srvtype = "N/A"
-    if status is None:
-        status = "N/A"
-
-    username = config_dict["paramiko"]["paramiko_user"]
-    keyfile = config_dict["paramiko"]["paramiko_key"]
-    collector_config_file = config_dict["collector"]["collconfig"]
-    storage_config_file = config_dict["storage"]["storeconfig"]
-    #print(keyfile)
-
-    # Process our IPV4/6 Options
-    if config_dict["paramiko"]["ipv4"] in ["TRUE", "true", "True", "Yes", "yes"]:
-        ipv4 = True
-        ipv6 = False
-    elif config_dict["paramiko"]["ipv6"] in ["TRUE", "true", "True", "Yes", "yes"]:
-        ipv6 = True
-        ipv4 = False
-    else:
-        # Pass it up the stack (Generally use hostname)
-        ipv6 = False
-        ipv4 = True
-
-    #Do Collection
-    this_host_collection_result = collector(hostname, collector_config_file, \
-                                            username, keyfile, pop, srvtype, \
-                                            uberid, status, ipv4, ipv6)
-
-    collection_host_failures = False
-    collection_host_failures_prod = False
-    collection_host_success = False
-
-
-    if "true_failure" in this_host_collection_result.keys():
-        # Failed to Collect Our Data Update our Counters
-        collection_host_failures = True
-        print("Failure to collect: ", this_host_collection_result)
-
-        if status == "prod":
-            collection_host_failures_prod = True
-    else:
-        # No Failure
-        try:
-            if VERBOSE:
-                print(Back.WHITE, Fore.BLACK, "Storage for ", hostname, Style.RESET_ALL)
-            this_store_collection_result = storage(storage_config_file, \
-                                                    this_host_collection_result)
-
-            collection_host_success = True
-        except Exception as e: # pylint: disable=broad-except, invalid-name
-
-            print(Fore.RED, "Error In Storage module", str(e), \
-                    "Storage of ", hostname, "Failed", Style.RESET_ALL)
-
-            collection_host_success = False
-        else:
-            if this_store_collection_result["db-status"] == "Connection Failed":
-                # Failed to Store Item.
-                print(Back.RED, Fore.WHITE, "Failed to store results for ", \
-                        hostname, " Error: ", \
-                        str(this_store_collection_result["db-error"]), \
-                        Style.RESET_ALL)
-                pprint.pprint(this_store_collection_result)
-                collection_host_success = False
-            elif this_store_collection_result["collection_status"] == True:
-                pass
-        finally:
-            pass
-
-    if VERBOSE:
-        print(Fore.BLACK, Back.YELLOW, "Host : ", hostname, \
-                "P-O-H Results : ", collection_host_success, \
-                collection_host_failures, collection_host_failures_prod, \
-                Style.RESET_ALL)
-    return collection_host_success, collection_host_failures, collection_host_failures_prod
-
-# Pull data off of the host_queue queue
 def dequeue_hosts(thread_num, host_queue, result_queue, this_configs):
     
+    '''
+    Pull Data off of the Queue and Collect for that Particular Host
+    '''
+
     logger = logging.getLogger("schedule3.py:dequeue_hosts")
     
     while host_queue.empty() == False:
