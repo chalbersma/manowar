@@ -119,17 +119,6 @@ def analyze(CONFIGDIR, CONFIG):
                     audits[found_audit_name] = these_audits[found_audit_name]
 
 
-    '''
-    def null_or_value(data_to_check):
-        # TODO Remove this Eventually
-        if data_to_check == None :
-            data = "NULL"
-            return data
-        else :
-            data = "'" + str(data_to_check) + "'"
-            return data
-    '''
-
     def grab_host_list(db_conn, FRESH=172800):
         # Grab a Host List
 
@@ -166,333 +155,15 @@ def analyze(CONFIGDIR, CONFIG):
 
         return host_good, amount_of_hosts, all_hosts
 
-    '''
-    # Match Type, Collection Type, Collection Subtype, MValue
-    def generic_compare(db_conn, host_id, mtype, ctype, csubtype, mvalue, FRESH):
-        # TODO Can remove?
-
-        cur = db_conn.cursor()
-
-        comparison = []
-        comparison.append(" select collection_value from collection where")
-        comparison.append(" fk_host_id = '" + str(host_id) + "' ")
-        comparison.append(" AND collection_type = '" + ctype + "' ")
-        comparison.append(" AND collection_subtype = '" + csubtype + "' ")
-        comparison.append(" AND last_update <= now() + INTERVAL " + str(FRESH) + " SECOND ")
-        comparison.append(" order by last_update desc limit 1; ")
-        comparison_query = " ".join(comparison)
-
-        #print(comparison_query)
-        cur.execute(comparison_query)
-
-        if not cur.rowcount :
-            # No Results
-            this_collected_value = ""
-            #print("no_result")
-        else :
-            this_collected_value_raw = cur.fetchone()[0]
-            this_collected_value = null_or_value(this_collected_value_raw)[1:-1]
-            #print(this_collected_value)
-        # Pass Fail or Exempt
-        pfe_value = ""
-
-        if len(this_collected_value) <= 0 :
-            # No Results This one is Exempt
-            pfe_value = "exempt"
-        else :
-            # Results to Compare it
-            # is = collection in ( string | [ list ] )
-            if   mtype == "is" or mtype == "aptis" :
-                if this_collected_value in mvalue :
-                    # Passed
-                    pfe_value = "pass"
-                else:
-                    pfe_value = "fail"
-            # match = re.search ( regexstring, collection )
-            elif mtype == "match" or mtype == "atpmatch" :
-                if re.search(mvalue, this_collected_value) != None :
-                    pfe_value = "pass"
-                else :
-                    pfe_value = "fail"
-
-            # nematch = re.sarch (regexstring, collection )
-            elif mtype == "nematch" :
-                if re.search(mvalue, this_collected_value) == None :
-                    pfe_value = "pass"
-                else :
-                    pfe_value = "fail"
-
-            elif mtype == "aptge" or mtype == "verge" :
-
-                collected_version = packaging.version.parse(this_collected_value)
-                match_version = packaging.version.parse(mvalue)
-                if collected_version >= match_version:
-                    # If it's Less than Zero
-                    pfe_value = "pass"
-                else :
-                    pfe_value = "fail"
-
-            # Greater Than
-            elif mtype == "gt" :
-                if this_collected_value > mvalue :
-                    pfe_value = "pass"
-                else :
-                    pfe_value = "fail"
-
-            # Less Than
-            elif mtype == "lt" :
-                if this_collected_value < lt :
-                    pfe_value = "pass"
-            elif mtype == "eq" :
-                pfe_value = "exempt"
-            else :
-                pfe_value = "exempt"
-
-        cur.close()
-        return pfe_value, this_collected_value
-    '''
-
-    '''
-    def subtype_compare(db_conn, host_id, mtype, ctype, csubtype, mvalue, FRESH) :
-        # TODO Can Remove?
-
-        # mtype needs to be "subnonhere", "suballhere", "subknowall"
-        # csubtype Needs to be an array of subtypes.
-        # mvalue any || regex match. If it equals "any" it will not compare.
-            # Any other string will match the regext
-            # Can add specific matches for different subtypes
-
-        # In order for each one. Rehydrate string (with ") and then convert to a tuple
-        interm_processed_csubtype = ast.literal_eval('"' + csubtype.replace("," , "\",\"") + '"')
-        interm_processed_mvalue = ast.literal_eval('"' + mvalue.replace("," , "\",\"") + '"')
-
-        # Hydrate a single item into a tuple
-        if type(interm_processed_csubtype) is str :
-            processed_csubtype = ( interm_processed_csubtype, )
-        else :
-            processed_csubtype = interm_processed_csubtype
-
-        if type(interm_processed_mvalue) is str:
-            processed_mvalue = ( interm_processed_mvalue, )
-        else :
-            processed_mvalue =  interm_processed_mvalue
-
-        # Create New Cursor
-        cur = db_conn.cursor()
-
-        # Debug
-        #print(type(mtype))
-        #print(mtype)
-        #print(type(ctype))
-        #print(ctype)
-        #print(type(processed_csubtype))
-        #print(processed_csubtype)
-        #print(type(processed_mvalue))
-        #print(processed_mvalue)
-
-
-        # Give me all the collection_subtypes (and their values) for the given host_id, mtyp, ctype.
-        comparison = []
-        comparison.append(" select collection_subtype, collection_value from collection where ")
-        comparison.append(" fk_host_id = 6 ")
-        comparison.append(" and collection_type = '" + ctype +  "' ")
-        comparison.append(" and last_update >= now() - INTERVAL 480000 SECOND ")
-        comparison.append(" GROUP BY(collection_subtype) ")
-        collection_query = " ".join(comparison)
-
-        cur.execute(collection_query)
-
-        pfe_value = "exempt"
-        comparison_result = "testing"
-
-        # If I haven't got anything
-        if not cur.rowcount :
-            # No Results
-            no_subtypes = True
-        # I've got stuff.
-        else :
-            no_subtypes = False
-            these_subtypes = cur.fetchall()
-            # Debug
-            #print(type(these_subtypes))
-            #print(these_subtypes)
-            collected_subtype_list = list()
-            collected_value_list = list()
-            for row in these_subtypes :
-                collected_subtype_list.append(row[0])
-                collected_value_list.append(row[1])
-
-            #print(collected_subtype_list)
-            #print(collected_value_list)
-
-        if mtype == "subnonhere" :
-            # There's none here if there's no subtypes
-            #print("subnonhere")
-            if no_subtypes == True :
-                #print("no Subtypes")
-                # We're okay
-                pfe_value = "pass"
-                comparison_result = "No Collected Subtypes"
-            else :
-                confirm_fails = []
-                # We Got Subtype
-                # Do a list-comprehensions Comparison : https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions
-
-                failsubtypes = [ fail for fail in processed_csubtype if fail in collected_subtype_list ]
-
-                # Now I have a failsubtpes list that I can work with
-
-                #print("Fail Values")
-                #print(type(failValues))
-                #print(failValues)
-
-                # Cycle through Subtype Matches
-                for this_subtype_failure in failsubtypes:
-                    this_mvalue_index = processed_csubtype.index(this_subtype_failure)
-                    #print("My MValue Index")
-                    #print(this_mvalue_index)
-                    #print("My Match Value")
-                    #print(processed_mvalue[this_mvalue_index])
-                    if processed_mvalue[this_mvalue_index] == "any" :
-                        # Then Leave it Bro it's bad
-                        confirm_fails.append(this_subtype_failure)
-                    else :
-                        # It's something. Find out the index for this value in the collected Value
-                        this_collected_value_index = collected_subtype_list.index(this_subtype_failure)
-                        # Utilize my indices to do my comparisons
-                        # If the value in my indce matches then it's bad. If not It's okay
-                        if re.search(processed_mvalue[this_mvalue_index], collected_value_list[this_collected_value_index]) != None :
-                            # means there's something there so it fails
-                            confirm_fails.append(this_subtype_failure)
-                        # If it doesn't match don't add to confirm failures. Instead continue on
-
-                if len(confirm_fails) > 0 :
-                    # There's a Confirmed Failure
-                    pfe_value = "fail"
-                    comparison_result = "Bad Items: " + " ".join(confirm_fails)
-                else :
-                    pfe_value = "pass"
-                    comparison_result = "No Bad Items"
-
-
-        elif mtype == "suballhere" :
-            # There's none that match if there's no subtypes
-            if no_subtypes == True :
-                # We Bad
-                pfe_value = "fail"
-                comparison_result = "Unfound: " + csubtype
-            else :
-                # Grab a list of all the subtypes in our comparison that are not in the collected_subtype_list
-                missingsubtypes = [ fail for fail in processed_csubtype if fail not in collected_subtype_list ]
-
-                #print("Debug: Missing Subtypes")
-                #print(missingsubtypes)
-                # If there's one missing (no matter what) Call it a failure
-                if len(missingsubtypes) > 0 :
-                    pfe_value = "fail"
-                    comparison_result = "Missing Subtypes: " + " ".join(missingsubtypes)
-                else :
-                    # No Missing Subtypes. Let's go through the collected itmes and see if we have matches.
-                    matchfailure = False
-                    matchfailures = []
-                    for this_csubtype in processed_csubtype :
-                        # Grab the index of the match value given with the audit
-                        this_mvalue_index = processed_csubtype.index(this_csubtype)
-                        #print("Debug: Checking Match " + this_csubtype + " Item Number : " + str(this_mvalue_index))
-                        if processed_mvalue[this_mvalue_index] == "any" :
-                            # Then This always Succeeds. matchfailure remains False. No additions to matchfailures
-                            continue
-                        else :
-                            # Give the index of the collected value queried from the server
-                            this_collected_value_index = collected_subtype_list.index(this_csubtype)
-
-                            #print("DEBUG: ")
-                            #print("Do a Comparison")
-                            #print(processed_mvalue[this_mvalue_index])
-                            #print("Compared To")
-                            #print(collected_value_list[this_collected_value_index])
-                            #result = re.search(processed_mvalue[this_mvalue_index], collected_value_list[this_collected_value_index])
-                            #print(type(result))
-                            #print(result)
-
-                            # If the item matches that means it's okay. If not that's a failure
-                            if re.search(processed_mvalue[this_mvalue_index], collected_value_list[this_collected_value_index]) == None :
-                                # When it's none that means there's no match. So Append this to failure
-                                matchfailure = True
-                                matchfailures.append(this_csubtype)
-
-                    # Loop Ends
-
-                    #print("DEBUG Matchfailure")
-                    #print(matchfailure)
-                    #print(matchfailures)
-                    if matchfailure == False :
-                        # No Match Failures. All our Items are there. We've passed
-                        pfe_value = "pass"
-                        comparison_result = "All Items Matched."
-                    else :
-                        # Match Failure is True
-                        pfe_value = "fail"
-                        comparison_result = "MValue Mismatch: " + " ".join(matchfailures)
-
-
-        elif mtype == "subknowall" :
-            #print("Debug: Subknowall")
-            # No Subtypes so I can't match all known either.
-            if no_subtypes == True :
-                # We still bad
-                pfe_values = "pass"
-                comparison_result = "No Subtypes"
-            else :
-                # Subtypes Here!
-                unaccounted_for_subtypes = [ subtype for subtype in collected_subtype_list if subtype not in processed_csubtype ]
-
-                if len(unaccounted_for_subtypes) > 0 :
-                    # There's an unaccounted for Subtype so Fail.
-                    pfe_value = "fail"
-                    comparison_result = "Unknown Subtypes: " + " ".join(unaccounted_for_subtypes)
-                else :
-                    matchfailure = False
-                    matchfailures = []
-                    for this_collected_subtype in collected_subtype_list :
-                        # Go through each item in the subtype and make sure that it's okay
-                        # Find the index of the item in the database in the audit
-                        this_mvalue_index = processed_csubtype.index(this_collected_subtype)
-                        if processed_mvalue[this_mvalue_index] == "any" :
-                            # Any value is okay so mark it as okay
-                            continue
-                        else :
-                            # I need to do a comparision So I need to grab the collected value for the subtype in question
-                            # To do that I need to look up it's index
-                            this_collected_value_index = collected_subtype_list.index(this_collected_subtype)
-
-                            # Regex Search for my Item
-                            if re.search(processed_mvalue[this_mvalue_index], collected_value_list[this_collected_value_index]) == None :
-                                # If there's no match then call it false
-                                matchfailure = True
-                                matchfailures.append(this_collected_subtype)
-
-                    # End of Loop
-                    if matchfailure == False :
-                        # No Match Failures
-                        pfe_value = "pass"
-                        comparison_result = "All Items Known"
-                    else :
-                        # Match Failure is True
-                        pfe_value = "fail"
-                        comparison_result = "MValue Mismatch: " + " ".join(matchfailures)
-
-
-        # print("Debug", pfe_value, comparison_result)
-        return pfe_value, comparison_result
-    '''
-
-
     def analyze_one_audit(db_config_items, list_of_hosts, oneAudit, auditName, return_dict, audit_id) :
 
         # Note that db config items is the same as config_itesm
 
         logger = logging.getLogger("analyze_one_audit")
+        
+        
+        logger.debug("Attempting to Analyze Audit {}/{}".format(auditName, audit_id))
+        
 
         try:
             # I multithread like a boss now. :) JK But I need to give each audit it's own conn to the DB:
@@ -521,8 +192,14 @@ def analyze(CONFIGDIR, CONFIG):
 
             # Bucket Hosts Left (All the hosts before I start silly
             items_left_to_bucket = list_of_hosts
+            
+            logger.debug("{} Preparing to Analyze {} Hosts with {} Buckets".format(auditName, 
+                                                                                   len(items_left_to_bucket), 
+                                                                                   len(oneAudit["filters"].keys())))
 
             for bucket in oneAudit["filters"] :
+                
+                logger.debug("{} Processing Bucket {}".format(auditName, bucket))
 
                 this_mtype = oneAudit["filters"][bucket]["filter-match"]
                 this_ctype = oneAudit["filters"][bucket]["filter-collection-type"]
@@ -532,13 +209,16 @@ def analyze(CONFIGDIR, CONFIG):
 
                 #print(this_mtype, this_ctype, this_csubtype, this_mvalue)
                 try:
-                    bucket_results = generic_large_compare(db_conn, items_left_to_bucket, this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH, exemptfail=True)
+                    bucket_results = generic_large_compare(db_conn, items_left_to_bucket, this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH, exemptfail=True, audit_name=auditName)
                 except Exception as glc_bucket_results_error:
                     logger.error("Error on Generic Large Compare on bucket {} : audit {}".format(bucket, auditName))
                     logger.warning("Maybe no Hosts for Bucket {} on audit {}".format(bucket, auditName))
                     logger.debug("Error : {}".format(glc_bucket_results_error))
                 else:
                     # Grab just the items that passed
+                    if bucket == "bionic-bucket":
+                        logger.info("{} Bionic Bucket Filter Results {}".format(auditName, bucket_results))
+                    
                     for result in bucket_results :
                         if "pfe" in result.keys() :
                             if result["pfe"] == "pass" :
@@ -562,54 +242,65 @@ def analyze(CONFIGDIR, CONFIG):
             # Host Bucketing
             for comparison in host_buckets.keys() :
                 #print(comparison)
-                try:
-                    this_mtype = oneAudit["comparisons"][comparison]["comparison-match"]
-                    this_ctype = oneAudit["comparisons"][comparison]["comparison-collection-type"]
-                    this_csubtype = oneAudit["comparisons"][comparison]["comparison-collection-subtype"]
-                    this_mvalue = oneAudit["comparisons"][comparison]["comparison-match-value"]
-                    #print(this_mtype, this_ctype, this_csubtype, this_mvalue)
-                except Exception as comparison_error:
-                    logger.error("Error grabbing comparisons for audit {} : {}".format(auditName, comparison_error))
-                else:
-                    # Check What Type
-                    if this_mtype in ["subnonhere", "suballhere", "subknowall"] :
-                        # Add Massive Subtype
-                        try:
-                            comparison_results = subtype_large_compare(db_conn, host_buckets[comparison], this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH)
-                        except Exception as subtype_large_compare_error:
-                            logger.error("{} Error on Subtype Large Compare on Comparison for bucket {}".format(auditName,
-                                                                                                                comparison))
-
-                            logger.debug("Error : {}".format(subtype_large_compare_error))
-                        else:
-                            host_comparison[comparison] = comparison_results
-
+                
+                if len(host_buckets[comparison]) > 0:
+                    try:
+                        this_mtype = oneAudit["comparisons"][comparison]["comparison-match"]
+                        this_ctype = oneAudit["comparisons"][comparison]["comparison-collection-type"]
+                        this_csubtype = oneAudit["comparisons"][comparison]["comparison-collection-subtype"]
+                        this_mvalue = oneAudit["comparisons"][comparison]["comparison-match-value"]
+                        #print(this_mtype, this_ctype, this_csubtype, this_mvalue)
+                    except Exception as comparison_error:
+                        logger.error("Error grabbing comparisons for audit {} : {}".format(auditName, comparison_error))
                     else:
-                        # Generic Comparison
-                        try:
-                            comparison_results = generic_large_compare(db_conn, host_buckets[comparison], this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH)
-                            #print(comparison_results)
-                        except Exception as generic_large_compare_error:
-                            logger.error("{} Error on Generic Large Compare on Comparison for bucket {}".format(auditName,
-                                                                                                                comparison))
+                        # Check What Type
+                        logger.debug("{} Running Comparison on Bucket {}/{}".format(auditName, comparison, len(host_buckets[comparison])))
+                        
+                        if this_mtype in ["subnonhere", "suballhere", "subknowall"] :
+                            # Add Massive Subtype
+                            try:
+                                comparison_results = subtype_large_compare(db_conn, host_buckets[comparison], this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH)
+                            except Exception as subtype_large_compare_error:
+                                logger.error("{} Error on Subtype Large Compare on Comparison for bucket {}".format(auditName,
+                                                                                                                    comparison))
 
-                            logger.debug("Error : {}".format(generic_large_compare_error))
+                                logger.debug("Error : {}".format(subtype_large_compare_error))
+                            else:
+                                host_comparison[comparison] = comparison_results
+
                         else:
-                            host_comparison[comparison] = comparison_results
+                            # Generic Comparison
+                            try:
+                                comparison_results = generic_large_compare(db_conn, host_buckets[comparison], this_mtype, this_ctype, this_csubtype, this_mvalue, FRESH)
+                                #print(comparison_results)
+                            except Exception as generic_large_compare_error:
+                                logger.error("{} Error on Generic Large Compare on Comparison for bucket {}".format(auditName,
+                                                                                                                    comparison))
+
+                                logger.debug("Error : {}".format(generic_large_compare_error))
+                            else:
+                                host_comparison[comparison] = comparison_results
+                else:
+                    # Possible Future Nothing to Compare for {} bucket on audit blah message
+                    pass
+                
 
             #bucket in host_bucket
             #print(auditName, " Results : ", host_comparison)
+            logger.debug(host_comparison)
+            logger.info(host_comparison)
             massinserts = 0
             massupdates = 0
             massinserts, massupdates = generic_large_analysis_store(db_conn, audit_id, host_comparison, FRESH)
 
 
             # Return Dict is a manager.dict() so the "above" process knows what changes here.
-            return_dict["host_inserts"]  = massinserts
+            return_dict["host_inserts"] = massinserts
             return_dict["host_updates"] = massupdates
 
         except Exception as analyze_error:
             logger.error("Error doing analyze for {} : {}".format(auditName, analyze_error))
+            logger.debug(analyze_error)
             exit(1)
         else:
             exit(0)
