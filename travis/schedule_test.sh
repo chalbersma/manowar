@@ -3,7 +3,10 @@
 set -x
 
 # Run Scheduler Test
-./schedule2.py -c travis/artifacts/scheduler.ini -b travis/artifacts/servers4.csv -V
+#./schedule2.py -c travis/artifacts/scheduler.ini -b travis/artifacts/servers4.csv -V
+
+# Time for a Schedule 3 World
+./scheduel3.py -vvv
 
 # Now Test it WOrks
 whereis jq

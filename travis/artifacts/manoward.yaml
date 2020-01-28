@@ -69,5 +69,17 @@ analyze:
   maxthreads: 32
 collate:
   freshseconds: 86400
+ip_intel:
+  do_intel: true
+  report_url: "http://localhost:5000/v2/ip/report"
+schedule:
+  output_report: "/tmp/sched_output.json"
+  salt_ssh_basedir: "/home/travis/build/chalbersma/manowar/travis/artifacts/salt/"
+  max_threads: 4
+  max_runtime: 1800
+  collection_config_file: "/home/travis/build/chalbersma/manowar/travis/artifacts/collector_stripped.yaml"
+  local_collections: false
+  local_collections_location: "/home/travis/build/chalbersma/manowar/travis/artifacts/collections.d/"
+  relative_venv: false
 
 

@@ -5,6 +5,10 @@ ls ~/.ssh
 # Create a new ssh key
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
+# Copy this to the Salt Key Location
+cp -v ~/.ssh/id_rsa /home/travis/build/chalbersma/manowar/travis/artifacts/salt/ssh/salt_key
+cp -v ~/.ssh/id_rsa.pub /home/travis/build/chalbersma/manowar/travis/artifacts/salt/ssh/salt_key.pub
+
 # Authorized Keys
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 
