@@ -135,11 +135,11 @@ def get_conn(config, prefix=None, tojq=None, **kwargs):
         if capath is not None:
             pymysql_args["ssl"]["capath"] = capath
         if cert is not None:
-            pymysql_args["ssl"]["capath"] = cert
+            pymysql_args["ssl"]["cert"] = cert
         if key is not None:
-            pymysql_args["ssl"]["capath"] = key
+            pymysql_args["ssl"]["key"] = key
         if cipher is not None:
-            pymysql_args["ssl"]["capath"] = cipher
+            pymysql_args["ssl"]["cipher"] = cipher
 
     try:
 
