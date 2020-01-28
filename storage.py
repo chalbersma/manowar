@@ -276,8 +276,9 @@ def insert_update_collections(db_conn, host_id, hostdata, MAX):
 
             # See If I'm Updating This Result
             try:
-                logger.debug(find_existing_query)
-                logger.debug(find_existing_query_args)
+                update_debug_query = cur.mogrify(find_existing_query, find_existing_query_args)
+                # Too Verbose even for Debug
+                #logger.debug(update_debug_query)
                 cur.execute(find_existing_query, find_existing_query_args)
             except Exception as update_collection_error:
                 logger.error("{}Trouble with query {} on host {} with error : {}{}".format(Fore.RED,
