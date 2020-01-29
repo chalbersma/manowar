@@ -16,6 +16,7 @@ import sys
 
 import feedparser
 import pyjq
+import requests
 
 import audittools.audits_usn
 import audittools.audits_rhsa
@@ -31,11 +32,10 @@ _known_feeds = {"usn" : {"url" : "https://usn.ubuntu.com/usn/atom.xml",
                                                   "cacheage" : 21600},
                          "format" : "json"
                         },
-                "rhsa" : {"url" : "https://linuxsecurity.com/advisories/red-hat?format=feed&type=rss",
+                "rhsa" : {"url" : "https://access.redhat.com/hydra/rest/securitydata/oval.json",
+                          "reqtype" : "json",
                           "subdir": "redhat_rhsa",
-                          "jq_obj_source_key" : ".title",
-                          "regex_obj_source_key" : r"^RedHat: (RHSA-\d{4}-\d{1,4})",
-                          "regex_obj_replace" : [r"(RHSA-\d{4})-(\d{1,4})", r"\1:\2"],
+                          "jq_obj_source_key" : ".RHSA",
                           "update_existing" : False,
                           "audit_source_obj" : audittools.audits_rhsa.AuditSourceRHSA,
                           "format" : "json"
@@ -116,7 +116,11 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
 
     # I have a valid place to Put my Stuff. Let's Grab my URL
     try:
-        feed_obj = feedparser.parse(feed_config["url"])
+        if feed_config.get("reqtype", "rss") == "rss":
+            feed_obj = feedparser.parse(feed_config["url"])
+        elif feed_config.get("reqtype", "json") == "json":
+            feed_req = requests.get(feed_config["url"])
+            feed_obj = {"entries" : feed_req.json()}
     except Exception as feed_read_error:
         logger.error("Unable to Read RSS Feed Returning Empty")
         logger.debug("Feed Read Error : {}".format(feed_read_error))
