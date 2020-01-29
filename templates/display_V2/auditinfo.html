@@ -1,7 +1,7 @@
 {% include 'base_header.html' %}
 {% from "error.html" import with_errors %}
-<link rel="stylesheet" type="text/css" href="/jellyfish/static/css/jellyfish.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="/jellyfish/static/css/jellyfish_groupings.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish_groupings.css" media="screen" />
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 	google.charts.load('current', {'packages':['corechart']});
@@ -53,12 +53,12 @@
         {% for link in content["data"][0]["attributes"]["audit_secondary_links"] %}
             <li><a href='{{ content["data"][0]["attributes"]["audit_secondary_links"][link] }}'>{{ link }}</a></li>
         {% endfor %}
-            <li><a href="/jellyfish/display/v2/auditresults/{{ audit_id }}/?auditResult='fail'">Results Failure</a></li>
-            <li><a href="/jellyfish/display/v2/auditresults/{{ audit_id }}/">Results All</a></li>
+            <li><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/auditresults/{{ audit_id }}/?auditResult='fail'">Results Failure</a></li>
+            <li><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/auditresults/{{ audit_id }}/">Results All</a></li>
     </ul>
 
     <h3>Long Description</h3>
-    <h4>Audit Priority :  {{  content["data"][0]["attributes"]["audit_priority"] }}</h4>
+    <h4>Audit Priority :  {{ content["data"][0]["attributes"]["audit_priority"] }}</h4>
 
     {{ content["data"][0]["attributes"]["audit_long_description"] }}
 
@@ -80,7 +80,7 @@
     <script>
     function populate_group_tables(){
 
-	    $.getJSON("/jellyfish/v2/auditinfo/{{ audit_id }}/buckets/", function(data){
+	    $.getJSON("{{ g.config_items["v2ui"]["preroot"] }}/v2/auditinfo/{{ audit_id }}/buckets/", function(data){
 
 		    window.console.log(data)
 
