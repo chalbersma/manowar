@@ -2,7 +2,8 @@
 
 import argparse
 import logging
-import subprocess
+# Need this until pylxd actually works
+import subprocess # nosec
 import json
 import time
 import os
@@ -12,13 +13,7 @@ import shlex
 import pylxd
 import yaml
 
-_currently_supported_platforms = {"centos6" : {"lxc" : "images:centos/6",
-                                               "prefix" : "centsix",
-                                               "postfix" : "c6n"},
-                                  "centos7" : {"lxc" : "images:centos/7",
-                                               "prefix" : "centsev",
-                                               "postfix" : "c7n"},
-                                  "centos8" : {"lxc" : "images:centos/8",
+_currently_supported_platforms = {"centos8" : {"lxc" : "images:centos/8",
                                                "prefix" : "centeig",
                                                "postfix" : "c8n"},
                                   "ubuntubionic" :  {"lxc" : "images:ubuntu/bionic",
@@ -114,15 +109,14 @@ if __name__ == "__main__":
                 
                 logger.debug("Launch Command : \n{}".format(create_command))
                 
-                cmd_args = {"shell" : True,
-                            "stdout" : subprocess.PIPE,
+                cmd_args = {"stdout" : subprocess.PIPE,
                             "executable" : "/bin/bash"}
                 
                                          
                 logger.info("Spinning up Container for {}".format(this_roster_id))
                 try:
                     
-                    run_result = subprocess.run(create_command, **cmd_args)
+                    run_result = subprocess.run(create_command, **cmd_args, shell=True)
                     
                 except Exception as container_error:
                     logger.error("Container error on {}".format(this_roster_id))
@@ -147,7 +141,7 @@ if __name__ == "__main__":
                         # Grab IP Of Created Container
                         ipv4_command = "lxc list {} --columns 4 --format=csv".format(shlex.quote(this_roster_id))
                         
-                        ipv4_run_result = subprocess.run(ipv4_command, **cmd_args)
+                        ipv4_run_result = subprocess.run(ipv4_command, **cmd_args, shell=True)
                         
                         # Inject new Roster Args
                         this_roster_args["host"] = str(ipv4_run_result.stdout.decode("utf-8").split()[0])
@@ -160,7 +154,7 @@ if __name__ == "__main__":
                         # Should Add Key for most unix like systems
                         # New platforms need new things
                         # God help me if windows comes to lxc
-                        dumb_key_sequence = ["yum -y install openssh-server openssh-clients",
+                        dumb_key_sequence = ["yum -y install openssh-server openssh-clients python3 sudo",
                                              "apt-get install -y openssh-server",
                                              "service sshd start",
                                              "service ssh start",
@@ -177,7 +171,7 @@ if __name__ == "__main__":
                                                                                   dks)
                             
                             logger.debug("Running bad command : {}".format(this_command))
-                            this_result = subprocess.run(this_command, **cmd_args)
+                            this_result = subprocess.run(this_command, **cmd_args, shell=True)
                             
                             
                             logger.debug("STDOUT: {}".format(this_result.stdout))
