@@ -1,6 +1,6 @@
 {% include 'base_header.html' %}
 {% from "error.html" import with_errors %}
-<link rel="stylesheet" type="text/css" href="/jellyfish/static/css/jellyfish.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish.css" media="screen" />
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 	google.charts.load('current', {'packages':['corechart']});
@@ -33,7 +33,7 @@
 			    {% for collection in content["data"] %}
 			    <tr>
 				    <td>{{ collection["attributes"][type_text] }}</td>
-				    <td><a href="/jellyfish/display/v2/auditinfo/{{ collection["attributes"]["fk_audits_id"] }}/">{{ collection["attributes"]["audit_name"] }}</td>
+				    <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/auditinfo/{{ collection["attributes"]["fk_audits_id"] }}/">{{ collection["attributes"]["audit_name"] }}</td>
 				    <td>{{ collection["attributes"][type_pass] }}</td>
 				    <td>{{ collection["attributes"][type_failed] }}</td>
 			    </tr>

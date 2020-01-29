@@ -1,6 +1,6 @@
 {% include 'base_header.html' %}
 {% from "error.html" import with_errors %}
-<link rel="stylesheet" type="text/css" href="/jellyfish/static/css/jellyfish.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish.css" media="screen" />
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 	google.charts.load('current', {'packages':['corechart']});
@@ -45,7 +45,7 @@
                 <tbody>
                     {% for this_host in content["data"][release]["results"] %}
                     <tr>
-                        <td><a href="/jellyfish/display/v2/hostcollections/{{ this_host["attributes"]["host_id"] }}/">{{ this_host["attributes"]["hostname"]|lower }}</a></td>
+                        <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/hostcollections/{{ this_host["attributes"]["host_id"] }}/">{{ this_host["attributes"]["hostname"]|lower }}</a></td>
                         <td>{{ this_host["attributes"]["hoststatus"] }}</td>
                         <td>{{ this_host["attributes"]["pop"] }}</td>
                         <td>{{ this_host["attributes"]["srvtype"] }}</td>

@@ -1,12 +1,12 @@
 {% include 'base_header.html' %}
 {% from "error.html" import with_errors %}
-<link rel="stylesheet" type="text/css" href="/jellyfish/static/css/jellyfish.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish.css" media="screen" />
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 	google.charts.load('current', {'packages':['corechart']});
 </script>
 <div class="col-md-10">
-    <h1>Audit Results - <a href="/jellyfish/display/v2/auditinfo/{{ audit_id }}/">{{ content["meta"]["audit_name"] }}</a></h1>
+    <h1>Audit Results - <a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/auditinfo/{{ audit_id }}/">{{ content["meta"]["audit_name"] }}</a></h1>
     <div id="graphs">
         <div class="pager">
             <script>
@@ -88,8 +88,8 @@
         </div>
         <div id="bypopgraph" style="display:none;">
 	        <div id="graphcontrols-pop">
-		        <a href="javascript:drawCharts('By Pop', 'bypopgraph', default_data, 1, 'POP', 'FALSE', 'FALSE')" ><img src="/jellyfish/static/img/refresh.png" /></a>
-		        <a href="javascript:drawCharts('By Pop', 'bypopgraph', default_data, 1, 'POP', 'FALSE', 'TRUE')" ><img src="/jellyfish/static/img/expand.png" /></a>
+		        <a href="javascript:drawCharts('By Pop', 'bypopgraph', default_data, 1, 'POP', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+		        <a href="javascript:drawCharts('By Pop', 'bypopgraph', default_data, 1, 'POP', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
 	        </div>
 	        <div id="graphs-meat-pop">
 		        <div id="bypopgraph-pie"></div>
@@ -98,8 +98,8 @@
         </div>
 	    <div id="bysrvtypegraph" style="display:none;">
 		    <div id="graphcontrols-srvtype">
-			    <a href="javascript:drawCharts('By Srvtype', 'bysrvtypegraph', default_data, 2, 'SRVTYPE', 'FALSE', 'FALSE')" ><img src="/jellyfish/static/img/refresh.png" /></a>
-			    <a href="javascript:drawCharts('By Srvtype', 'bysrvtypegraph', default_data, 2, 'SRVTYPE', 'FALSE', 'TRUE')" ><img src="/jellyfish/static/img/expand.png" /></a>
+			    <a href="javascript:drawCharts('By Srvtype', 'bysrvtypegraph', default_data, 2, 'SRVTYPE', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+			    <a href="javascript:drawCharts('By Srvtype', 'bysrvtypegraph', default_data, 2, 'SRVTYPE', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
 		    </div>
 		    <div id="graphs-meat-srvtype">
 			    <div id="bysrvtypegraph-pie"></div>
@@ -108,8 +108,8 @@
 	    </div>
 	    <div id="bybucketgraph" style="display:none;">
 		    <div id="graphcontrols-bucket">
-			    <a href="javascript:drawCharts('By Bucket', 'bybucketgraph', default_data, 3, 'BUCKET', 'FALSE', 'FALSE')" ><img src="/jellyfish/static/img/refresh.png" /></a>
-			    <a href="javascript:drawCharts('By Bucket', 'bybucketgraph', default_data, 3, 'BUCKET', 'FALSE', 'TRUE')" ><img src="/jellyfish/static/img/expand.png" /></a>
+			    <a href="javascript:drawCharts('By Bucket', 'bybucketgraph', default_data, 3, 'BUCKET', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+			    <a href="javascript:drawCharts('By Bucket', 'bybucketgraph', default_data, 3, 'BUCKET', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
 		    </div>
 		    <div id="graphs-meat-bucket">
 			    <div id="bybucketgraph-pie"></div>
@@ -118,8 +118,8 @@
 	    </div>
 	    <div id="bypfgraph" style="display:none;">
 		    <div id="graphcontrols-text">
-			    <a href="javascript:drawCharts('By Result Text', 'bypfgraph', default_data, 4, 'VERSION', 'FALSE', 'FALSE')" ><img src="/jellyfish/static/img/refresh.png" /></a>
-			    <a href="javascript:drawCharts('By Result Text', 'bypfgraph', default_data, 4, 'VERSION', 'FALSE', 'TRUE')" ><img src="/jellyfish/static/img/expand.png" /></a>
+			    <a href="javascript:drawCharts('By Result Text', 'bypfgraph', default_data, 4, 'VERSION', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+			    <a href="javascript:drawCharts('By Result Text', 'bypfgraph', default_data, 4, 'VERSION', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
 		    </div>
 		    <div id="graphs-meat-text">
 			    <div id="bypfgraph-pie"></div>
@@ -128,8 +128,8 @@
 	    </div>
 	    <div id="bytextgraph" style="display:none;">
 		    <div id="graphcontrols-text">
-			    <a href="javascript:drawCharts('By P-F Text', 'bytextgraph', default_data, 5, 'VERSION', 'FALSE', 'FALSE')" ><img src="/jellyfish/static/img/refresh.png" /></a>
-			    <a href="javascript:drawCharts('By P-F Text', 'bytextgraph', default_data, 5, 'VERSION', 'FALSE', 'TRUE')" ><img src="/jellyfish/static/img/expand.png" /></a>
+			    <a href="javascript:drawCharts('By P-F Text', 'bytextgraph', default_data, 5, 'VERSION', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+			    <a href="javascript:drawCharts('By P-F Text', 'bytextgraph', default_data, 5, 'VERSION', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
 		    </div>
 		    <div id="graphs-meat-text">
 			    <div id="bytextgraph-pie"></div>
@@ -162,7 +162,7 @@
 			<tbody>
 				{% for host in content["data"] %}
 				<tr>
-					<td><a href="/jellyfish/display/v2/hostcollections/{{ host["attributes"]["fk_host_id"] }}/" />{{ host["attributes"]["hostname"]|lower }}</a></td>
+					<td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/hostcollections/{{ host["attributes"]["fk_host_id"] }}/" />{{ host["attributes"]["hostname"]|lower }}</a></td>
 					<td>{{ host["attributes"]["pop"] }}</td>
 					<td>{{ host["attributes"]["srvtype"] }}</td>
 					<td>{{ host["attributes"]["bucket"] }}</td>

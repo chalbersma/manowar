@@ -1,6 +1,6 @@
 {% include 'base_header.html' %}
 {% from "error.html" import with_errors %}
-<link rel="stylesheet" type="text/css" href="/jellyfish/static/css/jellyfish.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish.css" media="screen" />
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 	google.charts.load('current', {'packages':['corechart']});
@@ -90,8 +90,8 @@
 	{% if usevalue == True %}
 	<div id="byvaluegraph" style="display:none;">
 		<div id="graphcontrols-value">
-			<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 2, 'VALUE', 'FALSE', 'FALSE')" ><img src="/jellyfish/static/img/refresh.png" /></a>
-			<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 2, 'VALUE', 'FALSE', 'TRUE')" ><img src="/jellyfish/static/img/expand.png" /></a>
+			<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 2, 'VALUE', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+			<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 2, 'VALUE', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
 		</div>
 		<div id="graphs-meat-value">
 			<div id="byvaluegraph-pie"></div>
@@ -101,8 +101,8 @@
 	{% endif %}
 	<div id="bysubtypegraph" style="display:none;">
 		<div id="graphcontrols-value">
-			<a href="javascript:drawCharts('By Subtype', 'bysubtypegraph', default_data, 0, 'SUBTYPE', 'FALSE', 'FALSE')" ><img src="/jellyfish/static/img/refresh.png" /></a>
-			<a href="javascript:drawCharts('By Subtype', 'bysubtypegraph', default_data, 0, 'SUBTYPE', 'FALSE', 'TRUE')" ><img src="/jellyfish/static/img/expand.png" /></a>
+			<a href="javascript:drawCharts('By Subtype', 'bysubtypegraph', default_data, 0, 'SUBTYPE', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+			<a href="javascript:drawCharts('By Subtype', 'bysubtypegraph', default_data, 0, 'SUBTYPE', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
 		</div>
 		<div id="graphs-meat-value">
 			<div id="bysubtypegraph-pie"></div>
@@ -134,7 +134,7 @@
 	    <tbody>
 		    {% for collection in content["data"] %}
 		    <tr>
-			    <td><a href="/jellyfish/display/v2/collected/values/{{ meta["ctype"] }}/{{ collection["attributes"]["subtype"] }}/?{{ meta["link_query"] }}" >{{ collection["attributes"]["subtype"] }}</a></td>
+			    <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/collected/values/{{ meta["ctype"] }}/{{ collection["attributes"]["subtype"] }}/?{{ meta["link_query"] }}" >{{ collection["attributes"]["subtype"] }}</a></td>
 			    <td>{{ collection["attributes"]["count"] }}</td>
 			    {% if usevalue == True %}
 			    <td>{{ collection["attributes"]["value"] }}</td>
