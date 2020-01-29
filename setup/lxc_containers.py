@@ -110,13 +110,14 @@ if __name__ == "__main__":
                 logger.debug("Launch Command : \n{}".format(create_command))
                 
                 cmd_args = {"stdout" : subprocess.PIPE,
-                            "executable" : "/bin/bash"}
+                            "executable" : "/bin/bash",
+                            "shell" : True}
                 
                                          
                 logger.info("Spinning up Container for {}".format(this_roster_id))
                 try:
                     
-                    run_result = subprocess.run(create_command, **cmd_args, shell=True)
+                    run_result = subprocess.run(create_command, **cmd_args) # nosec
                     
                 except Exception as container_error:
                     logger.error("Container error on {}".format(this_roster_id))
@@ -141,7 +142,7 @@ if __name__ == "__main__":
                         # Grab IP Of Created Container
                         ipv4_command = "lxc list {} --columns 4 --format=csv".format(shlex.quote(this_roster_id))
                         
-                        ipv4_run_result = subprocess.run(ipv4_command, **cmd_args, shell=True)
+                        ipv4_run_result = subprocess.run(ipv4_command, **cmd_args) # nosec
                         
                         # Inject new Roster Args
                         this_roster_args["host"] = str(ipv4_run_result.stdout.decode("utf-8").split()[0])
@@ -171,7 +172,7 @@ if __name__ == "__main__":
                                                                                   dks)
                             
                             logger.debug("Running bad command : {}".format(this_command))
-                            this_result = subprocess.run(this_command, **cmd_args, shell=True)
+                            this_result = subprocess.run(this_command, **cmd_args) # nosec
                             
                             
                             logger.debug("STDOUT: {}".format(this_result.stdout))
