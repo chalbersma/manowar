@@ -1,0 +1,80 @@
+{
+  "USN-4258-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-5.0.0-1029-gke",
+          "linux-image-aws-edge",
+          "linux-image-gke-5.0",
+          "linux-image-5.0.0-1024-aws",
+          "linux-image-gcp",
+          "linux-image-oracle-edge",
+          "linux-image-5.0.0-1010-oracle",
+          "linux-image-5.0.0-1029-gcp"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.0.0-1029.30~18.04.1",
+          "5.0.0.1024.38",
+          "5.0.0.1029.17",
+          "5.0.0-1024.27~18.04.1",
+          "5.0.0.1029.33",
+          "5.0.0.1010.9",
+          "5.0.0-1010.15~18.04.1",
+          "5.0.0-1029.30~18.04.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-15099_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15099.html",
+      "CVE-2019-15291_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15291.html",
+      "CVE-2019-18683_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18683.html",
+      "CVE-2019-18885_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18885.html",
+      "CVE-2019-19050_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19050.html",
+      "CVE-2019-19062_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19062.html",
+      "CVE-2019-19071_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19071.html",
+      "CVE-2019-19077_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19077.html",
+      "CVE-2019-19078_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19078.html",
+      "CVE-2019-19079_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19079.html",
+      "CVE-2019-19082_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19082.html",
+      "CVE-2019-19227_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19227.html",
+      "CVE-2019-19252_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19252.html",
+      "CVE-2019-19332_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19332.html",
+      "CVE-2019-19767_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19767.html",
+      "USN-4258-1": "https://usn.ubuntu.com/4258-1/"
+    },
+    "vuln-long-description": "It was discovered that the Atheros 802.11ac wireless USB device driver in\nthe Linux kernel did not properly validate device metadata. A physically\nproximate attacker could use this to cause a denial of service (system\ncrash). (CVE-2019-15099)\n\nIt was discovered that a race condition existed in the Virtual Video Test\nDriver in the Linux kernel. An attacker with write access to /dev/video0 on\na system with the vivid module loaded could possibly use this to gain\nadministrative privileges. (CVE-2019-18683)\n\nIt was discovered that the btrfs file system in the Linux kernel did not\nproperly validate metadata, leading to a NULL pointer dereference. An\nattacker could use this to specially craft a file system image that, when\nmounted, could cause a denial of service (system crash). (CVE-2019-18885)\n\nIt was discovered that the crypto subsystem in the Linux kernel did not\nproperly deallocate memory in certain error conditions. A local attacker\ncould use this to cause a denial of service (kernel memory exhaustion).\n(CVE-2019-19050, CVE-2019-19062)\n\nIt was discovered that the RSI 91x WLAN device driver in the Linux kernel\ndid not properly deallocate memory in certain error conditions. A local\nattacker could use this to cause a denial of service (kernel memory\nexhaustion). (CVE-2019-19071)\n\nIt was discovered that the Broadcom Netxtreme HCA device driver in the\nLinux kernel did not properly deallocate memory in certain error\nconditions. A local attacker could possibly use this to cause a denial of\nservice (kernel memory exhaustion). (CVE-2019-19077)\n\nIt was discovered that the Atheros 802.11ac wireless USB device driver in\nthe Linux kernel did not properly deallocate memory in certain error\nconditions. A local attacker could possibly use this to cause a denial of\nservice (kernel memory exhaustion). (CVE-2019-19078)\n\nIt was discovered that the Qualcomm IPC Router TUN device driver in the\nLinux kernel did not properly deallocate memory in certain situations. A\nlocal attacker could possibly use this to cause a denial of service (kernel\nmemory exhaustion). (CVE-2019-19079)\n\nIt was discovered that the AMD GPU device drivers in the Linux kernel did\nnot properly deallocate memory in certain error conditions. A local\nattacker could use this to possibly cause a denial of service (kernel\nmemory exhaustion). (CVE-2019-19082)\n\nDan Carpenter discovered that the AppleTalk networking subsystem of the\nLinux kernel did not properly handle certain error conditions, leading to a\nNULL pointer dereference. A local attacker could use this to cause a denial\nof service (system crash). (CVE-2019-19227)\n\nOr Cohen discovered that the virtual console subsystem in the Linux kernel\ndid not properly restrict writes to unimplemented vcsu (unicode) devices. A\nlocal attacker could possibly use this to cause a denial of service (system\ncrash) or have other unspecified impacts. (CVE-2019-19252)\n\nIt was discovered that the KVM hypervisor implementation in the Linux\nkernel did not properly handle ioctl requests to get emulated CPUID\nfeatures. An attacker with access to /dev/kvm could use this to cause a\ndenial of service (system crash). (CVE-2019-19332)\n\nIt was discovered that the ext4 file system implementation in the Linux\nkernel did not properly handle certain conditions. An attacker could use\nthis to specially craft an ext4 file system that, when mounted, could cause\na denial of service (system crash) or possibly execute arbitrary code.\n(CVE-2019-19767)\n\nIt was discovered that the B2C2 FlexCop USB device driver in the Linux\nkernel did not properly validate device metadata. A physically proximate\nattacker could use this to cause a denial of service (system crash).\n(CVE-2019-15291)\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4258-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4258-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in the Linux kernel.\n"
+  }
+}
