@@ -17,6 +17,7 @@ import queue
 import sys
 import time
 import os
+import re
 import signal
 import random
 import hashlib
@@ -419,11 +420,11 @@ def schedule(config_items, regex=None, shard=None):
             fail_prod = this_result[3]
 
             if success:
-                glbl_success_hosts.append(this_one_host_array[0])
+                glbl_success_hosts.append(this_one_host_array)
             elif fail:
-                glbl_fail_hosts.append(this_one_host_array[0])
+                glbl_fail_hosts.append(this_one_host_array)
             if fail_prod:
-                glbl_fail_hosts_prod.append(this_one_host_array[0])
+                glbl_fail_hosts_prod.append(this_one_host_array)
         finally:
             # Placeholder
             current_count = result_queue.qsize() - failure_adjustment
