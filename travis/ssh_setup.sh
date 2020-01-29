@@ -33,8 +33,8 @@ echo -e "127.0.0.1	testbox4.vrt" | sudo tee -a /etc/hosts
 echo -e "127.0.0.1	testbox3.vrt" | sudo tee -a /etc/hosts
 echo -e "127.0.0.1	testbox2.vrt" | sudo tee -a /etc/hosts
 
-ssh -o StrictHostKeyChecking=accept-new testbox1.vrt "echo 1"
-ssh -o StrictHostKeyChecking=accept-new testbox2.vrt "echo 2"
-ssh -o StrictHostKeyChecking=accept-new testbox3.vrt "echo 3"
-ssh -o StrictHostKeyChecking=accept-new testbox4.vrt "echo 4"
-ssh -o StrictHostKeyChecking=accept-new testbox5.vrt "echo 5"
+ssh-keyscan -H testbox1.vrt >> ~/.ssh/known_hosts
+ssh-keyscan -H testbox2.vrt >> ~/.ssh/known_hosts
+ssh-keyscan -H testbox3.vrt >> ~/.ssh/known_hosts
+ssh-keyscan -H testbox4.vrt >> ~/.ssh/known_hosts
+ssh-keyscan -H testbox5.vrt >> ~/.ssh/known_hosts
