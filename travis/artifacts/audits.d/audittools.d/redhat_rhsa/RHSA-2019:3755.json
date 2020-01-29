@@ -1,0 +1,51 @@
+{
+  "RHSA-2019:3755": {
+    "comparisons": {
+      "6-bucket": {
+        "comparison-collection-subtype": [
+          "sudo",
+          "sudo-devel"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.6p3",
+          "1.8.6p3"
+        ]
+      }
+    },
+    "filters": {
+      "6-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          6
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14287": "https://access.redhat.com/security/cve/CVE-2019-14287",
+      "bz#1760531: CVE-2019-14287 sudo: Privilege escalation via 'Runas' specification with 'ALL' keyword": "https://bugzilla.redhat.com/show_bug.cgi?id=1760531",
+      "https://access.redhat.com/errata/RHSA-2019:3755": "https://access.redhat.com/errata/RHSA-2019:3755",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://www.sudo.ws/alerts/minus_1_uid.html": "https://www.sudo.ws/alerts/minus_1_uid.html"
+    },
+    "vuln-long-description": "\nAn update for sudo is now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    \n\n\nThe sudo packages contain the sudo utility which allows system administrators to provide certain users with the permission to execute privileged commands, which are used for system management purposes, without having to log in as root.\n\nSecurity Fix(es):\n\n* sudo: Privilege escalation via 'Runas' specification with 'ALL' keyword (CVE-2019-14287)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n    \n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3755",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3755",
+    "vuln-priority": 1,
+    "vuln-short-description": "\nAn update for sudo is now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    "
+  }
+}

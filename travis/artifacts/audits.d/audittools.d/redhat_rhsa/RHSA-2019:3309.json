@@ -1,0 +1,131 @@
+{
+  "RHSA-2019:3309": {
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "kernel-rt-modules-extra",
+          "kernel-rt-modules",
+          "kernel-rt-devel",
+          "kernel-rt-debug-modules-extra",
+          "kernel-rt-debug-modules",
+          "kernel-rt-debug-devel",
+          "kernel-rt-debug-core",
+          "kernel-rt-debug",
+          "kernel-rt-core",
+          "kernel-rt",
+          "kernel-rt-kvm",
+          "kernel-rt-debug-kvm"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.18.0",
+          "4.18.0",
+          "4.18.0",
+          "4.18.0",
+          "4.18.0",
+          "4.18.0",
+          "4.18.0",
+          "4.18.0",
+          "4.18.0",
+          "4.18.0",
+          "4.18.0",
+          "4.18.0"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-16884": "https://access.redhat.com/security/cve/CVE-2018-16884",
+      "CVE-2018-19854": "https://access.redhat.com/security/cve/CVE-2018-19854",
+      "CVE-2018-19985": "https://access.redhat.com/security/cve/CVE-2018-19985",
+      "CVE-2018-20169": "https://access.redhat.com/security/cve/CVE-2018-20169",
+      "CVE-2019-10126": "https://access.redhat.com/security/cve/CVE-2019-10126",
+      "CVE-2019-10207": "https://access.redhat.com/security/cve/CVE-2019-10207",
+      "CVE-2019-10638": "https://access.redhat.com/security/cve/CVE-2019-10638",
+      "CVE-2019-11599": "https://access.redhat.com/security/cve/CVE-2019-11599",
+      "CVE-2019-11833": "https://access.redhat.com/security/cve/CVE-2019-11833",
+      "CVE-2019-11884": "https://access.redhat.com/security/cve/CVE-2019-11884",
+      "CVE-2019-13233": "https://access.redhat.com/security/cve/CVE-2019-13233",
+      "CVE-2019-14821": "https://access.redhat.com/security/cve/CVE-2019-14821",
+      "CVE-2019-15916": "https://access.redhat.com/security/cve/CVE-2019-15916",
+      "CVE-2019-3459": "https://access.redhat.com/security/cve/CVE-2019-3459",
+      "CVE-2019-3460": "https://access.redhat.com/security/cve/CVE-2019-3460",
+      "CVE-2019-3874": "https://access.redhat.com/security/cve/CVE-2019-3874",
+      "CVE-2019-3882": "https://access.redhat.com/security/cve/CVE-2019-3882",
+      "CVE-2019-3900": "https://access.redhat.com/security/cve/CVE-2019-3900",
+      "CVE-2019-5489": "https://access.redhat.com/security/cve/CVE-2019-5489",
+      "CVE-2019-7222": "https://access.redhat.com/security/cve/CVE-2019-7222",
+      "CVE-2019-9506": "https://access.redhat.com/security/cve/CVE-2019-9506",
+      "bz#1656986: CVE-2018-19854 kernel: Information Disclosure in crypto_report_one in crypto/crypto_user.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1656986",
+      "bz#1660375: CVE-2018-16884 kernel: nfs: use-after-free in svc_process_common()": "https://bugzilla.redhat.com/show_bug.cgi?id=1660375",
+      "bz#1660385: CVE-2018-20169 kernel: usb: missing size check in the __usb_get_extra_descriptor() leading to DoS": "https://bugzilla.redhat.com/show_bug.cgi?id=1660385",
+      "bz#1663176: CVE-2019-3459 kernel: Heap address information leak while using L2CAP_GET_CONF_OPT": "https://bugzilla.redhat.com/show_bug.cgi?id=1663176",
+      "bz#1663179: CVE-2019-3460 kernel: Heap address information leak while using L2CAP_PARSE_CONF_RSP": "https://bugzilla.redhat.com/show_bug.cgi?id=1663179",
+      "bz#1664110: CVE-2019-5489 Kernel: page cache side channel attacks": "https://bugzilla.redhat.com/show_bug.cgi?id=1664110",
+      "bz#1666106: CVE-2018-19985 kernel: oob memory read in hso_probe in drivers/net/usb/hso.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1666106",
+      "bz#1671930: CVE-2019-7222 Kernel: KVM: leak of uninitialized stack contents to guest": "https://bugzilla.redhat.com/show_bug.cgi?id=1671930",
+      "bz#1686373: CVE-2019-3874 kernel: SCTP socket buffer memory leak leading to denial of service": "https://bugzilla.redhat.com/show_bug.cgi?id=1686373",
+      "bz#1689426: CVE-2019-3882 kernel: denial of service vector through vfio DMA mappings": "https://bugzilla.redhat.com/show_bug.cgi?id=1689426",
+      "bz#1698757: CVE-2019-3900 Kernel: vhost_net: infinite loop while receiving packets leads to DoS": "https://bugzilla.redhat.com/show_bug.cgi?id=1698757",
+      "bz#1705937: CVE-2019-11599 kernel: fix race condition between mmget_not_zero()/get_task_mm() and core dumping": "https://bugzilla.redhat.com/show_bug.cgi?id=1705937",
+      "bz#1709837: CVE-2019-11884 kernel: sensitive information disclosure from kernel stack memory via HIDPCONNADD command": "https://bugzilla.redhat.com/show_bug.cgi?id=1709837",
+      "bz#1712072: CVE-2019-11833 kernel: fs/ext4/extents.c leads to information disclosure": "https://bugzilla.redhat.com/show_bug.cgi?id=1712072",
+      "bz#1716992: CVE-2019-10126 kernel: Heap overflow in mwifiex_uap_parse_tail_ies function in drivers/net/wireless/marvell/mwifiex/ie.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1716992",
+      "bz#1727756: CVE-2019-13233 kernel: use-after-free in arch/x86/lib/insn-eval.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1727756",
+      "bz#1727857: CVE-2019-9506 hardware: bluetooth: BR/EDR encryption key negotiation attacks (KNOB)": "https://bugzilla.redhat.com/show_bug.cgi?id=1727857",
+      "bz#1729931: CVE-2019-10638 Kernel: net: weak IP ID generation leads to remote device tracking": "https://bugzilla.redhat.com/show_bug.cgi?id=1729931",
+      "bz#1733874: CVE-2019-10207 kernel: null-pointer dereference in hci_uart_set_flow_control": "https://bugzilla.redhat.com/show_bug.cgi?id=1733874",
+      "bz#1746708: CVE-2019-14821 Kernel: KVM: OOB memory access via mmio ring buffer": "https://bugzilla.redhat.com/show_bug.cgi?id=1746708",
+      "bz#1750813: CVE-2019-15916 kernel: memory leak in register_queue_kobjects() in net/core/net-sysfs.c leads to denial of service": "https://bugzilla.redhat.com/show_bug.cgi?id=1750813",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3309": "https://access.redhat.com/errata/RHSA-2019:3309",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://arxiv.org/pdf/1906.10478.pdf": "https://arxiv.org/pdf/1906.10478.pdf",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1678887": "https://bugzilla.redhat.com/show_bug.cgi?id=1678887",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1700666": "https://bugzilla.redhat.com/show_bug.cgi?id=1700666",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1724657": "https://bugzilla.redhat.com/show_bug.cgi?id=1724657",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1728765": "https://bugzilla.redhat.com/show_bug.cgi?id=1728765",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1733472": "https://bugzilla.redhat.com/show_bug.cgi?id=1733472",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1743931": "https://bugzilla.redhat.com/show_bug.cgi?id=1743931",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1745646": "https://bugzilla.redhat.com/show_bug.cgi?id=1745646",
+      "https://discuss.kubernetes.io/t/kubernetes-security-announcement-linux-kernel-memory-cgroups-escape-via-sctp-cve-2019-3874/5594": "https://discuss.kubernetes.io/t/kubernetes-security-announcement-linux-kernel-memory-cgroups-escape-via-sctp-cve-2019-3874/5594",
+      "https://lore.kernel.org/netdev/20190401113110.GA20717@hmswarspite.think-freely.org/T/#u": "https://lore.kernel.org/netdev/20190401113110.GA20717@hmswarspite.think-freely.org/T/#u"
+    },
+    "vuln-long-description": "\nAn update for kernel-rt is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    \n\n\nThe kernel-rt packages provide the Real Time Linux Kernel, which enables fine-tuning for systems with extremely high determinism requirements.\n\nSecurity Fix(es):\n\n* kernel: nfs: use-after-free in svc_process_common() (CVE-2018-16884)\n\n* Kernel: vhost_net: infinite loop while receiving packets leads to DoS (CVE-2019-3900)\n\n* Kernel: page cache side channel attacks (CVE-2019-5489)\n\n* hardware: bluetooth: BR/EDR encryption key negotiation attacks (KNOB) (CVE-2019-9506)\n\n* kernel: Heap overflow in mwifiex_uap_parse_tail_ies function in drivers/net/wireless/marvell/mwifiex/ie.c (CVE-2019-10126)\n\n* Kernel: KVM: OOB memory access via mmio ring buffer (CVE-2019-14821)\n\n* kernel: Information Disclosure in crypto_report_one in crypto/crypto_user.c (CVE-2018-19854)\n\n* kernel: usb: missing size check in the __usb_get_extra_descriptor() leading to DoS (CVE-2018-20169)\n\n* kernel: Heap address information leak while using L2CAP_GET_CONF_OPT (CVE-2019-3459)\n\n* kernel: Heap address information leak while using L2CAP_PARSE_CONF_RSP (CVE-2019-3460)\n\n* kernel: SCTP socket buffer memory leak leading to denial of service (CVE-2019-3874)\n\n* kernel: denial of service vector through vfio DMA mappings (CVE-2019-3882)\n\n* kernel: null-pointer dereference in hci_uart_set_flow_control (CVE-2019-10207)\n\n* kernel: fix race condition between mmget_not_zero()/get_task_mm() and core dumping (CVE-2019-11599)\n\n* kernel: fs/ext4/extents.c leads to information disclosure (CVE-2019-11833)\n\n* kernel: sensitive information disclosure from kernel stack memory via HIDPCONNADD command (CVE-2019-11884)\n\n* kernel: use-after-free in arch/x86/lib/insn-eval.c (CVE-2019-13233)\n\n* kernel: memory leak in register_queue_kobjects() in net/core/net-sysfs.c leads to denial of service (CVE-2019-15916)\n\n* kernel: oob memory read in hso_probe in drivers/net/usb/hso.c (CVE-2018-19985)\n\n* Kernel: KVM: leak of uninitialized stack contents to guest (CVE-2019-7222)\n\n* Kernel: net: weak IP ID generation leads to remote device tracking (CVE-2019-10638)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nAdditional Changes:\n\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n    \n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3309",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3309",
+    "vuln-priority": 1,
+    "vuln-short-description": "\nAn update for kernel-rt is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    "
+  }
+}

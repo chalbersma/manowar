@@ -1,0 +1,82 @@
+{
+  "RHSA-2019:4190": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "nss-softokn-freebl-devel",
+          "nss-softokn-freebl",
+          "nss-softokn-devel",
+          "nss-softokn",
+          "nss-util-devel",
+          "nss-util",
+          "nss-pkcs11-devel",
+          "nss-tools",
+          "nss-sysinit",
+          "nss-devel",
+          "nss"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.44.0",
+          "3.44.0",
+          "3.44.0",
+          "3.44.0",
+          "3.44.0",
+          "3.44.0",
+          "3.44.0",
+          "3.44.0",
+          "3.44.0",
+          "3.44.0",
+          "3.44.0"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-11729": "https://access.redhat.com/security/cve/CVE-2019-11729",
+      "CVE-2019-11745": "https://access.redhat.com/security/cve/CVE-2019-11745",
+      "bz#1728437: CVE-2019-11729 nss: Empty or malformed p256-ECDH public keys may trigger a segmentation fault": "https://bugzilla.redhat.com/show_bug.cgi?id=1728437",
+      "bz#1774831: CVE-2019-11745 nss: Out-of-bounds write when passing an output buffer smaller than the block size to NSC_EncryptUpdate": "https://bugzilla.redhat.com/show_bug.cgi?id=1774831",
+      "https://access.redhat.com/errata/RHSA-2019:4190": "https://access.redhat.com/errata/RHSA-2019:4190",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/NSS_3.44.3_release_notes": "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/NSS_3.44.3_release_notes",
+      "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/NSS_3.47.1_release_notes": "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/NSS_3.47.1_release_notes",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2019-22/#CVE-2019-11729": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-22/#CVE-2019-11729"
+    },
+    "vuln-long-description": "An update for nss, nss-softokn, and nss-util is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nNetwork Security Services (NSS) is a set of libraries designed to support the cross-platform development of security-enabled client and server applications.\nThe nss-softokn package provides the Network Security Services Softoken Cryptographic Module.\nThe nss-util packages provide utilities for use with the Network Security Services (NSS) libraries.\nSecurity Fix(es):\n* nss: Out-of-bounds write when passing an output buffer smaller than the block size to NSC_EncryptUpdate (CVE-2019-11745)\n* nss: Empty or malformed p256-ECDH public keys may trigger a segmentation fault (CVE-2019-11729)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:4190",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:4190",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for nss, nss-softokn, and nss-util is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}
