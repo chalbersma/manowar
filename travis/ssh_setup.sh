@@ -32,3 +32,9 @@ echo -e "127.0.0.1	testbox5.vrt" | sudo tee -a /etc/hosts
 echo -e "127.0.0.1	testbox4.vrt" | sudo tee -a /etc/hosts
 echo -e "127.0.0.1	testbox3.vrt" | sudo tee -a /etc/hosts
 echo -e "127.0.0.1	testbox2.vrt" | sudo tee -a /etc/hosts
+
+ssh -o StrictHostKeyChecking=accept-new testbox1.vrt
+ssh -o StrictHostKeyChecking=accept-new testbox2.vrt
+ssh -o StrictHostKeyChecking=accept-new testbox3.vrt
+ssh -o StrictHostKeyChecking=accept-new testbox4.vrt
+ssh -o StrictHostKeyChecking=accept-new testbox5.vrt
