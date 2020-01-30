@@ -5,6 +5,10 @@ set -x
 # Run Scheduler Test
 #./schedule2.py -c travis/artifacts/scheduler.ini -b travis/artifacts/servers4.csv -V
 
+echo -e "Testing Salt- Stack Setup"
+
+salt-ssh -W \* test.ping -l debug
+
 # Time for a Schedule 3 World
 ./schedule3.py -vvv
 

@@ -383,7 +383,7 @@ def schedule(config_items, regex=None, shard=None):
             schedule_stats["Timeout"] = "Timeout reached at {} seconds with {} items left on the queue".format(current_run_time,
                                                                                                                host_queue.qsize())
 
-            logger.warning("TIMEOUT: {}".format(schedule_stats["TIMEOUT"]))
+            logger.warning("TIMEOUT: {}".format(schedule_stats["Timeout"]))
             
             break
         
