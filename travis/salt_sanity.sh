@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+set -x
+
 # Salt Santity Checker
 cd -v /home/travis/build/chalbersma/manowar/travis/artifacts/salt
 
