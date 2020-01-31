@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
+set -x
+
 ls ~/.ssh
 
 # Create a new ssh key
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
 # Copy this to the Salt Key Location
+mkdir -p /home/travis/build/chalbersma/manowar/travis/artifacts/salt/ssh
 cp -v ~/.ssh/id_rsa /home/travis/build/chalbersma/manowar/travis/artifacts/salt/ssh/salt_key
 cp -v ~/.ssh/id_rsa.pub /home/travis/build/chalbersma/manowar/travis/artifacts/salt/ssh/salt_key.pub
 
