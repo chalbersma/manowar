@@ -39,4 +39,3 @@ ssh-keyscan -H testbox3.vrt >> ~/.ssh/known_hosts
 ssh-keyscan -H testbox4.vrt >> ~/.ssh/known_hosts
 ssh-keyscan -H testbox5.vrt >> ~/.ssh/known_hosts
 
-ssh travis@testbox2.vrt "echo testbox2"
