@@ -212,7 +212,7 @@ def dequeue_hosts(thread_num, host_queue, result_queue, this_configs):
     return
 
 
-def schedule(config_items, regex=None, shard=None):
+def schedule(config_items, regex=None, shard=None, do_print=False):
     
     '''
     Schedule UP all My Tasks on THe Queue
