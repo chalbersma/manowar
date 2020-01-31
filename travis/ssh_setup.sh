@@ -42,7 +42,3 @@ ssh-keyscan -H testbox3.vrt >> ~/.ssh/known_hosts
 ssh-keyscan -H testbox4.vrt >> ~/.ssh/known_hosts
 ssh-keyscan -H testbox5.vrt >> ~/.ssh/known_hosts
 
-cd /home/travis/build/chalbersma/manowar/travis/artifacts/salt/
-
-ssh testbox1.vrt -o IdentityFile=./ssh/salt_key -o User=travis "echo testbox1"
-

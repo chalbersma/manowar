@@ -3,23 +3,23 @@ testbox1.vrt:
   sudo: true
   uri: mown://mowntest:vrt:testbox::testbox1.vrt?owner=nobody&status=prod
   user: travis
-#testbox2.vrt:
-#  host: testbox2.vrt
-#  sudo: true
-#  uri: mown://mowntest:vrt:testbox::testbox2.vrt?owner=nobody&status=prod
-#  user: travis
-#testbox3.vrt:
-#  host: testbox3.vrt
-#  sudo: true
-#  uri: mown://mowntest:vrt:testbox::testbox3.vrt?owner=nobody&status=prod
-#  user: travis
-#testbox4.vrt:
-#  host: testbox4.vrt
-#  sudo: true
-#  uri: mown://mowntest:vrt:testbox::testbox4.vrt?owner=nobody&status=prod
-#  user: travis
-#testbox5.vrt:
-#  host: testbox5.vrt
-#  sudo: true
-#  uri: mown://mowntest:vrt:testbox::testbox5.vrt?owner=nobody&status=prod
-#  user: travis
+testbox2.vrt:
+  host: testbox2.vrt
+  sudo: true
+  uri: mown://mowntest:vrt:testbox::testbox2.vrt?owner=nobody&status=prod
+  user: travis
+testbox3.vrt:
+  host: testbox3.vrt
+  sudo: true
+  uri: mown://mowntest:vrt:testbox::testbox3.vrt?owner=nobody&status=prod
+  user: travis
+testbox4.vrt:
+  host: testbox4.vrt
+  sudo: true
+  uri: mown://mowntest:vrt:testbox::testbox4.vrt?owner=nobody&status=prod
+  user: travis
+testbox5.vrt:
+  host: testbox5.vrt
+  sudo: true
+  uri: mown://mowntest:vrt:testbox::testbox5.vrt?owner=nobody&status=prod
+  user: travis
