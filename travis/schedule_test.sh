@@ -9,21 +9,21 @@ echo -e "Testing Salt- Stack Setup"
 ./travis/salt_sanity.sh
 
 # Time for a Schedule 3 World
-./schedule3.py -vvv
+./schedule3.py -p -vvv
 
 # Now Test it WOrks
 whereis jq
 
-success_threads=$(jq '.global_success_hosts' < /home/travis/sched_output.json )
-fail_threads=$(jq '.global_fail_hosts' < /home/travis/sched_output.json )
+success_threads=$(jq '.global_success_hosts' < /tmp/sched_output.json )
+fail_threads=$(jq '.global_fail_hosts' < /tmp/sched_output.json )
 
 if [[ ${success_threads:-0} -eq 0 ]] ; then
 	# Failure!
-	echo -e "Zero Successful Collections. Total Collections: ${success_threads}"
+	echo -e "Zero Successful Collections. Total Collections: ${success_threads:-0}"
 	exit 1
 elif [[ ${fail_threads:-0} -gt 0 ]] ; then
 	# Failure!
-	echo -e "Fail Threads Collections. Total Collections: ${fail_threads}"
+	echo -e "Fail Threads Collections. Total Collections: ${fail_threads:-0}"
 	exit 1
 else
 	echo -e "Schedule Test appears Successful."

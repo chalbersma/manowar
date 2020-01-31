@@ -39,6 +39,7 @@ if __name__ == "__main__":
     parser.add_argument("-c", "--config", help="Config File for Scheduler", required=False, default=None)
     parser.add_argument("-r", "--regex", help="Only Hosts that Match this Regex", default=None)
     parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
+    parser.add_argument("-p", "--print", action="store_true", help="Print Results to Screen", default=False)
     parser.add_argument("-s", "--shard", help="Match only This Shard", default=None)
 
     args = parser.parse_args()
@@ -445,11 +446,18 @@ def schedule(config_items, regex=None, shard=None):
     if __name__ == "__main__":
         print(json.dumps(schedule_stats, sort_keys=True, indent=4))
 
-    if json_out[0] == True:
-        with open(json_out[1], 'w') as json_out_file:
-            json_out_file.write(json.dumps(schedule_stats, sort_keys=True, indent=4))
+
+    output_filename = config_items["schedule"].get("output_report", False)
+
+    if isinstance(output_filename, str) is True:
+        self.logger.debug("Writing Output File Report to {}".format(output_filename))
+
+        with open(output_filename, 'w') as json_out_file:
+            json_out_file.write(json.dumps(schedule_stats, indent=4))
+    else:
+        self.logger.info("Output File Write Not Requested.")
 
     return schedule_stats
 
 if __name__ == "__main__":
-    schedule(CONFIG, regex=args.regex, shard=args.shard)
+    schedule(CONFIG, regex=args.regex, shard=args.shard, do_print=args.print)
