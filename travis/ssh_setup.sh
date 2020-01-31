@@ -41,7 +41,5 @@ ssh-keyscan -H testbox5.vrt >> ~/.ssh/known_hosts
 
 cd /home/travis/build/chalbersma/manowar/travis/artifacts/salt/
 
-/bin/sh -c ssh testbox1.vrt -t -o KbdInteractiveAuthentication=no -o PasswordAuthentication=no -o GSSAPIAuthentication=no -o ConnectTimeout=65 -o Port=22 -o IdentityFile=./ssh/salt_key -o User=travis "echo testbox1"
-
-/bin/bash -c ssh testbox1.vrt -t -o KbdInteractiveAuthentication=no -o PasswordAuthentication=no -o GSSAPIAuthentication=no -o ConnectTimeout=65 -o Port=22 -o IdentityFile=./ssh/salt_key -o User=travis "echo testbox1"
+ssh testbox1.vrt -o IdentityFile=./ssh/salt_key -o User=travis "echo testbox1"
 
