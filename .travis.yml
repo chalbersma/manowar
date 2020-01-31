@@ -31,6 +31,7 @@ after_success:
 - "./travis/build_diag.sh"
 - "./travis/swagger_build.sh"
 - "./travis/build_docs.sh"
+- "./travis/packages.sh"
 before_install:
 - pwd
 - openssl aes-256-cbc -K $encrypted_1acdf71f7d2b_key -iv $encrypted_1acdf71f7d2b_iv

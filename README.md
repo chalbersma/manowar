@@ -1,11 +1,11 @@
-# Jellyfish
+# Manowar
 
-> Jellyfish, it stores info about your servers and analyzes it for you if you ask it to.
+> Manowar, it stores info about your servers and analyzes it for you if you ask it to.
 
 ## Description
 
-Jellyfish is a tool designed to help people profile and analyze their server
-fleets for for various things. With is companion tool, jellyfish-audits
+Manowar is a tool designed to help people profile and analyze their server
+fleets for for various things. With is companion tool, audittools
 it can check environments for a series of common vulnerabilities that one might
 wish to check against. 
 
@@ -32,7 +32,7 @@ Please refer to the `contributing.md` file for information about how to get invo
 
 ## Maintainers
 
-Chris Halbersma : chris.halbersma@oath.com
+Chris Halbersma : chris+manowar@halbersma.us
 
 ## Usage
 

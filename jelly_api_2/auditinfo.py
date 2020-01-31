@@ -42,11 +42,8 @@ auditinfo = Blueprint('api2_auditinfo', __name__)
 @auditinfo.route("/auditinfo/<int:audit_id>/", methods=['GET'])
 def api2_auditinfo(audit_id=0):
 
-    if "audit_id" in request.args :
-        try:
-            audit_id = ast.literal_eval(request.args["audit_id"])
-        except Exception as e :
-            error_dict["literal_check"] = "Failed with " + str(e)
+    if request.args.get("audit_id", False) is True:
+        audit_id = int(request.args["audit_id"])
 
     requesttime=time.time()
 
@@ -77,6 +74,7 @@ def api2_auditinfo(audit_id=0):
                             from audits
                             where audit_id = %s
                             order by audit_priority desc, audit_id desc ;'''
+
 
     if audit_id > 0 :
         # It's Okay the Item is an Int & it's a positive number (as my IDs are all unsigned)
