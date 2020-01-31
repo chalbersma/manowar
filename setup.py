@@ -135,8 +135,8 @@ setuptools.setup(
                 ),
                 ("etc/manowar/salt/pki_dir", ["etc/manowar/salt/pki_dir/keep"]),
                 ("etc/manowar/salt/ssh", ["etc/manowar/salt/ssh/keep"]),
-                ("etc/manowar/salt/state", ["etc/manowar/salt/ssh/keep",
-                                            "etc/manowar/salt/ssh/state"])
+                ("etc/manowar/salt/state", ["etc/manowar/salt/state/keep",
+                                            "etc/manowar/salt/state/top.sls"])
                ]
 )
 
