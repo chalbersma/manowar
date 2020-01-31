@@ -450,12 +450,12 @@ def schedule(config_items, regex=None, shard=None, do_print=False):
     output_filename = config_items["schedule"].get("output_report", False)
 
     if isinstance(output_filename, str) is True:
-        self.logger.debug("Writing Output File Report to {}".format(output_filename))
+        logger.debug("Writing Output File Report to {}".format(output_filename))
 
         with open(output_filename, 'w') as json_out_file:
             json_out_file.write(json.dumps(schedule_stats, indent=4))
     else:
-        self.logger.info("Output File Write Not Requested.")
+        logger.info("Output File Write Not Requested.")
 
     return schedule_stats
 
