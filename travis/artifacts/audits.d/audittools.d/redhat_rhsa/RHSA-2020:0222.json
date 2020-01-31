@@ -1,0 +1,53 @@
+{
+  "RHSA-2020:0222": {
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "ghostscript-debugsource",
+          "libgs",
+          "ghostscript"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "9.25",
+          "9.25",
+          "9.25"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14869": "https://access.redhat.com/security/cve/CVE-2019-14869",
+      "bz#1768911: CVE-2019-14869 ghostscript: -dSAFER escape in .charkeys (701841)": "https://bugzilla.redhat.com/show_bug.cgi?id=1768911",
+      "https://access.redhat.com/errata/RHSA-2020:0222": "https://access.redhat.com/errata/RHSA-2020:0222",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important"
+    },
+    "vuln-long-description": "An update for ghostscript is now available for Red Hat Enterprise Linux 8.0 Update Services for SAP Solutions.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe Ghostscript suite contains utilities for rendering PostScript and PDF documents. Ghostscript translates PostScript code to common bitmap formats so that the code can be displayed or printed.\nSecurity Fix(es):\n* ghostscript: -dSAFER escape in .charkeys (701841) (CVE-2019-14869)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0222",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0222",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for ghostscript is now available for Red Hat Enterprise Linux 8.0 Update Services for SAP Solutions.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}
