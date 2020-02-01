@@ -64,7 +64,7 @@ if "3.7" != "{}.{}".format(sys.version_info[0], sys.version_info[1]):
 if upload_to_pypi is not False and upload_to_pypi == "stag":
     os.environ["TWINE_USERNAME"] = "__token__"
     os.environ["TWINE_PASSWORD"] = os.environ.get("PYPI_STAG_TOKEN", "whasit")
-    twine_cmd = ["twine", "upload", "--repository-url", "https://test.pypi.org/legacy/", "dist/*"]
+    twine_cmd = ["twine", "upload", "--repository-url", "https://test.pypi.org/", "dist/*"]
 elif upload_to_pypi is not False and upload_to_pypi == "prod":
     os.environ["TWINE_USERNAME"] = "__token__"
     os.environ["TWINE_PASSWORD"] = os.environ.get("PYPI_PROD_TOKEN", "whasit")
