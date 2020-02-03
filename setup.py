@@ -12,6 +12,11 @@ import os
 import git
 import subprocess # nosec
 import datetime
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+logging = loggger.getLogger("setup.py")
 
 current_repo = git.Repo()
 
