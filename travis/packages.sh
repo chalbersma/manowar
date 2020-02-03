@@ -2,4 +2,4 @@
 
 echo -e "Python3 Build Instruction (Future Stuff)."
 
-python3 setup.py sdist bdist_wheel
+python setup.py sdist bdist_wheel
