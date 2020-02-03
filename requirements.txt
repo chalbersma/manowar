@@ -17,3 +17,4 @@ pyjq
 yoyo-database-migrations
 pylxd
 gitpython
+twine
