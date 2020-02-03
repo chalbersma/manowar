@@ -68,7 +68,7 @@ def api2_custdashboard_create(dashboard_name=None, dashboard_description=None):
                                             restrictions=this_endpoint_restrictions, \
                                             session_endorsements=g.session_endorsements, \
                                             session_restrictions=g.session_restrictions, \
-                                            do_abort = True )
+                                            ignore_abort=g.debug)
 
     do_query = True
     argument_error = False

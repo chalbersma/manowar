@@ -16,7 +16,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-logging = loggger.getLogger("setup.py")
+logger = logging.getLogger("setup.py")
 
 current_repo = git.Repo()
 
