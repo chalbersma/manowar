@@ -1,0 +1,84 @@
+{
+  "RHSA-2020:0378": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "python2-ipaserver",
+          "python2-ipalib",
+          "python2-ipaclient",
+          "ipa-server-dns",
+          "ipa-server-common",
+          "ipa-python-compat",
+          "ipa-common",
+          "ipa-client-common",
+          "ipa-server-trust-ad",
+          "ipa-server",
+          "ipa-client"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.6.5",
+          "4.6.5",
+          "4.6.5",
+          "4.6.5",
+          "4.6.5",
+          "4.6.5",
+          "4.6.5",
+          "4.6.5",
+          "4.6.5",
+          "4.6.5",
+          "4.6.5"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-10195": "https://access.redhat.com/security/cve/CVE-2019-10195",
+      "CVE-2019-14867": "https://access.redhat.com/security/cve/CVE-2019-14867",
+      "bz#1726223: CVE-2019-10195 ipa: Batch API logging user passwords to /var/log/httpd/error_log": "https://bugzilla.redhat.com/show_bug.cgi?id=1726223",
+      "bz#1766920: CVE-2019-14867 ipa: Denial of service in IPA server due to wrong use of ber_scanf()": "https://bugzilla.redhat.com/show_bug.cgi?id=1766920",
+      "https://access.redhat.com/errata/RHSA-2020:0378": "https://access.redhat.com/errata/RHSA-2020:0378",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1770728": "https://bugzilla.redhat.com/show_bug.cgi?id=1770728",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1781153": "https://bugzilla.redhat.com/show_bug.cgi?id=1781153",
+      "https://www.freeipa.org/page/Releases/4.6.7": "https://www.freeipa.org/page/Releases/4.6.7",
+      "https://www.freeipa.org/page/Releases/4.7.4": "https://www.freeipa.org/page/Releases/4.7.4",
+      "https://www.freeipa.org/page/Releases/4.8.3": "https://www.freeipa.org/page/Releases/4.8.3"
+    },
+    "vuln-long-description": "An update for ipa is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nRed Hat Identity Management (IdM) is a centralized authentication, identity management, and authorization solution for both traditional and cloud-based enterprise environments.\nSecurity Fix(es):\n* ipa: Denial of service in IPA server due to wrong use of ber_scanf() (CVE-2019-14867)\n* ipa: Batch API logging user passwords to /var/log/httpd/error_log (CVE-2019-10195)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nBug Fix(es):\n* Issue with adding multiple RHEL 7 IPA replica to RHEL 6 IPA master (BZ#1770728)\n* User incorrectly added to negative cache when backend is reconnecting to IPA service / timed out: error code 32 'No such object' (BZ#1773953)\n* After upgrade AD Trust Agents were removed from LDAP (BZ#1781153)\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0378",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0378",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for ipa is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}
