@@ -54,6 +54,7 @@ if __name__ == "__main__":
     LOGGER.info("Welcome to Man 'o War")
 
     FDEBUG = args.flaskdebug
+    LOGGER.debug("Is Debug {}".format(FDEBUG))
 
     CONFIG = db_helper.get_manoward(explicit_config=args.config,
                                     only_file=False)
@@ -289,6 +290,7 @@ def ui(CONFIG, FDEBUG):
     from jelly_display_2 import display_collatedresults
     from jelly_display_2 import display_mainfactor
     from jelly_display_2 import display_custdashboardlist
+    from jelly_display_2 import display_dashboard
 
 
     # Register API Blueprints for Version 2
@@ -348,6 +350,7 @@ def ui(CONFIG, FDEBUG):
     app.register_blueprint(display_collatedresults.collatedresults, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_mainfactor.mainfactor, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_custdashboardlist.custdashboardlist, url_prefix=config_items["v2ui"]["root"])
+    app.register_blueprint(display_dashboard.dashboard, url_prefix=config_items["v2ui"]["root"])
 
     @app.template_filter('ctime')
     def timectime(s):
