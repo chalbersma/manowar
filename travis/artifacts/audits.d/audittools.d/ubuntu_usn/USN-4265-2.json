@@ -1,0 +1,73 @@
+{
+  "USN-4265-2": {
+    "comparisons": {
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "spamassassin"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.2-0ubuntu0.12.04.4"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "spamassassin"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.2-0ubuntu0.14.04.1+esm2"
+        ]
+      }
+    },
+    "filters": {
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2020-1930_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1930.html",
+      "CVE-2020-1931_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1931.html",
+      "USN-4265-2": "https://usn.ubuntu.com/4265-2/"
+    },
+    "vuln-long-description": "USN-4265-1 fixed several vulnerabilities in SpamAssassin. This update provides\nthe corresponding update for Ubuntu 12.04 ESM and 14.04 ESM.\n\nOriginal advisory details:\n\n It was discovered that SpamAssassin incorrectly handled certain CF files.\n If a user or automated system were tricked into using a specially-crafted\n CF file, a remote attacker could possibly run arbitrary code.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4265-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4265-2/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in SpamAssassin.\n"
+  }
+}

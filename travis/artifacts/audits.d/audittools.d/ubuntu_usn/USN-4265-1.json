@@ -1,0 +1,100 @@
+{
+  "USN-4265-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "spamassassin"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.2-0ubuntu0.18.04.3"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "spamassassin"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.2-1ubuntu0.19.10.2"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "spamassassin"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.2-0ubuntu0.16.04.3"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2020-1930_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1930.html",
+      "CVE-2020-1931_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1931.html",
+      "USN-4265-1": "https://usn.ubuntu.com/4265-1/"
+    },
+    "vuln-long-description": "It was discovered that SpamAssassin incorrectly handled certain CF files.\nIf a user or automated system were tricked into using a specially-crafted\nCF file, a remote attacker could possibly run arbitrary code.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4265-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4265-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in SpamAssassin.\n"
+  }
+}

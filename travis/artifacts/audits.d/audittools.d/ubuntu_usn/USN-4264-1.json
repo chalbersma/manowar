@@ -1,0 +1,78 @@
+{
+  "USN-4264-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "python3-django",
+          "python-django"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:1.11.11-1ubuntu1.7",
+          "1:1.11.11-1ubuntu1.7"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "python3-django",
+          "python-django"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:1.11.22-1ubuntu1.2",
+          "1:1.11.22-1ubuntu1.2"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2020-7471_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-7471.html",
+      "USN-4264-1": "https://usn.ubuntu.com/4264-1/"
+    },
+    "vuln-long-description": "Simon Charette discovered that Django incorrectly handled input in the\nPostgreSQL module. A remote attacker could possibly use this to perform SQL\ninjection attacks.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4264-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4264-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Django could be vulnerable to SQL injection attacks.\n"
+  }
+}
