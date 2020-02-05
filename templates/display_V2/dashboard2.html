@@ -1,0 +1,80 @@
+{% include 'base_header.html' %}
+{% from "error.html" import with_errors %}
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"]}}/static/css/jellyfish.css" media="screen" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+	google.charts.load('current', {'packages':['corechart']});
+</script>
+<div class="container">
+	<div class="row row-eq-height">
+		<div class="col-md-12">
+			<div class="page-header">
+        {% if meta["custom_dashboard"]%}
+				<h3>Custom Dashboard #{{meta["cust_dash_id"]}}</h3>
+			  {% else %}
+				<h3>Default Dashboard</h3>
+			  {% endif %}
+			</div>
+			<!-- Do one of these for every Audit Given -->
+			<div class="row placeholders">
+				<div id="data_div">
+					<!-- For Loop Here -->
+					{% for audit_all in data -%}
+				    {% set audit = audit_all["attributes"] -%}
+						{% if audit["total_pass_fail"]|int > 0 -%}
+							<div id='audit{{ audit["audit_id"]}}main' class="col-xs-6 col-sm-4 placeholder pkg-cell" >
+								<style>
+									#audit{{ audit["audit_id"]}}main{
+										/* these will reset other properties, like background-position, but it does know what you mean */
+										background: white;
+										{% if audit["total_servers"] > 1 : %}
+										background: linear-gradient(
+												white,
+											{% for hit in range(1,audit["fail_percent_int"]|int,1) -%}
+												#ff9999,
+											{% endfor %}
+											{% for hit in range(1,audit["pass_percent_int"]|int,1) -%}
+												#99ffbb,
+											{% endfor %}
+											{% for hit in range(1,audit["exempt_percent_int"]|int,1) -%}
+												white,
+											{% endfor -%}
+												white
+										);
+										{% endif %}
+
+									}
+								</style>
+								<div class="pager pkg_label">
+									<h2 class="text-center">
+										<!-- Link to Audit Details Page -->
+										<abbr title='{{ audit["audit_short_description"]|firstx(35) }}...'>
+											<a href='{{ g.config_items["v2ui"]["preroot"]}}/display/v2/auditinfo/{{ audit["audit_id"] }}'>{{ audit["audit_name"]|upper|truncate(20) }}</a>
+										</abbr>
+									</h2>
+									<div class="row pkg_description">
+									<p>
+										{{ audit["audit_short_description"]|truncate(57) }}
+									</p>
+								</div>
+								<div id='summary{{audit["audit_id"]}}' class="row" >
+									<!-- <div class="col-md-5"> -->
+									<h5 align="center"> Total (<a href='{{ g.config_items["v2ui"]["preroot"]}}/display/v2/auditresults/{{ audit["audit_id"] }}'>{{ audit["total_pass_fail"] }} </a>)</h4>
+									<p align="center">
+										<a href='{{ g.config_items["v2ui"]["preroot"]}}/display/v2/auditresults/{{ audit["audit_id"] }}?auditResult=pass'>{{ audit["acoll_passed"]|default('0', true) }}</a> Passed
+										<a href='{{ g.config_items["v2ui"]["preroot"]}}/display/v2/auditresults/{{ audit["audit_id"] }}?auditResult=fail'>{{ audit["acoll_failed"]|default('0', true) }}</a> Failed
+									</p>
+								</div>
+							</div>
+						</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+  {% include 'endpoint_link.html' %}
+</div>
+
+
+{% include 'base_footer.html' %}

@@ -47,38 +47,26 @@ import json
 import ast
 import time
 
+import db_helper
+
 
 dashboard = Blueprint('api2_dashboard', __name__)
 
 @dashboard.route("/dashboard", methods=['GET'])
 @dashboard.route("/dashboard/<int:cust_dash_id>/", methods=['GET'])
-def api2_dashboard(pass_audits=False, fail_audits=False, cust_dash_id=False):
+def api2_dashboard(pass_audits=False, fail_audits=False, cust_dash_id=None):
 
-    arg_error = False
+    args_def = {"pass_audits" : {"required" : True,
+                                 "default" : pass_audits},
+                "fail_audits" : {"required" : True,
+                                 "default" : fail_audits},
+                "cust_dash_id" : {"required" : False,
+                                  "default" : cust_dash_id,
+                                  "req_type" : int,
+                                  "fom" : True}
+               }
 
-    if "pass_audits" in request.args :
-        pass_audits = request.args["pass_audits"]
-
-    if "fail_audits" in request.args :
-        fail_audits = request.args["fail_audits"]
-
-    if "cust_dash_id" in request.args :
-        cust_dash_id = ast.literal_eval(request.args["cust_dash_id"])
-    elif "custom_dashboard" in request.args :
-        cust_dash_id = ast.literal_eval(request.args["custom_dashboard"])
-
-    if cust_dash_id == False :
-        # We're okay not a custom dashboard
-        pass
-    elif type(cust_dash_id) != int :
-        # Bad cust_dash_id
-        cust_dash_id = False
-        arg_error = True
-    elif type(cust_dash_id) == int and cust_dash_id == 0 :
-        # Default Dashboard Override to false
-        cust_dash_id = False
-        pass
-
+    args = db_helper.process_args(args_def, request.args)
 
     requesttime=time.time()
 
@@ -125,7 +113,7 @@ JOIN audits ON audits.audit_id = maxdate.fk_audits_id
 
     # Inject Custom Dashboard Items
     #print(cust_dash_id)
-    if cust_dash_id != False :
+    if args["cust_dash_id"] is not None:
         custdashboard_join = '''
         JOIN
           (SELECT fk_audits_id AS dash_audit_id
@@ -133,17 +121,17 @@ JOIN audits ON audits.audit_id = maxdate.fk_audits_id
           WHERE fk_custdashboardid = %s ) AS thisdash ON maxdate.fk_audits_id = thisdash.dash_audit_id
         '''
 
-        dashboard_query_args.append(str(cust_dash_id))
+        dashboard_query_args.append(args["cust_dash_id"])
         dashboard_query_head = dashboard_query_head + custdashboard_join
 
-        meta_info["cust_dash_id"] = cust_dash_id
+        meta_info["cust_dash_id"] = args["cust_dash_id"]
         meta_info["custom_dashbaord"] = True
 
-        this_endpoint = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/custdashboard/list/{}/".format(cust_dash_id)
+        this_endpoint = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/custdashboard/list/{}/".format(args["cust_dash_id"])
         links_info["cust_dash_id"] = this_endpoint
 
-    else :
-        meta_info["custom_dashboard"] = True
+    else:
+        meta_info["custom_dashboard"] = False
 
     if pass_audits == False and fail_audits == False :
         # Default Query. Give me Everything.
@@ -166,16 +154,19 @@ JOIN audits ON audits.audit_id = maxdate.fk_audits_id
 
     dashboard_query = dashboard_query_head + dashboard_query_mid + dashboard_query_tail
 
-    ## Build Query
-    # Debug
-    #print(dashboard_query)
-    #print(dashboard_query_args)
-
     # Select Query
-    if do_query and arg_error == False :
-        g.cur.execute(dashboard_query, dashboard_query_args)
-        all_collections = g.cur.fetchall()
-        amount_of_collections = len(all_collections)
+    if do_query is True:
+
+        results = db_helper.run_query(g.cur,
+                                      dashboard_query,
+                                      args=dashboard_query_args,
+                                      one=False,
+                                      do_abort=True,
+                                      require_results=True)
+
+        all_collections = results["data"]
+        amount_of_collections = len(results["data"])
+
     else :
         error_dict["do_query"] = "Query Ignored"
         amount_of_collections = 0
@@ -188,6 +179,16 @@ JOIN audits ON audits.audit_id = maxdate.fk_audits_id
             this_results["type"] = requesttype
             this_results["id"] = all_collections[i]["audit_id"]
             this_results["attributes"] = all_collections[i]
+            this_results["attributes"]["total_servers"] = all_collections[i]["acoll_exempt"] + all_collections[i]["acoll_failed"] + all_collections[i]["acoll_passed"]
+            this_results["attributes"]["total_pass_fail"] = all_collections[i]["acoll_failed"] + all_collections[i]["acoll_passed"]
+
+            this_results["attributes"]["pass_percent"] = all_collections[i]["acoll_passed"] / this_results["attributes"]["total_servers"]
+            this_results["attributes"]["pass_percent_int"] = int((all_collections[i]["acoll_passed"] / this_results["attributes"]["total_servers"]) * 100)
+            this_results["attributes"]["fail_percent"] = all_collections[i]["acoll_failed"] / this_results["attributes"]["total_servers"]
+            this_results["attributes"]["fail_percent_int"] = int((all_collections[i]["acoll_failed"] / this_results["attributes"]["total_servers"]) * 100)
+            this_results["attributes"]["exempt_percent"] = all_collections[i]["acoll_exempt"] / this_results["attributes"]["total_servers"]
+            this_results["attributes"]["exempt_percent_int"] = int((all_collections[i]["acoll_exempt"] / this_results["attributes"]["total_servers"]) * 100)
+
             this_results["relationships"] = dict()
             this_results["relationships"]["auditinfo"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo/" + str(all_collections[i]["audit_id"])
             this_results["relationships"]["display_auditinfo"] = g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditinfo/" + str(all_collections[i]["audit_id"])
@@ -205,9 +206,12 @@ JOIN audits ON audits.audit_id = maxdate.fk_audits_id
         error_dict["ERROR"] = ["No Collections"]
         collections_good = False
 
+    all_res = {"meta" : meta_info,
+               "links" : links_info}
+
     if collections_good :
-        return jsonify(meta=meta_info, data=request_data, links=links_info)
+        all_res["data"] = request_data
     else :
-        return jsonify(meta=meta_info, errors=error_dict, links=links_info)
+        all_res["errors"] = error_dict
 
-
+    return jsonify(**all_res)
