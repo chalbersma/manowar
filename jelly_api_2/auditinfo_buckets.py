@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 '''
-Copyright 2018, VDMS
+Copyright 2018, 2020 VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
 auditinfo/<audit_id>/buckets
@@ -35,28 +35,26 @@ that runs the audits and the part that displays the audits
 
 '''
 
-from flask import current_app, Blueprint, g, request, jsonify
 import json
 import ast
 import time
-from configparser import ConfigParser
 
+from flask import current_app, Blueprint, g, request, jsonify, abort
 import audittools
+import db_helper
 
 
 auditinfo_buckets = Blueprint('api2_auditinfo_buckets', __name__)
+
 
 @auditinfo_buckets.route("/auditinfo/<int:audit_id>/buckets", methods=['GET'])
 @auditinfo_buckets.route("/auditinfo/<int:audit_id>/buckets/", methods=['GET'])
 def api2_auditinfo_buckets(audit_id=0):
 
-    if "audit_id" in request.args:
-        try:
-            audit_id = ast.literal_eval(request.args["audit_id"])
-        except Exception as e :
-            error_dict["literal_check"] = "Failed with " + str(e)
-
-    requesttime=time.time()
+    '''
+    Loads the Audit Definition from Disk and Reads in the Arbitrarily Complex
+    Audit Filters and Comparisons to Provide the Needed Data
+    '''
 
     requesttype = "Audit Buckets"
 
@@ -68,63 +66,64 @@ def api2_auditinfo_buckets(audit_id=0):
 
     links_info = dict()
 
-    links_info["self"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo/" + str(audit_id) + "/buckets"
-    links_info["parent"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo"
+    links_info["self"] = "{}{}/auditinfo/{}/buckets".format(g.config_items["v2api"]["preroot"],
+                                                            g.config_items["v2api"]["root"],
+                                                            audit_id)
+
+    links_info["parent"] = "{}{}/auditinfo/{}/".format(g.config_items["v2api"]["preroot"],
+                                                       g.config_items["v2api"]["root"],
+                                                       audit_id)
     links_info["children"] = dict()
 
     request_data = list()
 
-    error_dict = dict()
-    do_query = True
-
-    select_query='''select filename, audit_name from audits where audit_id = %s order by
+    select_query = '''select filename, audit_name from audits where audit_id = %s order by
                     audit_priority desc, audit_id desc '''
 
-    if audit_id > 0 :
-        do_query=True
-    else:
-        do_query=False
+    if audit_id <= 0:
+        g.logger.error("Zero or Negative Bucket ID Given")
+        abort(404)
 
-    # Select Query
-    if do_query:
-        g.cur.execute(select_query, audit_id)
-        requested_audit = g.cur.fetchone()
-        collections_good = True
-    else:
-        error_dict["do_query"] = "Query Ignored"
-        collections_good = False
+    run_result = db_helper.run_query(g.cur,
+                                     select_query,
+                                     args=audit_id,
+                                     one=True,
+                                     do_abort=True,
+                                     require_results=True)
 
-    #print(requested_audit)
+    requested_audit = run_result.get("data", dict())
 
-    #Object for parsed audit
     audit = dict()
     audit["id"] = audit_id
     audit["type"] = requesttype
     audit["relationships"] = dict()
-    audit["relationships"]["auditinfo"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo/" + str(audit_id)
+    audit["relationships"]["auditinfo"] = "{}{}/auditinfo/{}/".format(g.config_items["v2api"]["preroot"],
+                                                                      g.config_items["v2api"]["root"],
+                                                                      audit_id)
     audit["attributes"] = dict()
 
+    #
+    # Now Load File
+    #
 
     try:
-        this_audit_config = audittools.load_auditfile(requested_audit["filename"])
-
+        this_audit_config = audittools.load_auditfile(
+            requested_audit["filename"])
     except Exception as audit_error:
-        # Error if Parse
-        error_dict["Parsing Audit"] = "File {} not paresed because of error : {}".format(requested_audit["filename"], audit_error)
-        collection_good = False
-    else:
+        g.logger.error("Unable to Parse Data from Auditfile : {}".format(
+            requested_audit["filename"]))
+        g.logger.debug(audit_error)
+        abort(500)
 
-        if requested_audit["audit_name"] not in this_audit_config.keys():
-            error_dict["Audit_No_Find"] = "File {} parsed but audit {} not found therin.".format(requested_audit["filename"], requested_audit["audit_name"])
-            collections_good = False
-        else:
-            audit["attributes"] = {**audit["attributes"],
-                                   "filters" : this_audit_config[requested_audit["audit_name"]]["filters"],
-                                   "comparisons" : this_audit_config[requested_audit["audit_name"]]["comparisons"]}
+    if requested_audit["audit_name"] not in this_audit_config.keys():
+        g.logger.error("Unable to Find Audit Described in File.")
+        g.logger.debug("Available Audits in file {} : {}".format(requested_audit["filename"],
+                                                                 this_audit_config.keys()))
+        abort(404)
 
-            request_data.append(audit)
+    audit["attributes"]["filters"] = this_audit_config[requested_audit["audit_name"]]["filters"]
+    audit["attributes"]["comparisons"] = this_audit_config[requested_audit["audit_name"]]["comparisons"]
 
-    if collections_good :
-        return jsonify(meta=meta_info, data=request_data, links=links_info)
-    else :
-        return jsonify(meta=meta_info, errors=error_dict, links=links_info)
+    request_data.append(audit)
+
+    return jsonify(meta=meta_info, data=request_data, links=links_info)

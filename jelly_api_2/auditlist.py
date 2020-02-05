@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 """
-Copyright 2018, VDMS
+Copyright 2018, 2020 VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
 ```swagger-yaml
 /auditlist/ :
-  x-cached-length: "Every Midnight"
   get:
     description: |
       Get the Dashboard information about.
@@ -42,17 +41,47 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 ```
 """
 
-from flask import current_app, Blueprint, g, request, jsonify
 import json
 import ast
 import time
 
+from flask import current_app, Blueprint, g, request, jsonify, abort
+
+import db_helper
 
 auditlist = Blueprint('api2_auditlist', __name__)
+
 
 @auditlist.route("/auditlist", methods=['GET'])
 @auditlist.route("/auditlist/", methods=['GET'])
 def api2_auditlist(audit_name=None, audit_priority=None, audit_description=None, audit_long_description=None):
+    '''
+    List out All the Audits that meet the Items Prescribed
+    '''
+
+    args_def = {"audit_name": {"req_type": str,
+                               "default": audit_name,
+                               "required": False,
+                               "sql_param": True,
+                               "sql_clause": "audit_name REGEXP %s"},
+                "audit_description": {"req_type": str,
+                                      "default": audit_description,
+                                      "required": False,
+                                      "sql_param": True,
+                                      "sql_clause": "audit_short_description REGEXP %s"},
+                "audit_priority": {"req_type": str,
+                                   "default": audit_priority,
+                                   "required": False,
+                                   "sql_param": True,
+                                   "sql_clause": "audit_priority REGEXP %s"},
+                "audit_long_description": {"req_type": str,
+                                           "default": audit_long_description,
+                                           "required": False,
+                                           "sql_param": True,
+                                           "sql_clause": "audit_long_description REGEXP %s"},
+                }
+
+    args = db_helper.process_args(args_def, request.args)
 
     meta_info = dict()
     meta_info["version"] = 2
@@ -60,112 +89,51 @@ def api2_auditlist(audit_name=None, audit_priority=None, audit_description=None,
     meta_info["state"] = "In Progress"
     meta_info["children"] = dict()
 
-
-    error_dict = dict()
-
-    argument_error = False
-    where_args = list()
-    where_args_params = list()
-
-    if "audit_name" in request.args :
-        try:
-            audit_name_regex = ast.literal_eval(request.args["audit_name"])
-        except Exception as e :
-            argument_error = True
-            error_dict["audit_name_parse_error"] = "Can not parse audit_name"
-        else:
-            where_args.append(" audit_name REGEXP %s ")
-            where_args_params.append(audit_name_regex)
-
-    if "audit_priority" in request.args :
-        try:
-            audit_priority_regex = ast.literal_eval(request.args["audit_priority"])
-        except Exception as e :
-            argument_error = True
-            error_dict["audit_priority_parse_error"] = "Cannot parse audit_priority"
-        else:
-            where_args.append(" audit_priority REGEXP %s ")
-            where_args_params.append(audit_priority_regex)
-
-    if "audit_description" in request.args:
-        try:
-            audit_description_regex = ast.literal_eval(request.args["audit_description"])
-        except Exception as e:
-            argument_error = True
-            error_dict["audit_description_parse_error"] = "Cannot parse audit_desription"
-        else :
-            where_args.append(" audit_short_description REGEXP %s ")
-            where_args_params.append(audit_description_regex)
-
-    if "audit_long_description" in request.args:
-        try:
-            audit_long_description_regex = ast.literal_eval(request.args["audit_long_description"])
-        except Exception as e:
-            argument_error = True
-            error_dict["audit_long_description_parse_error"] = "Cannot parse audit_long_description"
-        else :
-            where_args.append(" audit_long_description REGEXP %s ")
-            where_args_params.append(audit_long_description_regex)
-
-    requesttime=time.time()
-
     requesttype = "audit_list"
-
-    meta_info["request_tuple"] = ( audit_name, audit_priority, audit_description, audit_long_description )
 
     links_info = dict()
 
-    links_info["self"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditlist"
-    links_info["parent"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/"
+    links_info["self"] = "{}{}/auditlist".format(g.config_items["v2api"]["preroot"],
+                                                 g.config_items["v2api"]["root"])
+
+    links_info["parent"] = "{}{}/".format(g.config_items["v2api"]["preroot"],
+                                          g.config_items["v2api"]["root"])
+
     links_info["children"] = dict()
 
     request_data = list()
 
-    do_query = True
-
-    if len(where_args_params) > 0 :
+    if len(args["args_clause_args"]) > 0:
         where_joiner = " where "
-        where_clause_strings = " and ".join(where_args)
+        where_clause_strings = " and ".join(args["args_clause"])
         where_full_string = where_joiner + where_clause_strings
-    else :
+    else:
         where_full_string = " "
 
-
-    audit_list_query='''select audit_id, audit_name, audit_priority,
+    audit_list_query = '''select audit_id, audit_name, audit_priority,
                             audit_short_description, audit_primary_link
                             from audits '''
 
     audit_list_query = audit_list_query + where_full_string
 
+    results = db_helper.run_query(g.cur,
+                                  audit_list_query,
+                                  args=args["args_clause"],
+                                  one=False,
+                                  do_abort=True,
+                                  require_results=True)
 
-    # Select Query
-    if do_query and argument_error == False :
-        g.cur.execute(audit_list_query, where_args_params)
-        all_audits = g.cur.fetchall()
-        amount_of_audits = len(all_audits)
-    else :
-        error_dict["do_query"] = "Query Ignored"
-        amount_of_audits = 0
+    for this_audit in results.get("data", list()):
+        this_results = dict()
+        this_results["type"] = requesttype
+        this_results["id"] = this_audit["audit_id"]
+        this_results["attributes"] = this_audit
+        this_results["relationships"] = dict()
+        this_results["relationships"]["auditinfo"] = "{}{}/auditinfo/{}".format(g.config_items["v2api"]["preroot"],
+                                                                                g.config_items["v2api"]["root"],
+                                                                                this_audit["audit_id"])
 
-    if amount_of_audits > 0 :
-        collections_good = True
-        # Hydrate the dict with type & ids to be jsonapi compliant
-        for i in range(0, len(all_audits)) :
-            this_results = dict()
-            this_results["type"] = requesttype
-            this_results["id"] = all_audits[i]["audit_id"]
-            this_results["attributes"] = all_audits[i]
-            this_results["relationships"] = dict()
-            this_results["relationships"]["auditinfo"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo/" + str(all_audits[i]["audit_id"])
+        # Now pop this onto request_data
+        request_data.append(this_results)
 
-            # Now pop this onto request_data
-            request_data.append(this_results)
-    else :
-        error_dict["ERROR"] = ["No Collections"]
-        collections_good = False
-
-    if collections_good :
-        return jsonify(meta=meta_info, data=request_data, links=links_info)
-    else :
-        return jsonify(meta=meta_info, errors=error_dict, links=links_info)
-
+    return jsonify(meta=meta_info, data=request_data, links=links_info)
