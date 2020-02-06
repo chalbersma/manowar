@@ -49,7 +49,9 @@ def api2_auditinfo(audit_id=0):
     '''
 
     args_def = {"audit_id": {"required": True,
-                             "default": audit_id, "req_type": int}}
+                             "default": audit_id,
+                             "req_type": int,
+                             "positive": True}}
 
     args = db_helper.process_args(args_def, request.args)
 
@@ -85,10 +87,6 @@ def api2_auditinfo(audit_id=0):
                             where audit_id = %s
                             order by audit_priority desc, audit_id desc ;"""
 
-    if args["audit_id"] < 0:
-        g.logger.warning("Audit ID of 0 or Negative Given let's 404")
-        abort(404)
-
     run_result = db_helper.run_query(g.cur,
                                      select_query,
                                      args=[args["audit_id"]],
@@ -121,12 +119,16 @@ def api2_auditinfo(audit_id=0):
     this_results["id"] = requested_audit["audit_id"]
     this_results["attributes"] = requested_audit
     this_results["relationships"] = dict()
-    this_results["relationships"]["auditresults"] = {"pass": "{}{}/auditresults/?auditResult=pass".format(g.config_items["v2api"]["preroot"],
-                                                                                                          g.config_items["v2api"]["root"]),
-                                                     "fail": "{}{}/auditresults/?auditResult=fail".format(g.config_items["v2api"]["preroot"],
-                                                                                                          g.config_items["v2api"]["root"]),
-                                                     "exempt": "{}{}/auditresults/?auditResult=notafflicted".format(g.config_items["v2api"]["preroot"],
-                                                                                                                    g.config_items["v2api"]["root"])
+    this_results["relationships"]["auditresults"] = {"pass": "{}{}/auditresults/{}?auditResult=pass".format(g.config_items["v2api"]["preroot"],
+                                                                                                            g.config_items["v2api"]["root"],
+                                                                                                            requested_audit["audit_id"]),
+                                                     "fail": "{}{}/auditresults/{}?auditResult=fail".format(g.config_items["v2api"]["preroot"],
+                                                                                                            g.config_items["v2api"]["root"],
+                                                                                                            requested_audit["audit_id"]),
+                                                     "exempt": "{}{}/auditresults/{}?auditResult=notafflicted".format(g.config_items["v2api"]["preroot"],
+                                                                                                                      g.config_items[
+                                                                                                                          "v2api"]["root"],
+                                                                                                                      requested_audit["audit_id"])
                                                      }
 
     this_results["relationships"]["auditinfo_buckets"] = "{}{}/auditinfo/{}/buckets".format(g.config_items["v2api"]["preroot"],

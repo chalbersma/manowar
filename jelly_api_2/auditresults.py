@@ -35,7 +35,6 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
           type: string
         required: false
       - name: pop
-        x-astliteraleval: true
         in: query
         description: |
           A regex to match for the pop name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
@@ -44,8 +43,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
           type: string
         required: false
       - name: srvtype
-        x-astliteraleval: true
-        in: query
+       in: query
         description: |
           A regex to match for the srvtype name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
           regular expressions are accepted. Matched on the srvtype column in the host table.
@@ -53,7 +51,6 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
           type: string
         required: false
       - name: bucket
-        x-astliteraleval: true
         in: query
         description: |
           A regex to match for the bucket name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
@@ -62,7 +59,6 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
           type: string
         required: false
       - name: auditResult
-        x-astliteraleval: true
         in: query
         description: |
           A regex to match for the audit result.. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
@@ -72,7 +68,6 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
           type: string
         required: false
       - name: auditResultText
-        x-astliteraleval: true
         in: query
         description: |
           A regex to match for the Audit Result text (generally the failing version).
@@ -82,7 +77,6 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
           type: string
         required: false
       - name: status
-        x-astliteraleval: true
         in: query
         description: |
           A regex to match for the value. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
@@ -110,7 +104,7 @@ auditresults = Blueprint('api2_auditresults', __name__)
 @auditresults.route("/auditresults/", methods=['GET'])
 @auditresults.route("/auditresults/<int:audit_id>", methods=['GET'])
 @auditresults.route("/auditresults/<int:audit_id>/", methods=['GET'])
-def api2_auditresults(audit_id=0, hostname=None, pop=None, srvtype=None, bucket=None, auditResult=None, auditResultText=None, status=None):
+def api2_auditresults(audit_id=0):
 
     '''
     Return the Audit Results for Particular Audit filtered by
@@ -121,49 +115,13 @@ def api2_auditresults(audit_id=0, hostname=None, pop=None, srvtype=None, bucket=
                                         "default": audit_id,
                                         "required": True,
                                         "sql_param": True,
-                                        "sql_clause": "fk_audits_id = %s"},
-                           "hostname": {"req_type": str,
-                                        "default": hostname,
-                                        "required": False,
-                                        "sql_param": True,
-                                        "sql_clause": "hosts.hostname REGEXP %s"},
-                           "status": {"req_type": str,
-                                      "default": status,
-                                      "required": False,
-                                      "sql_param": True,
-                                      "sql_clause": "hosts.hoststatus REGEXP %s"},
-                           "pop": {"req_type": str,
-                                   "default": pop,
-                                   "required": False,
-                                   "sql_param": True,
-                                   "sql_clause": "hosts.pop REGEXP %s"},
-                           "srvtype": {"req_type": str,
-                                       "default": srvtype,
-                                       "required": False,
-                                       "sql_param": True,
-                                       "sql_clause": "hosts.srvtype REGEXP %s"},
-                           "bucket": {"req_type": str,
-                                      "default": bucket,
-                                      "required": False,
-                                      "sql_param": True,
-                                      "sql_clause": "bucket REGEXP %s"},
-                           "auditResult": {"req_type": str,
-                                           "default": auditResult,
-                                           "required": False,
-                                           "sql_param": True,
-                                           "sql_clause": "audit_result REGEXP %s"},
-                           "auditResultText": {"req_type": str,
-                                               "default": auditResultText,
-                                               "required": False,
-                                               "sql_param": True,
-                                               "sql_clause": "audit_result_text REGEXP %s"},
+                                        "sql_clause": "fk_audits_id = %s",
+                                        "positive": True},
                            }
 
-    args = db_helper.process_args(args_def, request.args)
-
-    if args["audit_id"] <= 0:
-        g.logger.error("Invalid Audit ID")
-        abort(404)
+    args = db_helper.process_args(args_def, request.args, include_hosts_sql=True,
+                                  include_ar_sql=True,
+                                  include_exact=True, abh_limit=g.twoDayTimestamp)
 
     meta_dict = dict()
     request_data = list()
@@ -171,28 +129,30 @@ def api2_auditresults(audit_id=0, hostname=None, pop=None, srvtype=None, bucket=
 
     requesttype = "auditresults"
     meta_dict["version"] = 2
-    meta_dict["name"] = "Jellyfish API Version 2 Audit Results for Audit ID {}".format(args["audit_id"])
+    meta_dict["name"] = "Jellyfish API Version 2 Audit Results for Audit ID {}".format(
+        args["audit_id"])
     meta_dict["status"] = "In Progress"
 
     links_dict["parent"] = "{}{}".format(g.config_items["v2api"]["preroot"],
                                          g.config_items["v2api"]["root"])
 
-    links_dict["self"] = "{}{}/auditresults/{}".format(g.config_items["v2api"]["preroot"],
-                                                       g.config_items["v2api"]["root"],
-                                                       args["audit_id"])
+    links_dict["self"] = "{}{}/auditresults/{}?{}".format(g.config_items["v2api"]["preroot"],
+                                                          g.config_items["v2api"]["root"],
+                                                          args["audit_id"],
+                                                          args["qdeparsed_string"])
 
     audit_result_query = '''select audit_result_id, audits.audit_name, fk_host_id, hosts.hostname, fk_audits_id,
-                            audit_result_query_head + " UNIX_TIMESTAMP(initial_audit) as 'initial_audit', UNIX_TIMESTAMP(last_audit) as 'last_audit',
-                            bucket, audit_result, audit_result_text, hosts.pop, hosts.srvtype, hosts.hoststatus
+                            UNIX_TIMESTAMP(initial_audit) as 'initial_audit', UNIX_TIMESTAMP(last_audit) as 'last_audit',
+                            bucket, audit_result, audit_result_text,
+                            hosts.pop, hosts.srvtype, hosts.hoststatus
                             from audits_by_host
                             join hosts on fk_host_id = host_id
                             join audits on fk_audits_id = audit_id
-                            where {}
-                            and last_audit >= FROM_UNIXTIME( %s )'''.format(" and ".join(args["arg_clause"]))
+                            where {}'''.format(" and ".join(args["args_clause"]))
 
     results = db_helper.run_query(g.cur,
                                   audit_result_query,
-                                  args=[*args["arg_clause_args"], g.twoDayTimestamp],
+                                  args=args["args_clause_args"],
                                   one=False,
                                   do_abort=True,
                                   require_results=True)

@@ -59,26 +59,31 @@ def api2_auditlist(audit_name=None, audit_priority=None, audit_description=None,
     List out All the Audits that meet the Items Prescribed
     '''
 
+    # TODO add exact definitions
     args_def = {"audit_name": {"req_type": str,
                                "default": audit_name,
                                "required": False,
                                "sql_param": True,
-                               "sql_clause": "audit_name REGEXP %s"},
+                               "sql_clause": "audit_name REGEXP %s",
+                               "qdeparse": True},
                 "audit_description": {"req_type": str,
                                       "default": audit_description,
                                       "required": False,
                                       "sql_param": True,
-                                      "sql_clause": "audit_short_description REGEXP %s"},
+                                      "sql_clause": "audit_short_description REGEXP %s",
+                                      "qdeparse": True},
                 "audit_priority": {"req_type": str,
                                    "default": audit_priority,
                                    "required": False,
                                    "sql_param": True,
-                                   "sql_clause": "audit_priority REGEXP %s"},
+                                   "sql_clause": "audit_priority REGEXP %s",
+                                   "qdeparse": True},
                 "audit_long_description": {"req_type": str,
                                            "default": audit_long_description,
                                            "required": False,
                                            "sql_param": True,
-                                           "sql_clause": "audit_long_description REGEXP %s"},
+                                           "sql_clause": "audit_long_description REGEXP %s",
+                                           "qdeparse": True},
                 }
 
     args = db_helper.process_args(args_def, request.args)
@@ -93,8 +98,9 @@ def api2_auditlist(audit_name=None, audit_priority=None, audit_description=None,
 
     links_info = dict()
 
-    links_info["self"] = "{}{}/auditlist".format(g.config_items["v2api"]["preroot"],
-                                                 g.config_items["v2api"]["root"])
+    links_info["self"] = "{}{}/auditlist?{}".format(g.config_items["v2api"]["preroot"],
+                                                    g.config_items["v2api"]["root"],
+                                                    args.get("qdeparsed_string", ""))
 
     links_info["parent"] = "{}{}/".format(g.config_items["v2api"]["preroot"],
                                           g.config_items["v2api"]["root"])
@@ -118,7 +124,7 @@ def api2_auditlist(audit_name=None, audit_priority=None, audit_description=None,
 
     results = db_helper.run_query(g.cur,
                                   audit_list_query,
-                                  args=args["args_clause"],
+                                  args=args["args_clause_args"],
                                   one=False,
                                   do_abort=True,
                                   require_results=True)

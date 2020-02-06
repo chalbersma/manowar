@@ -50,7 +50,6 @@ auditinfo_buckets = Blueprint('api2_auditinfo_buckets', __name__)
 @auditinfo_buckets.route("/auditinfo/<int:audit_id>/buckets", methods=['GET'])
 @auditinfo_buckets.route("/auditinfo/<int:audit_id>/buckets/", methods=['GET'])
 def api2_auditinfo_buckets(audit_id=0):
-
     '''
     Loads the Audit Definition from Disk and Reads in the Arbitrarily Complex
     Audit Filters and Comparisons to Provide the Needed Data
@@ -86,7 +85,7 @@ def api2_auditinfo_buckets(audit_id=0):
 
     run_result = db_helper.run_query(g.cur,
                                      select_query,
-                                     args=audit_id,
+                                     args=[audit_id],
                                      one=True,
                                      do_abort=True,
                                      require_results=True)
