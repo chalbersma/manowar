@@ -80,8 +80,12 @@ def api2_dashboard(pass_audits=False, fail_audits=False, cust_dash_id=None):
 
     links_info = dict()
 
-    links_info["self"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/dashboard"
-    links_info["parent"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/"
+    links_info["self"] = "{}{}/dashboard".format(g.config_items["v2api"]["preroot"],
+                                                 g.config_items["v2api"]["root"])
+
+    links_info["parent"] = "{}{}/".format(g.config_items["v2api"]["preroot"],
+                                                 g.config_items["v2api"]["root"])
+
     links_info["children"] = dict()
 
     request_data = list()

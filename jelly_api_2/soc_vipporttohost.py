@@ -59,13 +59,13 @@ Allow the Soc to give us a vip (ipv4 or 6), a port and protocol (like tcp/22)
 '''
 
 
-from flask import current_app, Blueprint, g, request, jsonify, send_from_directory
 import json
 import ast
 import time
 import os
 import hashlib
 
+from flask import current_app, Blueprint, g, request, jsonify, send_from_directory, abort
 
 
 soc_vipporttohost = Blueprint('api2_soc_vipporttohost', __name__)
@@ -73,6 +73,10 @@ soc_vipporttohost = Blueprint('api2_soc_vipporttohost', __name__)
 @soc_vipporttohost.route("/soc/vipporttohost", methods=['GET'])
 @soc_vipporttohost.route("/soc/vipporttohost/", methods=['GET'])
 def api2_soc_vipporttohost(ctype="none"):
+
+
+    # TODO Rethink if this is needed.
+
 
     meta_dict = dict()
     request_data = list()
@@ -193,15 +197,8 @@ def api2_soc_vipporttohost(ctype="none"):
         cache_file_stats = os.stat(meta_dict["this_cached_file"])
         # Should be timestamp of file in seconds
         cache_file_create_time  = int(cache_file_stats.st_ctime)
-        if cache_file_create_time > g.MIDNIGHT :
-            # Cache is fresh as of midnight
-            with open(meta_dict["this_cached_file"]) as cached_data :
-                try:
-                    cached = json.load(cached_data)
-                except Exception as e :
-                    print("Error reading cache file: " + meta_dict["this_cached_file"] + " with error " + str(e) )
-                else:
-                    return jsonify(**cached)
+
+
     if argument_error == True :
         do_query = False
 
@@ -265,16 +262,6 @@ WHERE collection.last_update >= FROM_UNIXTIME(%s)
         response_dict["meta"] = meta_dict
         response_dict["data"] = request_data
         response_dict["links"] = links_dict
-
-        # Write Request to Disk.
-        try:
-            with open(meta_dict["this_cached_file"], 'w') as cache_file_object :
-                json.dump(response_dict, cache_file_object)
-        except Exception as e :
-            print("Error writing file " + str(meta_dict["this_cached_file"]) + " with error " + str(e))
-        else:
-            print("Cache File wrote to " + str(meta_dict["this_cached_file"]) + " at timestamp " + str(g.NOW))
-
 
         return jsonify(**response_dict)
     else :

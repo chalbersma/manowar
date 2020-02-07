@@ -68,13 +68,20 @@ extendpopulationjson = Blueprint('extendpopulationjson', __name__)
 @extendpopulationjson.route("/extendpopulationjson/", methods=['GET','POST'])
 @extendpopulationjson.route("/sapi/extendpopulationjson", methods=['GET','POST'])
 @extendpopulationjson.route("/sapi/extendpopulationjson/", methods=['GET','POST'])
-def generic_extendpopulationjson(hostname=False, exact=False, pop=False,\
-                        hoststatus=False, status=False):
+def generic_extendpopulationjson():
 
     '''
     General idea, give me a population and a json object and I'll update everything
     in that population with that data.
     '''
+
+    ## TODO Modernize This
+
+    if request.json == None :
+        # No Json Data Given
+        error_dict["nodata"] = True
+        error=True
+
 
     meta_dict = dict()
     request_data = list()
@@ -175,10 +182,6 @@ def generic_extendpopulationjson(hostname=False, exact=False, pop=False,\
     else :
         error = True
 
-    if request.json == None :
-        # No Json Data Given
-        error_dict["nodata"] = True
-        error=True
 
 
 

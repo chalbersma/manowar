@@ -143,6 +143,8 @@ def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=Fal
                         matchcollection_cvalue=False, mtype=False, ctype=False, \
                         csubtype=False, mvalue=False, fresh=172800):
 
+    ## TODO Reconsider If this is a Wise Move.
+
     meta_dict = dict()
     request_data = list()
     links_dict = dict()

@@ -155,7 +155,7 @@ def api2_auditresults(audit_id=0):
                                   args=args["args_clause_args"],
                                   one=False,
                                   do_abort=True,
-                                  require_results=True)
+                                  require_results=False)
 
     for this_a_result in results.get("data", list()):
 

@@ -65,8 +65,9 @@ def api2_auditinfo(audit_id=0):
 
     links_info = dict()
 
-    links_info["self"] = "{}{}/auditinfo".format(g.config_items["v2api"]["preroot"],
-                                                 g.config_items["v2api"]["root"])
+    links_info["self"] = "{}{}/auditinfo/{}".format(g.config_items["v2api"]["preroot"],
+                                                 g.config_items["v2api"]["root"],
+                                                 args["audit_id"])
 
     links_info["parent"] = "{}{}".format(g.config_items["v2api"]["preroot"],
                                          g.config_items["v2api"]["root"])

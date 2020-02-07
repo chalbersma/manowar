@@ -87,6 +87,8 @@ cve_canonical_check = Blueprint('api2_cve_canonical_check', __name__)
 def api2_cve_canonical_check(cve_name=None, hostname=False, pop=False, srvtype=False, \
                         hoststatus=False, status=False, exact=False):
 
+    ## TODO Modernize This (Possibly Removal)
+
     meta_info = dict()
     meta_info["version"] = 2
     meta_info["name"] = "Canonical CVE Information for Jellyfish2 API Version 2"

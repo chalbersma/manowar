@@ -12,7 +12,7 @@ import requests
 import logging
 import json
 
-def process_ip_intel(config_dict=False, ip=False, iptype=False, host=False, multireport=False, **kwargs):
+def process_ip_intel(config_dict=False, ip=False, iptype=False, host_id=False, multireport=False, **kwargs):
 
     '''
     Does the needful on IP Intelligence
@@ -22,60 +22,50 @@ def process_ip_intel(config_dict=False, ip=False, iptype=False, host=False, mult
     mylogger = logging.getLogger("process_ip_intel.py")
 
     request_headers = dict()
+    request_headers["Content-Type"] = "application/json"
     query_arguments = dict()
 
-    if config_dict == False :
+    if config_dict is False :
         raise Exception("No Config Specified")
 
-    if config_dict["ip_intel"].get("use_auth", False) == True :
+    if config_dict["ip_intel"].get("use_auth", False) is True :
 
         # Use an auth token when you make the query
         request_headers["Authorization"] =  "{}:{}".format(self.config_dict["ip_intel"].get("intel_username","nobody"),
-                                                           self.config_dict["ip_intel"].get("intel_token","nothing")
-                                                          )
-
-    if (multireport is False and (ip is False or iptype is False)) or host is False:
-        raise Exception("Incomplete Specification")
-
-    if multireport is False:
-        # Use the Given
-        query_arguments["ip"] = "'{}'".format(str(ip))
-        query_arguments["iptype"] = "'{}'".format(str(iptype))
-    else :
-        request_headers["Content-Type"] = "application/json"
-        if isinstance(multireport, list):
-            # multireport
-            pass
-        else :
-            # Fail this
-            mylogger.error("Error multireport incorrect type for host {}".format(host))
-
+                                                           self.config_dict["ip_intel"].get("intel_token","nothing"))
     # Always send hostname
-    query_arguments["hostname"] = "'{}'".format(str(host))
+    query_arguments["hostid"] = host_id
 
-    report_url = config_dict["ip_intel"].get("report_url", "https://robot.jellyfish.edgecast.com/v2/ip/report/")
+    report_url = config_dict["ip_intel"].get("report_url", "https://robot.manowar.local/v2/ip/report/")
+    
+    response_codes = list()
 
-    try:
-
-        if multireport == False :
-            # Do a Get
-            this_request = requests.get(report_url, headers=request_headers, params=query_arguments)
-        else :
-            # Do a Post
-            multireport_in_json = json.dumps(multireport)
-            this_request = requests.post(report_url, headers=request_headers, params=query_arguments, data=multireport_in_json)
-
-        mylogger.debug("Reporting Intel for hostname : {} ".format(str(host)))
-    except Exception as reporting_error:
-        # Do some error thing here.
-        mylogger.error("Error Reporting Intel for hostname {} with error {}".format(str(host), str(e)))
-        response_code = 0
+    mylogger.debug(multireport)
+    if multireport is False :
+        reports = [{"ip" : ip, "iptype" : iptype}]
     else :
-        response_code = this_request.status_code
+        reports = multireport
+    
+    for this_report in reports:
+        mylogger.debug(query_arguments)
+        mylogger.debug(this_report)
+        query_arguments = {**query_arguments, **this_report}
+        
+        try:
+            mylogger.debug("Reporting {} {} on host {}".format(this_report["ip"], this_report["iptype"], host_id))
+            
+            this_request = requests.get(report_url, headers=request_headers, params=query_arguments)
+        except Exception as reporting_error:
+            mylogger.error("Error Reporting Intel for hostid {} with error {}".format(host_id, str(reporting_error)))
+            response_codes.append(-1)
+        else:
+            if this_request.status_code == 200 :
+                mylogger.info("Reported IP Intelligence for hostid {} succeeded".format(host_id))
+            elif this_request.status_code == 202:
+                mylogger.info("Reported IP Intelligence was successful but ignored by System.".format(host_id))
+            else :
+                mylogger.error("Reporting IP Intelligence for hostname {} failed. (Error Code: {})".format(host_id, this_request.status_code))
+            
+            response_codes.append(this_request.status_code)
 
-        if response_code == 200 :
-            mylogger.info("Reported IP Intelligence for hostname {} succeeded".format(host))
-        else :
-            mylogger.error("Reporting IP Intelligence for hostname {} failed. (Error Code: {})".format(str(host), str(response_code)))
-
-    return response_code
+    return response_codes

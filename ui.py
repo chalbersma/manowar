@@ -258,12 +258,11 @@ def ui(CONFIG, FDEBUG):
     from jelly_api_2 import custdashboard_create
     from jelly_api_2 import custdashboard_modify
     from jelly_api_2 import auditlist
-    from jelly_api_2 import poplist
-    from jelly_api_2 import srvtypelist
+    from jelly_api_2 import factorlist
     from jelly_api_2 import cve_canonical
     from jelly_api_2 import genericlargecompare
     from jelly_api_2 import cve_canonical_check
-    from jelly_api_2 import getconfig
+    #from jelly_api_2 import getconfig
     from jelly_api_2 import puthostjson
     from jelly_api_2 import extendpopulationjson
     from jelly_api_2 import ipsearch
@@ -318,12 +317,12 @@ def ui(CONFIG, FDEBUG):
     app.register_blueprint(custdashboard_create.custdashboard_create, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(custdashboard_modify.custdashboard_modify, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(auditlist.auditlist, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(poplist.poplist, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(srvtypelist.srvtypelist, url_prefix=config_items["v2api"]["root"])
+    app.register_blueprint(factorlist.factorlist, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(cve_canonical.cve_canonical, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(genericlargecompare.genericlargecompare, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(cve_canonical_check.cve_canonical_check, url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(getconfig.getconfig, url_prefix=config_items["v2api"]["root"])
+    # No Longer A Thing that Makes General & Good Sense
+    #app.register_blueprint(getconfig.getconfig, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(puthostjson.puthostjson, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(extendpopulationjson.extendpopulationjson, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(ipsearch.ipsearch, url_prefix=config_items["v2api"]["root"])

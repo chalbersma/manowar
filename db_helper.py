@@ -30,54 +30,57 @@ _hosts_sql = {"hostname": {"req_type": str,
                            "required": False,
                            "sql_param": True,
                            "sql_clause": "hosts.hostname REGEXP %s",
-                           "sql_exact_clause" : "hosts.hostname = %s",
+                           "sql_exact_clause": "hosts.hostname = %s",
                            "qdeparse": True},
               "status": {"req_type": str,
                          "default": None,
                          "required": False,
                          "sql_param": True,
                          "sql_clause": "hosts.hoststatus REGEXP %s",
-                         "sql_exact_clause" : "hosts.hoststatus = %s",
+                         "sql_exact_clause": "hosts.hoststatus = %s",
                          "qdeparse": True},
               "pop": {"req_type": str,
                       "default": None,
                       "required": False,
                       "sql_param": True,
                       "sql_clause": "hosts.pop REGEXP %s",
-                      "sql_exact_clause" : "hosts.pop = %s",
+                      "sql_exact_clause": "hosts.pop = %s",
                       "qdeparse": True},
               "srvtype": {"req_type": str,
                           "default": None,
                           "required": False,
                           "sql_param": True,
                           "sql_clause": "hosts.srvtype REGEXP %s",
-                          "sql_exact_clause" : "hosts.srvtype = %s",
+                          "sql_exact_clause": "hosts.srvtype = %s",
                           "qdeparse": True}}
-_ar_filters = {      "bucket": {"req_type": str,
-                                      "default": None,
-                                      "required": False,
-                                      "sql_param": True,
-                                      "sql_clause": "audits_by_host.bucket REGEXP %s",
-                                      "sql_exact_clause": "audits_by_host.bucket = %s"},
-                           "auditResult": {"req_type": str,
-                                           "default": None,
-                                           "required": False,
-                                           "sql_param": True,
-                                           "sql_clause": "audits_by_host.audit_result REGEXP %s",
-                                           "sql_exact_clause": "audits_by_host.audit_result = %s"},
-                           "auditResultText": {"req_type": str,
-                                               "default": None,
-                                               "required": False,
-                                               "sql_param": True,
-                                               "sql_clause": "audits_by_host.audit_result_text REGEXP %s",
-                                               "sql_exact_clause" : "audits_by_host.audit_result_text = %s"}                     }
+_ar_filters = {"bucket": {"req_type": str,
+                          "default": None,
+                          "required": False,
+                          "sql_param": True,
+                          "sql_clause": "audits_by_host.bucket REGEXP %s",
+                          "sql_exact_clause": "audits_by_host.bucket = %s",
+                          "qdeparse" : True},
+               "auditResult": {"req_type": str,
+                               "default": None,
+                               "required": False,
+                               "sql_param": True,
+                               "sql_clause": "audits_by_host.audit_result REGEXP %s",
+                               "sql_exact_clause": "audits_by_host.audit_result = %s",
+                               "qdeparse" : True},
+               "auditResultText": {"req_type": str,
+                                   "default": None,
+                                   "required": False,
+                                   "sql_param": True,
+                                   "sql_clause": "audits_by_host.audit_result_text REGEXP %s",
+                                   "sql_exact_clause": "audits_by_host.audit_result_text = %s",
+                                   "qdeparse" : True}}
 
 _exact_filter = {"exact": {"req_type": str,
                            "default": None,
                            "required": False,
                            "sql_param": False,
                            "qdeparse": True,
-                           "enum" : ("true", "false")}}
+                           "enum": ("true", "false")}}
 
 _collection_filters = {"value": {"req_type": str,
                                  "default": None,
@@ -102,15 +105,14 @@ def process_args(definitions, this_request_args, **kwargs):
 
     logger = logging.getLogger("db_helper.process_args")
 
-
     if kwargs.get("include_hosts_sql", False) is True:
         logger.info("Including Default Host Arguments with SQL Limitations")
         definitions = {**_hosts_sql, **definitions}
-    
+
     if kwargs.get("include_ar_sql", False) is True:
         logger.info("Including Audit Result Host Arguments with Limitations.")
         definitions = {**_ar_filters, **definitions}
-    
+
     if kwargs.get("include_coll_sql", False) is True:
         logger.info("Including Default Collections SQL Limitations")
         definitions = {**_collection_filters, **definitions}
@@ -131,7 +133,7 @@ def process_args(definitions, this_request_args, **kwargs):
         return_dict["args_clause"].append(
             "collection.last_update >= FROM_UNIXTIME(%s)")
         return_dict["args_clause_args"].append(kwargs["coll_lulimit"])
-    
+
     if kwargs.get("abh_limit", None) is not None and isinstance(kwargs["abh_limit"], int):
         return_dict["args_clause"].append(
             "audits_by_host.last_audit >= FROM_UNIXTIME(%s)")
@@ -139,7 +141,8 @@ def process_args(definitions, this_request_args, **kwargs):
 
     if kwargs.get("lulimit", None) is not None and isinstance(kwargs["lulimit"], int):
         # Naked
-        return_dict["args_clause"].append("last_update >= FROM_UNIXTIME(%s)")
+        return_dict["args_clause"].append(
+            "hosts.last_update >= FROM_UNIXTIME(%s)")
         return_dict["args_clause_args"].append(kwargs["lulimit"])
 
     for this_var, this_def in definitions.items():
@@ -168,21 +171,25 @@ def process_args(definitions, this_request_args, **kwargs):
                 logger.error("Variable given in Query Args Makes No Sense")
                 abort(415)
 
-            if this_def.get("positive", False) is True and this_def.get("req_type", "unknown") is int:
+            if return_dict[this_var] is not None and this_def.get("positive", False) is True and this_def.get("req_type", "unknown") is int:
+
+                logger.debug(this_var)
+                logger.debug(return_dict[this_var])
+
                 if return_dict[this_var] <= 0:
                     logger.error(
-                        "Requested a Postive Integer. Did not Recieve")
+                        "Variable {} Requested a Postive Integer. Did not Recieve".format(this_var))
                     abort(415)
 
             if isinstance(this_def.get("enum", None), (list, tuple)) and this_def.get("req_type", None) is str:
-                
+
                 match = [matched for matched in this_def["enum"]
                          if matched == return_dict[this_var]]
 
                 if len(match) == 0:
                     if this_def.get("required", False) is True:
                         logger.error("Value {} Isn't in Known Enum List : {}".format(return_dict[this_var],
-                                                                                    this_def["enum"]))
+                                                                                     this_def["enum"]))
                         abort(415)
 
         finally:
@@ -195,10 +202,12 @@ def process_args(definitions, this_request_args, **kwargs):
 
                     if return_dict.get("exact", None) != "true":
                         # Use Default SQL Clause
-                        return_dict["args_clause"].append(this_def["sql_clause"])
+                        return_dict["args_clause"].append(
+                            this_def["sql_clause"])
                     else:
                         # If I have a sql_exact_clause use that (if not use the sql_clause)
-                        return_dict["args_clause"].append(this_def.get("sql_exact_clause", this_def["sql_clause"]))
+                        return_dict["args_clause"].append(this_def.get(
+                            "sql_exact_clause", this_def["sql_clause"]))
 
                     if this_def.get("sql_param_count", 1) > 1:
                         # Multiple Adds

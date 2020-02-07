@@ -103,7 +103,9 @@ class mowCVE:
                      "primary_reference" : self.primary_reference,
                      "last_updated" : self.last_updated,
                      "published" : self.published,
-                     "self_updated" : self.self_updated
+                     "self_updated" : self.self_updated,
+                     "filters" : self.filters,
+                     "comparisons" : self.comparisons
                     }
 
         if self.cvss2 is not None:

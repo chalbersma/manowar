@@ -438,8 +438,9 @@ def storage(config_items, hostdata, sapi=False):
             # Process the IP Intelligence for this host
             result = process_ip_intel(config_dict=config_items,
                                       multireport=hostdata["ip_intel"],
-                                      host=hostname)
-            if result == 200:
+                                      host_id=host_id)
+            bad_results = [res for res in result if res not in (200, 202)]
+            if len(bad_results) == 0:
                 logger.info("{}IP Intel : {} for host {}{}".format(Fore.GREEN, result, hostname, Style.RESET_ALL))
             else:
                 logger.error("{}IP Intel : {} for host {}{}".format(Fore.RED, result, hostname, Style.RESET_ALL))
