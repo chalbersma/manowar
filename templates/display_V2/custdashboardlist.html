@@ -29,7 +29,7 @@
 		<tbody>
 			{% for dashboard in content["data"] %}
 			<tr>
-				<td><a href="/#/{{ dashboard['attributes']['custdashboardid'] }}/">{{ dashboard['attributes']['dashboard_name']|lower }}</a></td>
+				<td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/dashboard/{{ dashboard['attributes']['custdashboardid'] }}/">{{ dashboard['attributes']['dashboard_name']|lower }}</a></td>
 				<td>{{ dashboard['attributes']['owner'] }}</td>
 				<td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/custdashboard/modify/{{ dashboard['attributes']['custdashboardid'] }}/">Modify Link</a></td>
 				<td>{{ dashboard['attributes']['dashboard_description'] }}</td>

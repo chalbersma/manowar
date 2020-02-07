@@ -9,29 +9,35 @@
 <h1>Collected Search </h1>
 <script type="text/javascript">
 function do_search(){
-	base_url="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/collected/subtypes_filtered/"
-	pathdata= [ $('#ctype').val() ]
+	base_url="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/collected/subtypes_filtered?"
+
 	querydata = {
-		"csubtype" : $('#csubtype').val(), 
-		"hostname" : $('#hostname').val(),
-		"pop" : $('#pop').val(),
-		"srvtype" : $('#srvtype').val(),
-		"value" : $('#value').val(),
-		"status" : $('#status').val(),
-	}
+    "ctype" : $("#ctype").val(),
+  }
+
+  var data_names = ["csubtype", "hostname", "pop", "srvtype", "value", "status"]
+
+  for (type in data_names) {
+    var hashname = "#" + data_names[type]
+    if ($(hashname).val().length > 0) {
+      querydata[data_names[type]] = $(hashname).val()
+    }
+  }
+
 	// Handle Checkbox
 	if ($('#usevalue').is(':checked')) {
 		querydata["usevalue"] = "true"
-	} // Else do nothing
-
-	path_string=pathdata.join("/")
-	query_string="/?"
-	for (var key in querydata){
-  		if (querydata[key].length > 0 ){
-		      	query_string=query_string+key+"='"+querydata[key]+"'&"
-		}
 	}
-	url=base_url + path_string + query_string
+
+  // Handle Exact
+	if ($('#exact').is(':checked')) {
+		querydata["exact"] = "true"
+	}
+
+	query_string=jQuery.param(querydata)
+
+	url=base_url + query_string
+
 	$(location).attr('href',url)
 }
 </script>
@@ -82,6 +88,12 @@ function do_search(){
     <div class="col-sm-4">
         <label for="usevalue">Use Values: </label>
         <input id="usevalue" type="checkbox" name="usevalues" class="form-control ember-checkbox-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="exact">Use Exact Matches (No Regex): </label>
+        <input id="exact" type="checkbox" name="exact" class="form-control ember-checkbox-field">
     </div>
 </div>
 <div class="row form-group">

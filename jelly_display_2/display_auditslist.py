@@ -43,16 +43,14 @@ def display2_auditslist():
     try:
         content = requests.get(this_private_endpoint).text
     except Exception as e:
-        error_dict["Error Getting Endpoint"] = "Error getting endpoint: " + \
-            str(e)
+        error_dict["Error Getting Endpoint"] = "Error getting endpoint: {}".format(e)
         api_error = True
     else:
         try:
             content_object = json.loads(content)
         except Exception as e:
             api_error = True
-            error_dict["Error Rendering API Content"] = "Error reading data from endpoint: " + \
-                str(e)
+            error_dict["Error Rendering API Content"] = "Error reading data from endpoint: {}".format(e)
 
     if api_error:
         return render_template('error.html', error=error_dict)

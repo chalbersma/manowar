@@ -96,7 +96,7 @@ function makeitso() {
 <ul>
 	<li>Dashboard Name : {{ dashboard["data"][0]["attributes"]["dashboard_name"] }}</li>
 	<li>Dashboard Owner : {{ dashboard["data"][0]["attributes"]["owner"] }}</li>
-	<li><a href=#>View Dashboard (Coming Soon)</a></li>
+	<li><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/dashboard/{{ dash_id }}/">View Dashboard</a></li>
 </ul>
 <table>
 <form>

@@ -32,6 +32,19 @@ _known_feeds = {"usn" : {"url" : "https://usn.ubuntu.com/usn/atom.xml",
                                                   "cacheage" : 21600},
                          "format" : "json"
                         },
+                "usn_full" : {"url" : "https://usn.ubuntu.com/usn-db/database.json",
+                         "reqtype" : "json",
+                         "presort" : "reverse",
+                         "subdir" : "ubuntu_usn",
+                         "jq_obj_source_key" : ".",
+                         "regex_obj_source_key" : r"(USN-\d{1,4}-\d{1,2})",
+                         "regex_obj_replace" : [r"(.+)", r"USN-\1"],
+                         "update_existing" : False,
+                         "audit_source_obj" : audittools.audits_usn.AuditSourceUSN,
+                         "audit_source_kwargs" : {"cachefile" : "/tmp/usn_db.json", #nosec
+                                                  "cacheage" : 21600},
+                         "format" : "json"
+                        },
                 "rhsa" : {"url" : "https://access.redhat.com/hydra/rest/securitydata/oval.json",
                           "reqtype" : "json",
                           "subdir": "redhat_rhsa",
@@ -132,7 +145,23 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
         # Have Entries Let's give this a whirl
         current_num = 0
 
-        for entry in feed_obj["entries"]:
+        if feed_config.get("presort", False) is False:
+            cycle_object = feed_obj["entries"]
+        else:
+            # API is Unsorted, let's Sort it
+            if feed_config["presort"] == "reverse":
+                reverse = True
+            else:
+                reverse = False
+
+            ordered_keys = list(feed_obj["entries"].keys())
+            ordered_keys.sort(reverse=reverse)
+
+            logger.debug(ordered_keys)
+
+            cycle_object = {k: feed_obj["entries"][k] for k in ordered_keys}
+
+        for entry in cycle_object:
             logger.debug("Entry : {}".format(entry))
             current_num = current_num + 1
 

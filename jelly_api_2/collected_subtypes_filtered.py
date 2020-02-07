@@ -116,9 +116,10 @@ def api2_collected_types_filtered(ctype="none"):
                        "sql_clause": "collection.collection_type = %s",
                        "qdeparse": False},
                 "usevalue" : {"req_type": str,
-                              "default" : None,
+                              "default" : "false",
                               "required" : False,
                               "sql_param" : False,
+                              "enum" : ("true", "false"),
                               "qdeparse" : True}
                 }
 
@@ -148,7 +149,7 @@ def api2_collected_types_filtered(ctype="none"):
 
     do_query = True
 
-    if args.get("usevalue", None) is not None:
+    if args.get("usevalue", "false") == "true":
         group_value_get = ", collection_value as value "
         group_by_string = " group by collection_subtype, collection_value "
     else :

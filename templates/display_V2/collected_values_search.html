@@ -10,22 +10,29 @@
 <script type="text/javascript">
 function do_search(){
 	base_url="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/collected/values/?"
+
 	querydata = {
 		"ctype" : $('#ctype').val(),
 		"csubtype" : $('#csubtype').val(),
-		"hostname" : $('#hostname').val(),
-		"pop" : $('#pop').val(),
-		"srvtype" : $('#srvtype').val(),
-		"value" : $('#value').val(),
-		"status" : $('#status').val(),
+  }
+  var data_names = ["hostname", "pop", "srvtype", "value", "status"]
+
+  for (type in data_names) {
+    var hashname = "#" + data_names[type]
+    if ($(hashname).val().length > 0) {
+      querydata[data_names[type]] = $(hashname).val()
+    }
+  }
+
+  // Handle Exact
+	if ($('#exact').is(':checked')) {
+		querydata["exact"] = "true"
 	}
-	query_string = ""
-	for (var key in querydata){
-		if (querydata[key].length > 0 ){
-			query_string=query_string+key+"='"+querydata[key]+"'&"
-		}
-	}
+
+	query_string = jQuery.param(querydata)
+
 	url=base_url + query_string
+
 	$(location).attr('href',url)
 }
 </script>
@@ -70,6 +77,12 @@ function do_search(){
     <div class="col-sm-4">
         <label for="value">Value :</label>
         <input id="value" type="text" name="value" class="form-control ember-text-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="exact">Use Exact Matches (No Regex): </label>
+        <input id="exact" type="checkbox" name="exact" class="form-control ember-checkbox-field">
     </div>
 </div>
 <div class="row form-group">

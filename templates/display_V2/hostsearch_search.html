@@ -9,32 +9,30 @@
 <h1>Hosts Search </h1>
 <script type="text/javascript">
 function do_search(){
-	base_url="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/hostsearchresults"
+	base_url="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/hostsearchresults?"
 
-	string_querydata = {
-		"hostname" : $('#hostname').val(),
-		"pop" : $('#pop').val(),
-		"srvtype" : $('#srvtype').val(),
-		"hoststatus" : $('#hoststatus').val(),
-	}
+	querydata = {
+  }
 
+  var data_names = ["hostname", "pop", "srvtype", "status"]
 
-    query_string="/?"
-
-    // Check if checkbox checked if so add entry to string_querydata
-    if ($('#exact').is(":checked") ) {
-        query_string = query_string + "exact=True&"
+  for (type in data_names) {
+    var hashname = "#" + data_names[type]
+    if ($(hashname).val().length > 0) {
+      querydata[data_names[type]] = $(hashname).val()
     }
+  }
 
-	for (var key in string_querydata){
-        console.log(string_querydata)
-  		if (string_querydata[key].length > 0 ){
-		      	query_string=query_string+key+"='"+ string_querydata[key]+"'&"
-		}
-	}
+  // Handle Exact
+  if ($('#exact').is(':checked')) {
+    querydata["exact"] = "true"
+  }
 
-	url=base_url + query_string
-	$(location).attr('href',url)
+  query_string = jQuery.param(querydata)
+
+  url=base_url + query_string
+
+  $(location).attr('href',url)
 }
 </script>
 <form id="SearchForm" method="POST">
@@ -58,8 +56,8 @@ function do_search(){
 </div>
 <div class="row form-group">
     <div class="col-sm-4">
-        <label for="hoststatus">Status :</label>
-        <input id="hoststatus" type="text" name="hoststatus" class="form-control ember-text-field">
+        <label for="status">Status :</label>
+        <input id="status" type="text" name="status" class="form-control ember-text-field">
     </div>
 </div>
 <div class="row form-group">

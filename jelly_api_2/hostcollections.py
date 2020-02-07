@@ -107,7 +107,8 @@ def api2_hostcollections(host_id=0):
     host_collections_query = '''select collection_id, fk_host_id,
                                 UNIX_TIMESTAMP(initial_update) as initial_update,
                                 UNIX_TIMESTAMP(collection.last_update) as last_update,
-                                hostname, pop, srvtype, hoststatus,
+                                hostname, pop, srvtype, hoststatus, 
+                                UNIX_TIMESTAMP(hosts.last_update) as hlast_update,
                                 collection_type, collection_subtype, collection_value
                                 from collection
                                 join hosts on collection.fk_host_id = hosts.host_id
@@ -120,6 +121,24 @@ def api2_hostcollections(host_id=0):
                                   one=False,
                                   do_abort=True,
                                   require_results=False)
+    
+    meta_dict["host_information"] = dict()
+    if len(results.get("data", list())) > 0:
+        # Inject some Meta Data
+        hostzero = results.get("data", list())[0]
+        g.logger.debug(hostzero)
+        meta_dict["host_information"]["hostname"] = hostzero["hostname"]
+        meta_dict["host_information"]["pop"] = hostzero["pop"]
+        meta_dict["host_information"]["srvtype"] = hostzero["srvtype"]
+        meta_dict["host_information"]["hoststatus"] = hostzero["hoststatus"]
+        meta_dict["host_information"]["last_update"] = hostzero["hlast_update"]
+    else:
+        meta_dict["host_information"]["hostname"] = "No Results"
+        meta_dict["host_information"]["pop"] = str()
+        meta_dict["host_information"]["srvtype"] = str()
+        meta_dict["host_information"]["hoststatus"] = str()
+        meta_dict["host_information"]["last_update"] = 0
+        
 
     for this_coll in results.get("data", list()):
         this_results = dict()

@@ -5,11 +5,14 @@ Copyright 2018, VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 '''
 
-from flask import current_app, Blueprint, g, request, jsonify, render_template
 import json
 import ast
 import requests
 import urllib
+
+from flask import current_app, Blueprint, g, request, jsonify, render_template, abort
+
+import db_helper
 
 collatedresults = Blueprint('collatedresults', __name__)
 
@@ -19,77 +22,54 @@ collatedresults = Blueprint('collatedresults', __name__)
 @collatedresults.route("/collatedresults/<string:collatedType>/")
 def display2_collatedresults(collatedType=False, typefilter=False, auditID=False):
 
+    args_def = {"collatedType": {"req_type": str,
+                                 "default": collatedType,
+                                 "required": True,
+                                 "enum" : ("pop", "srvtype", "acoll")},
+                "auditID": {"req_type": int,
+                            "required" : False,
+                            "default": None,
+                            "qdeparse": True},
+                "typefilter" : {"req_type": str,
+                                "default": None,
+                                "required": False,
+                                "qdeparse": True}
+                }
+
+    args = db_helper.process_args(args_def,
+                                  request.args)
+
     meta_dict = dict()
     request_data = list()
     links_dict = dict()
     error_dict = dict()
 
-    argument_error = False
-    query_string_bits = dict()
+    this_endpoint = "{}/collated/{}?{}".format(g.config_items["v2api"]["root"],
+                                               collatedType,
+                                               args["qdeparsed_string"])
 
-    # Grab Values
-    if "collatedType" in request.args :
-        try:
-            collatedType = ast.literal_eval(request.args["collatedType"])
-        except Exception as e :
-            error_dict["collatedType_read_error"] = "Error parsing collatedType " + str(e)
-            argument_error=True
+    this_private_endpoint = g.HTTPENDPOINT + this_endpoint
 
-    if collatedType != False :
-        query_string_bits["collatedType"] = "'{}'".format(str(collatedType))
-    else :
-        # Not Specified
-        argument_error = False
-        error_dict["need_collated_type"] = "Give me the collated type."
-
-    if "typefilter" in request.args :
-        try:
-            typefilter = ast.literal_eval(request.args["typefilter"])
-            query_string_bits["typefilter"] = "'{}'".format(str(typefilter))
-        except Exception as e :
-            error_dict["typefilter_read_error"] = "Error parsing typefilter " + str(e)
-            argument_error=True
-
-    if "auditID" in request.args :
-        try:
-            auditID = ast.literal_eval(request.args["auditID"])
-            query_string_bits["auditID"] = auditID
-        except Exception as e :
-            error_dict["auditID_read_error"] = "Error parsing auditID " + str(e)
-            argument_error=True
-
-    if argument_error == False :
-        try:
-            query_string = urllib.parse.urlencode(query_string_bits)
-            this_endpoint = g.config_items["v2api"]["root"] + "/collated/?" + query_string
-            this_private_endpoint = g.HTTPENDPOINT + this_endpoint
-        except Exception as e:
-            error_dict["query_string_error"] = "Error generating query string: " + str(e)
-            argument_error = True
-        else:
-            meta_dict["Endpoint"] = str(g.config_items["v2api"]["preroot"]) + this_endpoint
-
-    # Grab Endpoint
-
-    api_error = False
+    api_good = True
 
     try:
-        content = requests.get(this_private_endpoint).content
-    except Exception as e:
-        error_dict["Error Getting Endpoint"] = "Error getting endpoint: " + str(e)
-        api_error=True
+        tr = requests.get(this_private_endpoint)
+        content_object = tr.json()
+    except Exception as api_error:
+        error_dict["Error Getting Endpoint"] = "Error getting endpoint: {}".format(api_error)
+        api_good = False
     else:
-        try:
-            content_string = content.decode("utf-8")
-            content_object = json.loads(content_string)
-        except Exception as e:
-            api_error=True
-            error_dict["Error Rendering API Content"] = "Error reading data from endpoint: " + str(e)
+        meta_dict["Endpoint"] = content_object["links"]["self"]
 
-    if api_error :
-        return render_template('error.html', error=error_dict)
+
+    if api_good:
         # Use my Template
+        return render_template('display_V2/collatedresults.html',
+                               content=content_object,
+                               meta=meta_dict,
+                               collatedType=collatedType,
+                               typefilter=args["typefilter"])
     else:
-        return render_template('display_V2/collatedresults.html', content=content_object, meta=meta_dict, collatedType=collatedType, typefilter=typefilter )
 
+        return render_template('error.html', error=error_dict)
 

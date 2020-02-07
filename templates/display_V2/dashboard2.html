@@ -14,10 +14,8 @@
 			  {% else %}
 				<h3>Default Dashboard</h3>
 			  {% endif %}
-			</div>
-			<!-- Do one of these for every Audit Given -->
-			<div class="row placeholders">
-				<div id="data_div">
+			<div class="row placeholders" class="col-md-9">
+				<div id="data_div" class="col-md-9">
 					<!-- For Loop Here -->
 					{% for audit_all in data -%}
 				    {% set audit = audit_all["attributes"] -%}
@@ -70,6 +68,7 @@
 						{% endif %}
 					{% endfor %}
 				</div>
+			</div>
 			</div>
 		</div>
 	</div>

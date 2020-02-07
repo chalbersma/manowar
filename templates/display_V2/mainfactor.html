@@ -29,8 +29,8 @@
 			    {% for collection in content["data"] %}
 			    <tr>
 				    <td>{{ collection["id"] }}</td>
-				    <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/hostsearchresults/?exact=True&{{ mainfactor }}='{{ collection['id']}}'">Hosts</a></td>
-				    <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/collatedresults/?collatedType='{{ mainfactor}}'&typefilter='{{ collection['id'] }}'">Audits</a></td>
+				    <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/hostsearchresults/?exact=True&{{ mainfactor|urlencode }}={{ collection['id']|urlencode }}">Hosts</a></td>
+				    <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/collatedresults/{{ mainfactor|urlencode }}?typefilter={{ collection['id']|urlencode }}">Audits</a></td>
 			    </tr>
 			    {% endfor %}
 		    </tbody>

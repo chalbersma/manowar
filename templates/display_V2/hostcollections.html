@@ -11,7 +11,14 @@
 		<div class="pager">
 			<script>
 
-				var default_data= [ {% for host in content["data"] %} [ "{{ host["attributes"]["collection_id"]|lower }}" , "{{ host["attributes"]["collection_type"] }}", "{{ host["attributes"]["collection_subtype"] }}", "{{ host["attributes"]["collection_value"] }}", "{{ host["attributes"]["initial_update"]|ctime }}",  "{{ host["attributes"]["last_update"]|ctime }}" ] , {% endfor %}	]
+				var default_data= [{% for host in content["data"] %}
+			                     ["{{ host["attributes"]["collection_id"]|lower }}" ,
+			                      "{{ host["attributes"]["collection_type"] }}",
+			                      "{{ host["attributes"]["collection_subtype"] }}",
+			                      "{{ host["attributes"]["collection_value"] }}",
+			                      "{{ host["attributes"]["initial_update"]|ctime }}",
+			                      "{{ host["attributes"]["last_update"]|ctime }}" ],
+			                    {% endfor %}]
 
 				function drawCharts(ChartTitle, divname, data, column, columnname, hide, expand){
 

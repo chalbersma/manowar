@@ -142,7 +142,11 @@
 		<tbody>
 			{% for collection in content["data"] %}
 			<tr>
-				<td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/hostcollections/{{ collection["attributes"]["host_id"] }}/">{{ collection["attributes"]["hostname"]|lower }}</a></td>
+				<td>
+				  <a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/hostcollections/{{ collection["attributes"]["host_id"] }}/?ctype={{ meta["ctype"]|urlencode }}&{{ meta["common_qdeparsed_string"] }}">
+				    {{ collection["attributes"]["hostname"]|lower }}
+				  </a>
+				</td>
 				<td>{{ collection["attributes"]["pop"] }}</td>
 				<td>{{ collection["attributes"]["srvtype"] }}</td>
 				<td>{{ collection["attributes"]["collection_value"] }}</td>

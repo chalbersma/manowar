@@ -13,7 +13,7 @@
 		<script>
 
 			var default_data= [ {% for collection in content["data"] -%}
-					    [ "{{ collection['attributes']['subtype']|lower }}" , "{{ collection['attributes']['count'] }}" {% if usevalue == True %}, "{{ collection['attributes']['value'] }}" {% endif %} ] ,
+					    [ "{{ collection['attributes']['subtype']|lower }}" , "{{ collection['attributes']['count'] }}" {% if usevalue == "true" %}, "{{ collection['attributes']['value'] }}" {% endif %} ] ,
 					{% endfor -%}	]
 
 			Console.log(default_data)
@@ -82,12 +82,12 @@
 		</script>
 		<ul>
 			<li><a id='bysubtypetoggle' href="javascript:drawCharts('By Subtype', 'bysubtypegraph', default_data, 0, 'SUBTYPE', 'TRUE', 'FALSE')" >Results By Subtype</a></li>
-			{% if usevalue == True %}
+			{% if usevalue == "true" %}
 			<li><a id='byvaluetoggle' href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 2, 'VALUE', 'TRUE', 'FALSE')" >Results By Value</a></li>
 			{% endif %}
 		</ul>
 	</div>
-	{% if usevalue == True %}
+	{% if usevalue == "true" %}
 	<div id="byvaluegraph" style="display:none;">
 		<div id="graphcontrols-value">
 			<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 2, 'VALUE', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
@@ -117,7 +117,7 @@
 		    <tr>
 			    <td>Subtype</td>
 			    <td>Count</td>
-			    {% if usevalue == True %}
+			    {% if usevalue == "true" %}
 			    <td>Value</td>
 			    {% endif %}
 		    </tr>
@@ -126,7 +126,7 @@
 		    <tr>
 			    <td>Subtype</td>
 			    <td>Count</td>
-			    {% if usevalue == True %}
+			    {% if usevalue == "true" %}
 			    <td>Value</td>
 			    {% endif %}
 		    </tr>
@@ -134,9 +134,12 @@
 	    <tbody>
 		    {% for collection in content["data"] %}
 		    <tr>
-			    <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/collected/values/{{ meta["ctype"] }}/{{ collection["attributes"]["subtype"] }}/?{{ meta["link_query"] }}" >{{ collection["attributes"]["subtype"] }}</a></td>
+			    <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/collected/values/{{ meta["ctype"] }}/?{{ meta["common_qdeparsed_string"] }}">
+			          {{ collection["attributes"]["subtype"] }}
+			        </a>
+			    </td>
 			    <td>{{ collection["attributes"]["count"] }}</td>
-			    {% if usevalue == True %}
+			    {% if usevalue == "true" %}
 			    <td>{{ collection["attributes"]["value"] }}</td>
 			    {% endif %}
 		    </tr>

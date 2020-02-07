@@ -20,10 +20,10 @@
 
 	    function drawchart_main_data(){
 
-		    $.getJSON("{{ g.config_items["v2api"]["preroot"] }}{{ g.config_items["v2api"]["root"] }}/auditresults/{{ audit_id }}/range/7/?auditResult='pass'", function(data){
+		    $.getJSON("{{ g.config_items["v2api"]["preroot"] }}{{ g.config_items["v2api"]["root"] }}/auditresults/{{ audit_id }}/range/7/?auditResult=pass", function(data){
 			    table_info_pass = range_to_gdatatable(data, ["Date", "date"], ["Pass", "hosts"])
 
-			    $.getJSON("{{ g.config_items["v2api"]["preroot"] }}{{ g.config_items["v2api"]["root"] }}/auditresults/{{ audit_id }}/range/7/?auditResult='fail'", function(data){
+			    $.getJSON("{{ g.config_items["v2api"]["preroot"] }}{{ g.config_items["v2api"]["root"] }}/auditresults/{{ audit_id }}/range/7/?auditResult=fail", function(data){
 				    table_info_fail = range_to_gdatatable(data, ["Date", "date"], ["Fail", "hosts"])
 
 				    pass_fail_array = merge_arrays_for_gdatatable( [ table_info_pass, table_info_fail ] )
