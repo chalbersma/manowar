@@ -1,0 +1,132 @@
+{
+  "USN-4213-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "squid3"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.5.27-1ubuntu1.4"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "squid"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.4-1ubuntu2.3"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "squid"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.8-1ubuntu2.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "squid3"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.5.12-1ubuntu7.9"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-12523_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12523.html",
+      "CVE-2019-12526_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12526.html",
+      "CVE-2019-12854_(Unknown)": null,
+      "CVE-2019-18676_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18676.html",
+      "CVE-2019-18677_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18677.html",
+      "CVE-2019-18678_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18678.html",
+      "CVE-2019-18679_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18679.html",
+      "USN-4213-1": "https://usn.ubuntu.com/4213-1/"
+    },
+    "vuln-long-description": "Jeriko One and Kristoffer Danielsson discovered that Squid incorrectly\nhandled certain URN requests. A remote attacker could possibly use this\nissue to bypass access checks and access restricted servers. This issue was\nonly addressed in Ubuntu 19.04 and Ubuntu 19.10. (CVE-2019-12523)\n\nJeriko One discovered that Squid incorrectly handed URN responses. A remote\nattacker could use this issue to cause Squid to crash, resulting in a\ndenial of service, or possibly execute arbitrary code. (CVE-2019-12526)\n\nAlex Rousskov discovered that Squid incorrectly handled certain strings. A\nremote attacker could possibly use this issue to cause Squid to crash,\nresulting in a denial of service. This issue only affected Ubuntu 19.04.\n(CVE-2019-12854)\n\nJeriko One and Kristoffer Danielsson discovered that Squid incorrectly\nhandled certain input. A remote attacker could use this issue to cause\nSquid to crash, resulting in a denial of service, or possibly execute\narbitrary code. This issue was only addressed in Ubuntu 19.04 and Ubuntu\n19.10. (CVE-2019-18676)\n\nKristoffer Danielsson discovered that Squid incorrectly handled certain\nmessages. This issue could result in traffic being redirected to origins\nit should not be delivered to. (CVE-2019-18677)\n\nR\u00e9gis Leroy discovered that Squid incorrectly handled certain HTTP\nrequest headers. A remote attacker could use this to smuggle HTTP requests\nand corrupt caches with arbitrary content. (CVE-2019-18678)\n\nDavid Fifield discovered that Squid incorrectly handled HTTP Digest\nAuthentication. A remote attacker could possibly use this issue to obtain\npointer contents and bypass ASLR protections. (CVE-2019-18679)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4213-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4213-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in Squid.\n"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "USN-4253-1": {
+    "comparisons": {
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-5.3.0-1010-aws",
+          "linux-image-5.3.0-29-generic",
+          "linux-image-generic",
+          "linux-image-5.3.0-29-snapdragon",
+          "linux-image-5.3.0-29-lowlatency",
+          "linux-image-virtual",
+          "linux-image-generic-lpae",
+          "linux-image-aws",
+          "linux-image-lowlatency",
+          "linux-image-5.3.0-29-generic-lpae"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.3.0-1010.11",
+          "5.3.0-29.31",
+          "5.3.0.29.33",
+          "5.3.0-29.31",
+          "5.3.0-29.31",
+          "5.3.0.29.33",
+          "5.3.0.29.33",
+          "5.3.0.1010.12",
+          "5.3.0.29.33",
+          "5.3.0-29.31"
+        ]
+      }
+    },
+    "filters": {
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14615_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14615.html",
+      "USN-4253-1": "https://usn.ubuntu.com/4253-1/"
+    },
+    "vuln-long-description": "It was discovered that the Linux kernel did not properly clear data\nstructures on context switches for certain Intel graphics processors. A\nlocal attacker could use this to expose sensitive information.\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4253-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4253-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "The Linux kernel could be made to expose sensitive information.\n"
+  }
+}

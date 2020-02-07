@@ -1,0 +1,174 @@
+{
+  "USN-4235-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "nginx-extras",
+          "nginx-full",
+          "nginx-common",
+          "nginx-light",
+          "nginx-core"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.14.0-0ubuntu1.7",
+          "1.14.0-0ubuntu1.7",
+          "1.14.0-0ubuntu1.7",
+          "1.14.0-0ubuntu1.7",
+          "1.14.0-0ubuntu1.7"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "nginx-extras",
+          "nginx-full",
+          "nginx-common",
+          "nginx-light",
+          "nginx-core"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.15.9-0ubuntu1.2",
+          "1.15.9-0ubuntu1.2",
+          "1.15.9-0ubuntu1.2",
+          "1.15.9-0ubuntu1.2",
+          "1.15.9-0ubuntu1.2"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "nginx-extras",
+          "nginx-full",
+          "nginx-common",
+          "nginx-light",
+          "nginx-core"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.16.1-0ubuntu2.1",
+          "1.16.1-0ubuntu2.1",
+          "1.16.1-0ubuntu2.1",
+          "1.16.1-0ubuntu2.1",
+          "1.16.1-0ubuntu2.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "nginx-extras",
+          "nginx-full",
+          "nginx-common",
+          "nginx-light",
+          "nginx-core"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.10.3-0ubuntu0.16.04.5",
+          "1.10.3-0ubuntu0.16.04.5",
+          "1.10.3-0ubuntu0.16.04.5",
+          "1.10.3-0ubuntu0.16.04.5",
+          "1.10.3-0ubuntu0.16.04.5"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-20372_(Unknown)": null,
+      "USN-4235-1": "https://usn.ubuntu.com/4235-1/"
+    },
+    "vuln-long-description": "Bert JW Regeer and Francisco Oca Gonzalez discovered that nginx incorrectly\nhandled certain error_page configurations. A remote attacker could possibly\nuse this issue to perform HTTP request smuggling attacks and access\nresources contrary to expectations.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4235-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4235-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "nginx could be made to expose sensitive information over the network.\n"
+  }
+}

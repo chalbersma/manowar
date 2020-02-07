@@ -1,0 +1,139 @@
+{
+  "USN-4217-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libsmbclient",
+          "samba"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:4.7.6+dfsg~ubuntu-0ubuntu2.14",
+          "2:4.7.6+dfsg~ubuntu-0ubuntu2.14"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "libsmbclient",
+          "samba"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:4.10.0+dfsg-0ubuntu2.7",
+          "2:4.10.0+dfsg-0ubuntu2.7"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "libsmbclient",
+          "samba"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:4.10.7+dfsg-0ubuntu2.3",
+          "2:4.10.7+dfsg-0ubuntu2.3"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libsmbclient",
+          "samba"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:4.3.11+dfsg-0ubuntu0.16.04.24",
+          "2:4.3.11+dfsg-0ubuntu0.16.04.24"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14861_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14861.html",
+      "CVE-2019-14870_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14870.html",
+      "USN-4217-1": "https://usn.ubuntu.com/4217-1/"
+    },
+    "vuln-long-description": "Andreas Oster discovered that the Samba DNS management server incorrectly\nhandled certain records. An authenticated attacker could possibly use this\nissue to crash Samba, resulting in a denial of service. (CVE-2019-14861)\n\nIsaac Boukris discovered that Samba did not enforce the Kerberos\nDelegationNotAllowed feature restriction, contrary to expectations.\n(CVE-2019-14870)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4217-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4217-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in Samba.\n"
+  }
+}

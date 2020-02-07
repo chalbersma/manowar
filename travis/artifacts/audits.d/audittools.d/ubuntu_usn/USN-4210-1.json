@@ -1,0 +1,200 @@
+{
+  "USN-4210-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-powerpc-e500mc",
+          "linux-image-4.15.0-1051-kvm",
+          "linux-image-4.15.0-1052-raspi2",
+          "linux-image-4.15.0-1030-oracle",
+          "linux-image-4.15.0-72-generic-lpae",
+          "linux-image-4.15.0-72-lowlatency",
+          "linux-image-oracle",
+          "linux-image-gke-4.15",
+          "linux-image-oracle-lts-18.04",
+          "linux-image-virtual",
+          "linux-image-snapdragon",
+          "linux-image-4.15.0-72-generic",
+          "linux-image-powerpc64-emb",
+          "linux-image-gke",
+          "linux-image-aws-lts-18.04",
+          "linux-image-generic",
+          "linux-image-oem",
+          "linux-image-4.15.0-1049-gke",
+          "linux-image-aws",
+          "linux-image-kvm",
+          "linux-image-4.15.0-1069-snapdragon",
+          "linux-image-raspi2",
+          "linux-image-4.15.0-1056-aws",
+          "linux-image-powerpc-smp",
+          "linux-image-4.15.0-1065-oem",
+          "linux-image-generic-lpae",
+          "linux-image-powerpc64-smp",
+          "linux-image-lowlatency"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.15.0.72.74",
+          "4.15.0-1051.51",
+          "4.15.0-1052.56",
+          "4.15.0-1030.33",
+          "4.15.0-72.81",
+          "4.15.0-72.81",
+          "4.15.0.1030.35",
+          "4.15.0.1049.52",
+          "4.15.0.1030.35",
+          "4.15.0.72.74",
+          "4.15.0.1069.72",
+          "4.15.0-72.81",
+          "4.15.0.72.74",
+          "4.15.0.1049.52",
+          "4.15.0.1056.57",
+          "4.15.0.72.74",
+          "4.15.0.1065.69",
+          "4.15.0-1049.52",
+          "4.15.0.1056.57",
+          "4.15.0.1051.51",
+          "4.15.0-1069.76",
+          "4.15.0.1052.50",
+          "4.15.0-1056.58",
+          "4.15.0.72.74",
+          "4.15.0-1065.75",
+          "4.15.0.72.74",
+          "4.15.0.72.74",
+          "4.15.0.72.74"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-gke",
+          "linux-image-4.15.0-1050-gcp",
+          "linux-image-4.15.0-72-generic-lpae",
+          "linux-image-gcp",
+          "linux-image-4.15.0-1030-oracle",
+          "linux-image-oem",
+          "linux-image-lowlatency-hwe-16.04",
+          "linux-image-aws-hwe",
+          "linux-image-4.15.0-72-lowlatency",
+          "linux-image-generic-hwe-16.04",
+          "linux-image-virtual-hwe-16.04",
+          "linux-image-oracle",
+          "linux-image-4.15.0-72-generic",
+          "linux-image-generic-lpae-hwe-16.04",
+          "linux-image-4.15.0-1056-aws"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.15.0.1050.64",
+          "4.15.0-1050.53",
+          "4.15.0-72.81~16.04.1",
+          "4.15.0.1050.64",
+          "4.15.0-1030.33~16.04.1",
+          "4.15.0.72.92",
+          "4.15.0.72.92",
+          "4.15.0.1056.56",
+          "4.15.0-72.81~16.04.1",
+          "4.15.0.72.92",
+          "4.15.0.72.92",
+          "4.15.0.1030.23",
+          "4.15.0-72.81~16.04.1",
+          "4.15.0.72.92",
+          "4.15.0-1056.58~16.04.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-16746_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-16746.html",
+      "CVE-2019-17075_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17075.html",
+      "CVE-2019-17133_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17133.html",
+      "CVE-2019-19060_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19060.html",
+      "CVE-2019-19065_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19065.html",
+      "CVE-2019-19075_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19075.html",
+      "USN-4210-1": "https://usn.ubuntu.com/4210-1/"
+    },
+    "vuln-long-description": "It was discovered that a buffer overflow existed in the 802.11 Wi-Fi\nconfiguration interface for the Linux kernel when handling beacon settings.\nA local attacker could use this to cause a denial of service (system crash)\nor possibly execute arbitrary code. (CVE-2019-16746)\n\nNicolas Waisman discovered that the WiFi driver stack in the Linux kernel\ndid not properly validate SSID lengths. A physically proximate attacker\ncould use this to cause a denial of service (system crash).\n(CVE-2019-17133)\n\nIt was discovered that the ADIS16400 IIO IMU Driver for the Linux kernel\ndid not properly deallocate memory in certain error conditions. A local\nattacker could use this to cause a denial of service (memory exhaustion).\n(CVE-2019-19060)\n\nIt was discovered that the Intel OPA Gen1 Infiniband Driver for the Linux\nkernel did not properly deallocate memory in certain error conditions. A\nlocal attacker could use this to cause a denial of service (memory\nexhaustion). (CVE-2019-19065)\n\nIt was discovered that the Cascoda CA8210 SPI 802.15.4 wireless controller\ndriver for the Linux kernel did not properly deallocate memory in certain\nerror conditions. A local attacker could use this to cause a denial of\nservice (memory exhaustion). (CVE-2019-19075)\n\nNicolas Waisman discovered that the Chelsio T4/T5 RDMA Driver for the Linux\nkernel performed DMA from a kernel stack. A local attacker could use this\nto cause a denial of service (system crash). (CVE-2019-17075)\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4210-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4210-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in the Linux kernel.\n"
+  }
+}

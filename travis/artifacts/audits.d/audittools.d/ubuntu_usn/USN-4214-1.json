@@ -1,0 +1,108 @@
+{
+  "USN-4214-1": {
+    "comparisons": {
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "librabbitmq4",
+          "amqp-tools"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.9.0-0.2ubuntu0.19.04.1",
+          "0.9.0-0.2ubuntu0.19.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "librabbitmq4",
+          "amqp-tools"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.9.0-0.2ubuntu0.19.10.1",
+          "0.9.0-0.2ubuntu0.19.10.1"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "librabbitmq1",
+          "amqp-tools"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.4.1-1ubuntu0.1~esm1",
+          "0.4.1-1ubuntu0.1~esm1"
+        ]
+      }
+    },
+    "filters": {
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-18609_(Unknown)": null,
+      "USN-4214-1": "https://usn.ubuntu.com/4214-1/"
+    },
+    "vuln-long-description": "It was discovered that RabbitMQ incorrectly handled certain inputs.\nAn attacker could possibly use this issue to execute arbitrary code.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4214-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4214-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "RabbitMQ could be made to execute arbitrary code if it received\na specially crafted input.\n"
+  }
+}
