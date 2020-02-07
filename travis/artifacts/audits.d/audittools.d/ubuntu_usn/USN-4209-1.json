@@ -1,0 +1,176 @@
+{
+  "USN-4209-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-5.0.0-1026-gke",
+          "linux-image-5.0.0-1008-oracle",
+          "linux-image-5.0.0-37-generic-lpae",
+          "linux-image-snapdragon-hwe-18.04",
+          "linux-image-5.0.0-37-lowlatency",
+          "linux-image-lowlatency-hwe-18.04",
+          "linux-image-gke-5.0",
+          "linux-image-virtual-hwe-18.04",
+          "linux-image-5.0.0-37-generic",
+          "linux-image-generic-lpae-hwe-18.04",
+          "linux-image-oracle-edge",
+          "linux-image-5.0.0-1026-gcp",
+          "linux-image-aws-edge",
+          "linux-image-oem-osp1",
+          "linux-image-gcp",
+          "linux-image-5.0.0-1022-aws",
+          "linux-image-5.0.0-1030-oem-osp1",
+          "linux-image-generic-hwe-18.04"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.0.0-1026.27~18.04.2",
+          "5.0.0-1008.13~18.04.1",
+          "5.0.0-37.40~18.04.1",
+          "5.0.0.37.95",
+          "5.0.0-37.40~18.04.1",
+          "5.0.0.37.95",
+          "5.0.0.1026.15",
+          "5.0.0.37.95",
+          "5.0.0-37.40~18.04.1",
+          "5.0.0.37.95",
+          "5.0.0.1008.7",
+          "5.0.0-1026.27~18.04.1",
+          "5.0.0.1022.36",
+          "5.0.0.1030.34",
+          "5.0.0.1026.30",
+          "5.0.0-1022.25~18.04.1",
+          "5.0.0-1030.34",
+          "5.0.0.37.95"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-5.0.0-1008-oracle",
+          "linux-image-gke",
+          "linux-image-5.0.0-37-generic-lpae",
+          "linux-image-5.0.0-37-lowlatency",
+          "linux-image-generic",
+          "linux-image-5.0.0-37-generic",
+          "linux-image-gcp",
+          "linux-image-5.0.0-1023-kvm",
+          "linux-image-lowlatency",
+          "linux-image-virtual",
+          "linux-image-5.0.0-1023-raspi2",
+          "linux-image-generic-lpae",
+          "linux-image-aws",
+          "linux-image-kvm",
+          "linux-image-oracle",
+          "linux-image-5.0.0-1022-aws",
+          "linux-image-5.0.0-1026-gcp",
+          "linux-image-raspi2"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.0.0-1008.13",
+          "5.0.0.1026.51",
+          "5.0.0-37.40",
+          "5.0.0-37.40",
+          "5.0.0.37.39",
+          "5.0.0-37.40",
+          "5.0.0.1026.51",
+          "5.0.0-1023.25",
+          "5.0.0.37.39",
+          "5.0.0.37.39",
+          "5.0.0-1023.24",
+          "5.0.0.37.39",
+          "5.0.0.1022.24",
+          "5.0.0.1023.24",
+          "5.0.0.1008.34",
+          "5.0.0-1022.25",
+          "5.0.0-1026.27",
+          "5.0.0.1023.21"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-15794_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15794.html",
+      "CVE-2019-16746_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-16746.html",
+      "CVE-2019-19076_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19076.html",
+      "USN-4209-1": "https://usn.ubuntu.com/4209-1/"
+    },
+    "vuln-long-description": "Jann Horn discovered that the OverlayFS and ShiftFS Drivers in the Linux\nkernel did not properly handle reference counting during memory mapping\noperations when used in conjunction with AUFS. A local attacker could use\nthis to cause a denial of service (system crash) or possibly execute\narbitrary code. (CVE-2019-15794)\n\nIt was discovered that a buffer overflow existed in the 802.11 Wi-Fi\nconfiguration interface for the Linux kernel when handling beacon settings.\nA local attacker could use this to cause a denial of service (system crash)\nor possibly execute arbitrary code. (CVE-2019-16746)\n\nIt was discovered that there was a memory leak in the Advanced Buffer\nManagement functionality of the Netronome NFP4000/NFP6000 NIC Driver in the\nLinux kernel during certain error scenarios. A local attacker could use\nthis to cause a denial of service (memory exhaustion). (CVE-2019-19076)\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4209-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4209-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in the Linux kernel.\n"
+  }
+}

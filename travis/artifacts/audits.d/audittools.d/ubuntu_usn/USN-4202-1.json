@@ -1,0 +1,81 @@
+{
+  "USN-4202-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "thunderbird"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:68.2.1+build1-0ubuntu0.18.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "thunderbird"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:68.2.1+build1-0ubuntu0.19.10.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-11755_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11755.html",
+      "CVE-2019-11757_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11757.html",
+      "CVE-2019-11758_(Unknown)": null,
+      "CVE-2019-11759_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11759.html",
+      "CVE-2019-11760_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11760.html",
+      "CVE-2019-11761_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11761.html",
+      "CVE-2019-11762_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11762.html",
+      "CVE-2019-11763_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11763.html",
+      "CVE-2019-11764_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11764.html",
+      "CVE-2019-15903_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15903.html",
+      "USN-4202-1": "https://usn.ubuntu.com/4202-1/"
+    },
+    "vuln-long-description": "It was discovered that a specially crafted S/MIME message with an inner\nencryption layer could be displayed as having a valid signature in some\ncircumstances, even if the signer had no access to the encrypted message.\nAn attacker could potentially exploit this to spoof the message author.\n(CVE-2019-11755)\n\nMultiple security issues were discovered in Thunderbird. If a user were\ntricked in to opening a specially crafted website in a browsing context,\nan attacker could potentially exploit these to cause a denial of service,\nbypass security restrictions, bypass same-origin restrictions, conduct\ncross-site scripting (XSS) attacks, or execute arbitrary code.\n(CVE-2019-11757, CVE-2019-11758, CVE-2019-11759, CVE-2019-11760,\nCVE-2019-11761, CVE-2019-11762, CVE-2019-11763, CVE-2019-11764)\n\nA heap overflow was discovered in the expat library in Thunderbird. If a\nuser were tricked in to opening a specially crafted message, an attacker\ncould potentially exploit this to cause a denial of service, or execute\narbitrary code. (CVE-2019-15903)\n\n\nTLDR: After a standard system update you need to restart Thunderbird to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4202-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4202-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in Thunderbird.\n"
+  }
+}

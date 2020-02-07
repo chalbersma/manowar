@@ -1,0 +1,60 @@
+{
+  "USN-4206-1": {
+    "comparisons": {
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "graphicsmagick",
+          "libgraphicsmagick-q16-3",
+          "libgraphicsmagick++-q16-12"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.3.23-1ubuntu0.2",
+          "1.3.23-1ubuntu0.2",
+          "1.3.23-1ubuntu0.2"
+        ]
+      }
+    },
+    "filters": {
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2017-10794_(Unknown)": null,
+      "CVE-2017-10799_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-10799.html",
+      "CVE-2017-11102_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-11102.html",
+      "CVE-2017-11140_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-11140.html",
+      "CVE-2017-11403_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-11403.html",
+      "CVE-2017-11636_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-11636.html",
+      "CVE-2017-11637_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-11637.html",
+      "CVE-2017-13147_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-13147.html",
+      "CVE-2017-14042_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-14042.html",
+      "CVE-2017-6335_(Unknown)": null,
+      "USN-4206-1": "https://usn.ubuntu.com/4206-1/"
+    },
+    "vuln-long-description": "It was discovered that GraphicsMagick incorrectly handled certain image files.\nAn attacker could possibly use this issue to cause a denial of service.\n(CVE-2017-10794, CVE-2017-10799, CVE-2017-11102, CVE-2017-11140,\nCVE-2017-11403, CVE-2017-11636, CVE-2017-11637, CVE-2017-13147, CVE-2017-14042,\nCVE-2017-6335)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4206-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4206-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in GraphicsMagick.\n"
+  }
+}

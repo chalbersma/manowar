@@ -1,0 +1,63 @@
+{
+  "USN-4207-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "graphicsmagick",
+          "libgraphicsmagick-q16-3",
+          "libgraphicsmagick++-q16-12"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.3.28-2ubuntu0.1",
+          "1.3.28-2ubuntu0.1",
+          "1.3.28-2ubuntu0.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-20184_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-20184.html",
+      "CVE-2018-20185_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-20185.html",
+      "CVE-2018-20189_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-20189.html",
+      "CVE-2019-11005_(Unknown)": null,
+      "CVE-2019-11006_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11006.html",
+      "CVE-2019-11007_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11007.html",
+      "CVE-2019-11008_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11008.html",
+      "CVE-2019-11009_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11009.html",
+      "CVE-2019-11010_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11010.html",
+      "CVE-2019-11473_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11473.html",
+      "CVE-2019-11474_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11474.html",
+      "CVE-2019-11505_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11505.html",
+      "CVE-2019-11506_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11506.html",
+      "USN-4207-1": "https://usn.ubuntu.com/4207-1/"
+    },
+    "vuln-long-description": "It was discovered that GraphicsMagick incorrectly handled certain image files.\nAn attacker could possibly use this issue to cause a denial of service or other\nunspecified impact.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4207-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4207-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in GraphicsMagick.\n"
+  }
+}

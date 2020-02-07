@@ -1,0 +1,104 @@
+{
+  "USN-4199-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libvpx5"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.7.0-3ubuntu0.18.04.1"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "libvpx5"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.7.0-3ubuntu0.19.04.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libvpx3"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.5.0-2ubuntu1.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2017-13194_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-13194.html",
+      "CVE-2019-2126_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2126.html",
+      "CVE-2019-9232_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-9232.html",
+      "CVE-2019-9325_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-9325.html",
+      "CVE-2019-9371_(Unknown)": null,
+      "CVE-2019-9433_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-9433.html",
+      "USN-4199-1": "https://usn.ubuntu.com/4199-1/"
+    },
+    "vuln-long-description": "It was discovered that libvpx did not properly handle certain malformed\nWebM media files. If an application using libvpx opened a specially crafted\nWebM file, a remote attacker could cause a denial of service, or possibly\nexecute arbitrary code.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4199-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4199-1/",
+    "vuln-priority": 3,
+    "vuln-short-description": "Several security issues were fixed in libvpx.\n"
+  }
+}

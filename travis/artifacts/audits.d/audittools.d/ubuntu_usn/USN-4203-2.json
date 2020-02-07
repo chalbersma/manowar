@@ -1,0 +1,72 @@
+{
+  "USN-4203-2": {
+    "comparisons": {
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "libnss3"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:3.28.4-0ubuntu0.12.04.5"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libnss3"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:3.28.4-0ubuntu0.14.04.5+esm2"
+        ]
+      }
+    },
+    "filters": {
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-11745_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11745.html",
+      "USN-4203-2": "https://usn.ubuntu.com/4203-2/"
+    },
+    "vuln-long-description": "USN-4203-1 fixed a vulnerability in NSS. This update provides\nthe corresponding update for Ubuntu 12.04 ESM and Ubuntu 14.04 ESM.\n\nOriginal advisory details:\n\n It was discovered that NSS incorrectly handled certain memory operations. A\n remote attacker could use this issue to cause NSS to crash, resulting in a\n denial of service, or possibly execute arbitrary code.\n\n\nTLDR: After a standard system update you need to restart any applications that\nuse NSS, such as Evolution, to make all the necessary changes.\n\n",
+    "vuln-name": "USN-4203-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4203-2/",
+    "vuln-priority": 5,
+    "vuln-short-description": "NSS could be made to crash or run programs if it received specially crafted\ninput.\n"
+  }
+}
