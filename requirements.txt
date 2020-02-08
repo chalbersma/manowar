@@ -4,7 +4,6 @@ flask_cors
 graphene
 pymysql
 manowar_agent
-lxml
 jsonschema
 colorama
 paramiko
