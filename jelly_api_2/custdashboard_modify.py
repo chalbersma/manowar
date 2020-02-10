@@ -8,7 +8,6 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 
 ```swagger-yaml
 /custdashboard/modify/{dash_id}/ :
-  x-cached-length: "Every Midnight"
   get:
     description: |
       Modifies a custom audit by either adding, removing or setting an audit_id
@@ -16,9 +15,10 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    tags:
+      - dashboard
     parameters:
       - name: dash_id
-        x-astliteraleval: true
         in: path
         description: |
           Dashboard ID of the dashboard you wish to modify
@@ -26,7 +26,6 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
           type: string
         required: true
       - name: modifyorder
-        x-astliteraleval: true
         in: query
         description: |
           A dict that tells the system what it should do. Contains one or two keys,

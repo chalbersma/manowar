@@ -11,6 +11,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     description: |
       Get's the stored information about a given audit. Does not include the Bucket or Match Logic
       as there is currently a bug about those items.
+    tags:
+      - audits
     responses:
       200:
         description: OK

@@ -13,6 +13,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    tags:
+      - IP
     parameters:
       - name: ip
         in: query
@@ -20,6 +22,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
             The ipv4 or ipv6 address that you wish to search for records against.
         schema:
           type: string
+          format: ipv46
       - name: subnet
         in: query
         description: |
@@ -28,31 +31,33 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
             will match and only if it's in this range.
         schema:
           type: string
-      - name: hostname
-        in: query
-        description: |
-          The hostname you wish to search for. Is an exact match.
-        schema:
-          type: string
-      - name: pop
-        in: query
-        description: |
-          The pop you wish to search for. Is an exact match.
-        schema:
-          type: string
-      - name: srvtype
-        in: query
-        description: |
-          The srvtype you wish to search for. Is an exact match.
-        schema:
-          type: string
+          format: subnet46
       - name: iptype
         in: query
         description: |
-            Look for only one of the ips of this type.
+            Look for only one of the ips of this type. Must be vips4, vips6, host4,
+            host6, drac4, drac6, netdev4, netdev6 or unknown.
         schema:
           type: string
-
+          enum:
+            - vips4
+            - vips6
+            - host4
+            - host6
+            - drac4
+            - drac6
+            - netdev4
+            - netdev6
+            - unknown
+        required: true
+      - name: hostid
+        in: query
+        description: |
+          hostid to search for
+        schema:
+          type: int
+      {{ hosts | indent(6, True) }}
+      {{ exact | indent(6, True) }}
 ```
 """
 

@@ -14,13 +14,15 @@ Designed to grab information about information as it exists on the edge
 /collected/subtypes/{ctype}/ :
   x-cached-length: "Every Midnight"
   get:
-   description: |
+    description: |
      Grabs a list of subtypes associated with a particular type. As this query can be intesive,
      results are cached once a midnight. Please be patient with this query.
-   responses:
+    responses:
      200:
        description: OK
-   parameters:
+    tags:
+     - collections
+    parameters:
      - name: ctype
        in: path
        description: | 

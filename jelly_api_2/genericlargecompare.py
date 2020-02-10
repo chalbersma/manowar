@@ -16,6 +16,8 @@ Should return data about the host & return the collections for this particular h
     responses:
       200:
         description: OK
+    tags:
+      - liveaudit
     parameters:
       - name: hostname
         in: query

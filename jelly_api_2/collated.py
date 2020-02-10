@@ -16,6 +16,8 @@ Accepts a regex filter for the main name
     responses:
       200:
         description: OK
+    tags:
+      - audits
     parameters:
       - name: collatedType
         in: path
@@ -25,6 +27,7 @@ Accepts a regex filter for the main name
           additional collations are added.
         schema:
           type: string
+          enum: [pop, srvtype, acoll]
         required: true
       - name: typefilter
         in: query

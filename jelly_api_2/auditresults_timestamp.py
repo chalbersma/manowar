@@ -10,13 +10,15 @@ Historical Results
 Grab the historical list of servers that failed an audit at a particular time
 
 ```swagger-yaml
-/auditresults/{audit_id}/{timestamp}/ :
+/auditresults/{audit_id}/{request_timestamp}/ :
   get:
     description: |
       Designed to grab a list of hosts that either pass or fail an audit
       along with the relevant data about each host. Similar to the auditresults
       endpoint, except that this one also takes a timestamp so that it can
       return the results as it appears at a particular time.
+    tags:
+      - audits
     responses:
       200:
         description: OK
@@ -29,7 +31,7 @@ Grab the historical list of servers that failed an audit at a particular time
         schema:
           type: integer
         required: true
-      - name: timestamp
+      - name: request_timestamp
         in: path
         description: |
           A Unix Timestamp that you want to check for the date against.
@@ -39,64 +41,9 @@ Grab the historical list of servers that failed an audit at a particular time
         schema:
           type: integer
         required: true
-      - name: hostname
-        in: query
-        description: |
-          A regex to match for the hostname. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the hostname column in the host table.
-        schema:
-          type: string
-        required: false
-      - name: pop
-        in: query
-        description: |
-          A regex to match for the pop name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the pop column in the host table.
-        schema:
-          type: string
-        required: false
-      - name: srvtype
-        in: query
-        description: |
-          A regex to match for the srvtype name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the srvtype column in the host table.
-        schema:
-          type: string
-        required: false
-      - name: bucket
-        in: query
-        description: |
-          A regex to match for the bucket name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the bucket column in the audits_by_host table.
-        schema:
-          type: string
-        required: false
-      - name: auditResult
-        in: query
-        description: |
-          A regex to match for the audit result.. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the audit_result column in the audits_by_host table.
-          Audit result is stored as an enum so best values are "pass", "fail" or "notafflicted".
-        schema:
-          type: string
-        required: false
-      - name: auditResultText
-        in: query
-        description: |
-          A regex to match for the Audit Result text (generally the failing version).
-          [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the audit_result_text column in the audits_by_host table.
-        schema:
-          type: string
-        required: false
-      - name: status
-        in: query
-        description: |
-          A regex to match for the value. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the hoststatus column in the hosts table.
-        schema:
-          type: string
-        required: false
+      {{ ar | indent(6, True) }}
+      {{ hosts | indent(6, True) }}
+      {{ exact | indent(6, True) }}
 ```
 
 '''

@@ -18,6 +18,8 @@ Allow the Soc to give us a vip (ipv4 or 6), a port and protocol (like tcp/22)
    description: |
      Grabs a list of hosts that are beind the given vip with the proper
      port/protocol open.
+   tags:
+     - liveaudit
    responses:
      200:
        description: OK
@@ -76,7 +78,6 @@ def api2_soc_vipporttohost(ctype="none"):
 
 
     # TODO Rethink if this is needed.
-
 
     meta_dict = dict()
     request_data = list()

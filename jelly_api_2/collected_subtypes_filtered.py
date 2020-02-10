@@ -13,77 +13,34 @@ Designed to grab information about information as it exists on the edge
 ```swagger-yaml
 /collected/subtypes_filtered/{ctype}/ :
   get:
-   description: |
-     Grabs a list of subtypes associated with a particular type. As this query can be intesive,
-     results are cached once a midnight. Please be patient with this query.
-   responses:
-     200:
-       description: OK
-   parameters:
-    - name: ctype
-      in: path
-      description: |
-        The Collection Type you wish to match against. Must be equal to this item. You can get
-        a list of collection types from the `/collection/type` endpoint. Can be overridden with
-        query string paramter.
-      required: true
-      schema:
-        type: string
-    - name: csubtype
-      in: query
-      description: |
-        The Collection Subtype you wish to match against. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-        regular expressions are accepted. Matched on the collection_subtype column in the collection table.
-      schema:
-        type: string
-      required: false
-    - name: usevalue
-      schema:
-        type: string
-      in: query
-      description: |
-        Setting this value to anything will tell the api endpoint to not just organize subtypes but
-        to also organize unique values too.
-    - name: hostname
-      in: query
-      description: |
-        A regex to match for the hostname. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-        regular expressions are accepted. Matched on the hostname column in the host table.
-      schema:
-        type: string
-      required: false
-    - name: pop
-      in: query
-      description: |
-        A regex to match for the pop name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-        regular expressions are accepted. Matched on the pop column in the host table.
-      schema:
-        type: string
-      required: false
-    - name: srvtype
-      in: query
-      description: |
-        A regex to match for the srvtype name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-        regular expressions are accepted. Matched on the srvtype column in the host table.
-      schema:
-        type: string
-      required: false
-    - name: value
-      in: query
-      description: |
-        A regex to match for the value. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-        regular expressions are accepted. Matched on the collected_value column in the collections table.
-      schema:
-        type: string
-      required: false
-    - name: status
-      in: query
-      description: |
-        A regex to match for the value. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-        regular expressions are accepted. Matched on the hoststatus column in the hosts table.
-      schema:
-        type: string
-      required: false
+    description: |
+       Grabs a list of subtypes associated with a particular type. As this query can be intesive,
+       results are cached once a midnight. Please be patient with this query.
+    responses:
+      200:
+        description: OK
+    tags:
+      - collections
+    parameters:
+      - name: ctype
+        in: path
+        description: |
+          The Collection Type you wish to match against. Must be equal to this item. You can get
+          a list of collection types from the `/collection/type` endpoint. Can be overridden with
+          query string paramter.
+        required: true
+        schema:
+          type: string
+      - name: usevalue
+        schema:
+          type: string
+          enum: [true, false]
+        in: query
+        description: |
+          Setting this value to anything will tell the api endpoint to not just organize subtypes but
+          to also organize unique values too.
+      {{ hosts | indent(6, True) }}
+      {{ exact | indent(6, True) }}
 ```
 '''
 

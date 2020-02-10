@@ -14,6 +14,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    tags:
+      - IP
     parameters:
       - name: ip
         in: query
@@ -21,6 +23,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
             The ipv4 or ipv6 address that you wish to record a record against.
         schema:
           type: string
+          format: ipv46
         required: true
       - name: iptype
         in: query
@@ -29,14 +32,23 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
             host6, drac4, drac6, netdev4, netdev6 or unknown.
         schema:
           type: string
+          enum:
+            - vips4
+            - vips6
+            - host4
+            - host6
+            - drac4
+            - drac6
+            - netdev4
+            - netdev6
+            - unknown
         required: true
-      - name: hostname
+      - name: hostid
         in: query
         description: |
-            Hostname to associate this host with. You need either this or a host
-            id to be a valid report.
+          hostid to search for
         schema:
-          type: string
+          type: int
 
 ```
 """

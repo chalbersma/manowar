@@ -14,6 +14,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
       Designed to grab a list of hosts that either pass or fail an audit
       along with the relevant data about each host. Similar to the audit_table
       item from the old api.
+    tags:
+      - auth
     responses:
       200:
         description: OK

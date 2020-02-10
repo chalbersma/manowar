@@ -13,6 +13,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    tags:
+      - dashboard
     parameters:
       - name: pass_audits
         in: query
@@ -23,6 +25,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
           will lead to a warning but will return all audits.
         schema:
           type: string
+        enum: [true, false]
       - name: fail_audits
         in: query
         description: | 
@@ -32,12 +35,13 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
           will lead to a warning but will return all audits.
         schema:
           type: string
+        enum: [true, false]
       - name: cust_dash_id
         in: query
         description: |
           Only Return audits in this custom dashboard (referenced by ID).
         schema:
-          type: number
+          type: integer
 
 ```
 """
@@ -54,16 +58,20 @@ dashboard = Blueprint('api2_dashboard', __name__)
 
 @dashboard.route("/dashboard", methods=['GET'])
 @dashboard.route("/dashboard/<int:cust_dash_id>/", methods=['GET'])
-def api2_dashboard(pass_audits=False, fail_audits=False, cust_dash_id=None):
+def api2_dashboard(cust_dash_id=None):
 
     args_def = {"pass_audits" : {"required" : True,
-                                 "default" : pass_audits},
+                                 "default" : "false",
+                                 "req_type" : str,
+                                 "enum" : ["true", "false"]},
                 "fail_audits" : {"required" : True,
-                                 "default" : fail_audits},
+                                 "default" : "false",
+                                 "req_type" : str,
+                                 "enum" : ["true", "false"]},
                 "cust_dash_id" : {"required" : False,
                                   "default" : cust_dash_id,
                                   "req_type" : int,
-                                  "fom" : True}
+                                  "positive" : True}
                }
 
     args = db_helper.process_args(args_def, request.args)
@@ -137,19 +145,14 @@ JOIN audits ON audits.audit_id = maxdate.fk_audits_id
     else:
         meta_info["custom_dashboard"] = False
 
-    if pass_audits == False and fail_audits == False :
-        # Default Query. Give me Everything.
+    if (args["pass_audits"] == "false" and args["fail_audits"] == "false") or (args["pass_audits"] == "true" and args["pass_audits"] == "true") :
+        # Give me Everything
         dashboard_query_mid="  "
-    elif pass_audits != False and fail_audits != False :
-        # Weird Request. It's as if you want both only the pass audits and only the fail audits. So giving you everything.
-        # Also going to warn you in the meta information
-        dashboard_query_mid="  "
-        meta_info["Query Warning"] = "Nonsensical pass/fail types. Returning both passed & failed audits"
-    elif pass_audits != False :
+    elif args["pass_audits"] == "true" :
         # I want only the Audits that have completely passed (Where there are no failures)
         dashboard_query_mid=" where acoll_failed = 0 "
         meta_info["Query Info"] = "Only Passing Audits have been returned (Audits where there are zero failures)."
-    elif fail_audits != True :
+    elif args["fail_audits"] == "true" :
         # I want only the Audits that have failed (Where there are at least one failure)
         dashboard_query_mid=" where acoll_failed > 0 "
         meta_info["Query Info"] = "Only Failing Audits have been returnd (Audits where there are more than zero failures)."
@@ -166,7 +169,7 @@ JOIN audits ON audits.audit_id = maxdate.fk_audits_id
                                       args=dashboard_query_args,
                                       one=False,
                                       do_abort=True,
-                                      require_results=True)
+                                      require_results=False)
 
         all_collections = results["data"]
         amount_of_collections = len(results["data"])

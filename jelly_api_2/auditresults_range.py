@@ -20,6 +20,8 @@ Grab the historical amount of results for an audit.
     responses:
       200:
         description: OK
+    tags:
+      - audits
     parameters:
       - name: audit_id
         in: path
@@ -37,65 +39,9 @@ Grab the historical amount of results for an audit.
         schema:
           type: integer
         required: true
-      - name: hostname
-        in: query
-        description: |
-          A regex to match for the hostname. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the hostname column in the host table.
-        schema:
-          type: string
-        required: false
-      - name: pop
-        in: query
-        description: |
-          A regex to match for the pop name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the pop column in the host table.
-        schema:
-          type: string
-        required: false
-      - name: srvtype
-        in: query
-        description: |
-          A regex to match for the srvtype name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the srvtype column in the host table.
-        schema:
-          type: string
-        required: false
-      - name: bucket
-        in: query
-        description: |
-          A regex to match for the bucket name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the bucket column in the audits_by_host table.
-        schema:
-          type: string
-        required: false
-      - name: auditResult
-        in: query
-        description: |
-          A regex to match for the audit result.. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the audit_result column in the audits_by_host table.
-          Audit result is stored as an enum so best values are "pass", "fail" or "notafflicted".
-        schema:
-          type: string
-        required: false
-      - name: auditResultText
-        in: query
-        description: |
-          A regex to match for the Audit Result text (generally the failing version).
-          [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the audit_result_text column in the audits_by_host table.
-        schema:
-          type: string
-        required: false
-      - name: status
-        x-astliteraleval: true
-        in: query
-        description: |
-          A regex to match for the value. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the hoststatus column in the hosts table.
-        schema:
-          type: string
-        required: false
+      {{ ar | indent(6, True) }}
+      {{ hosts | indent(6, True) }}
+      {{ exact | indent(6, True) }}
 ```
 
 
@@ -136,9 +82,11 @@ def api2_auditresults_range(backdays=0, audit_id=0):
                                         "positive": True},
                            }
 
-    args = db_helper.process_args(
-        args_def, request.args, include_hosts_sql=True,
-        include_ar_sql=True, include_exact=True)
+    args = db_helper.process_args(args_def,
+                                  request.args,
+                                  include_hosts_sql=True,
+                                  include_ar_sql=True,
+                                  include_exact=True)
 
     meta_dict = dict()
     request_data = list()

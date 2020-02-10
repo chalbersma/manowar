@@ -10,13 +10,15 @@ Designed to grab information about information as it exists on the edge
 * Returns a list of types on the server.
 
 ```swagger-yaml
-/collected/values/{ctype}/{csubtype}/ : 
+/collected/values/{ctype}:
   x-cached-length: "Every Midnight"
   get:
     description: |
       Grabs information on host collections as it exists on the edge (according
       to our latest collected data). This query can be intensive so it is cached
       daily.
+    tags:
+      - collections
     responses:
       200:
         description: OK
@@ -30,68 +32,9 @@ Designed to grab information about information as it exists on the edge
         schema:
           type: string
         required: true
-      - name: csubtype
-        in: path
-        description: |
-           The Collection Subtype you wish to match against. Must be equal to this item.
-           You can get a list of collection subtypes for a particular type from the
-           `/collection/subtype/$ctype` endpoint. Can be overrdiden by query string parameter.
-        schema:
-          type: string
-        required: true
-      - name: hostname
-        x-astliteraleval: true
-        in: query
-        description: |
-          A regex to match for the hostname. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the hostname column in the host table.
-        schema:
-          type: string
-        required: false
-      - name: pop
-        x-astliteraleval: true
-        in: query
-        description: |
-          A regex to match for the pop name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the pop column in the host table.
-        schema:
-          type: string
-        required: false
-      - name: srvtype
-        x-astliteraleval: true
-        in: query
-        description: |
-          A regex to match for the srvtype name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the srvtype column in the host table.
-        schema:
-          type: string
-        required: false
-      - name: value
-        x-astliteraleval: true
-        in: query
-        description: |
-          A regex to match for the value. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the collected_value column in the collections table.
-        schema:
-          type: string
-        required: false
-      - name: status
-        x-astliteraleval: true
-        in: query
-        description: |
-          A regex to match for the value. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the hoststatus column in the hosts table.
-        schema:
-          type: string
-        required: false
-      - name: exact
-        x-astliteraleval: true
-        in: query
-        description: |
-          Essentially make everything above change from a regex to an exact match instead.
-        schema:
-          type: string
-        required: false
+      {{ hosts | indent(6, True) }}
+      {{ exact | indent(6, True) }}
+      {{ col | indent(6, True) }}
 ```
 '''
 

@@ -10,40 +10,23 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
   get:
     description: |
       Gives you all the pops that Jellyfish has recently seen.
+    tags:
+      - audits
     responses:
       200:
         description: OK
     parameters:
-      - name: pop_name
+      - name: factor
         in: query
         description: |
-            Regex to search against for the pops.
+          The Factor to discriminate on. Must be a known & collated type
         schema:
           type: string
-      - name: with_srvtype
-        in: query
-        description: |
-            Only with Srvtypes that meet this criteria.
-        schema:
-          type: string
-      - name: with_hostname
-        in: query
-        description: |
-            Only with Hostnames that meet this criteria.
-        schema:
-          type: string
-      - name: with_status
-        in: query
-        description: |
-            Only with Statuss that meet this criteria.
-        schema:
-          type: string
-      - name: exact
-        in: query
-        description: |
-            Don't Use Regexs, instead use exact matching.
-        schema:
-          type: string
+          enum:
+            - pop
+            - srvtype
+      {{ hosts | indent(6, True) }}
+      {{ exact | indent(6, True) }}
 ```
 """
 

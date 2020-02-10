@@ -9,6 +9,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
   get:
     description: |
       Get the Dashboard information about.
+    tags:
+      - audits
     responses:
       200:
         description: OK

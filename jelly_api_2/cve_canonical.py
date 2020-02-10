@@ -5,13 +5,15 @@ Copyright 2018, VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
 ```swagger-yaml
-/cve/canoncial/{cve_name}/ :
+/cve/ubuntu/{cve_name}/ :
   get:
     description: |
       Gives you all the pops that Jellyfish has recently seen.
     responses:
       200:
         description: OK
+    tags:
+      - cve
     parameters:
       - name: cve_name
         in: path
@@ -20,6 +22,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
         schema:
           type: string
         required: true
+        format: cve
+        pattern: ^[Cc][Vv][Ee]-\d{4}-\d{4,9}$
 ```
 """
 
@@ -48,14 +52,12 @@ def api2_cve_canonical(cve_name=None):
     Returns Data about an Ubuntu CVE
     '''
 
-
-
     args_def = {"cve_name": {"req_type": str,
                              "default": cve_name,
                              "required": True,
                              "sql_param": False,
-                          "qdeparse": False,
-                          "regex_val" : r"^[Cc][Vv][Ee]-\d{4}-\d{4,9}$"}}
+                             "qdeparse": False,
+                             "regex_val" : r"^[Cc][Vv][Ee]-\d{4}-\d{4,9}$"}}
 
     args = db_helper.process_args(args_def,
                                   request.args)
@@ -88,6 +90,7 @@ def api2_cve_canonical(cve_name=None):
     request_data = list()
 
     try:
+        g.logger.debug("Requesting Data for CVE : {}".format(args["cve_name"]))
         this_cve_obj = audittools.mowCVEUbuntu(cve=args["cve_name"])
 
     except Exception as get_cve_error:

@@ -16,6 +16,9 @@ Should return data about the host & return the collections for this particular h
     responses:
       200:
         description: OK
+    tags:
+      - collections
+      - hosts
     parameters:
       - name: host_id
         in: path
@@ -24,8 +27,7 @@ Should return data about the host & return the collections for this particular h
         schema:
           type: integer
         required: true
-      - name: collection_type
-        x-astliteraleval: true
+      - name: ctype
         in: query
         description: |
           A regex to match for the collection_type. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
@@ -33,15 +35,8 @@ Should return data about the host & return the collections for this particular h
         schema:
           type: string
         required: false
-      - name: collection_subtype
-        x-astliteraleval: true
-        in: query
-        description: |
-          A regex to match for the collection_subtype name. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
-          regular expressions are accepted. Matched on the collection_subtype column in the collection table.
-        schema:
-          type: string
-        required: false
+      {{ exact | indent(6, True) }}
+      {{ col | indent(6, True) }}
 ```
 '''
 

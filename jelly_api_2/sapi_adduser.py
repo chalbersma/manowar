@@ -17,6 +17,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    tags:
+      - auth
     parameters:
       - name: username
         x-astliteraleval: true

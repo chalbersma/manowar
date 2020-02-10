@@ -15,6 +15,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    tags:
+      - dashboard
     parameters:
       - name: dash_id
         in: path

@@ -11,6 +11,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
       Accepts a valid host json and stores it in the api. This call is fenced
       by an api token that you need to specify and won't work in the interactive
       version of this.
+    tags:
+      - sapi
     responses:
       200:
         description: OK

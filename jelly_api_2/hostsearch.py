@@ -18,81 +18,20 @@ Should return data about the host & return the collections for this particular h
     responses:
       200:
         description: OK
+    tags:
+      - hosts
     parameters:
-      - name: hostname
-        in: query
-        description: |
-          The regex the hostname you wish to get data for.
-        schema:
-          type: string
-        required: false
-      - name: exact
-        in: query
-        description: |
-          Boolean use exact matches instead of regex
-        schema:
-          type: string
-        required: false
-      - name: pop
-        in: query
-        description: |
-          Pop you wish to search for, respects exact
-        schema:
-          type: string
-        required: false
-      - name: srvtype
-        in: query
-        description: |
-          Srvtype you wish to search for, respects exact
-        schema:
-          type: string
-        required: false
-      - name: hoststatus
-        in: query
-        description: |
-          Hoststatus you wish to search for, respects exact
-        schema:
-          type: string
-        required: false
-      - name: status
-        in: query
-        description: |
-          Overrides hoststatus.
-        schema:
-          type: string
-        required: false
-      - name: matchcollection
-        in: query
-        description: |
-          Allow the match of one item joined from the collection table. Default
-          is off but if it's on you'll need to provide a collection match object.
-        required: false
-        schema:
-          type: string
       - name: ctype
         in: query
         description: |
-          If using matchcollection this is the collection type to match against.
-          This is always an exact match.
-        required: false
+          A regex to match for the collection_type. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type
+          regular expressions are accepted. Matched on the hostname column in the collection table.
         schema:
           type: string
-      - name: csubtype
-        in: query
-        description: |
-          If using matchcollection this is the collection subtype to match against.
-          This is always an exact match.
         required: false
-        schema:
-          type: string
-      - name: cvalue
-        in: query
-        description: |
-          If using matchcollection this is the collection value to match against.
-          This is always an exact match.
-        required: false
-        schema:
-          type: string
+      {{ exact | indent(6, True) }}
+      {{ col | indent(6, True) }}
+      {{ hosts | indent(6, True) }}
 ```
 '''
 

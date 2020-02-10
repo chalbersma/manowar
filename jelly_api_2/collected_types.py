@@ -21,6 +21,8 @@ Designed to grab information about information as it exists on the edge
     responses:
       200:
         description: OK
+    tags:
+      - collections
 ```
 '''
 

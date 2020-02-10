@@ -12,6 +12,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
       Gives you a check against a particular cve for the population you specify
       in the arguments. Accepts the non collection paramaters (as this utilizes
       the collection paramaters) to make the check.
+    tags:
+      - cve
     responses:
       200:
         description: OK
@@ -74,7 +76,6 @@ import ast
 import time
 import hashlib
 import os
-from canonical_cve import shuttlefish
 import urllib
 import requests
 

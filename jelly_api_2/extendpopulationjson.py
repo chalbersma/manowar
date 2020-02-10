@@ -17,6 +17,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
         description: OK
       401:
         description: Unauthorized (Most likely no Token given)
+    tags:
+      - sapi
     requestBody:
       content:
         application/json:

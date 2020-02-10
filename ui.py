@@ -22,9 +22,9 @@ import pymysql
 import yaml
 
 from tokenmgmt import validate_key
-from canonical_cve import shuttlefish
 from generic_large_compare import generic_large_compare
 import db_helper
+import pull_swagger
 
 
 if __name__ == "__main__":
@@ -290,6 +290,7 @@ def ui(CONFIG, FDEBUG):
     from jelly_display_2 import display_mainfactor
     from jelly_display_2 import display_custdashboardlist
     from jelly_display_2 import display_dashboard
+    from jelly_display_2 import display_swagger_ui
 
 
     # Register API Blueprints for Version 2
@@ -350,6 +351,7 @@ def ui(CONFIG, FDEBUG):
     app.register_blueprint(display_mainfactor.mainfactor, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_custdashboardlist.custdashboardlist, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_dashboard.dashboard, url_prefix=config_items["v2ui"]["root"])
+    app.register_blueprint(display_swagger_ui.display_swagger_ui, url_prefix=config_items["v2ui"]["root"])
 
     @app.template_filter('ctime')
     def timectime(s):
@@ -371,4 +373,16 @@ def ui(CONFIG, FDEBUG):
 
 # Run if Execute from CLI
 if __name__ == "__main__":
+
+    if FDEBUG is True:
+        LOGGER.debug("Debug Mode, Updating Swagger Definitions")
+
+        _swagger_loc = "static/sw/swagger.json"
+
+        swaggerPieces = pull_swagger.generateSwaggerPieces("jelly_api_2")
+
+        pull_swagger.generateOutputFile(swaggerPieces["data"], _swagger_loc, "openapi3/openapi3.yml.jinja")
+
+        LOGGER.debug("Swagger written to {}".format(_swagger_loc))
+
     ui(CONFIG, FDEBUG)
