@@ -8,7 +8,6 @@ jsonschema
 colorama
 paramiko
 packaging
-cssselect
 cvss
 cpe
 feedparser
