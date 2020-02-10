@@ -1,12 +1,10 @@
 PyYAML
 flask
 flask_cors
-graphene
 pymysql
 manowar_agent
 jsonschema
 colorama
-paramiko
 packaging
 cvss
 cpe
