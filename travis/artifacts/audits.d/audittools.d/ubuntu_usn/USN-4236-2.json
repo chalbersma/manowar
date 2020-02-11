@@ -1,0 +1,45 @@
+{
+  "USN-4236-2": {
+    "comparisons": {
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libgcrypt20"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.6.5-2ubuntu0.6"
+        ]
+      }
+    },
+    "filters": {
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-13627_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-13627.html",
+      "USN-4236-2": "https://usn.ubuntu.com/4236-2/"
+    },
+    "vuln-long-description": "USN-4236-1 fixed a vulnerability in Libgcrypt. This update provides the\ncorresponding fix for Ubuntu 16.04 LTS.\n\nOriginal advisory details:\n\n It was discovered that Libgcrypt was susceptible to a ECDSA timing attack.\n An attacker could possibly use this attack to recover sensitive\n information.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4236-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4236-2/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Libgcrypt could be made to expose sensitive information.\n"
+  }
+}

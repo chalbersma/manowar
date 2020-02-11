@@ -12,6 +12,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
       Gives you a check against a particular cve for the population you specify
       in the arguments. Accepts the non collection paramaters (as this utilizes
       the collection paramaters) to make the check.
+    tags:
+      - cve
     responses:
       200:
         description: OK
@@ -74,7 +76,6 @@ import ast
 import time
 import hashlib
 import os
-from canonical_cve import shuttlefish
 import urllib
 import requests
 
@@ -86,6 +87,8 @@ cve_canonical_check = Blueprint('api2_cve_canonical_check', __name__)
 @cve_canonical_check.route("/cve/canonical_check/<string:cve_name>/", methods=['GET'])
 def api2_cve_canonical_check(cve_name=None, hostname=False, pop=False, srvtype=False, \
                         hoststatus=False, status=False, exact=False):
+
+    ## TODO Modernize This (Possibly Removal)
 
     meta_info = dict()
     meta_info["version"] = 2

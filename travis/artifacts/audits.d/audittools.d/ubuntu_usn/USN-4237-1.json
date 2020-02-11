@@ -1,0 +1,127 @@
+{
+  "USN-4237-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "spamassassin"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.2-0ubuntu0.18.04.2"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "spamassassin"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.2-1ubuntu0.19.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "spamassassin"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.2-1ubuntu0.19.10.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "spamassassin"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.2-0ubuntu0.16.04.2"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-11805_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-11805.html",
+      "CVE-2019-12420_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12420.html",
+      "USN-4237-1": "https://usn.ubuntu.com/4237-1/"
+    },
+    "vuln-long-description": "It was discovered that SpamAssassin incorrectly handled certain CF files.\nIf a user or automated system were tricked into using a specially-crafted\nCF file, a remote attacker could possibly run arbitrary code.\n(CVE-2018-11805)\n\nIt was discovered that SpamAssassin incorrectly handled certain messages.\nA remote attacker could possibly use this issue to cause SpamAssassin to\nconsume resources, resulting in a denial of service. (CVE-2019-12420)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4237-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4237-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in SpamAssassin.\n"
+  }
+}

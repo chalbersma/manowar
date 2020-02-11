@@ -1,0 +1,4 @@
+{#
+Blank pillar.top
+#}
+

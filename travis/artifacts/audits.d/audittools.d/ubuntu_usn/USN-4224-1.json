@@ -1,0 +1,138 @@
+{
+  "USN-4224-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "python3-django",
+          "python-django"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:1.11.11-1ubuntu1.6",
+          "1:1.11.11-1ubuntu1.6"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "python3-django",
+          "python-django"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:1.11.20-1ubuntu0.3",
+          "1:1.11.20-1ubuntu0.3"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "python3-django",
+          "python-django"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:1.11.22-1ubuntu1.1",
+          "1:1.11.22-1ubuntu1.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "python3-django",
+          "python-django"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.7-1ubuntu5.11",
+          "1.8.7-1ubuntu5.11"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-19844_(High)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19844.html",
+      "USN-4224-1": "https://usn.ubuntu.com/4224-1/"
+    },
+    "vuln-long-description": "Simon Charette discovered that the password reset functionality in\nDjango used a Unicode case insensitive query to retrieve accounts\nassociated with an email address. An attacker could possibly use this\nto obtain password reset tokens and hijack accounts.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4224-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4224-1/",
+    "vuln-priority": 7,
+    "vuln-short-description": "Django accounts could be hijacked through password reset requests.\n"
+  }
+}

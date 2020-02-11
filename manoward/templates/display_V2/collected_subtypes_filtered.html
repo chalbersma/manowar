@@ -1,0 +1,191 @@
+{% include 'base_header.html' %}
+{% from "error.html" import with_errors %}
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish.css" media="screen" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+	google.charts.load('current', {'packages':['corechart']});
+</script>
+<div class="col-md-10">
+<h1>Collected Subtypes Filtered for - {{ meta["ctype"] }}</h1>
+{% if content["data"]|length >= 1 %}
+<div id="graphs">
+	<div class="pager">
+		<script>
+
+			var default_data= [ {% for collection in content["data"] -%}
+					    [ "{{ collection['attributes']['subtype']|lower }}" , "{{ collection['attributes']['count'] }}" {% if usevalue == "true" %}, "{{ collection['attributes']['value'] }}" {% endif %} ] ,
+					{% endfor -%}	]
+
+			Console.log(default_data)
+
+			function drawCharts(ChartTitle, divname, data, column, columnname, hide, expand){
+
+				title = [ ChartTitle + " Pie " , ChartTitle + " Line" ]
+				divnames = [ divname + "-pie", divname + "-hist" ]
+				// column is the same
+				data_array_item=countitems(data, column, columnname)
+
+				if ( expand == "FALSE" ) {
+					widthpx = [ 370, 800 ]
+					heightpx = [ 200, 200 ]
+					document.getElementById(divnames[0]).style.cssFloat="left"
+					document.getElementById(divnames[0]).style.cssFloat="right"
+				} else {
+					widthpx = [ 1170, 1170 ]
+					heightpx = [ 700, 700 ]
+					document.getElementById(divnames[0]).style.cssFloat="none"
+					document.getElementById(divnames[0]).style.cssFloat="none"
+				}
+
+				drawPieChart(title[0], divnames[0],  data_array_item, widthpx[0], heightpx[0])
+
+				drawBarChart(title[1], divnames[1],  data_array_item, widthpx[1], heightpx[1])
+
+				if ( hide == "TRUE" ) {
+					toggleDiv(divname)
+				}
+			}
+
+			function drawPieChart(ChartTitle, divname, arrayObject, widthpx, heightpx){
+
+				var data = google.visualization.arrayToDataTable(arrayObject)
+
+				var options = {
+					title: ChartTitle,
+					width: widthpx,
+					height: heightpx
+				}
+
+				var chart = new google.visualization.PieChart(document.getElementById(divname))
+
+				chart.draw(data, options);
+
+			}
+
+			function drawBarChart(ChartTitle, divname, arrayObject, widthpx, heightpx){
+
+				var data = google.visualization.arrayToDataTable(arrayObject)
+
+				var options = {
+					title: ChartTitle,
+					width: widthpx,
+					height: heightpx
+				}
+
+				var chart = new google.visualization.BarChart(document.getElementById(divname))
+
+				chart.draw(data, options);
+
+			}
+
+
+		</script>
+		<ul>
+			<li><a id='bysubtypetoggle' href="javascript:drawCharts('By Subtype', 'bysubtypegraph', default_data, 0, 'SUBTYPE', 'TRUE', 'FALSE')" >Results By Subtype</a></li>
+			{% if usevalue == "true" %}
+			<li><a id='byvaluetoggle' href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 2, 'VALUE', 'TRUE', 'FALSE')" >Results By Value</a></li>
+			{% endif %}
+		</ul>
+	</div>
+	{% if usevalue == "true" %}
+	<div id="byvaluegraph" style="display:none;">
+		<div id="graphcontrols-value">
+			<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 2, 'VALUE', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+			<a href="javascript:drawCharts('By Value', 'byvaluegraph', default_data, 2, 'VALUE', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
+		</div>
+		<div id="graphs-meat-value">
+			<div id="byvaluegraph-pie"></div>
+			<div id="byvaluegraph-hist"></div>
+		</div>
+	</div>
+	{% endif %}
+	<div id="bysubtypegraph" style="display:none;">
+		<div id="graphcontrols-value">
+			<a href="javascript:drawCharts('By Subtype', 'bysubtypegraph', default_data, 0, 'SUBTYPE', 'FALSE', 'FALSE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/refresh.png" /></a>
+			<a href="javascript:drawCharts('By Subtype', 'bysubtypegraph', default_data, 0, 'SUBTYPE', 'FALSE', 'TRUE')" ><img src="{{ g.config_items["v2ui"]["preroot"] }}/static/img/expand.png" /></a>
+		</div>
+		<div id="graphs-meat-value">
+			<div id="bysubtypegraph-pie"></div>
+			<div id="bysubtypegraph-hist"></div>
+		</div>
+	</div>
+</div>
+<div id="data_div">
+
+    <table id="collectedvalues_table" class="display" width="100%">
+	    <thead>
+		    <tr>
+			    <td>Subtype</td>
+			    <td>Count</td>
+			    {% if usevalue == "true" %}
+			    <td>Value</td>
+			    {% endif %}
+		    </tr>
+	    </thead>
+	    <tfoot>
+		    <tr>
+			    <td>Subtype</td>
+			    <td>Count</td>
+			    {% if usevalue == "true" %}
+			    <td>Value</td>
+			    {% endif %}
+		    </tr>
+	    </tfoot>
+	    <tbody>
+		    {% for collection in content["data"] %}
+		    <tr>
+			    <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/collected/values/{{ meta["ctype"] }}/?{{ meta["common_qdeparsed_string"] }}">
+			          {{ collection["attributes"]["subtype"] }}
+			        </a>
+			    </td>
+			    <td>{{ collection["attributes"]["count"] }}</td>
+			    {% if usevalue == "true" %}
+			    <td>{{ collection["attributes"]["value"] }}</td>
+			    {% endif %}
+		    </tr>
+		    {% endfor %}
+	    </tbody>
+    </table>
+    <script>
+	    // Prettyize the Table
+	    $(document).ready(function() {
+
+		    $('#collectedvalues_table tfoot tr td').each( function () {
+			    var title = $(this).text();
+			    //console.log(title)
+			    $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+		    } );
+
+		    var table = $('#collectedvalues_table').DataTable({
+			    dom: 'Bfrtip',
+			    buttons: [
+				    'copy', 'csv', 'excel', 'pdf', 'print'
+			    ]
+		    } );
+
+		    table.columns().every( function () {
+			    var that = this;
+			    $( 'input', this.footer() ).on( 'keyup change', function () {
+				    if ( that.search() !== this.value ) {
+					    that
+						    .search( this.value )
+						    .draw();
+						    default_data=table.rows({ search: 'applied' }).data().toArray()
+				    }
+			    } );
+		    } );
+
+
+
+	    } );
+
+    </script>
+</div>
+{% else %}
+<p>No Results Found</p>
+{% endif %}
+{% include 'endpoint_link.html' %}
+</div>
+
+
+{% include 'base_footer.html' %}

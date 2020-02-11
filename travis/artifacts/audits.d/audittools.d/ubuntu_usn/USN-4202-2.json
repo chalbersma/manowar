@@ -1,0 +1,72 @@
+{
+  "USN-4202-2": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "thunderbird"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:68.2.2+build1-0ubuntu0.18.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "thunderbird"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:68.2.2+build1-0ubuntu0.19.10.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "LP : 1854150": "https://launchpad.net/bugs/1854150",
+      "USN-4202-2": "https://usn.ubuntu.com/4202-2/"
+    },
+    "vuln-long-description": "USN-4202-1 fixed vulnerabilities in Thunderbird. After upgrading, Thunderbird\ncreated a new profile for some users. This update fixes the problem.\n\nWe apologize for the inconvenience.\n\nOriginal advisory details:\n\n It was discovered that a specially crafted S/MIME message with an inner\n encryption layer could be displayed as having a valid signature in some\n circumstances, even if the signer had no access to the encrypted message.\n An attacker could potentially exploit this to spoof the message author.\n (CVE-2019-11755)\n \n Multiple security issues were discovered in Thunderbird. If a user were\n tricked in to opening a specially crafted website in a browsing context,\n an attacker could potentially exploit these to cause a denial of service,\n bypass security restrictions, bypass same-origin restrictions, conduct\n cross-site scripting (XSS) attacks, or execute arbitrary code.\n (CVE-2019-11757, CVE-2019-11758, CVE-2019-11759, CVE-2019-11760,\n CVE-2019-11761, CVE-2019-11762, CVE-2019-11763, CVE-2019-11764)\n \n A heap overflow was discovered in the expat library in Thunderbird. If a\n user were tricked in to opening a specially crafted message, an attacker\n could potentially exploit this to cause a denial of service, or execute\n arbitrary code. (CVE-2019-15903)\n\n\nTLDR: After a standard system update you need to restart Thunderbird to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4202-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4202-2/",
+    "vuln-priority": 1,
+    "vuln-short-description": "USN-4202-1 caused a regression in Thunderbird.\n"
+  }
+}

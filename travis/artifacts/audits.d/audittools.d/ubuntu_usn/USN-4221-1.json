@@ -1,0 +1,126 @@
+{
+  "USN-4221-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libpcap0.8"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.1-6ubuntu1.18.04.1"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "libpcap0.8"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.1-6ubuntu1.19.04.1"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libpcap0.8"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.5.3-2ubuntu0.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libpcap0.8"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.7.4-2ubuntu0.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-15165_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15165.html",
+      "USN-4221-1": "https://usn.ubuntu.com/4221-1/"
+    },
+    "vuln-long-description": "It was discovered that libpcap did not properly validate PHB headers in\nsome situations. An attacker could use this to cause a denial of service\n(memory exhaustion).\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4221-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4221-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Applications using libpcap could be made to crash if given specially\ncrafted data.\n"
+  }
+}

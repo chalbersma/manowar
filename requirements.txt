@@ -1,0 +1,16 @@
+PyYAML
+flask
+flask_cors
+pymysql
+manowar_agent
+jsonschema
+colorama
+packaging
+cvss
+cpe
+feedparser
+pyjq
+yoyo-database-migrations
+pylxd
+gitpython
+twine

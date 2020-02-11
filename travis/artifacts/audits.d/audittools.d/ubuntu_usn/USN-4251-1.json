@@ -1,0 +1,49 @@
+{
+  "USN-4251-1": {
+    "comparisons": {
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libtomcat8-java",
+          "tomcat8"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "8.0.32-1ubuntu1.11",
+          "8.0.32-1ubuntu1.11"
+        ]
+      }
+    },
+    "filters": {
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-12418_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12418.html",
+      "CVE-2019-17563_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17563.html",
+      "USN-4251-1": "https://usn.ubuntu.com/4251-1/"
+    },
+    "vuln-long-description": "It was discovered that Tomcat incorrectly handled the RMI registry when\nconfigured with the JMX Remote Lifecycle Listener. A local attacker could\npossibly use this issue to obtain credentials and gain complete control\nover the Tomcat instance. (CVE-2019-12418)\n\nIt was discovered that Tomcat incorrectly handled FORM authentication. A\nremote attacker could possibly use this issue to perform a session fixation\nattack. (CVE-2019-17563)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4251-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4251-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in Tomcat.\n"
+  }
+}

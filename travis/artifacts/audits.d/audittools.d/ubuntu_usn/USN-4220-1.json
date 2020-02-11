@@ -1,0 +1,134 @@
+{
+  "USN-4220-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "git"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:2.17.1-1ubuntu0.5"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "git"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:2.20.1-2ubuntu1.19.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "git"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:2.20.1-2ubuntu1.19.10.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "git"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:2.7.4-0ubuntu1.7"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-1348_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1348.html",
+      "CVE-2019-1349_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1349.html",
+      "CVE-2019-1350_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1350.html",
+      "CVE-2019-1351_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1351.html",
+      "CVE-2019-1352_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1352.html",
+      "CVE-2019-1353_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1353.html",
+      "CVE-2019-1354_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1354.html",
+      "CVE-2019-1387_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1387.html",
+      "CVE-2019-19604_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19604.html",
+      "USN-4220-1": "https://usn.ubuntu.com/4220-1/"
+    },
+    "vuln-long-description": "Joern Schneeweisz and Nicolas Joly discovered that Git contained various\nsecurity flaws. An attacker could possibly use these issues to overwrite\narbitrary paths, execute arbitrary code, and overwrite files in the .git\ndirectory.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4220-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4220-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in Git.\n"
+  }
+}

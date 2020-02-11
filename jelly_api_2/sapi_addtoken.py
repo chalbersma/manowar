@@ -15,6 +15,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    tags:
+      - auth
     parameters:
       - name: user
         x-astliteraleval: true
@@ -55,7 +57,8 @@ import uuid
 #import secrets
 import string
 import random
-import endorsementmgmt
+
+import manoward
 
 sapi_addtoken = Blueprint('api2_sapi_addtoken', __name__)
 
@@ -76,7 +79,7 @@ def api2_sapi_addtoken(user=None, validfor=7, tokentype="sapi"):
     this_endpoint_restrictions = ( ("conntype","whitelist"), ("conntype","robot") )
     this_endpoint_endorsements = ( ("conntype","ldap"), )
 
-    endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements, \
+    manoward.process_endorsements(endorsements=this_endpoint_endorsements, \
                                             restrictions=this_endpoint_restrictions, \
                                             session_endorsements=g.session_endorsements, \
                                             session_restrictions=g.session_restrictions, \
@@ -118,7 +121,7 @@ def api2_sapi_addtoken(user=None, validfor=7, tokentype="sapi"):
             pass
         else :
             argument_error = True
-            error_dict["bad_token_type"] = "Bad token type, either zero lenght, not a string or not in the validated list"
+            error_dict["bad_token_type"] = "Bad token type, either zero lenght, not a string or not in the validated list" #nosec
 
     if argument_error :
         do_query=False
@@ -173,7 +176,9 @@ def api2_sapi_addtoken(user=None, validfor=7, tokentype="sapi"):
 
         # No Users Found
         new_token_args=[ tokentype, salt_value, key_value, retrieved_uid, validfor, salt_value ]
-        new_token_query="insert into apiActiveTokens (tokentype, token, fk_apikeyid, token_expire_date, salt) VALUES ( %s, SHA2(CONCAT(%s,%s),512) , %s, (NOW() + INTERVAL %s DAY), %s ) "
+        new_token_query='''insert into apiActiveTokens
+            (tokentype, token, fk_apikeyid, token_expire_date, salt)
+            VALUES( %s, SHA2(CONCAT(%s,%s),512) , %s, (NOW() + INTERVAL %s DAY), %s ) ''' #nosec
 
         # In the Future add Ticket Integration via ecbot (or ecbot like system) here.
         g.cur.execute(new_token_query, new_token_args)
@@ -207,4 +212,4 @@ def api2_sapi_addtoken(user=None, validfor=7, tokentype="sapi"):
 
         return jsonify(**response_dict)
 
-    
+

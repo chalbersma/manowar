@@ -1,0 +1,53 @@
+{
+  "USN-4216-2": {
+    "comparisons": {
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "firefox"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "71.0+build5-0ubuntu0.16.04.1"
+        ]
+      }
+    },
+    "filters": {
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-11745_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11745.html",
+      "CVE-2019-11756_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11756.html",
+      "CVE-2019-17005_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17005.html",
+      "CVE-2019-17008_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17008.html",
+      "CVE-2019-17010_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17010.html",
+      "CVE-2019-17011_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17011.html",
+      "CVE-2019-17012_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17012.html",
+      "CVE-2019-17013_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17013.html",
+      "CVE-2019-17014_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17014.html",
+      "USN-4216-2": "https://usn.ubuntu.com/4216-2/"
+    },
+    "vuln-long-description": "USN-4216-1 fixed vulnerabilities in Firefox. This update provides the\ncorresponding update for Ubuntu 16.04 LTS.\n\nOriginal advisory details:\n\n Multiple security issues were discovered in Firefox. If a user were\n tricked in to opening a specially crafted website, an attacker could\n potentially exploit these to cause a denial of service, obtain sensitive\n information, or execute arbitrary code.\n\n\nTLDR: After a standard system update you need to restart Firefox to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4216-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4216-2/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Firefox could be made to crash or run programs as your login if it\nopened a malicious website.\n"
+  }
+}

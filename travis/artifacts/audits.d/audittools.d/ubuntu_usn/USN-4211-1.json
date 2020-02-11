@@ -1,0 +1,113 @@
+{
+  "USN-4211-1": {
+    "comparisons": {
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-powerpc-e500mc",
+          "linux-image-4.4.0-170-powerpc64-emb",
+          "linux-image-4.4.0-1099-aws",
+          "linux-image-4.4.0-1063-kvm",
+          "linux-image-virtual",
+          "linux-image-snapdragon",
+          "linux-image-4.4.0-170-powerpc-e500mc",
+          "linux-image-powerpc64-emb",
+          "linux-image-4.4.0-1130-snapdragon",
+          "linux-image-4.4.0-170-generic",
+          "linux-image-generic",
+          "linux-image-4.4.0-170-lowlatency",
+          "linux-image-4.4.0-170-powerpc64-smp",
+          "linux-image-4.4.0-170-generic-lpae",
+          "linux-image-4.4.0-170-powerpc-smp",
+          "linux-image-aws",
+          "linux-image-kvm",
+          "linux-image-raspi2",
+          "linux-image-powerpc-smp",
+          "linux-image-generic-lpae",
+          "linux-image-powerpc64-smp",
+          "linux-image-4.4.0-1126-raspi2",
+          "linux-image-lowlatency"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.4.0.170.178",
+          "4.4.0-170.199",
+          "4.4.0-1099.110",
+          "4.4.0-1063.70",
+          "4.4.0.170.178",
+          "4.4.0.1130.122",
+          "4.4.0-170.199",
+          "4.4.0.170.178",
+          "4.4.0-1130.138",
+          "4.4.0-170.199",
+          "4.4.0.170.178",
+          "4.4.0-170.199",
+          "4.4.0-170.199",
+          "4.4.0-170.199",
+          "4.4.0-170.199",
+          "4.4.0.1099.103",
+          "4.4.0.1063.63",
+          "4.4.0.1126.126",
+          "4.4.0.170.178",
+          "4.4.0.170.178",
+          "4.4.0.170.178",
+          "4.4.0-1126.135",
+          "4.4.0.170.178"
+        ]
+      }
+    },
+    "filters": {
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-20784_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-20784.html",
+      "CVE-2019-17075_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17075.html",
+      "CVE-2019-17133_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17133.html",
+      "USN-4211-1": "https://usn.ubuntu.com/4211-1/"
+    },
+    "vuln-long-description": "Zhipeng Xie discovered that an infinite loop could be triggered in the CFS\nLinux kernel process scheduler. A local attacker could possibly use this to\ncause a denial of service. (CVE-2018-20784)\n\nNicolas Waisman discovered that the WiFi driver stack in the Linux kernel\ndid not properly validate SSID lengths. A physically proximate attacker\ncould use this to cause a denial of service (system crash).\n(CVE-2019-17133)\n\nNicolas Waisman discovered that the Chelsio T4/T5 RDMA Driver for the Linux\nkernel performed DMA from a kernel stack. A local attacker could use this\nto cause a denial of service (system crash). (CVE-2019-17075)\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4211-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4211-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in the Linux kernel.\n"
+  }
+}

@@ -13,6 +13,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    tags:
+      - IP
     parameters:
       - name: ip
         in: query
@@ -20,6 +22,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
             The ipv4 or ipv6 address that you wish to search for records against.
         schema:
           type: string
+          format: ipv46
       - name: subnet
         in: query
         description: |
@@ -28,211 +31,165 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
             will match and only if it's in this range.
         schema:
           type: string
-      - name: hostname
-        in: query
-        description: |
-          The hostname you wish to search for. Is an exact match.
-        schema:
-          type: string
-      - name: pop
-        in: query
-        description: |
-          The pop you wish to search for. Is an exact match.
-        schema:
-          type: string
-      - name: srvtype
-        in: query
-        description: |
-          The srvtype you wish to search for. Is an exact match.
-        schema:
-          type: string
+          format: subnet46
       - name: iptype
         in: query
         description: |
-            Look for only one of the ips of this type.
+            Look for only one of the ips of this type. Must be vips4, vips6, host4,
+            host6, drac4, drac6, netdev4, netdev6 or unknown.
         schema:
           type: string
-
+          enum:
+            - vips4
+            - vips6
+            - host4
+            - host6
+            - drac4
+            - drac6
+            - netdev4
+            - netdev6
+            - unknown
+        required: true
+      - name: hostid
+        in: query
+        description: |
+          hostid to search for
+        schema:
+          type: int
+      {{ hosts | indent(6, True) }}
+      {{ exact | indent(6, True) }}
 ```
 """
 
-from flask import current_app, Blueprint, g, request, jsonify
 import json
 import ast
 import time
 import ipaddress
 
+from flask import current_app, Blueprint, g, request, jsonify, abort
+
+import manoward
+
 ipsearch = Blueprint('api2_ipsearch', __name__)
+
 
 @ipsearch.route("/ip/search", methods=['GET'])
 @ipsearch.route("/ip/search/", methods=['GET'])
 @ipsearch.route("/ip/search/<string:ip>", methods=['GET'])
 @ipsearch.route("/ip/search/<string:ip>/", methods=['GET'])
-def api2_ipsearch(ip=None, iptype=None, subnet=None, hostname=None, pop=None, srvtype=None):
+def api2_ipsearch(ip=None):
+    '''
+    Given a IP or Subnet, Search for that Thing and Return it.
+    Can Filter by items in the standards hosts column.
+
+    Respects Exact
+    '''
+
+    args_def = {"hostid": {"req_type": int,
+                           "default": None,
+                           "required": False,
+                           "positive": True,
+                           "sql_param": True,
+                           "sql_clause": " fk_host_id=%s "},
+                "iptype": {"req_type": str,
+                           "default": None,
+                           "required": False,
+                           "enum": ("vips4", "vips6", "host4", "host6", "drac4", "drac6", "netdev4", "netdev6", "unknown"),
+                           "qdeparse": True,
+                           "sql_param": True,
+                           "sql_clause": " guessed_type=%s "},
+                "ip": {"req_type": str,
+                       "default": ip,
+                       "required": False,
+                       "qdeparse": True,
+                       "sql_param": True,
+                       "sql_clause": " ip_hex=INET6_ATON(%s) "},
+                "subnet": {"req_type": str,
+                           "default": None,
+                           "required": False,
+                           "qdeparse": True,
+                           "sql_param": False}  # Custom Handling for this
+                }
+
+    args = manoward.process_args(args_def,
+                                  request.args,
+                                  lulimit=g.twoDayTimestamp,
+                                  include_hosts_sql=True,
+                                  include_exact=True)
 
     meta_info = dict()
     meta_info["version"] = 2
     meta_info["name"] = "IP Search Jellyfish2 API Version 2"
     meta_info["state"] = "In Progress"
-    meta_info["children"] = dict()
 
-    error_dict = dict()
-
-    argument_error = False
-    where_args = list()
-    where_args_params = list()
-
-    if "ip" in request.args :
+    # Custom Handle Subnet
+    if args.get("subnet", None) is not None:
         try:
-            ip = ast.literal_eval(request.args["ip"])
-        except Exception as e :
-            argument_error = True
-            error_dict["ip_parse_error"] = "Cannot Parse IP String"
-
-    if ip != None and argument_error != True :
-        try:
-            validated_ip = str(ipaddress.ip_address(str(ip)))
-        except ValueError as valerr :
-            argument_error = True
-            error_dict["fucked_ip"] = "Your IP is fucked {}".format(str(valerr))
-        else :
-            where_args.append(" ip_hex = INET6_ATON( %s )  ")
-            where_args_params.append(str(validated_ip))
-
-    if "subnet" in request.args :
-        try:
-            unvalidated_subnet = ast.literal_eval(request.args["subnet"])
-            validated_subnet = ipaddress.ip_network(unvalidate_subnet)
+            validated_subnet = ipaddress.ip_network(args["subnet"])
             min_ip = validated_subnet[0]
             max_ip = validated_subnet[-1]
-        except ValueError as valerr :
-            argument_error = True
-            error_dict["not_valid_subnet"] = "The subnet given was not valid"
-        except Exception as e :
-            argument_error = True
-            error_dict["ip_parse_error"] = "Cannot Parse IP String"
-        else :
-            # Shit worked I now have a min and max IP
-            where_args.append(" ip_hex > INET6_ATON( %s ) ")
-            where_args_params.append(str(min_ip))
-            where_args.append(" ip_hex < INET6_ATON( %s ) ")
-            where_args_params.append(str(max_ip))
-
-    if "iptype" in request.args :
-        try:
-            iptype = ast.literal_eval(request.args["iptype"])
-        except Exception as e :
-            argument_error = True
-            error_dict["iptype_parse_error"] = "Cannot parse iptype"
+        except ValueError as valerr:
+            logger.error(
+                "Unable to Validate Subnet given with error : {}".format(valerr))
+            abort(415)
+        except Exception as general_error:
+            logger.error(
+                "General Error when validating Subnet : {}".format(general_error))
+            abort(500)
         else:
-            where_args.append(" guessed_type = %s ")
-            where_args_params.append(str(iptype))
+            args["args_clause"].append(" ip_hex > INET6_ATON( %s ) ")
+            args["args_clause_args"].append(str(min_ip))
+            args["args_clause"].append(" ip_hex < INET6_ATON( %s ) ")
+            args["args_clause_args"].append(str(max_ip))
 
-    if "hostname" in request.args :
-        try:
-            hostname = ast.literal_eval(request.args["hostname"])
-        except Exception as e :
-            argument_error = True
-            error_dict["parsing_hostname_failed"] = "Cannot parse hostname"
-        else :
-            where_args.append(" hosts.hostname = %s ")
-            where_args_params.append(str(hostname))
+    if args.get("subnet", None) is None and args.get("ip", None) is None:
+        g.logger.warning(
+            "No IP Given : This might be a Long Query but I'll allow it.")
 
-    if "pop" in request.args :
-        try:
-            pop = ast.literal_eval(request.args["pop"])
-        except Exception as e :
-            argument_error = True
-            error_dict["parsing_pop_failed"] = "Cannot parse pop"
-        else :
-            where_args.append(" hosts.pop = %s ")
-            where_args_params.append(str(pop))
-
-    if "srvtype" in request.args :
-        try:
-            srvtype = ast.literal_eval(request.args["srvtype"])
-        except Exception as e :
-            argument_error = True
-            error_dict["parsing_srvtype_failed"] = "Cannot parse srvtype"
-        else :
-            where_args.append(" hosts.srvtype = %s ")
-            where_args_params.append(str(srvtype))
-
-    if subnet == None and ip == None and hostname == None and pop == None and srvtype == None:
-        argument_error = True
-        error_dict["need_ip_address"] = "No IP address, hostname, pop, srvtypek or subnet given."
-
-
-    requesttime=time.time()
+        if args.get("hostid", None) is None and args.get("hostname", None) is None:
+            g.logger.warning(
+                "No Host Factor Given : This might be a Long Query but I'll allow it.")
 
     requesttype = "ipsearch"
 
-    meta_info["request_tuple"] = ( ip, subnet, iptype )
-
     links_info = dict()
 
-    links_info["self"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/ip/search"
-    links_info["parent"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/ip/"
-    links_info["children"] = dict()
+    links_info["parent"] = "{}{}/ip".format(g.config_items["v2api"]["preroot"],
+                                            g.config_items["v2api"]["root"])
+    links_info["self"] = "{}{}/ip/search?{}".format(g.config_items["v2api"]["preroot"],
+                                                    g.config_items["v2api"]["root"],
+                                                    args["qdeparsed_string"])
 
     request_data = list()
 
-    do_query = True
+    ip_search_query = '''select
+                        INET6_NTOA(ip_hex) as ip,
+                        ip_id,
+                        guessed_type,
+                        fk_host_id,
+                        hosts.hostname,
+                        hosts.pop,
+                        hosts.srvtype,
+                        hosts.hoststatus
+                        from ip_intel
+                        join hosts on ip_intel.fk_host_id = hosts.host_id
+                        where {}'''.format(" and ".join(args["args_clause"]))
 
-    where_args_params.append(str(g.twoDayTimestamp))
-    where_args.append(" last_seen >= FROM_UNIXTIME( %s ) ")
+    results = manoward.run_query(g.cur,
+                                  ip_search_query,
+                                  args=args["args_clause_args"],
+                                  one=False,
+                                  do_abort=True,
+                                  require_results=False)
 
-    if len(where_args_params) > 0 :
-        where_joiner = " where "
-        where_clause_strings = " and ".join(where_args)
-        where_full_string = where_joiner + where_clause_strings
-    else :
-        where_full_string = " "
+    for this_ip in results.get("data", list()):
+        this_results = dict()
+        this_results["type"] = requesttype
+        this_results["id"] = this_ip["ip_id"]
+        this_results["attributes"] = this_ip
+        this_results["relationships"] = dict()
 
-    ip_search_query='''select
-    INET6_NTOA(ip_hex) as ip,
-    ip_id,
-    guessed_type,
-    fk_host_id,
-    hosts.hostname,
-    hosts.pop,
-    hosts.srvtype,
-    hosts.hoststatus
-    from ip_intel
-    join hosts on ip_intel.fk_host_id = hosts.host_id
-    '''
+        # Now pop this onto request_data
+        request_data.append(this_results)
 
-    ip_search_query = ip_search_query + where_full_string
-
-
-    # Select Query
-    if do_query and argument_error == False :
-        g.cur.execute(ip_search_query, where_args_params)
-        all_ip_intel = g.cur.fetchall()
-        amount_of_results = len(all_ip_intel)
-    else :
-        error_dict["do_query"] = "Query Ignored"
-        amount_of_results = 0
-
-    if amount_of_results > 0 :
-        collections_good = True
-        # Hydrate the dict with type & ids to be jsonapi compliant
-        for i in range(0, len(all_ip_intel)) :
-            this_results = dict()
-            this_results["type"] = requesttype
-            this_results["id"] = all_ip_intel[i]["ip_id"]
-            this_results["attributes"] = all_ip_intel[i]
-            this_results["relationships"] = dict()
-            this_results["relationships"]["auditinfo"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/hostcollections/" + str(all_ip_intel[i]["fk_host_id"])
-
-            # Now pop this onto request_data
-            request_data.append(this_results)
-    else :
-        error_dict["ERROR"] = ["No Collections"]
-        collections_good = False
-
-    if collections_good :
-        return jsonify(meta=meta_info, data=request_data, links=links_info)
-    else :
-        return jsonify(meta=meta_info, errors=error_dict, links=links_info)
-
+    return jsonify(meta=meta_info, data=request_data, links=links_info)

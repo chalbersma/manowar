@@ -1,0 +1,55 @@
+{
+  "USN-4267-1": {
+    "comparisons": {
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libmbedx509-0",
+          "libmbedtls10",
+          "libmbedcrypto0"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.2.1-2ubuntu0.3",
+          "2.2.1-2ubuntu0.3",
+          "2.2.1-2ubuntu0.3"
+        ]
+      }
+    },
+    "filters": {
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2017-18187_(Unknown)": null,
+      "CVE-2018-0487_(Unknown)": null,
+      "CVE-2018-0488_(Unknown)": null,
+      "CVE-2018-0497_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-497.html",
+      "CVE-2018-0498_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-498.html",
+      "USN-4267-1": "https://usn.ubuntu.com/4267-1/"
+    },
+    "vuln-long-description": "It was discovered that mbedtls has a bounds-check bypass through an integer\noverflow that can be used by an attacked to execute arbitrary code or cause a\ndenial of service.\n(CVE-2017-18187)\n\nIt was discovered that mbedtls has a vulnerability where an attacker could\nexecute arbitrary code or cause a denial of service (buffer overflow)\nvia a crafted certificate chain that is mishandled during RSASSA-PSS\nsignature verification within a TLS or DTLS session.\n(CVE-2018-0487)\n\nIt was discovered that mbedtls has a vulnerability where an attacker could\nexecute arbitrary code or cause a denial of service (heap corruption) via a\ncrafted application packet within a TLS or DTLS session.\n(CVE-2018-0488)\n\nIt was discovered that mbedtls has a vulnerability that allows remote\nattackers to achieve partial plaintext recovery (for a CBC based ciphersuite)\nvia a timing-based side-channel attack.\n(CVE-2018-0497)\n\nIt was discovered that mbedtls has a vulnerability that allows local users to\nachieve partial plaintext recovery (for a CBC based ciphersuite) via a\ncache-based side-channel attack.\n(CVE-2018-0498)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4267-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4267-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in mbedtls.\n"
+  }
+}

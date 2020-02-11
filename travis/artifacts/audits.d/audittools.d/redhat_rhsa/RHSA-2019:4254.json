@@ -1,0 +1,55 @@
+{
+  "RHSA-2019:4254": {
+    "comparisons": {
+      "6-bucket": {
+        "comparison-collection-subtype": [
+          "freetype-devel",
+          "freetype",
+          "freetype-demos"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.3.11",
+          "2.3.11",
+          "2.3.11"
+        ]
+      }
+    },
+    "filters": {
+      "6-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          6
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2015-9381": "https://access.redhat.com/security/cve/CVE-2015-9381",
+      "CVE-2015-9382": "https://access.redhat.com/security/cve/CVE-2015-9382",
+      "bz#1752788: CVE-2015-9381 freetype: a heap-based buffer over-read in T1_Get_Private_Dict in type1/t1parse.c leading to information disclosure": "https://bugzilla.redhat.com/show_bug.cgi?id=1752788",
+      "bz#1763609: CVE-2015-9382 freetype: mishandling ps_parser_skip_PS_token in an FT_New_Memory_Face operation in skip_comment, psaux/psobjs.c, leads to a buffer over-read": "https://bugzilla.redhat.com/show_bug.cgi?id=1763609",
+      "https://access.redhat.com/errata/RHSA-2019:4254": "https://access.redhat.com/errata/RHSA-2019:4254",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate"
+    },
+    "vuln-long-description": "An update for freetype is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nFreeType is a free, high-quality, portable font engine that can open and manage font files. FreeType loads, hints, and renders individual glyphs efficiently.\nSecurity Fix(es):\n* freetype: a heap-based buffer over-read in T1_Get_Private_Dict in type1/t1parse.c leading to information disclosure (CVE-2015-9381)\n* freetype: mishandling ps_parser_skip_PS_token in an FT_New_Memory_Face operation in skip_comment, psaux/psobjs.c, leads to a buffer over-read (CVE-2015-9382)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:4254",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:4254",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for freetype is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

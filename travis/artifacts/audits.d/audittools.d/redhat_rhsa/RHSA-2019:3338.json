@@ -1,0 +1,57 @@
+{
+  "RHSA-2019:3338": {
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "edk2-ovmf",
+          "edk2-aarch64"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "20190308git89910a39dcfd",
+          "20190308git89910a39dcfd"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-12181": "https://access.redhat.com/security/cve/CVE-2018-12181",
+      "CVE-2019-0160": "https://access.redhat.com/security/cve/CVE-2019-0160",
+      "bz#1686783: CVE-2018-12181 edk2: Stack buffer overflow with corrupted BMP": "https://bugzilla.redhat.com/show_bug.cgi?id=1686783",
+      "bz#1691640: CVE-2019-0160 edk2: Buffer overflows in PartitionDxe and UdfDxe with long file names and invalid UDF media": "https://bugzilla.redhat.com/show_bug.cgi?id=1691640",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3338": "https://access.redhat.com/errata/RHSA-2019:3338",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1666941": "https://bugzilla.redhat.com/show_bug.cgi?id=1666941",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1687731": "https://bugzilla.redhat.com/show_bug.cgi?id=1687731",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1693205": "https://bugzilla.redhat.com/show_bug.cgi?id=1693205",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1714446": "https://bugzilla.redhat.com/show_bug.cgi?id=1714446"
+    },
+    "vuln-long-description": "\nAn update for edk2 is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    \n\n\nEDK (Embedded Development Kit) is a project to enable UEFI support for Virtual Machines. This package contains a sample 64-bit UEFI firmware for QEMU and KVM.\n\nSecurity Fix(es):\n\n* edk2: Stack buffer overflow with corrupted BMP (CVE-2018-12181)\n\n* edk2: Buffer overflows in PartitionDxe and UdfDxe with long file names and invalid UDF media (CVE-2019-0160)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nAdditional Changes:\n\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n    \n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3338",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3338",
+    "vuln-priority": 1,
+    "vuln-short-description": "\nAn update for edk2 is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    "
+  }
+}

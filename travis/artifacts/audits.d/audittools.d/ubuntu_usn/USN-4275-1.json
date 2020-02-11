@@ -1,0 +1,111 @@
+{
+  "USN-4275-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libqt5core5a",
+          "libqt5gui5"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.9.5+dfsg-0ubuntu2.5",
+          "5.9.5+dfsg-0ubuntu2.5"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "libqt5core5a",
+          "libqt5gui5"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.12.4+dfsg-4ubuntu1.1",
+          "5.12.4+dfsg-4ubuntu1.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libqt5core5a",
+          "libqt5gui5"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.5.1+dfsg-16ubuntu7.7",
+          "5.5.1+dfsg-16ubuntu7.7"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-19872_(Unknown)": null,
+      "CVE-2019-18281_(Unknown)": null,
+      "CVE-2020-0569_(Unknown)": null,
+      "CVE-2020-0570_(Unknown)": null,
+      "USN-4275-1": "https://usn.ubuntu.com/4275-1/"
+    },
+    "vuln-long-description": "It was discovered that Qt incorrectly handled certain PPM images. If a user\nor automated system were tricked into opening a specially crafted PPM file,\na remote attacker could cause Qt to crash, resulting in a denial of\nservice. This issue only affected Ubuntu 16.04 LTS and Ubuntu 18.04 LTS.\n(CVE-2018-19872)\n\nIt was discovered that Qt incorrectly handled certain text files. If a user\nor automated system were tricked into opening a specially crafted text\nfile, a remote attacker could cause Qt to crash, resulting in a denial of\nservice. This issue only affected Ubuntu 19.10. (CVE-2019-18281)\n\nIt was discovered that Qt incorrectly searched for plugins in the current\nworking directory. An attacker could possibly use this issue to execute\narbitrary code. (CVE-2020-0569)\n\nIt was discovered that Qt incorrectly searched for libraries relative to\nthe current working directory. An attacker could possibly use this issue to\nexecute arbitrary code. This issue only affected Ubuntu 19.10.\n(CVE-2020-0570)\n\n\nTLDR: After a standard system update you need to restart your session to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4275-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4275-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "Several security issues were fixed in Qt.\n"
+  }
+}

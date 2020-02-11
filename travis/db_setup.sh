@@ -3,29 +3,22 @@
 set -x
 
 ## Setup DB Schema
-
-sudo mysql -u root -e "show full processlist;"
-
-sudo bash -c "mysql -u root < setup/jellyfish2_db_schema.sql"
+sudo mysql -u root -e "create database manowar2;"
 
 schema_success=$?
 
-if [[ "${schema_success}" -eq 0 ]] ; then
-	echo "DB Schema Successfully setup. ${schema_success}"
-else
-	echo "DB Schema has an issue, please investigate. ${schema_success}"
-	exit 1
-fi
+echo -e "Copying Yoyo Travis Config"
 
-## Setup DB Users with Sample Passwords
+ls -l /var/run/mysqld/
 
-sudo bash -c "mysql -u root < travis/artifacts/travis_sql_users.sql"
+file ./travis/artifacts/yoyo.ini
 
-users_success=$?
+cp -v ./travis/artifacts/yoyo.ini ./yoyo_steps/
 
-if [[ "${users_success}" -eq 0 ]] ; then
-	echo "DB USers Setup Successfully"
-else
-	echo "DB User Setup failed."
-	exit 1
-fi
+echo -e "Using Yoyo Travis Configs"
+
+cd ./yoyo_steps
+
+yoyo apply
+
+yoyo showmigrations

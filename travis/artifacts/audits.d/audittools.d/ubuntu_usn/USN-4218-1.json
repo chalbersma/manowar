@@ -1,0 +1,72 @@
+{
+  "USN-4218-1": {
+    "comparisons": {
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "libc6"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.15-0ubuntu10.22"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libc6"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.19-0ubuntu6.15+esm1"
+        ]
+      }
+    },
+    "filters": {
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-6485_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-6485.html",
+      "USN-4218-1": "https://usn.ubuntu.com/4218-1/"
+    },
+    "vuln-long-description": "Jakub Wilk discovered that GNU C Library incorrectly handled certain memory alignments.\nAn attacker could possibly use this issue to execute arbitrary code or cause\na crash.\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4218-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4218-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "GNU C Library could be made to execute arbitrary code or cause a crash\nif it received a specially crafted input.\n"
+  }
+}

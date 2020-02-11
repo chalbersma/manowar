@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-'''
-Copyright 2018, VDMS
+"""
+Copyright 2018, 2020 VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
 
@@ -11,6 +11,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     description: |
       Get's the stored information about a given audit. Does not include the Bucket or Match Logic
       as there is currently a bug about those items.
+    tags:
+      - audits
     responses:
       200:
         description: OK
@@ -26,29 +28,34 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
           type: integer
 ```
 
-'''
+"""
 
-from flask import current_app, Blueprint, g, request, jsonify
 import json
 import ast
 import time
+from flask import current_app, Blueprint, g, request, jsonify, abort
+
+import manoward
 
 
-auditinfo = Blueprint('api2_auditinfo', __name__)
+auditinfo = Blueprint("api2_auditinfo", __name__)
 
-@auditinfo.route("/auditinfo", methods=['GET'])
-@auditinfo.route("/auditinfo/", methods=['GET'])
-@auditinfo.route("/auditinfo/<int:audit_id>", methods=['GET'])
-@auditinfo.route("/auditinfo/<int:audit_id>/", methods=['GET'])
+
+@auditinfo.route("/auditinfo", methods=["GET"])
+@auditinfo.route("/auditinfo/", methods=["GET"])
+@auditinfo.route("/auditinfo/<int:audit_id>", methods=["GET"])
+@auditinfo.route("/auditinfo/<int:audit_id>/", methods=["GET"])
 def api2_auditinfo(audit_id=0):
+    '''
+    Returns the Audit Information for the given Audit ID
+    '''
 
-    if "audit_id" in request.args :
-        try:
-            audit_id = ast.literal_eval(request.args["audit_id"])
-        except Exception as e :
-            error_dict["literal_check"] = "Failed with " + str(e)
+    args_def = {"audit_id": {"required": True,
+                             "default": audit_id,
+                             "req_type": int,
+                             "positive": True}}
 
-    requesttime=time.time()
+    args = manoward.process_args(args_def, request.args)
 
     requesttype = "Audit Details"
 
@@ -60,82 +67,85 @@ def api2_auditinfo(audit_id=0):
 
     links_info = dict()
 
-    links_info["self"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo"
-    links_info["parent"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/"
+    links_info["self"] = "{}{}/auditinfo/{}".format(g.config_items["v2api"]["preroot"],
+                                                 g.config_items["v2api"]["root"],
+                                                 args["audit_id"])
+
+    links_info["parent"] = "{}{}".format(g.config_items["v2api"]["preroot"],
+                                         g.config_items["v2api"]["root"])
+
     links_info["children"] = dict()
-    links_info["children"]["Audit Buckets"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo/${audit_id}/buckets"
+
+    links_info["children"]["Audit Buckets"] = "{}{}/auditinfo/{}/buckets".format(g.config_items["v2api"]["preroot"],
+                                                                                 g.config_items["v2api"]["root"],
+                                                                                 args["audit_id"])
 
     request_data = list()
 
-    error_dict = dict()
-    do_query = True
-
-    select_query='''select audit_id, audit_name, audit_priority, \
+    select_query = """select audit_id, audit_name, audit_priority,
                             audit_short_description, audit_long_description,
-                            audit_primary_link, \
-                            COLUMN_JSON(audit_secondary_links) as 'audit_secondary_links' \
+                            audit_primary_link,
+                            COLUMN_JSON(audit_secondary_links) as 'audit_secondary_links'
                             from audits
                             where audit_id = %s
-                            order by audit_priority desc, audit_id desc ;'''
+                            order by audit_priority desc, audit_id desc ;"""
 
-    if audit_id > 0 :
-        # It's Okay the Item is an Int & it's a positive number (as my IDs are all unsigned)
-        do_query=True
+    run_result = manoward.run_query(g.cur,
+                                     select_query,
+                                     args=[args["audit_id"]],
+                                     one=True,
+                                     do_abort=True,
+                                     require_results=True)
+
+    if run_result["has_error"] is True:
+        g.logger.error("Error in Auditinfo Query")
+        abort(500)
+
+    requested_audit = run_result.get("data", dict())
+
+    # Parse audit_secondary_links back to JSON
+    try:
+        this_secondary_links = json.loads(
+            requested_audit["audit_secondary_links"])
+
+    except Exception as unhydrate_secondary_links_error:
+        g.logger.error(
+            "Unable to Read Audit Secondary Links on {}".format(args["audit_id"]))
+        g.logger.debug(unhydrate_secondary_links_error)
+        g.logger.debug(requested_audit["audit_secondary_links"])
+        abort(500)
     else:
-        do_query=False
+        requested_audit["audit_secondary_links"] = this_secondary_links
 
-    ## Build Query
-    # Debug
-    #print(select_query)
+    this_results = dict()
+    this_results["type"] = requesttype
+    this_results["id"] = requested_audit["audit_id"]
+    this_results["attributes"] = requested_audit
+    this_results["relationships"] = dict()
+    this_results["relationships"]["auditresults"] = {"pass": "{}{}/auditresults/{}?auditResult=pass".format(g.config_items["v2api"]["preroot"],
+                                                                                                            g.config_items["v2api"]["root"],
+                                                                                                            requested_audit["audit_id"]),
+                                                     "fail": "{}{}/auditresults/{}?auditResult=fail".format(g.config_items["v2api"]["preroot"],
+                                                                                                            g.config_items["v2api"]["root"],
+                                                                                                            requested_audit["audit_id"]),
+                                                     "exempt": "{}{}/auditresults/{}?auditResult=notafflicted".format(g.config_items["v2api"]["preroot"],
+                                                                                                                      g.config_items[
+                                                                                                                          "v2api"]["root"],
+                                                                                                                      requested_audit["audit_id"])
+                                                     }
 
-    # Select Query
-    if do_query :
-        g.cur.execute(select_query, audit_id)
-        requested_audit = g.cur.fetchone()
-        collections_good = True
-    else :
-        error_dict["do_query"] = "Query Ignored"
-        collections_good = False
+    this_results["relationships"]["auditinfo_buckets"] = "{}{}/auditinfo/{}/buckets".format(g.config_items["v2api"]["preroot"],
+                                                                                            g.config_items["v2api"]["root"],
+                                                                                            args["audit_id"])
 
-    # Clean Secondary Links
-    if collections_good :
-        try:
+    request_data.append(this_results)
 
-            this_secondary_link = ast.literal_eval(requested_audit["audit_secondary_links"])
-            #print(this_secondary_link)
-            #print(type(this_secondary_link))
+    if len(request_data) <= 0:
+        g.logger.warning("No Audit Of this Name Found")
+        abort(404)
 
-        except Exception as e:
-            error_dict["Error Reading Secondary Links"] = "Error Reading Secondary Links" + str(e)
-            collections_good = False
-        else :
-            requested_audit["audit_secondary_links"] = this_secondary_link
+    return_data = {"meta": meta_info,
+                   "links": links_info,
+                   "data": request_data}
 
-
-    if collections_good :
-        this_results = dict()
-        this_results["type"] = requesttype
-        this_results["id"] = requested_audit["audit_id"]
-        this_results["attributes"] = requested_audit
-        this_results["relationships"] = dict()
-        this_results["relationships"]["auditresults"] = { "pass" : g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditresults/" + str(requested_audit["audit_id"]) + "?auditResult='pass'",
-                                                            "fail" : g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditresults/" + str(requested_audit["audit_id"]) + "?auditResult='fail'",
-                                                            "exempt" : g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditresults/" + str(requested_audit["audit_id"]) + "?auditResult='notafflicted'" }
-        this_results["relationships"]["display_auditresults"] = { "pass" : g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditresults/" + str(requested_audit["audit_id"]) + "?auditResult='pass'",
-                                                            "fail" : g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditresults/" + str(requested_audit["audit_id"]) + "?auditResult='fail'",
-                                                            "exempt" : g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditresults/" + str(requested_audit["audit_id"]) + "?auditResult='notafflicted'" }
-        this_results["relationships"]["auditinfo_buckets"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo/" + str(requested_audit["audit_id"]) + "/buckets"
-
-        request_data.append(this_results)
-    else :
-        error_dict["ERROR"] = ["No Collections"]
-        collections_good = False
-
-    #print(request_data)
-
-    if collections_good :
-        return jsonify(meta=meta_info, data=request_data, links=links_info)
-    else :
-        return jsonify(meta=meta_info, errors=error_dict, links=links_info)
-
-
+    return jsonify(**return_data)

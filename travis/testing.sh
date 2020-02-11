@@ -8,33 +8,49 @@
 # ./jelly_api & ./jelly_display are the older versions of
 # this project. They do not and should evaluated and are
 # there only in case something needs to be turned back on.
-python_files=$(find . -type d  -wholename ./jelly_api -prune -o \
-                    -type d -wholename ./jelly_display -prune -o \
+python_files=$(find . -type d -wholename ./lib -prune -o \
                     -type f -regex ".*\.py$")
 
+bandit_failure="pass"
+pylint_failure="pass"
 for file in ${python_files} ; do
   this_temp=$(mktemp /tmp/banditout.XXXXX)
-  bandit "${file}" > "${this_temp}"
+  # -ll -ii get's medium confidence medium severity findings and above
+  bandit -ll -ii "${file}" > "${this_temp}"
   this_file_good=$?
   if [[ ${this_file_good} -gt 0 ]] ; then
     echo -e "BANDIT: ${file} had issues please investigate."
     cat "${this_temp}"
-    exit 1
+    bandit_failure="fail"
   else
     echo -e "BANDIT: ${file} good."
   fi
 
-  # Get bandit working first
-
-  #pylint3 ${file}
-  #if [[ $? -gt 0 ]] ; then
-  #  echo -e "PYLINT:: ${file} had issues please investigate."
-  #  exit 1
-  #fi
+  pylint-fail-under --fail_under 6.0 ${file}
+  if [[ $? -gt 0 ]] ; then
+    pylint_failure="fail"
+  fi
 
 done
 
-bash_files=$(find . -type f -regex ".*\.sh$")
+if [[ $bandit_failure == "fail" ]] ; then
+  echo -e "Bandit Failures Detected"
+  exit 1
+else
+  echo -e "Bandit Checks Passed"
+fi
+
+if [[ $pylint_failure == "fail" ]] ; then
+  echo -e "Pylint Failures Detected"
+  exit 1
+else
+  echo -e "Pylint Checks Passed"
+fi
+
+bash_files=$(find . -type d -wholename ./lib -prune -o \
+             -type d -wholename ./setup -prune -o \
+             -type d -prune -o \
+             -type f -regex ".*\.sh$")
 
 ################### Bash Checks ######################################
 for file in ${bash_files} ; do
@@ -44,7 +60,7 @@ for file in ${bash_files} ; do
 
   if [[ ${was_shellcheck_good} -gt 0 ]] ; then
     echo -e "SHELLCHECK: ${file} had issues please investigate."
-    exit 1
+    #exit 1
   else
     echo -e "SHELLCHECK: ${file} Good."
   fi

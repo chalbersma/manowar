@@ -72,6 +72,7 @@
 			"collection_hostname",
 			"collection_status",
 			"collection_timestamp"
+			"collection_data"
 		]
 	}
 }

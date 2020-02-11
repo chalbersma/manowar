@@ -1,0 +1,82 @@
+{
+  "USN-4241-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "thunderbird"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:68.4.1+build1-0ubuntu0.18.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "thunderbird"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:68.4.1+build1-0ubuntu0.19.10.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-11745_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11745.html",
+      "CVE-2019-17005_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17005.html",
+      "CVE-2019-17008_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17008.html",
+      "CVE-2019-17010_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17010.html",
+      "CVE-2019-17011_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17011.html",
+      "CVE-2019-17012_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17012.html",
+      "CVE-2019-17016_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17016.html",
+      "CVE-2019-17017_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17017.html",
+      "CVE-2019-17022_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17022.html",
+      "CVE-2019-17024_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17024.html",
+      "CVE-2019-17026_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17026.html",
+      "USN-4241-1": "https://usn.ubuntu.com/4241-1/"
+    },
+    "vuln-long-description": "Multiple security issues were discovered in Thunderbird. If a user were\ntricked in to opening a specially crafted website in a browsing context,\nan attacker could potentially exploit these to cause a denial of service,\nconduct cross-site scripting (XSS) attacks, or execute arbitrary code.\n(CVE-2019-17005, CVE-2019-17008, CVE-2019-17010, CVE-2019-17011,\nCVE-2019-17012, CVE-2019-17016, CVE-2019-17017, CVE-2019-17022,\nCVE-2019-17024, CVE-2019-17026)\n\nIt was discovered that NSS incorrectly handled certain memory operations.\nA remote attacker could potentially exploit this to cause a denial of\nservice, or execute arbitrary code. (CVE-2019-11745)\n\n\nTLDR: After a standard system update you need to restart Thunderbird to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4241-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4241-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in Thunderbird.\n"
+  }
+}

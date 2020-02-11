@@ -6,6 +6,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 
 API for Host Information
 Should return data about the host & return the collections for this particular host.
+
 ```swagger-yaml
 /genericlargecompare/ :
   x-cached-length: "Every Midnight"
@@ -15,6 +16,8 @@ Should return data about the host & return the collections for this particular h
     responses:
       200:
         description: OK
+    tags:
+      - liveaudit
     parameters:
       - name: hostname
         in: query
@@ -129,8 +132,8 @@ import os
 import hashlib
 import urllib
 import requests
-from generic_large_compare import generic_large_compare
-import apt
+from manoward.generic_large_compare import generic_large_compare
+#import apt
 
 genericlargecompare = Blueprint('api2_genericlargecompare', __name__)
 
@@ -141,6 +144,8 @@ def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=Fal
                         matchcollection_ctype=False, matchcollection_csubtype=False, \
                         matchcollection_cvalue=False, mtype=False, ctype=False, \
                         csubtype=False, mvalue=False, fresh=172800):
+
+    ## TODO Reconsider If this is a Wise Move.
 
     meta_dict = dict()
     request_data = list()

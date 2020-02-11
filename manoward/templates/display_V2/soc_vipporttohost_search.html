@@ -1,0 +1,79 @@
+{% include 'base_header.html' %}
+{% from "error.html" import with_errors %}
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish.css" media="screen" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+	google.charts.load('current', {'packages':['corechart']});
+</script>
+<div class="col-md-10">
+<h1>VIP & Port to Hosts Search </h1>
+<script type="text/javascript">
+function do_search(){
+	base_url="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/soc/vipporttohost"
+	string_querydata = {
+		"vip" : $('#vip').val(),
+		"protocol" : $('input[name=protocol]:checked', '#SearchForm').val(),
+	}
+	val_query = { 
+		"ipv" : $('input[name=ipv]:checked', '#SearchForm').val(),
+		"port" : $('#port').val(),
+	}
+	query_string="/?"
+	for (var key in string_querydata){
+  		if (string_querydata[key].length > 0 ){
+		      	query_string=query_string+key+"='"+string_querydata[key]+"'&"
+		}
+	}
+	
+	for (var key in val_query){
+  		if (val_query[key].length > 0 ){
+		      	query_string=query_string+key+"="+val_query[key]+"&"
+		}
+	}
+	
+	url=base_url + query_string
+	$(location).attr('href',url)
+}
+</script>
+
+<form id="SearchForm" method="POST">
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="vip">VIP :</label>
+        <input id="vip" type="text" name="vip" class="form-control ember-text-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="port">Port :</label>
+        <input id="port" type="text" name="port" class="form-control ember-text-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <p>Protocol: </p>
+        <label for="protocol">TCP :</label>
+        <input id="protocol" type="radio" name="protocol" value="tcp" checked class="form-control ember-input-field">
+        <label for="protocol">UDP :</label>
+        <input id="protocol" type="radio" name="protocol" value="udp" class="form-control ember-input-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <p>Packet Version: </p>
+        <label for="ipv">IPv4 :</label>
+        <input id="ipv" type="radio" name="ipv" value="4" checked class="form-control ember-input-field">
+        <label for="ipv">IPv6 :</label>
+        <input id="ipv" type="radio" name="ipv" value="6" class="form-control ember-input-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <input type="button" value="Search" onclick="do_search()">
+    </div>
+</div>
+</form>
+</div>
+
+
+{% include 'base_footer.html' %}

@@ -1,0 +1,123 @@
+{
+  "RHSA-2019:3390": {
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "qt5-qtbase-common",
+          "qt5-qtbase-debugsource",
+          "qt5-qtbase",
+          "qt5-qtbase-examples",
+          "qt5-qtbase-postgresql",
+          "qt5-qtbase-odbc",
+          "qt5-qtbase-gui",
+          "qt5-qtbase-mysql",
+          "qt5-qtbase-devel",
+          "qt5-qtbase-static",
+          "qt5-qttools-common",
+          "qt5-qttools-debugsource",
+          "qt5-qttools-examples",
+          "qt5-assistant",
+          "qt5-qttools-libs-designer",
+          "qt5-qdbusviewer",
+          "qt5-linguist",
+          "qt5-qttools-libs-designercomponents",
+          "qt5-doctools",
+          "qt5-qttools-libs-help",
+          "qt5-qttools-devel",
+          "qt5-designer",
+          "qt5-qttools",
+          "qt5-qttools-static"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1",
+          "5.11.1"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-15518": "https://access.redhat.com/security/cve/CVE-2018-15518",
+      "CVE-2018-19870": "https://access.redhat.com/security/cve/CVE-2018-19870",
+      "CVE-2018-19873": "https://access.redhat.com/security/cve/CVE-2018-19873",
+      "bz#1658996: CVE-2018-19870 qt5-qtbase: QImage allocation failure in qgifhandler": "https://bugzilla.redhat.com/show_bug.cgi?id=1658996",
+      "bz#1658998: CVE-2018-19873 qt5-qtbase: QBmpHandler segmentation fault on malformed BMP file": "https://bugzilla.redhat.com/show_bug.cgi?id=1658998",
+      "bz#1659000: CVE-2018-15518 qt5-qtbase: Double free in QXmlStreamReader": "https://bugzilla.redhat.com/show_bug.cgi?id=1659000",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3390": "https://access.redhat.com/errata/RHSA-2019:3390",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1692970": "https://bugzilla.redhat.com/show_bug.cgi?id=1692970",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1709949": "https://bugzilla.redhat.com/show_bug.cgi?id=1709949"
+    },
+    "vuln-long-description": "\nAn update for qt5-qtbase is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    \n\n\nQt is a software toolkit for developing applications. The qt5-base packages contain base tools for string, xml, and network handling in Qt.\n\nSecurity Fix(es):\n\n* qt5-qtbase: Double free in QXmlStreamReader (CVE-2018-15518)\n\n* qt5-qtbase: QImage allocation failure in qgifhandler (CVE-2018-19870)\n\n* qt5-qtbase: QBmpHandler segmentation fault on malformed BMP file (CVE-2018-19873)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nAdditional Changes:\n\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n    \n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3390",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3390",
+    "vuln-priority": 1,
+    "vuln-short-description": "\nAn update for qt5-qtbase is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    "
+  }
+}

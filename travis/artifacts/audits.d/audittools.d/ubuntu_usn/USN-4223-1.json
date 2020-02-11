@@ -1,0 +1,180 @@
+{
+  "USN-4223-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "openjdk-11-jdk",
+          "openjdk-11-jre",
+          "openjdk-11-jre-zero",
+          "openjdk-11-jre-headless"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "11.0.5+10-0ubuntu1.1~18.04",
+          "11.0.5+10-0ubuntu1.1~18.04",
+          "11.0.5+10-0ubuntu1.1~18.04",
+          "11.0.5+10-0ubuntu1.1~18.04"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "openjdk-11-jdk",
+          "openjdk-11-jre",
+          "openjdk-11-jre-zero",
+          "openjdk-11-jre-headless"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "11.0.5+10-0ubuntu1.1~19.04",
+          "11.0.5+10-0ubuntu1.1~19.04",
+          "11.0.5+10-0ubuntu1.1~19.04",
+          "11.0.5+10-0ubuntu1.1~19.04"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "openjdk-11-jdk",
+          "openjdk-11-jre",
+          "openjdk-11-jre-zero",
+          "openjdk-11-jre-headless"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "11.0.5+10-0ubuntu1.1",
+          "11.0.5+10-0ubuntu1.1",
+          "11.0.5+10-0ubuntu1.1",
+          "11.0.5+10-0ubuntu1.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "openjdk-8-jre-zero",
+          "openjdk-8-jre-jamvm",
+          "openjdk-8-jdk",
+          "openjdk-8-jre-headless",
+          "openjdk-8-jre"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "8u232-b09-0ubuntu1~16.04.1",
+          "8u232-b09-0ubuntu1~16.04.1",
+          "8u232-b09-0ubuntu1~16.04.1",
+          "8u232-b09-0ubuntu1~16.04.1",
+          "8u232-b09-0ubuntu1~16.04.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-2894_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2894.html",
+      "CVE-2019-2945_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2945.html",
+      "CVE-2019-2949_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2949.html",
+      "CVE-2019-2962_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2962.html",
+      "CVE-2019-2964_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2964.html",
+      "CVE-2019-2973_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2973.html",
+      "CVE-2019-2975_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2975.html",
+      "CVE-2019-2977_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2977.html",
+      "CVE-2019-2978_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2978.html",
+      "CVE-2019-2981_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2981.html",
+      "CVE-2019-2983_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2983.html",
+      "CVE-2019-2987_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2987.html",
+      "CVE-2019-2988_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2988.html",
+      "CVE-2019-2989_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2989.html",
+      "CVE-2019-2992_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2992.html",
+      "CVE-2019-2999_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2999.html",
+      "USN-4223-1": "https://usn.ubuntu.com/4223-1/"
+    },
+    "vuln-long-description": "Jan Jancar, Petr Svenda, and Vladimir Sedlacek discovered that a side-\nchannel vulnerability existed in the ECDSA implementation in OpenJDK. An\nAttacker could use this to expose sensitive information. (CVE-2019-2894)\n\nIt was discovered that the Socket implementation in OpenJDK did not\nproperly restrict the creation of subclasses with a custom Socket\nimplementation. An attacker could use this to specially create a Java class\nthat could possibly bypass Java sandbox restrictions. (CVE-2019-2945)\n\nRob Hamm discovered that the Kerberos implementation in OpenJDK did not\nproperly handle proxy credentials. An attacker could possibly use this to\nimpersonate another user. (CVE-2019-2949)\n\nIt was discovered that a NULL pointer dereference existed in the font\nhandling implementation in OpenJDK. An attacker could use this to cause a\ndenial of service (application crash). (CVE-2019-2962)\n\nIt was discovered that the Concurrency subsystem in OpenJDK did not\nproperly bound stack consumption when compiling regular expressions. An\nattacker could use this to cause a denial of service (application crash).\n(CVE-2019-2964)\n\nIt was discovered that the JAXP subsystem in OpenJDK did not properly\nhandle XPath expressions in some situations. An attacker could use this to\ncause a denial of service (application crash). (CVE-2019-2973,\nCVE-2019-2981)\n\nIt was discovered that the Nashorn JavaScript subcomponent in OpenJDK did\nnot properly handle regular expressions in some situations. An attacker\ncould use this to cause a denial of service (application crash).\n(CVE-2019-2975)\n\nIt was discovered that the String class in OpenJDK contained an out-of-\nbounds access vulnerability. An attacker could use this to cause a denial\nof service (application crash) or possibly expose sensitive information.\nThis issue only affected OpenJDK 11 in Ubuntu 18.04 LTS, Ubuntu 19.04,\nand Ubuntu 19.10. (CVE-2019-2977)\n\nIt was discovered that the Jar URL handler in OpenJDK did not properly\nhandled nested Jar URLs in some situations. An attacker could use this to\ncause a denial of service (application crash). (CVE-2019-2978)\n\nIt was discovered that the Serialization component of OpenJDK did not\nproperly handle deserialization of certain object attributes. An attacker\ncould use this to cause a denial of service (application crash).\n(CVE-2019-2983)\n\nIt was discovered that the FreetypeFontScaler class in OpenJDK did not\nproperly validate dimensions of glyph bitmap images read from font files.\nAn attacker could specially craft a font file that could cause a denial of\nservice (application crash). (CVE-2019-2987)\n\nIt was discovered that a buffer overflow existed in the SunGraphics2D class\nin OpenJDK. An attacker could possibly use this to cause a denial of\nservice (excessive memory consumption or application crash).\n(CVE-2019-2988)\n\nIt was discovered that the Networking component in OpenJDK did not properly\nhandle certain responses from HTTP proxies. An attacker controlling a\nmalicious HTTP proxy could possibly use this to inject content into a\nproxied HTTP connection. (CVE-2019-2989)\n\nIt was discovered that the font handling implementation in OpenJDK did not\nproperly validate TrueType font files in some situations. An attacker could\nspecially craft a font file that could cause a denial of service (excessive\nmemory consumption). (CVE-2019-2992)\n\nIt was discovered that the JavaDoc generator in OpenJDK did not properly\nfilter out some HTML elements properly, including documentation comments in\nJava source code. An attacker could possibly use this to craft a Cross-Site\nScripting attack. (CVE-2019-2999)\n\n\nTLDR: This update uses a new upstream release, which includes additional bug\nfixes. After a standard system update you need to restart any Java\napplications or applets to make all the necessary changes.\n\n",
+    "vuln-name": "USN-4223-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4223-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in OpenJDK.\n"
+  }
+}

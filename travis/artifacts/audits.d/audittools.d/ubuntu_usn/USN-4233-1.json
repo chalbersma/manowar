@@ -1,0 +1,72 @@
+{
+  "USN-4233-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libgnutls30"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.5.18-1ubuntu1.2"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libgnutls30"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.10-4ubuntu1.6"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "LP : 1858691": "https://launchpad.net/bugs/1858691",
+      "USN-4233-1": "https://usn.ubuntu.com/4233-1/"
+    },
+    "vuln-long-description": "As a security improvement, this update marks SHA1 as being untrusted for\ndigital signature operations.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4233-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4233-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "SHA1 has been marked as untrusted in GnuTLS.\n"
+  }
+}

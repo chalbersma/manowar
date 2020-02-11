@@ -1,0 +1,62 @@
+{
+  "RHSA-2019:3981": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "389-ds-base-snmp",
+          "389-ds-base-devel",
+          "389-ds-base-libs",
+          "389-ds-base"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.3.9.1",
+          "1.3.9.1",
+          "1.3.9.1",
+          "1.3.9.1"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14824": "https://access.redhat.com/security/cve/CVE-2019-14824",
+      "bz#1747448: CVE-2019-14824 389-ds-base: Read permission check bypass via the deref plugin": "https://bugzilla.redhat.com/show_bug.cgi?id=1747448",
+      "https://access.redhat.com/errata/RHSA-2019:3981": "https://access.redhat.com/errata/RHSA-2019:3981",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1749289": "https://bugzilla.redhat.com/show_bug.cgi?id=1749289",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1754831": "https://bugzilla.redhat.com/show_bug.cgi?id=1754831",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1763622": "https://bugzilla.redhat.com/show_bug.cgi?id=1763622",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1763627": "https://bugzilla.redhat.com/show_bug.cgi?id=1763627",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1767622": "https://bugzilla.redhat.com/show_bug.cgi?id=1767622",
+      "https://pagure.io/389-ds-base/issue/50716": "https://pagure.io/389-ds-base/issue/50716"
+    },
+    "vuln-long-description": "An update for 389-ds-base is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\n389 Directory Server is an LDAP version 3 (LDAPv3) compliant server. The base packages include the Lightweight Directory Access Protocol (LDAP) server and command-line utilities for server administration.\nSecurity Fix(es):\n* 389-ds-base: Read permission check bypass via the deref plugin (CVE-2019-14824)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nBug Fix(es):\n* DB Deadlock on modrdn appears to corrupt database and entry cache (BZ#1749289)\n* After audit log file is rotated, DS version string is logged after each update (BZ#1754831)\n* Extremely slow LDIF import with ldif2db (BZ#1763622)\n* ns-slapd crash on concurrent SASL BINDs, connection_call_io_layer_callbacks must hold hold c_mutex (BZ#1763627)\n* CleanAllRUV task limit not enforced (BZ#1767622)\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3981",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3981",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for 389-ds-base is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

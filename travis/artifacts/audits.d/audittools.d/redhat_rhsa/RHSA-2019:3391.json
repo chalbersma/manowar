@@ -1,0 +1,61 @@
+{
+  "RHSA-2019:3391": {
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "libreswan-debugsource",
+          "libreswan"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.29",
+          "3.29"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-10155": "https://access.redhat.com/security/cve/CVE-2019-10155",
+      "bz#1714141: CVE-2019-10155 libreswan: vulnerability in the processing of IKEv1 informational packets due to missing integrity check": "https://bugzilla.redhat.com/show_bug.cgi?id=1714141",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3391": "https://access.redhat.com/errata/RHSA-2019:3391",
+      "https://access.redhat.com/security/updates/classification/#low": "https://access.redhat.com/security/updates/classification/#low",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1608353": "https://bugzilla.redhat.com/show_bug.cgi?id=1608353",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1679394": "https://bugzilla.redhat.com/show_bug.cgi?id=1679394",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1683706": "https://bugzilla.redhat.com/show_bug.cgi?id=1683706",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1699318": "https://bugzilla.redhat.com/show_bug.cgi?id=1699318",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1706180": "https://bugzilla.redhat.com/show_bug.cgi?id=1706180",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1712555": "https://bugzilla.redhat.com/show_bug.cgi?id=1712555",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1713734": "https://bugzilla.redhat.com/show_bug.cgi?id=1713734",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1714331": "https://bugzilla.redhat.com/show_bug.cgi?id=1714331",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1723957": "https://bugzilla.redhat.com/show_bug.cgi?id=1723957",
+      "https://libreswan.org/security/CVE-2019-10155/": "https://libreswan.org/security/CVE-2019-10155/"
+    },
+    "vuln-long-description": "\nAn update for libreswan is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    \n\n\nLibreswan is an implementation of IPsec and IKE for Linux. IPsec is the Internet Protocol Security and uses strong cryptography to provide both authentication and encryption services. These services allow you to build secure tunnels through untrusted networks such as virtual private network (VPN).\n\nThe following packages have been upgraded to a later upstream version: libreswan (3.29). (BZ#1738853)\n\nSecurity Fix(es):\n\n* libreswan: vulnerability in the processing of IKEv1 informational packets due to missing integrity check (CVE-2019-10155)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nAdditional Changes:\n\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n    \n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3391",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3391",
+    "vuln-priority": 1,
+    "vuln-short-description": "\nAn update for libreswan is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    "
+  }
+}

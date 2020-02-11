@@ -1,0 +1,112 @@
+{
+  "USN-4250-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "mysql-server-5.7"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.7.29-0ubuntu0.18.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "mysql-server-8.0"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "8.0.19-0ubuntu0.19.10.3"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "mysql-server-5.7"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.7.29-0ubuntu0.16.04.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2020-2570_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2570.html",
+      "CVE-2020-2572_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2572.html",
+      "CVE-2020-2573_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2573.html",
+      "CVE-2020-2574_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2574.html",
+      "CVE-2020-2577_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2577.html",
+      "CVE-2020-2579_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2579.html",
+      "CVE-2020-2584_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2584.html",
+      "CVE-2020-2588_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2588.html",
+      "CVE-2020-2589_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2589.html",
+      "CVE-2020-2627_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2627.html",
+      "CVE-2020-2660_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2660.html",
+      "CVE-2020-2679_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2679.html",
+      "CVE-2020-2686_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2686.html",
+      "CVE-2020-2694_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2694.html",
+      "USN-4250-1": "https://usn.ubuntu.com/4250-1/"
+    },
+    "vuln-long-description": "Multiple security issues were discovered in MySQL and this update includes\nnew upstream MySQL versions to fix these issues.\n\nMySQL has been updated to 8.0.19 in Ubuntu 19.10. Ubuntu 16.04 LTS and\nUbuntu 18.04 LTS have been updated to MySQL 5.7.29.\n\nIn addition to security fixes, the updated packages contain bug fixes, new\nfeatures, and possibly incompatible changes.\n\nPlease see the following for more information:\nhttps://dev.mysql.com/doc/relnotes/mysql/5.7/en/news-5-7-29.html\nhttps://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-19.html\nhttps://www.oracle.com/security-alerts/cpujan2020.html\n\n\nTLDR: This update uses a new upstream release, which includes additional bug\nfixes. In general, a standard system update will make all the necessary\n\n",
+    "vuln-name": "USN-4250-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4250-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in MySQL.\n"
+  }
+}

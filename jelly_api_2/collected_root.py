@@ -12,6 +12,8 @@ Designed as the root point for all the collected endpoints
   get:
     description: |
       Root for the collected endpoint. Describes it's child for data discovery.
+    tags:
+      - collections
     responses:
       200:
        description: OK

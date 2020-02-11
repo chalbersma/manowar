@@ -1,0 +1,64 @@
+{
+  "RHSA-2020:0027": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "kpatch-patch-3_10_0-1062_1_1",
+          "kpatch-patch-3_10_0-1062_4_1",
+          "kpatch-patch-3_10_0-1062_1_2",
+          "kpatch-patch-3_10_0-1062",
+          "kpatch-patch-3_10_0-1062_4_2",
+          "kpatch-patch-3_10_0-1062_4_3"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14821": "https://access.redhat.com/security/cve/CVE-2019-14821",
+      "CVE-2019-15239": "https://access.redhat.com/security/cve/CVE-2019-15239",
+      "bz#1746708: CVE-2019-14821 Kernel: KVM: OOB memory access via mmio ring buffer": "https://bugzilla.redhat.com/show_bug.cgi?id=1746708",
+      "bz#1747353: CVE-2019-15239 kernel: local attacker can trigger multiple use-after-free conditions results in privilege escalation": "https://bugzilla.redhat.com/show_bug.cgi?id=1747353",
+      "https://access.redhat.com/errata/RHSA-2020:0027": "https://access.redhat.com/errata/RHSA-2020:0027",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important"
+    },
+    "vuln-long-description": "An update for kpatch-patch is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThis is a kernel live patch module which is automatically loaded by the RPM post-install script to modify the code of a running kernel.\nSecurity fix(es):\n* Kernel: KVM: OOB memory access via mmio ring buffer (CVE-2019-14821)\n* kernel: local attacker can trigger multiple use-after-free conditions results in privilege escalation (CVE-2019-15239)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgements, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0027",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0027",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for kpatch-patch is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

@@ -4,7 +4,7 @@ set -x
 
 # Test each file in the api to ensure it has a valid swagger definition.
 
-./pull_swagger.py -d jelly_api_2/ -C
+./manowar_servers -vv swagger -d jelly_api_2/ -C
 
 isGud=$?
 

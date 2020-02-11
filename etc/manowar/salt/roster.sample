@@ -1,0 +1,6 @@
+testbox1:
+  host: 127.0.0.1
+  sudo: true
+  uri: mown://partition:service:region:account-id:testbox1?owner=testowner&status=prod&opta=a
+  user: sshsudouser
+# This is a roster file. I suggest using a MOWN URI to denote where the system is.

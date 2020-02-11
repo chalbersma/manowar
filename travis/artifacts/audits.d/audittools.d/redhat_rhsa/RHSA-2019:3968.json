@@ -1,0 +1,56 @@
+{
+  "RHSA-2019:3968": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "qemu-kvm-tools-ma",
+          "qemu-kvm-ma",
+          "qemu-kvm-common-ma",
+          "qemu-img-ma"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "10:2.12.0",
+          "10:2.12.0",
+          "10:2.12.0",
+          "10:2.12.0"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14378": "https://access.redhat.com/security/cve/CVE-2019-14378",
+      "bz#1734745: CVE-2019-14378 QEMU: slirp: heap buffer overflow during packet reassembly": "https://bugzilla.redhat.com/show_bug.cgi?id=1734745",
+      "https://access.redhat.com/errata/RHSA-2019:3968": "https://access.redhat.com/errata/RHSA-2019:3968",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important"
+    },
+    "vuln-long-description": "An update for qemu-kvm-ma is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nKernel-based Virtual Machine (KVM) is a full virtualization solution for Linux on a variety of architectures. The qemu-kvm-ma packages provide the user-space component for running virtual machines that use KVM on the IBM z Systems, IBM Power, and 64-bit ARM architectures.\nSecurity Fix(es):\n* QEMU: slirp: heap buffer overflow during packet reassembly (CVE-2019-14378)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3968",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3968",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for qemu-kvm-ma is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "RHSA-2020:0262": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "openjpeg2-devel-docs",
+          "openjpeg2-tools",
+          "openjpeg2-devel",
+          "openjpeg2"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.3.1",
+          "2.3.1",
+          "2.3.1",
+          "2.3.1"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2020-6851": "https://access.redhat.com/security/cve/CVE-2020-6851",
+      "bz#1790511: CVE-2020-6851 openjpeg: Heap-based buffer overflow in opj_t1_clbl_decode_processor()": "https://bugzilla.redhat.com/show_bug.cgi?id=1790511",
+      "https://access.redhat.com/errata/RHSA-2020:0262": "https://access.redhat.com/errata/RHSA-2020:0262",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important"
+    },
+    "vuln-long-description": "An update for openjpeg2 is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nOpenJPEG is an open source library for reading and writing image files in JPEG2000 format.\nSecurity Fix(es):\n* openjpeg: Heap-based buffer overflow in opj_t1_clbl_decode_processor() (CVE-2020-6851)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0262",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0262",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for openjpeg2 is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

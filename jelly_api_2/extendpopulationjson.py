@@ -17,6 +17,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
         description: OK
       401:
         description: Unauthorized (Most likely no Token given)
+    tags:
+      - sapi
     requestBody:
       content:
         application/json:
@@ -56,10 +58,10 @@ from flask import current_app, Blueprint, g, request, jsonify
 import json
 import ast
 import requests
-import endorsementmgmt
 
-from storageJSONVerify import storageJSONVerify
-from storage import insert_update_collections
+import manoward
+
+from manoward.storage import insert_update_collections
 
 
 extendpopulationjson = Blueprint('extendpopulationjson', __name__)
@@ -68,13 +70,20 @@ extendpopulationjson = Blueprint('extendpopulationjson', __name__)
 @extendpopulationjson.route("/extendpopulationjson/", methods=['GET','POST'])
 @extendpopulationjson.route("/sapi/extendpopulationjson", methods=['GET','POST'])
 @extendpopulationjson.route("/sapi/extendpopulationjson/", methods=['GET','POST'])
-def generic_extendpopulationjson(hostname=False, exact=False, pop=False,\
-                        hoststatus=False, status=False):
+def generic_extendpopulationjson():
 
     '''
     General idea, give me a population and a json object and I'll update everything
     in that population with that data.
     '''
+
+    ## TODO Modernize This
+
+    if request.json == None :
+        # No Json Data Given
+        error_dict["nodata"] = True
+        error=True
+
 
     meta_dict = dict()
     request_data = list()
@@ -83,8 +92,8 @@ def generic_extendpopulationjson(hostname=False, exact=False, pop=False,\
 
     this_endpoint_endorsements = ( ("conntype","sapi"), )
 
-    endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements, \
-                                session_endorsements=g.session_endorsements )
+    manoward.process_endorsements(endorsements=this_endpoint_endorsements,
+                                  session_endorsements=g.session_endorsements )
 
 
     argument_error = False
@@ -175,10 +184,6 @@ def generic_extendpopulationjson(hostname=False, exact=False, pop=False,\
     else :
         error = True
 
-    if request.json == None :
-        # No Json Data Given
-        error_dict["nodata"] = True
-        error=True
 
 
 

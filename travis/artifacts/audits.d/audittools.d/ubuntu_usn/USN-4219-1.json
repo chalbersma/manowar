@@ -1,0 +1,126 @@
+{
+  "USN-4219-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libssh-4"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.8.0~20170825.94fa1e38-1ubuntu0.5"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "libssh-4"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.8.6-3ubuntu0.3"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "libssh-4"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.9.0-1ubuntu1.3"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libssh-4"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.6.3-4.3ubuntu0.5"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14889_(Unknown)": null,
+      "USN-4219-1": "https://usn.ubuntu.com/4219-1/"
+    },
+    "vuln-long-description": "It was discovered that libssh incorrectly handled certain scp commands. If\na user or automated system were tricked into using a specially-crafted scp\ncommand, a remote attacker could execute arbitrary commands on the server.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4219-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4219-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "libssh could be made to run programs under certain conditions.\n"
+  }
+}

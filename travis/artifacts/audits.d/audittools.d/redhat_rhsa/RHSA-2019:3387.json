@@ -1,0 +1,76 @@
+{
+  "RHSA-2019:3387": {
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "osinfo-db-tools",
+          "osinfo-db-tools-debugsource",
+          "osinfo-db",
+          "libosinfo-debugsource",
+          "libosinfo",
+          "gnome-boxes-debugsource",
+          "gnome-boxes"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.5.0",
+          "1.5.0",
+          "20190611",
+          "1.5.0",
+          "1.5.0",
+          "3.28.5",
+          "3.28.5"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-13313": "https://access.redhat.com/security/cve/CVE-2019-13313",
+      "bz#1727766: CVE-2019-13313 Libosinfo: osinfo-install-script option leaks password via command line argument": "https://bugzilla.redhat.com/show_bug.cgi?id=1727766",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3387": "https://access.redhat.com/errata/RHSA-2019:3387",
+      "https://access.redhat.com/security/updates/classification/#low": "https://access.redhat.com/security/updates/classification/#low",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1685364": "https://bugzilla.redhat.com/show_bug.cgi?id=1685364",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1689817": "https://bugzilla.redhat.com/show_bug.cgi?id=1689817",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1699988": "https://bugzilla.redhat.com/show_bug.cgi?id=1699988",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1699989": "https://bugzilla.redhat.com/show_bug.cgi?id=1699989",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1699990": "https://bugzilla.redhat.com/show_bug.cgi?id=1699990",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1703480": "https://bugzilla.redhat.com/show_bug.cgi?id=1703480",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1713130": "https://bugzilla.redhat.com/show_bug.cgi?id=1713130",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1713245": "https://bugzilla.redhat.com/show_bug.cgi?id=1713245",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1739897": "https://bugzilla.redhat.com/show_bug.cgi?id=1739897",
+      "https://www.openwall.com/lists/oss-security/2019/07/08/3": "https://www.openwall.com/lists/oss-security/2019/07/08/3"
+    },
+    "vuln-long-description": "\nAn update for osinfo-db, osinfo-db-tools, libosinfo, and gnome-boxes is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    \n\n\nThe osinfo-db package contains a database that provides information about operating systems and hypervisor platforms to facilitate the automated configuration and provisioning of new virtual machines. \n\nThe libosinfo packages provide a library that allows virtualization provisioning tools to determine the optimal device settings for a combination of hypervisor and operating system.\n\nSecurity Fix(es):\n\n* Libosinfo: osinfo-install-script option leaks password via command line argument (CVE-2019-13313)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nAdditional Changes:\n\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n    \n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3387",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3387",
+    "vuln-priority": 1,
+    "vuln-short-description": "\nAn update for osinfo-db, osinfo-db-tools, libosinfo, and gnome-boxes is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    "
+  }
+}

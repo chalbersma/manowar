@@ -10,22 +10,21 @@ import json
 import ast
 import requests
 
-display_collected_values_search = Blueprint('display2_collected_values_search', __name__)
+display_collected_values_search = Blueprint(
+    'display2_collected_values_search', __name__)
+
 
 @display_collected_values_search.route("/collected/values_search")
 @display_collected_values_search.route("/collected/values_search/")
-
 def display2_collected_values_search(ctype="Insert type", csubtype="Insert Subtype"):
 
-	argument_error = False
-	query_string_bits = list()
+    argument_error = False
+    query_string_bits = list()
 
-	if "ctype" in request.args :
-		ctype = request.args["ctype"]
+    if "ctype" in request.args:
+        ctype = request.args["ctype"]
 
-	if "csubtype" in request.args :
-		csubtype = request.args["csubtype"]
+    if "csubtype" in request.args:
+        csubtype = request.args["csubtype"]
 
-	return render_template('display_V2/collected_values_search.html', ctype=ctype, csubtype=csubtype)
-
-
+    return render_template('display_V2/collected_values_search.html', ctype=ctype, csubtype=csubtype)

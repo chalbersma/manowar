@@ -1,0 +1,128 @@
+{
+  "USN-4244-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "samba"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:4.7.6+dfsg~ubuntu-0ubuntu2.15"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "samba"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:4.10.0+dfsg-0ubuntu2.8"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "samba"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:4.10.7+dfsg-0ubuntu2.4"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "samba"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:4.3.11+dfsg-0ubuntu0.16.04.25"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14902_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14902.html",
+      "CVE-2019-14907_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14907.html",
+      "CVE-2019-19344_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19344.html",
+      "USN-4244-1": "https://usn.ubuntu.com/4244-1/"
+    },
+    "vuln-long-description": "It was discovered that Samba did not automatically replicate ACLs set to\ninherit down a subtree on AD Directory, contrary to expectations. This\nissue was only addressed in Ubuntu 18.04 LTS, Ubuntu 19.04 and Ubuntu\n19.10. (CVE-2019-14902)\n\nRobert \u015awi\u0119cki discovered that Samba incorrectly handled certain character\nconversions when the log level is set to 3 or above. In certain\nenvironments, a remote attacker could possibly use this issue to cause\nSamba to crash, resulting in a denial of service. (CVE-2019-14907)\n\nChristian Naumer discovered that Samba incorrectly handled DNS zone\nscavenging. This issue could possibly result in some incorrect data being\nwritten to the DB. This issue only applied to Ubuntu 19.04 and Ubuntu\n19.10. (CVE-2019-19344)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4244-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4244-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in Samba.\n"
+  }
+}

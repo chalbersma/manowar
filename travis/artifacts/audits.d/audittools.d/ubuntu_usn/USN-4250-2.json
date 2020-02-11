@@ -1,0 +1,173 @@
+{
+  "USN-4250-2": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "mariadb-client-10.1",
+          "mariadb-server-10.1",
+          "mariadb-server-core-10.1",
+          "mariadb-plugin-mroonga",
+          "libmariadbd18",
+          "mariadb-plugin-cracklib-password-check",
+          "mariadb-plugin-gssapi-server",
+          "mariadb-plugin-tokudb",
+          "mariadb-server",
+          "mariadb-plugin-connect",
+          "mariadb-common",
+          "mariadb-plugin-spider",
+          "mariadb-plugin-oqgraph",
+          "mariadb-client-core-10.1",
+          "libmariadbclient18",
+          "mariadb-client",
+          "mariadb-plugin-gssapi-client"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1",
+          "1:10.1.44-0ubuntu0.18.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "mariadb-server-10.3",
+          "libmariadb3",
+          "mariadb-client-10.3",
+          "mariadb-plugin-rocksdb",
+          "mariadb-plugin-mroonga",
+          "mariadb-server-core-10.3",
+          "mariadb-plugin-cracklib-password-check",
+          "mariadb-plugin-gssapi-server",
+          "mariadb-client-core-10.3",
+          "mariadb-plugin-tokudb",
+          "mariadb-server",
+          "mariadb-plugin-connect",
+          "mariadb-common",
+          "mariadb-plugin-spider",
+          "mariadb-plugin-oqgraph",
+          "libmariadbd19",
+          "mariadb-client",
+          "mariadb-plugin-gssapi-client"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1",
+          "1:10.3.22-0ubuntu0.19.10.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2020-2574_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2574.html",
+      "USN-4250-2": "https://usn.ubuntu.com/4250-2/",
+      "https://mariadb.com/kb/en/mariadb-10144-release-notes/": "https://mariadb.com/kb/en/mariadb-10144-release-notes/",
+      "https://mariadb.com/kb/en/mariadb-10322-release-notes/": "https://mariadb.com/kb/en/mariadb-10322-release-notes/"
+    },
+    "vuln-long-description": "It was discovered that an unspecified vulnerability existed in the C API\ncomponent of MariaDB. An attacker could use this to cause a denial of\nservice for MariaDB clients.\n\nMariaDB has been updated to 10.3.22 in Ubuntu 19.10 and 10.1.44 in\nUbuntu 18.04 LTS.\n\nIn addition to security fixes, the updated packages contain bug fixes,\nnew features, and possibly incompatible changes.\n\n\nTLDR: This update uses a new upstream release, which includes additional bug\nfixes. In general, a standard system update will make all the necessary\n\n",
+    "vuln-name": "USN-4250-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4250-2/",
+    "vuln-priority": 5,
+    "vuln-short-description": "MariaDB clients could be made to crash if they received specially\ncrafted input.\n"
+  }
+}

@@ -15,15 +15,24 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    tags:
+      - dashboard
     parameters:
       - name: dash_id
         in: query
         description: |
-            The Dashbaord identifier you would like to reference. Can be either
-            the dashboard short name (does regex search) or the dashboard id number
-            (does exact match).
+          The Dashbaord identifier you would like to reference. Can be either
+          the dashboard short name (does regex search) or the dashboard id number
+          (does exact match).
         schema:
-          type: string
+          type: integer
+        required: false
+      - name: dash_name
+        in: query
+        description: |
+          Searches a Regex for the Dashboard Name you're looking for.
+        schema:
+          type: integer
         required: false
 ```
 
