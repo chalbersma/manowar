@@ -121,32 +121,34 @@ _col_filters = '''
 '''
 
 
-
-if __name__ == "__main__" :
+if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--apiDirectory", help="API Directory to recurse through", required=True)
-    parser.add_argument("-o", "--outputfile", help="File to output the swagger doc to")
-    parser.add_argument("-t", "--template", help="Jinja Template to use for output")
-    parser.add_argument("-C", "--checkonly", action="store_true", help="Check to ensure every file in api has definition")
+    parser.add_argument("-d", "--apiDirectory",
+                        help="API Directory to recurse through", required=True)
+    parser.add_argument("-o", "--outputfile",
+                        help="File to output the swagger doc to")
+    parser.add_argument("-t", "--template",
+                        help="Jinja Template to use for output")
+    parser.add_argument("-C", "--checkonly", action="store_true",
+                        help="Check to ensure every file in api has definition")
 
     args = parser.parse_args()
 
-    if args.apiDirectory[-1] == "/" :
-        APIDIR=args.apiDirectory[0:-1]
-    else :
-        APIDIR=args.apiDirectory
+    if args.apiDirectory[-1] == "/":
+        APIDIR = args.apiDirectory[0:-1]
+    else:
+        APIDIR = args.apiDirectory
 
-
-    if args.checkonly :
+    if args.checkonly:
         CHECKONLY = True
-    else :
+    else:
         CHECKONLY = False
 
-    if args.outputfile  :
+    if args.outputfile:
         OUTFILE = args.outputfile
 
-    if args.template :
+    if args.template:
         TEMPLATE = args.template
 
 
@@ -156,39 +158,39 @@ def generateSwaggerPieces(apiDirectory):
     swagger_pieces["data"] = list()
     swagger_pieces["undoc"] = list()
 
-
-    for (dirpath, dirnames, filenames) in os.walk(apiDirectory) :
-        for singlefile in filenames :
+    for (dirpath, dirnames, filenames) in os.walk(apiDirectory):
+        for singlefile in filenames:
             onefile = dirpath + "/" + singlefile
-            if singlefile.find(".py", -3) > 0 :
+            if singlefile.find(".py", -3) > 0:
                 api_endpoint_files.append(onefile)
 
     swagger_pieces["files"] = api_endpoint_files
 
-
-    for this_file in api_endpoint_files :
+    for this_file in api_endpoint_files:
         with open(this_file) as this_file_object:
             this_file_parsed = ast.parse("".join(this_file_object).strip('\n'))
             this_docstring = ast.get_docstring(this_file_parsed)
             #print(this_file, type(this_docstring))
-            ## Check if there is a docstring (If none it will be None)
-            if type(this_docstring) is str :
-                #print(this_docstring)
+            # Check if there is a docstring (If none it will be None)
+            if type(this_docstring) is str:
+                # print(this_docstring)
                 ## Now Grab just the Swagger ##
-                this_swagger_match = re.search("\`\`\`swagger-yaml(.+)\`\`\`", this_docstring, re.DOTALL)
-                #print(this_swagger_match)
-                if this_swagger_match is not None :
+                this_swagger_match = re.search(
+                    "\`\`\`swagger-yaml(.+)\`\`\`", this_docstring, re.DOTALL)
+                # print(this_swagger_match)
+                if this_swagger_match is not None:
                     #print("String Here")
                     this_swagger_string_unhyd = this_swagger_match.group(1)
-                    this_swagger_string = piece_render(this_swagger_string_unhyd)
-                    swagger_pieces["data"].append({"filename" : this_file, \
-                                                   "text" : this_swagger_string})
+                    this_swagger_string = piece_render(
+                        this_swagger_string_unhyd)
+                    swagger_pieces["data"].append({"filename": this_file,
+                                                   "text": this_swagger_string})
                 else:
                     swagger_pieces["undoc"].append(this_file)
-            else :
+            else:
                 # Ignore `__init__.py`
                 isinitpy = re.search("__init__\.py$", this_file)
-                if isinitpy is not None :
+                if isinitpy is not None:
                     # Ignore this file
                     pass
                 else:
@@ -197,8 +199,8 @@ def generateSwaggerPieces(apiDirectory):
 
     return swagger_pieces
 
-def piece_render(swagger_piece):
 
+def piece_render(swagger_piece):
     '''
     Render an Individual API Piece. Taking into account static api endpoints
     '''
@@ -210,13 +212,14 @@ def piece_render(swagger_piece):
                                         exact=_exact_filters,
                                         col=_col_filters)
 
-    #print(rendered_bit)
+    # print(rendered_bit)
 
     return rendered_bit
 
-def generateOutputFile(swaggerPieces, outputfile, templatefile) :
 
-    with open(templatefile) as templatefile_object :
+def generateOutputFile(swaggerPieces, outputfile, templatefile):
+
+    with open(templatefile) as templatefile_object:
         template_file_parsed = templatefile_object.read()
 
     jinja_template = jinja2.Template(template_file_parsed)
@@ -225,15 +228,16 @@ def generateOutputFile(swaggerPieces, outputfile, templatefile) :
 
     swagger_json = yaml.safe_load(rendered_swagger)
 
-    with open(outputfile, 'w') as swaggerfile_object :
+    with open(outputfile, 'w') as swaggerfile_object:
         json.dump(swagger_json, swaggerfile_object, indent=2)
 
-if __name__ == "__main__" :
+
+if __name__ == "__main__":
     swaggerPieces = generateSwaggerPieces(APIDIR)
 
-    if CHECKONLY == True :
+    if CHECKONLY == True:
         # Do Check
-        if len(swaggerPieces["undoc"]) > 0 :
+        if len(swaggerPieces["undoc"]) > 0:
             # Problems
             print("Check Failure: Found undocumented endpoints!")
             print(swaggerPieces["undoc"])
@@ -241,7 +245,7 @@ if __name__ == "__main__" :
         else:
             print("Check OK: No Undocumented Endpoints Found")
             sys.exit(0)
-        #print(json.dumps(swaggerPieces))
-    else :
+        # print(json.dumps(swaggerPieces))
+    else:
         # Do Generate
         generateOutputFile(swaggerPieces["data"], OUTFILE, TEMPLATE)

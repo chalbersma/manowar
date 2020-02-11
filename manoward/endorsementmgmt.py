@@ -10,8 +10,8 @@ import logging
 
 from flask import abort
 
-def process_endorsements(endorsements=[], restrictions=[], session_endorsements=[], session_restrictions=[], ignore_abort=False, **kwargs):
 
+def process_endorsements(endorsements=[], restrictions=[], session_endorsements=[], session_restrictions=[], ignore_abort=False, **kwargs):
     '''
     Process Endorsements
 
@@ -27,12 +27,14 @@ def process_endorsements(endorsements=[], restrictions=[], session_endorsements=
     # select * from sapiActiveTokens join sapiUsers on sapiUsers.sapiuid = sapiActiveTokens.fk_sapikeyid where token_expire_date > NOW() ;
 
     # Grab all the Matching Endorsements
-    found_endorsements = [endorsement for endorsement in endorsements if endorsement in session_endorsements]
+    found_endorsements = [
+        endorsement for endorsement in endorsements if endorsement in session_endorsements]
 
     #logger.debug("Current Session Endorsements : {}".format(found_endorsements))
 
     # Grab all the Restrictions
-    found_restrictions = [restriction for restriction in restrictions if restriction in session_restrictions]
+    found_restrictions = [
+        restriction for restriction in restrictions if restriction in session_restrictions]
 
     #logger.debug("Current Session Restrictions : {}".format(found_restrictions))
 
@@ -48,8 +50,10 @@ def process_endorsements(endorsements=[], restrictions=[], session_endorsements=
 
     if result[0] is False:
         if ignore_abort is False:
-            logger.info("Dropping Session {}/{}".format(found_endorsements, found_restrictions))
-            logger.debug("Dropping Session with Endorsements/Restrictions {}/{}".format(endorsements, restrictions))
+            logger.info(
+                "Dropping Session {}/{}".format(found_endorsements, found_restrictions))
+            logger.debug(
+                "Dropping Session with Endorsements/Restrictions {}/{}".format(endorsements, restrictions))
             abort(403)
 
     return result

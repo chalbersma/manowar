@@ -24,9 +24,12 @@ import manoward
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--config", help="JSON Config File with our Storage Info", required=False, default=None)
-    parser.add_argument("-j", "--json", help="json file to store", required=True)
-    parser.add_argument("-v", "--verbose", action='append_const', help="Turn on Verbosity", const=1, default=[])
+    parser.add_argument(
+        "-c", "--config", help="JSON Config File with our Storage Info", required=False, default=None)
+    parser.add_argument(
+        "-j", "--json", help="json file to store", required=True)
+    parser.add_argument("-v", "--verbose", action='append_const',
+                        help="Turn on Verbosity", const=1, default=[])
 
     # Parser Args
     args = parser.parse_args()
@@ -34,7 +37,7 @@ if __name__ == "__main__":
     # Grab Variables
     JSONFILE = args.json
     CONFIG = manoward.get_manoward(explicit_config=args.config,
-                                    only_file=False)
+                                   only_file=False)
 
     VERBOSE = len(args.verbose)
 
@@ -55,8 +58,7 @@ if __name__ == "__main__":
     LOGGER.info("Welcome to Storage Module")
 
 
-
-##### TODO remove this
+# TODO remove this
 def null_or_value(data_to_check, VERBOSE=False):
 
     logger = logging.getLogger("storage:null_or_value")
@@ -68,8 +70,8 @@ def null_or_value(data_to_check, VERBOSE=False):
         data = "'" + str(data_to_check) + "'"
         return data
 
-def insert_update_host(hostdata, db_conn):
 
+def insert_update_host(hostdata, db_conn):
     '''
     This updates the Host table (not the collections, sapi or ip_intel tables.
 
@@ -79,14 +81,14 @@ def insert_update_host(hostdata, db_conn):
     threadsafe. So it must close the cursor at the end of the query.
     '''
 
-
     logger = logging.getLogger("storage:insert_update_host")
 
     cur = db_conn.cursor()
 
     insert_columns = ["hostname", "last_update"]
     insert_values = ["%s", "FROM_UNIXTIME(%s)"]
-    insert_columns_args = [hostdata["collection_hostname"], hostdata["collection_timestamp"]]
+    insert_columns_args = [
+        hostdata["collection_hostname"], hostdata["collection_timestamp"]]
 
     host_id_query_params = list()
 
@@ -107,7 +109,8 @@ def insert_update_host(hostdata, db_conn):
         cur.execute(host_id_query, host_id_query_params)
 
     except Exception as insert_update_query_error:
-        logger.error("{}Trouble with query for {} : {}{}".format(Fore.RED, str(host_id_query), str(e), Style.RESET_ALL))
+        logger.error("{}Trouble with query for {} : {}{}".format(
+            Fore.RED, str(host_id_query), str(e), Style.RESET_ALL))
     else:
         if not cur.rowcount:
             # No Results
@@ -124,24 +127,27 @@ def insert_update_host(hostdata, db_conn):
         insert_values.append("%s")
         insert_columns_args.append(host_id)
 
-    ## V2 Factors like pop srvtype and the like
+    # V2 Factors like pop srvtype and the like
     for v2factor in [("pop", "pop"), ("srvtype", "srvtype"), ("status", "hoststatus"), ("uber_id", "host_uber_id")]:
         if hostdata[v2factor[0]] != "N/A" and hostdata[v2factor[0]] is not None:
             insert_columns.append(v2factor[1])
             insert_values.append("%s")
             insert_columns_args.append(hostdata[v2factor[0]])
         else:
-            logger.warning("No {0} given for host {1}, ignoring {0} column.".format(v2factor[0], hostdata["collection_hostname"]))
+            logger.warning("No {0} given for host {1}, ignoring {0} column.".format(
+                v2factor[0], hostdata["collection_hostname"]))
 
     replace_query = "REPLACE into hosts ( {} ) VALUES ( {} )".format(" , ".join(insert_columns),
                                                                      " , ".join(insert_values))
 
     try:
         replace_query_debug = cur.mogrify(replace_query, insert_columns_args)
-        logger.debug("Replace Query for Host {} : {}".format(hostdata["collection_hostname"], replace_query_debug))
+        logger.debug("Replace Query for Host {} : {}".format(
+            hostdata["collection_hostname"], replace_query_debug))
         cur.execute(replace_query, insert_columns_args)
     except Exception as replace_error:
-        logger.error("Unable to do Replace Query for host {} with error : {}".format(hostdata["collection_hostname"], replace_query_debug))
+        logger.error("Unable to do Replace Query for host {} with error : {}".format(
+            hostdata["collection_hostname"], replace_query_debug))
     else:
         host_id = cur.lastrowid
 
@@ -151,8 +157,8 @@ def insert_update_host(hostdata, db_conn):
 
     return host_id
 
-def store_as_SAPI_host(host_id, db_conn, hostname, VERBOSE=False):
 
+def store_as_SAPI_host(host_id, db_conn, hostname, VERBOSE=False):
     '''
     Store as SAPI host. When we have a SAPI host we want to update the sapiActiveHosts table with that hostname
     so that we know we don't need to ssh to that in collections.
@@ -199,14 +205,16 @@ def store_as_SAPI_host(host_id, db_conn, hostname, VERBOSE=False):
                 cur.execute(update_sql, update_values)
 
                 return_dictionary["success"] = True
-                return_dictionary["updaterecord"] = "Record number : {}".format(record_id_to_update)
+                return_dictionary["updaterecord"] = "Record number : {}".format(
+                    record_id_to_update)
 
             except Exception as sapi_update_sql_error:
 
                 return_dictionary["error"] = True
                 return_dictionary["error_text"] = str(sapi_update_sql_error)
 
-                logger.error("Sapi Update SQL Error : {}".format(return_dictionary))
+                logger.error(
+                    "Sapi Update SQL Error : {}".format(return_dictionary))
 
         else:
             # INSERT into sapiActiveHosts (fk_host_id, last_updated) VALUES ( %s , FROM_UNIXTIMESTAMP(%s));
@@ -217,7 +225,8 @@ def store_as_SAPI_host(host_id, db_conn, hostname, VERBOSE=False):
             try:
                 cur.execute(new_insert_sql, new_insert_values)
                 return_dictionary["success"] = True
-                return_dictionary["insert_record"] = "Inserted New Record {}".format(str(cur.lastrowid))
+                return_dictionary["insert_record"] = "Inserted New Record {}".format(
+                    str(cur.lastrowid))
             except Exception as insert_sapi_sql_error:
 
                 return_dictionary["error"] = True
@@ -227,7 +236,6 @@ def store_as_SAPI_host(host_id, db_conn, hostname, VERBOSE=False):
 
 
 def insert_update_collections(db_conn, host_id, hostdata, MAX):
-
     '''
     Insert Update collections.
 
@@ -235,9 +243,9 @@ def insert_update_collections(db_conn, host_id, hostdata, MAX):
     '''
 
     logger = logging.getLogger("storage:insert_update_collections")
-    
+
     logger.debug("Storing Collections for host_id : {}".format(host_id))
-    
+
     timestamp = hostdata["collection_timestamp"]
 
     cur = db_conn.cursor()
@@ -249,15 +257,16 @@ def insert_update_collections(db_conn, host_id, hostdata, MAX):
     for ctype, ctype_dict in hostdata["collection_data"].items():
 
         for subtype, value in ctype_dict.items():
-            
+
             killchars = "*;\\\'\"%="
-            
+
             collection_type = str(ctype)[0:int(MAX)]
-            
+
             collection_subtype = str(subtype)[0:int(MAX)]
 
             # Cycle throught value. Remove the banned characters and store it.
-            collection_value = "".join(c for c in str(value)[0:int(MAX)] if c not in killchars)
+            collection_value = "".join(c for c in str(
+                value)[0:int(MAX)] if c not in killchars)
 
             # Compare the value I have to the latest version
             find_existing_query_args = [str(host_id),
@@ -265,7 +274,7 @@ def insert_update_collections(db_conn, host_id, hostdata, MAX):
                                         str(collection_subtype),
                                         str(collection_value)]
 
-            ## Encode the Fresh Time Stuff here
+            # Encode the Fresh Time Stuff here
             find_existing_query = "SELECT {} {} {} {}".format(" collection_value, collection_id, last_update FROM collection ",
                                                               "WHERE fk_host_id = %s AND collection_type = %s ",
                                                               "AND collection_subtype = %s AND collection_value = %s ",
@@ -273,9 +282,10 @@ def insert_update_collections(db_conn, host_id, hostdata, MAX):
 
             # See If I'm Updating This Result
             try:
-                update_debug_query = cur.mogrify(find_existing_query, find_existing_query_args)
+                update_debug_query = cur.mogrify(
+                    find_existing_query, find_existing_query_args)
                 # Too Verbose even for Debug
-                #logger.debug(update_debug_query)
+                # logger.debug(update_debug_query)
                 cur.execute(find_existing_query, find_existing_query_args)
             except Exception as update_collection_error:
                 logger.error("{}Trouble with query {} on host {} with error : {}{}".format(Fore.RED,
@@ -293,9 +303,11 @@ def insert_update_collections(db_conn, host_id, hostdata, MAX):
                     # Grab 1:-1 to ignore the ' in 'value'
                     current_value = null_or_value(matching_data[0])[1:-1]
                     # Grab 1:-1 to ignore the ' in 'value'
-                    current_collection_id = null_or_value(matching_data[1])[1:-1]
+                    current_collection_id = null_or_value(
+                        matching_data[1])[1:-1]
 
-                    current_last_update = int(datetime.datetime.strptime(null_or_value(matching_data[2])[1:-1], '%Y-%m-%d %H:%M:%S').strftime("%s"))
+                    current_last_update = int(datetime.datetime.strptime(null_or_value(
+                        matching_data[2])[1:-1], '%Y-%m-%d %H:%M:%S').strftime("%s"))
                     #current_last_update = int(time.strptime(null_or_value(matching_data[2])[1:-1], '%Y-%m-%d %H:%M:%S'))
                     if not timestamp > current_last_update:
                         # If the timestamp from this collection is not greater than what I have in the database ignore
@@ -306,7 +318,8 @@ def insert_update_collections(db_conn, host_id, hostdata, MAX):
                     elif current_value == collection_value:
                         # Update Timestamp Change My Bool Flag
                         # & new timestamp is better than last timestamp
-                        update_query_args = [str(timestamp), str(current_collection_id)]
+                        update_query_args = [
+                            str(timestamp), str(current_collection_id)]
 
                         update_query = "UPDATE collection SET last_update = FROM_UNIXTIME( %s ) WHERE collection_id = %s ;"
 
@@ -323,7 +336,7 @@ def insert_update_collections(db_conn, host_id, hostdata, MAX):
                         continue
 
                 if not updated:
-                    
+
                     insert_query_head = " INSERT into collection ( fk_host_id, initial_update, last_update, collection_type, collection_subtype, collection_value ) "
                     insert_query_mid = " VALUES (%s, FROM_UNIXTIME(%s), FROM_UNIXTIME(%s), %s , %s , %s)"
                     insert_query_tail = "; "
@@ -359,8 +372,8 @@ def insert_update_collections(db_conn, host_id, hostdata, MAX):
     # Return Statistics
     return inserts, updates, error_count
 
-def storage(config_items, hostdata, sapi=False):
 
+def storage(config_items, hostdata, sapi=False):
     '''
     Does a Storage of an Object.
     '''
@@ -375,26 +388,26 @@ def storage(config_items, hostdata, sapi=False):
     storage_stats = dict()
     storage_stats["storage_timestamp"] = STORAGE_TIME
 
-    db_conn = manoward.get_conn(config_items, prefix="store_", tojq=".database", ac_def=False)
+    db_conn = manoward.get_conn(
+        config_items, prefix="store_", tojq=".database", ac_def=False)
 
     try:
         try:
             host_id = insert_update_host(hostdata, db_conn)
         except Exception as insert_update_host_error:
             logger.error("{}Unable to Update Host with Error : {}{}".format(Fore.RED,
-                                                                        insert_update_host_error,
-                                                                        Style.RESET_ALL))
-        
+                                                                            insert_update_host_error,
+                                                                            Style.RESET_ALL))
+
             raise insert_update_host_error
         else:
             logger.info(host_id)
-        
+
         # Unique Data FTM
         hostname = hostdata["collection_hostname"]
-        
-        
+
         storage_stats["collection_timestamp"] = hostdata["collection_timestamp"]
-        
+
         try:
             storage_stats["inserts"], storage_stats["updates"], storage_stats["errors"] = insert_update_collections(db_conn,
                                                                                                                     host_id,
@@ -405,7 +418,7 @@ def storage(config_items, hostdata, sapi=False):
                                                                                       hostname,
                                                                                       Style.RESET_ALL))
             logger.debug("Error : {}".format(insert_update_collections_error))
-            
+
             raise insert_update_collections_error
 
     except Exception as dbconnection_error:
@@ -417,8 +430,8 @@ def storage(config_items, hostdata, sapi=False):
         storage_stats["errors"] = 1
     else:
         logger.info("{}Updating Collection Success{}{}".format(Fore.GREEN,
-                                                                storage_stats,
-                                                                Style.RESET_ALL))
+                                                               storage_stats,
+                                                               Style.RESET_ALL))
 
         # Updating Collection has been a success Let's check if this is a sapi host.
         if sapi is True:
@@ -438,21 +451,23 @@ def storage(config_items, hostdata, sapi=False):
                                                host_id=host_id)
             bad_results = [res for res in result if res not in (200, 202)]
             if len(bad_results) == 0:
-                logger.info("{}IP Intel : {} for host {}{}".format(Fore.GREEN, result, hostname, Style.RESET_ALL))
+                logger.info("{}IP Intel : {} for host {}{}".format(
+                    Fore.GREEN, result, hostname, Style.RESET_ALL))
             else:
-                logger.error("{}IP Intel : {} for host {}{}".format(Fore.RED, result, hostname, Style.RESET_ALL))
+                logger.error("{}IP Intel : {} for host {}{}".format(
+                    Fore.RED, result, hostname, Style.RESET_ALL))
 
     try:
         db_conn.commit()
         db_conn.close()
     except Exception as e:
-        logger.error("{}Error Closing DB Connection{}".format(Fore.RED, Style.RESET_ALL))
+        logger.error("{}Error Closing DB Connection{}".format(
+            Fore.RED, Style.RESET_ALL))
 
     if __name__ == "__main__":
         print(json.dumps(storage_stats, sort_keys=True, indent=4))
 
     return storage_stats
-
 
 
 if __name__ == "__main__":

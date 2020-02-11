@@ -9,16 +9,17 @@ import hashlib
 
 # Validate Key
 
-def validate_key(username=None, giventoken=None, dbcur=None, tokentype="sapi") :
+
+def validate_key(username=None, giventoken=None, dbcur=None, tokentype="sapi"):
 
     # Grab All Tokens
     # select * from sapiActiveTokens join sapiUsers on sapiUsers.sapiuid = sapiActiveTokens.fk_sapikeyid where token_expire_date > NOW() ;
 
-    if username == None :
+    if username == None:
         return False
-    elif giventoken == None :
+    elif giventoken == None:
         return False
-    elif dbcur == None :
+    elif dbcur == None:
         return False
 
     available_tokens_sql = '''select apiUsers.apiuid
@@ -29,7 +30,7 @@ def validate_key(username=None, giventoken=None, dbcur=None, tokentype="sapi") :
                                 and tokentype = %s
                                 and token=SHA2(CONCAT(salt,%s),512)'''
 
-    token_sql_values = ( username , tokentype, giventoken )
+    token_sql_values = (username, tokentype, giventoken)
 
     # Get My User's Tokens
 
@@ -37,14 +38,14 @@ def validate_key(username=None, giventoken=None, dbcur=None, tokentype="sapi") :
         #print(dbcur.mogrify(available_tokens_sql, token_sql_values))
         dbcur.execute(available_tokens_sql, token_sql_values)
         all_tokens = dbcur.fetchone()
-    except Exception as error :
+    except Exception as error:
         print("Error with DB Connection, ", str(error))
         return False
-    else :
-        if all_tokens == None :
+    else:
+        if all_tokens == None:
             # No Tokens Found
             return False
-        else :
+        else:
             # There was a match!
             return True
     return False

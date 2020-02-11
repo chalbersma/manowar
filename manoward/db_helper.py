@@ -59,21 +59,21 @@ _ar_filters = {"bucket": {"req_type": str,
                           "sql_param": True,
                           "sql_clause": "audits_by_host.bucket REGEXP %s",
                           "sql_exact_clause": "audits_by_host.bucket = %s",
-                          "qdeparse" : True},
+                          "qdeparse": True},
                "auditResult": {"req_type": str,
                                "default": None,
                                "required": False,
                                "sql_param": True,
                                "sql_clause": "audits_by_host.audit_result REGEXP %s",
                                "sql_exact_clause": "audits_by_host.audit_result = %s",
-                               "qdeparse" : True},
+                               "qdeparse": True},
                "auditResultText": {"req_type": str,
                                    "default": None,
                                    "required": False,
                                    "sql_param": True,
                                    "sql_clause": "audits_by_host.audit_result_text REGEXP %s",
                                    "sql_exact_clause": "audits_by_host.audit_result_text = %s",
-                                   "qdeparse" : True}}
+                                   "qdeparse": True}}
 
 _exact_filter = {"exact": {"req_type": str,
                            "default": None,
@@ -104,42 +104,40 @@ def process_args(definitions, this_request_args, **kwargs):
     '''
 
     logger = logging.getLogger("db_helper.process_args")
-    
-    
+
     return_dict = dict()
 
     return_dict["args_clause"] = list()
     return_dict["args_clause_args"] = list()
     return_dict["qdeparsed"] = dict()
     return_dict["qdeparsed_string"] = str()
-    
+
     return_dict["all_common_keys"] = list()
     return_dict["common_qdeparsed_string"] = str()
 
     if kwargs.get("include_hosts_sql", False) is True:
         logger.info("Including Default Host Arguments with SQL Limitations")
         definitions = {**_hosts_sql, **definitions}
-        
+
         return_dict["all_common_keys"].extend(list(_hosts_sql.keys()))
 
     if kwargs.get("include_ar_sql", False) is True:
         logger.info("Including Audit Result Host Arguments with Limitations.")
         definitions = {**_ar_filters, **definitions}
-        
+
         return_dict["all_common_keys"].extend(list(_ar_filters.keys()))
 
     if kwargs.get("include_coll_sql", False) is True:
         logger.info("Including Default Collections SQL Limitations")
         definitions = {**_collection_filters, **definitions}
-        
+
         return_dict["all_common_keys"].extend(list(_collection_filters.keys()))
 
     if kwargs.get("include_exact", False) is True:
         logger.info("Including Exact Host Arguments.")
         definitions = {**_exact_filter, **definitions}
-        
-        return_dict["all_common_keys"].extend(list(_exact_filter.keys()))
 
+        return_dict["all_common_keys"].extend(list(_exact_filter.keys()))
 
     if kwargs.get("coll_lulimit", None) is not None and isinstance(kwargs["coll_lulimit"], int):
         # Collections Specific
@@ -242,12 +240,14 @@ def process_args(definitions, this_request_args, **kwargs):
                     return_dict["qdeparsed"][this_var] = return_dict[this_var]
 
     if len(return_dict["qdeparsed"]) > 0:
-        return_dict["qdeparsed_string"] = urllib.parse.urlencode(return_dict["qdeparsed"])
-    
-    if len(return_dict["all_common_keys"]) > 0:
-        return_dict["common_qdeparsed"] = {k: return_dict[k] for k in return_dict["all_common_keys"] if return_dict[k] is not None}
-        return_dict["common_qdeparsed_string"] = urllib.parse.urlencode(return_dict["common_qdeparsed"])
+        return_dict["qdeparsed_string"] = urllib.parse.urlencode(
+            return_dict["qdeparsed"])
 
+    if len(return_dict["all_common_keys"]) > 0:
+        return_dict["common_qdeparsed"] = {
+            k: return_dict[k] for k in return_dict["all_common_keys"] if return_dict[k] is not None}
+        return_dict["common_qdeparsed_string"] = urllib.parse.urlencode(
+            return_dict["common_qdeparsed"])
 
     return return_dict
 

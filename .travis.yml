@@ -22,9 +22,9 @@ before_script:
 - gem install mdl
 script:
 - "./travis/testing.sh"
-- pylint-fail-under --fail_under 9.0 manward
-- pylint-fail-under --fail_under 9.0 jelly_api_2 
-- pylint-fail-under --fail_under 9.0 audittools
+- pylint-fail-under --fail_under 6.0 manoward
+- pylint-fail-under --fail_under 6.0 jelly_api_2 
+- pylint-fail-under --fail_under 6.0 audittools
 - "./travis/swagger_test.sh"
 - "./travis/swagger_build.sh"
 - "./travis/api_test.sh"

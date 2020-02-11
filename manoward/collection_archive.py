@@ -19,21 +19,24 @@ import manoward
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--config", help="JSON Config File with our Storage Info", required=True)
-    parser.add_argument("-V", "--verbose", action="store_true", help="Enable Verbose Mode")
+    parser.add_argument(
+        "-c", "--config", help="JSON Config File with our Storage Info", required=True)
+    parser.add_argument("-V", "--verbose", action="store_true",
+                        help="Enable Verbose Mode")
     parser._optionals.title = "DESCRIPTION "
 
     # Parser Args
     args = parser.parse_args()
 
     # Grab Variables
-    CONFIG=args.config
-    VERBOSE=args.verbose
+    CONFIG = args.config
+    VERBOSE = args.verbose
 
-def archive_collections(CONFIG, age=90) :
-    
+
+def archive_collections(CONFIG, age=90):
+
     logger = logging.getLogger("collection_archive")
-    
+
     # Parse my General Configuration
     if isinstance(CONFIG, dict):
         config_items = CONFIG
@@ -42,20 +45,20 @@ def archive_collections(CONFIG, age=90) :
     else:
         raise TypeError("No Configuration Given.")
 
-    
-    db_conn = manoward.get_conn(config_items, prefix="store_", tojq=".database", ac_def=True)
-    
+    db_conn = manoward.get_conn(
+        config_items, prefix="store_", tojq=".database", ac_def=True)
+
     cur = db_conn.cursor()
 
     archive_ts = int(time.time())
-    
+
     logger.debug("Archive ts: {}".format(archive_ts))
 
     populate_archive_sql = '''REPLACE INTO collection_archive
                                 SELECT * FROM collection
                                 WHERE
                                 last_update < FROM_UNIXTIME(%s) -  interval %s DAY ; '''
-                                
+
     remove_overachieving_sql = '''DELETE FROM collection
                                     WHERE last_update < FROM_UNIXTIME(%s) - interval %s DAY ; '''
 
@@ -68,22 +71,25 @@ def archive_collections(CONFIG, age=90) :
                                      do_abort=False)
 
     if copy_action["has_error"] is True:
-        logger.error("{}Had an Error When Running Archive. Ignoring Delete{}".format(Fore.RED, Style.RESET_ALL))
+        logger.error("{}Had an Error When Running Archive. Ignoring Delete{}".format(
+            Fore.RED, Style.RESET_ALL))
     else:
         # Run Delete
         logger.info("Archive Worked Swimmingly. Let's Go Ahead and Delete.")
-        
+
         delete_action = manoward.run_query(cur,
                                            remove_overachieving_sql,
                                            args=archive_args,
                                            require_results=False,
                                            do_abort=False)
-        
+
         if delete_action["has_error"] is True:
-            logger.error("{}Error when deleting the Excess.{}".format(Fore.RED, Style.RESET_ALL))
+            logger.error("{}Error when deleting the Excess.{}".format(
+                Fore.RED, Style.RESET_ALL))
         else:
-            logger.info("{}Collection Table Archived {}".format(Fore.GREEN, Style.RESET_ALL))
-    
+            logger.info("{}Collection Table Archived {}".format(
+                Fore.GREEN, Style.RESET_ALL))
+
 
 if __name__ == "__main__":
     archive_collections(CONFIG)
