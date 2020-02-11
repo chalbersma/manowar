@@ -26,11 +26,6 @@ for file in ${python_files} ; do
     echo -e "BANDIT: ${file} good."
   fi
 
-  pylint-fail-under --fail_under 6.0 ${file}
-  if [[ $? -gt 0 ]] ; then
-    pylint_failure="fail"
-  fi
-
 done
 
 if [[ $bandit_failure == "fail" ]] ; then
