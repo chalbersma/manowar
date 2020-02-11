@@ -36,6 +36,7 @@ if __name__ == "__main__":
     analyze_parser = subparsers.add_parser("analyze", help="Run an Analyze Audits Job")
     analyze_parser.add_argument("-a", "--auditdir", help="Directory that Contains the audits", required=False, action='append')
     analyze_parser.add_argument("-p", "--print", action='store_true', help="Print Results", default=False)
+    analyze_parser.add_argument("-n", "--newerthan", help="Audit Files newer than this (-1 to disable)", default=-1, type=int)
 
     collate_parser = subparsers.add_parser("collate", help="Run an Collation of Audits Job")
     collate_parser.add_argument("-p", "--print", action='store_true', help="Print Results", default=False)
@@ -111,7 +112,7 @@ if __name__ == "__main__":
                 if os.isdir(this_path) is True:
                     CONFIGDIR.append(this_path)
         
-        analyze_stats = analyze(configdirs, CONFIG)
+        analyze_stats = analyze(configdirs, CONFIG, newer=args.newerthan)
 
         if args.print is True:
             print(json.dumps(analyze_stats, sort_keys=True, indent=4))

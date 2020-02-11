@@ -81,7 +81,7 @@ if __name__ == "__main__":
                                    only_file=False)
 
 
-def analyze(CONFIGDIR, CONFIG):
+def analyze(CONFIGDIR, CONFIG, newer=-1):
     
     '''
     The Main driver for the analyze process. Will load and process analyze items.
@@ -111,7 +111,7 @@ def analyze(CONFIGDIR, CONFIG):
         # Read all my Audits
         audits = dict()
         for auditfile in auditfiles:
-
+            
             these_audits = audittools.load_auditfile(auditfile)
 
             for found_audit_name in these_audits.keys():

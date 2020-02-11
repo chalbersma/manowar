@@ -160,12 +160,12 @@ def load_auditfile(auditfile):
                             logger.debug("INI Exception on AST Parsing {}:{} : {}".format(section, item, ast_error))
 
         else:
-            # This is a YAML or JSON file just use it
             for section in this_audit_config.keys():
                 if isinstance(this_audit_config[section], dict):
 
                     # Add Default Filename and Data
-                    audits[section] = {"filename" : auditfile, **this_audit_config[section]}
+                    audits[section] = {"filename" : auditfile, 
+                                       **this_audit_config[section]}
 
     logger.info("File {} Returning {} Audits.".format(auditfile, len(audits.keys())))
     logger.debug("File {} Returning Audits {}".format(auditfile, ",".join(audits.keys())))
@@ -184,7 +184,7 @@ def verifySingleAudit(auditfile):
 
     field_strings = ["vuln-name", "vuln-short-description", "vuln-primary-link", "vuln-long-description"]
     field_ints = ["vuln-priority"]
-    field_ints_optional = ["now", "monthago", "threeyearago", "quarterago", "weekago", "yearago"]
+    field_ints_optional = ["now", "monthago", "threeyearago", "quarterago", "weekago", "yearago", "auditts"]
     field_dicts = ["vuln-additional-links", "filters", "comparisons"]
     field_uncontrolled = ["filename", "jellyfishversion"]
     max_fields = field_strings + field_ints + field_dicts + field_uncontrolled + field_ints_optional

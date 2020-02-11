@@ -48,7 +48,10 @@ class AuditSource:
                            "vuln-long-description" : None,
                            "comparisons" : kwargs.get("comparisons", dict()),
                            "filters" : kwargs.get("filters", dict()),
-                           "jellyfishversion" : 2}
+                           "jellyfishversion" : "2.6", }
+        
+        if isinstance(kwargs.get("auditts"), int):
+            self.audit_data["auditts"] = kwargs["auditts"]
 
     def return_audit(self):
 
@@ -120,7 +123,7 @@ class AuditSource:
 
         self.assert_writeability()
 
-        if file_format not in ("json", "yaml", "ini"):
+        if file_format not in ("json", "yaml"):
             raise ValueError("File Format Incorrect.")
 
         if self.validate_audit_live() is False:

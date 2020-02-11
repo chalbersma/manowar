@@ -27,7 +27,8 @@ echo ${TRAVIS_BRANCH}
 echo ${TRAVIS_REPO_SLUG}
 echo ${TRAVIS_EVENT_TYPE}
 
-if [[ ${TRAVIS_BRANCH} == "master" && ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" && ${TRAVIS_REPO_SLUG} == "chalbersma/manowar" && ${TRAVIS_EVENT_TYPE} == "push" ]] ; then
+if [[ ${TRAVIS_BRANCH} == "master" && ${TRAVIS_PULL_REQUEST_BRANCH} == "staging" 
+      && ${TRAVIS_REPO_SLUG} == "chalbersma/manowar" && ${TRAVIS_EVENT_TYPE} == "pull_request" ]] ; then
 
   echo -e "Vars: ${TRAVIS_PULL_REQUEST_BRANCH} -> ${TRAVIS_BRANCH} in ${TRAVIS_PULL_REQUEST_SLUG} type ${TRAVIS_EVENT_TYPE}"
 
