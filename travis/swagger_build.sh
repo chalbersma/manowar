@@ -2,7 +2,7 @@
 
 set -x
 
-./manowar_server -vv swagger -d ./jelly_api_2/ -t ./openapi3/openapi3.yml.jinja -o ~/tmp/swagger.json
+./manowar_server -vv swagger -d ./jelly_api_2/ -t ./openapi3/openapi3.yml.jinja -o /tmp/swagger.json
 
 swagger_build_status=$?
 
