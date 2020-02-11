@@ -15,7 +15,8 @@ bandit_failure="pass"
 pylint_failure="pass"
 for file in ${python_files} ; do
   this_temp=$(mktemp /tmp/banditout.XXXXX)
-  bandit "${file}" > "${this_temp}"
+  # -ll -ii get's medium confidence medium severity findings and above
+  bandit -ll -ii "${file}" > "${this_temp}"
   this_file_good=$?
   if [[ ${this_file_good} -gt 0 ]] ; then
     echo -e "BANDIT: ${file} had issues please investigate."

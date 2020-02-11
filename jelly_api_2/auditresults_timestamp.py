@@ -118,7 +118,7 @@ def api2_auditresults_timestamp(request_timestamp=0, audit_id=0):
                                     join audits on fk_audits_id = audit_id
                                     where {}
                                     group by fk_host_id
-                                    '''.format(" and ".join(args["args_clause"]))
+                                    '''.format(" and ".join(args["args_clause"])) 
 
     results = manoward.run_query(g.cur,
                                   audit_result_ts_query,
