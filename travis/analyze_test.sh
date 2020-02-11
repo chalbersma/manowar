@@ -10,7 +10,7 @@ analyze_good=$?
 if [[ ${analyze_good} -eq 0 ]] ; then
 	# Analyze Worked, let's try to collate
 	# Collate Here
-	./manowar_server -vvv -c travis/artifacts/manoward.yaml collate -vvv
+	./manowar_server -vvv -c travis/artifacts/manoward.yaml collate
 
 	collate_good=$?
 
