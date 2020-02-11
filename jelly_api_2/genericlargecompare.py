@@ -132,7 +132,7 @@ import os
 import hashlib
 import urllib
 import requests
-from generic_large_compare import generic_large_compare
+from manoward.generic_large_compare import generic_large_compare
 #import apt
 
 genericlargecompare = Blueprint('api2_genericlargecompare', __name__)

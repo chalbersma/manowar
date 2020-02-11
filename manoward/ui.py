@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 '''
-Copyright 2018, VDMS
+Copyright 2018, 2020 VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 '''
 
 import logging
-from configparser import ConfigParser
+#from configparser import ConfigParser
 import argparse
 import json
 import ast
@@ -21,10 +21,12 @@ from flask_cors import CORS, cross_origin
 import pymysql
 import yaml
 
-from tokenmgmt import validate_key
-from generic_large_compare import generic_large_compare
-import db_helper
-import pull_swagger
+
+import manoward
+import manoward.pull_swagger
+
+from manoward.tokenmgmt import validate_key
+from manoward.generic_large_compare import generic_large_compare
 
 
 if __name__ == "__main__":
@@ -56,7 +58,7 @@ if __name__ == "__main__":
     FDEBUG = args.flaskdebug
     LOGGER.debug("Is Debug {}".format(FDEBUG))
 
-    CONFIG = db_helper.get_manoward(explicit_config=args.config,
+    CONFIG = manoward.get_manoward(explicit_config=args.config,
                                     only_file=False)
     
 
@@ -67,12 +69,24 @@ def ui(CONFIG, FDEBUG):
 
     Reads Configs, loads individual api calls etc...
     '''
+    
+    _swagger_loc = "manoward/static/sw/swagger.json"
 
     logger = logging.getLogger("ui.ui")
 
     config_items = CONFIG
 
     logger.debug("Configuration Items: {}".format(config_items))
+    
+    if FDEBUG is True:
+        logger.debug("Debug Mode, Updating Swagger Definitions")
+        
+        swaggerPieces = manoward.pull_swagger.generateSwaggerPieces("jelly_api_2")
+
+        manoward.pull_swagger.generateOutputFile(swaggerPieces["data"], _swagger_loc, "openapi3/openapi3.yml.jinja")
+        
+
+        logger.debug("Swagger written to {}".format(_swagger_loc))
 
     # Ensure Cache Dir is There, if not Make it
     cacheDir = config_items['v2api']['cachelocation']
@@ -99,7 +113,7 @@ def ui(CONFIG, FDEBUG):
     def before_request():
         try:
 
-            g.db = db_helper.get_conn(config_items, prefix="api_", tojq=".database", ac_def=True)
+            g.db = manoward.get_conn(config_items, prefix="api_", tojq=".database", ac_def=True)
 
             g.logger = logger
 
@@ -373,16 +387,5 @@ def ui(CONFIG, FDEBUG):
 
 # Run if Execute from CLI
 if __name__ == "__main__":
-
-    if FDEBUG is True:
-        LOGGER.debug("Debug Mode, Updating Swagger Definitions")
-
-        _swagger_loc = "static/sw/swagger.json"
-
-        swaggerPieces = pull_swagger.generateSwaggerPieces("jelly_api_2")
-
-        pull_swagger.generateOutputFile(swaggerPieces["data"], _swagger_loc, "openapi3/openapi3.yml.jinja")
-
-        LOGGER.debug("Swagger written to {}".format(_swagger_loc))
 
     ui(CONFIG, FDEBUG)

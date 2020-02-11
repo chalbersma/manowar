@@ -29,9 +29,9 @@ import saltcell.clientcollector
 
 
 # Local
-from sapicheck import grab_all_sapi
-import db_helper
-import storage
+import manoward
+
+from manoward.storage import storage
 
 
 if __name__ == "__main__":
@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    CONFIG = db_helper.get_manoward(explicit_config=args.config,
+    CONFIG = manoward.get_manoward(explicit_config=args.config,
                                     only_file=False)
     
     VERBOSE = len(args.verbose)
@@ -179,8 +179,9 @@ def dequeue_hosts(thread_num, host_queue, result_queue, this_configs):
             this_host = saltcell.clientcollector.Host(**collection_args)
             
             try:
-                this_store_stats = storage.storage(this_configs,
-                                                   this_host.todict())
+                this_store_stats = storage(this_configs,
+                                           this_host.todict())
+                
             except Exception as storage_error:
                 logger.error("Unable to Store Collected Items for {}".format(roster_id))
                 this_status[1] = True
@@ -256,7 +257,7 @@ def schedule(config_items, regex=None, shard=None, do_print=False):
 
     sapi_hosts_list = list()
 
-    found_sapi_hosts = grab_all_sapi(config_items)
+    found_sapi_hosts = manoward.grab_all_sapi(config_items)
     
     logger.info("Found {} Sapi Hosts to ignore".format(len(found_sapi_hosts)))
     

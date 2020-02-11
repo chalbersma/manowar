@@ -42,7 +42,7 @@ import hashlib
 
 from flask import current_app, Blueprint, g, request, jsonify, send_from_directory, abort
 
-import db_helper
+import manoward
 
 auditresults = Blueprint('api2_auditresults', __name__)
 
@@ -65,7 +65,7 @@ def api2_auditresults(audit_id=0):
                                         "positive": True},
                            }
 
-    args = db_helper.process_args(args_def, request.args, include_hosts_sql=True,
+    args = manoward.process_args(args_def, request.args, include_hosts_sql=True,
                                   include_ar_sql=True,
                                   include_exact=True, abh_limit=g.twoDayTimestamp)
 
@@ -96,7 +96,7 @@ def api2_auditresults(audit_id=0):
                             join audits on fk_audits_id = audit_id
                             where {}'''.format(" and ".join(args["args_clause"]))
 
-    results = db_helper.run_query(g.cur,
+    results = manoward.run_query(g.cur,
                                   audit_result_query,
                                   args=args["args_clause_args"],
                                   one=False,

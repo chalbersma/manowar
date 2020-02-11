@@ -11,7 +11,7 @@ import requests
 
 from flask import current_app, Blueprint, g, request, jsonify, render_template, abort
 
-import db_helper
+import manoward
 
 display_swagger_ui = Blueprint('display_swagger', __name__)
 

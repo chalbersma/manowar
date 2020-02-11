@@ -12,7 +12,7 @@ import ast
 import requests
 from flask import current_app, Blueprint, g, request, jsonify, render_template, abort
 
-import db_helper
+import manoward
 
 auditinfo = Blueprint('auditinfo', __name__)
 
@@ -28,7 +28,7 @@ def display2_auditinfo(audit_id="0"):
                              "positive" : True,
                              "required": True}}
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args)
 
     argument_error = False

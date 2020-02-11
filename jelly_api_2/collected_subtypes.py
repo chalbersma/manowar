@@ -42,7 +42,7 @@ import os
 
 from flask import current_app, Blueprint, g, request, jsonify, send_from_directory
 
-import db_helper
+import manoward
 
 
 collected_subtypes = Blueprint('api2_collected_subtype', __name__)
@@ -65,7 +65,7 @@ def api2_collected_types(ctype="none"):
                        "qdeparse": False}
                 }
 
-    args = db_helper.process_args(args_def, request.args, lulimit=g.twoDayTimestamp)
+    args = manoward.process_args(args_def, request.args, lulimit=g.twoDayTimestamp)
 
     meta_dict = dict()
     request_data = list()
@@ -89,7 +89,7 @@ def api2_collected_types(ctype="none"):
     collected_subtype_query='''select distinct(collection_subtype) as subtype_name from collection
                                     where {}'''.format(" and ".join(args["args_clause"]))
 
-    results = db_helper.run_query(g.cur,
+    results = manoward.run_query(g.cur,
                                   collected_subtype_query,
                                   args=args["args_clause_args"],
                                   one=False,

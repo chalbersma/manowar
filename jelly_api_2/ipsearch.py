@@ -68,7 +68,7 @@ import ipaddress
 
 from flask import current_app, Blueprint, g, request, jsonify, abort
 
-import db_helper
+import manoward
 
 ipsearch = Blueprint('api2_ipsearch', __name__)
 
@@ -111,7 +111,7 @@ def api2_ipsearch(ip=None):
                            "sql_param": False}  # Custom Handling for this
                 }
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   lulimit=g.twoDayTimestamp,
                                   include_hosts_sql=True,
@@ -175,7 +175,7 @@ def api2_ipsearch(ip=None):
                         join hosts on ip_intel.fk_host_id = hosts.host_id
                         where {}'''.format(" and ".join(args["args_clause"]))
 
-    results = db_helper.run_query(g.cur,
+    results = manoward.run_query(g.cur,
                                   ip_search_query,
                                   args=args["args_clause_args"],
                                   one=False,

@@ -27,13 +27,15 @@ from queue import Queue
 
 import yaml
 
-# Analyze Specific
-from generic_large_compare import generic_large_compare
-from generic_large_analysis_store import generic_large_analysis_store
-from subtype_large_compare import subtype_large_compare
 
+import manoward 
 import audittools
-import db_helper
+
+# Analyze Specific
+from manoward.generic_large_compare import generic_large_compare
+from manoward.generic_large_analysis_store import generic_large_analysis_store
+from manoward.subtype_large_compare import subtype_large_compare
+
 
 
 if __name__ == "__main__":
@@ -74,7 +76,7 @@ if __name__ == "__main__":
 
     LOGGER = logging.getLogger("analyze.py")
 
-    CONFIG = db_helper.get_manoward(explicit_config=args.config,
+    CONFIG = manoward.get_manoward(explicit_config=args.config,
                                     only_file=False)
 
 def analyze(CONFIGDIR, CONFIG):
@@ -90,7 +92,7 @@ def analyze(CONFIGDIR, CONFIG):
     if isinstance(CONFIG, dict):
         config_items = CONFIG
     elif isinstance(CONFIG, str):
-        config_items = db_helper.get_manoward(explicit_config=CONFIG)
+        config_items = manoward.get_manoward(explicit_config=CONFIG)
     else:
         raise TypeError("No Configuration Given.")
 
@@ -167,7 +169,7 @@ def analyze(CONFIGDIR, CONFIG):
 
         try:
             # I multithread like a boss now. :) JK But I need to give each audit it's own conn to the DB:
-            db_conn = db_helper.get_conn(db_config_items, prefix="analyze_", tojq=".database", ac_def=True)
+            db_conn = manoward.get_conn(db_config_items, prefix="analyze_", tojq=".database", ac_def=True)
 
             #
             host_buckets = dict()
@@ -472,7 +474,7 @@ def analyze(CONFIGDIR, CONFIG):
         this_audit_filename = audit["filename"]
         this_audit_priority = audit.get("vuln-priority", 5 )
 
-        db_conn = db_helper.get_conn(db_config_items, prefix="analyze_", tojq=".database", ac_def=True)
+        db_conn = manoward.get_conn(db_config_items, prefix="analyze_", tojq=".database", ac_def=True)
 
         cur = db_conn.cursor()
 
@@ -584,7 +586,7 @@ def analyze(CONFIGDIR, CONFIG):
 
     #try:
     try:
-        db_conn = db_helper.get_conn(config_items, prefix="analyze_", tojq=".database", ac_def=True)
+        db_conn = manoward.get_conn(config_items, prefix="analyze_", tojq=".database", ac_def=True)
         dbmessage = "Connected"
     except Exception as db_conn_error:
         dbmessage = "Unable to Connect"

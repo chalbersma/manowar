@@ -11,7 +11,7 @@ import requests
 
 from flask import current_app, Blueprint, g, request, jsonify, render_template, abort
 
-import db_helper
+import manoward
 
 display_subtypes_filtered = Blueprint('display2_subtypes_filtered', __name__)
 
@@ -33,7 +33,7 @@ def display2_subtypes_filtered(ctype=None):
                               "enum" : ("true", "false")}
                 }
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   include_hosts_sql=True,
                                   include_coll_sql=True,

@@ -49,7 +49,7 @@ import time
 
 from flask import current_app, Blueprint, g, request, jsonify, abort
 
-import db_helper
+import manoward
 
 auditlist = Blueprint('api2_auditlist', __name__)
 
@@ -88,7 +88,7 @@ def api2_auditlist(audit_name=None, audit_priority=None, audit_description=None,
                                            "qdeparse": True},
                 }
 
-    args = db_helper.process_args(args_def, request.args)
+    args = manoward.process_args(args_def, request.args)
 
     meta_info = dict()
     meta_info["version"] = 2
@@ -124,7 +124,7 @@ def api2_auditlist(audit_name=None, audit_priority=None, audit_description=None,
 
     audit_list_query = audit_list_query + where_full_string
 
-    results = db_helper.run_query(g.cur,
+    results = manoward.run_query(g.cur,
                                   audit_list_query,
                                   args=args["args_clause_args"],
                                   one=False,

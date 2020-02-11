@@ -34,10 +34,8 @@ import logging
 
 from flask import current_app, Blueprint, g, request, jsonify
 
-import endorsementmgmt
-
-from storageJSONVerify import storageJSONVerify
-from storage import storage
+import manoward
+from manoward.storage import storage
 
 puthostjson = Blueprint('puthostjson', __name__)
 
@@ -60,7 +58,7 @@ def generic_puthostjson():
 
     this_endpoint_endorsements = (("conntype", "sapi"),)
 
-    endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements,
+    manoward.process_endorsements(endorsements=this_endpoint_endorsements,
                                          session_endorsements=g.session_endorsements,
                                          ignore_abort=g.debug)
 

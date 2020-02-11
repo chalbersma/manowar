@@ -43,7 +43,7 @@ import time
 
 from flask import current_app, Blueprint, g, request, jsonify, abort
 import audittools
-import db_helper
+import manoward
 
 
 auditinfo_buckets = Blueprint('api2_auditinfo_buckets', __name__)
@@ -85,7 +85,7 @@ def api2_auditinfo_buckets(audit_id=0):
         g.logger.error("Zero or Negative Bucket ID Given")
         abort(404)
 
-    run_result = db_helper.run_query(g.cur,
+    run_result = manoward.run_query(g.cur,
                                      select_query,
                                      args=[audit_id],
                                      one=True,

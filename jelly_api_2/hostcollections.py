@@ -48,7 +48,7 @@ import hashlib
 
 from flask import current_app, Blueprint, g, request, jsonify, send_from_directory, abort
 
-import db_helper
+import manoward
 
 hostcollections = Blueprint('api2_hostcollections', __name__)
 
@@ -72,7 +72,7 @@ def api2_hostcollections(host_id=0):
                           "qdeparse": True}
                }
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   coll_lulimit=g.twoDayTimestamp,
                                   include_coll_sql=True,
@@ -110,7 +110,7 @@ def api2_hostcollections(host_id=0):
                                 where {}
                                 group by collection_type, collection_subtype'''.format("  and  ".join(args["args_clause"]))
 
-    results = db_helper.run_query(g.cur,
+    results = manoward.run_query(g.cur,
                                   host_collections_query,
                                   args=args["args_clause_args"],
                                   one=False,

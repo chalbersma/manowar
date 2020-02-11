@@ -20,10 +20,7 @@ import pymysql
 # Printing Stuff
 from colorama import Fore, Back, Style
 
-# IP Intelligence
-from process_ip_intel import process_ip_intel
-
-import db_helper
+import manoward
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -36,7 +33,7 @@ if __name__ == "__main__":
 
     # Grab Variables
     JSONFILE = args.json
-    CONFIG = db_helper.get_manoward(explicit_config=args.config,
+    CONFIG = manoward.get_manoward(explicit_config=args.config,
                                     only_file=False)
 
     VERBOSE = len(args.verbose)
@@ -378,7 +375,7 @@ def storage(config_items, hostdata, sapi=False):
     storage_stats = dict()
     storage_stats["storage_timestamp"] = STORAGE_TIME
 
-    db_conn = db_helper.get_conn(config_items, prefix="store_", tojq=".database", ac_def=False)
+    db_conn = manoward.get_conn(config_items, prefix="store_", tojq=".database", ac_def=False)
 
     try:
         try:
@@ -436,9 +433,9 @@ def storage(config_items, hostdata, sapi=False):
 
         if do_ipintel is True and "ip_intel" in hostdata.keys():
             # Process the IP Intelligence for this host
-            result = process_ip_intel(config_dict=config_items,
-                                      multireport=hostdata["ip_intel"],
-                                      host_id=host_id)
+            result = manoward.process_ip_intel(config_dict=config_items,
+                                               multireport=hostdata["ip_intel"],
+                                               host_id=host_id)
             bad_results = [res for res in result if res not in (200, 202)]
             if len(bad_results) == 0:
                 logger.info("{}IP Intel : {} for host {}{}".format(Fore.GREEN, result, hostname, Style.RESET_ALL))

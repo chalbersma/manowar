@@ -51,7 +51,7 @@ import json
 import ast
 import time
 
-import db_helper
+import manoward
 
 
 dashboard = Blueprint('api2_dashboard', __name__)
@@ -74,7 +74,7 @@ def api2_dashboard(cust_dash_id=None):
                                   "positive" : True}
                }
 
-    args = db_helper.process_args(args_def, request.args)
+    args = manoward.process_args(args_def, request.args)
 
     requesttime=time.time()
 
@@ -164,7 +164,7 @@ JOIN audits ON audits.audit_id = maxdate.fk_audits_id
     # Select Query
     if do_query is True:
 
-        results = db_helper.run_query(g.cur,
+        results = manoward.run_query(g.cur,
                                       dashboard_query,
                                       args=dashboard_query_args,
                                       one=False,

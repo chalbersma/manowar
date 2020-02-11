@@ -57,7 +57,8 @@ import uuid
 #import secrets
 import string
 import random
-import endorsementmgmt
+
+import manoward
 
 sapi_addtoken = Blueprint('api2_sapi_addtoken', __name__)
 
@@ -78,7 +79,7 @@ def api2_sapi_addtoken(user=None, validfor=7, tokentype="sapi"):
     this_endpoint_restrictions = ( ("conntype","whitelist"), ("conntype","robot") )
     this_endpoint_endorsements = ( ("conntype","ldap"), )
 
-    endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements, \
+    manoward.process_endorsements(endorsements=this_endpoint_endorsements, \
                                             restrictions=this_endpoint_restrictions, \
                                             session_endorsements=g.session_endorsements, \
                                             session_restrictions=g.session_restrictions, \

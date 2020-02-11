@@ -57,7 +57,7 @@ import hashlib
 
 from flask import current_app, Blueprint, g, request, jsonify, send_from_directory, abort
 
-import db_helper
+import manoward
 
 auditresults_timestamp = Blueprint('api2_auditresults_timestamp', __name__)
 
@@ -84,7 +84,7 @@ def api2_auditresults_timestamp(request_timestamp=0, audit_id=0):
                                                  "positive": True}
                            }
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   include_hosts_sql=True,
                                   include_ar_sql=True,
@@ -120,7 +120,7 @@ def api2_auditresults_timestamp(request_timestamp=0, audit_id=0):
                                     group by fk_host_id
                                     '''.format(" and ".join(args["args_clause"]))
 
-    results = db_helper.run_query(g.cur,
+    results = manoward.run_query(g.cur,
                                   audit_result_ts_query,
                                   args=args["args_clause_args"],
                                   one=False,

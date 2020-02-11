@@ -52,7 +52,7 @@ import hashlib
 
 from flask import current_app, Blueprint, g, request, jsonify, send_from_directory
 
-import db_helper
+import manoward
 
 collected_subtypes_filtered = Blueprint('api2_collected_subtype_filtered', __name__)
 
@@ -80,7 +80,7 @@ def api2_collected_types_filtered(ctype="none"):
                               "qdeparse" : True}
                 }
 
-    args = db_helper.process_args(args_def, request.args,
+    args = manoward.process_args(args_def, request.args,
                                   coll_lulimit=g.twoDayTimestamp, include_hosts_sql=True,
                                   include_coll_sql=True, include_exact=True)
 
@@ -122,7 +122,7 @@ def api2_collected_types_filtered(ctype="none"):
                                               " and ".join(args["args_clause"]),
                                               group_by_string)
 
-    results = db_helper.run_query(g.cur,
+    results = manoward.run_query(g.cur,
                                   collected_subtype_query,
                                   args=args["args_clause_args"],
                                   one=False,

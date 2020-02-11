@@ -38,7 +38,7 @@ import os
 
 from flask import current_app, Blueprint, g, request, jsonify, abort
 
-import db_helper
+import manoward
 
 
 factorlist = Blueprint('api2_factorlist', __name__)
@@ -69,7 +69,7 @@ def api2_factorlist(factor="pop"):
                             "enum": ("pop", "srvtype")} # Extend when the time comes
                 }
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   lulimit=g.twoDayTimestamp,
                                   include_hosts_sql=True,
@@ -99,7 +99,7 @@ def api2_factorlist(factor="pop"):
                             where {}'''.format(args["factor"],
                                                "  and  ".join(args["args_clause"]))
 
-    results = db_helper.run_query(g.cur,
+    results = manoward.run_query(g.cur,
                                   factor_list_query,
                                   args=args["args_clause_args"],
                                   one=False,

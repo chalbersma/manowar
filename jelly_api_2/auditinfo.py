@@ -35,7 +35,7 @@ import ast
 import time
 from flask import current_app, Blueprint, g, request, jsonify, abort
 
-import db_helper
+import manoward
 
 
 auditinfo = Blueprint("api2_auditinfo", __name__)
@@ -55,7 +55,7 @@ def api2_auditinfo(audit_id=0):
                              "req_type": int,
                              "positive": True}}
 
-    args = db_helper.process_args(args_def, request.args)
+    args = manoward.process_args(args_def, request.args)
 
     requesttype = "Audit Details"
 
@@ -90,7 +90,7 @@ def api2_auditinfo(audit_id=0):
                             where audit_id = %s
                             order by audit_priority desc, audit_id desc ;"""
 
-    run_result = db_helper.run_query(g.cur,
+    run_result = manoward.run_query(g.cur,
                                      select_query,
                                      args=[args["audit_id"]],
                                      one=True,

@@ -11,7 +11,7 @@ import requests
 
 from flask import current_app, Blueprint, g, request, jsonify, render_template, abort
 
-import db_helper
+import manoward
 
 hostcollections = Blueprint('hostcollections', __name__)
 
@@ -36,7 +36,7 @@ def display2_hostcollections(host_id=0):
                           "qdeparse": True}
                }
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   include_coll_sql=True,
                                   include_exact=True)

@@ -58,10 +58,10 @@ from flask import current_app, Blueprint, g, request, jsonify
 import json
 import ast
 import requests
-import endorsementmgmt
 
-from storageJSONVerify import storageJSONVerify
-from storage import insert_update_collections
+import manoward
+
+from manoward.storage import insert_update_collections
 
 
 extendpopulationjson = Blueprint('extendpopulationjson', __name__)
@@ -92,8 +92,8 @@ def generic_extendpopulationjson():
 
     this_endpoint_endorsements = ( ("conntype","sapi"), )
 
-    endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements, \
-                                session_endorsements=g.session_endorsements )
+    manoward.process_endorsements(endorsements=this_endpoint_endorsements,
+                                  session_endorsements=g.session_endorsements )
 
 
     argument_error = False

@@ -45,7 +45,7 @@ import time
 import os
 import hashlib
 import re
-import endorsementmgmt
+import manoward
 
 custdashboard_create = Blueprint('api2_custdashboard_create', __name__)
 
@@ -66,7 +66,7 @@ def api2_custdashboard_create(dashboard_name=None, dashboard_description=None):
     this_endpoint_restrictions = ( ("conntype","whitelist"), ("conntype","robot") )
     this_endpoint_endorsements = ( ("conntype","ldap"), )
 
-    endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements, \
+    manoward.process_endorsements(endorsements=this_endpoint_endorsements, \
                                             restrictions=this_endpoint_restrictions, \
                                             session_endorsements=g.session_endorsements, \
                                             session_restrictions=g.session_restrictions, \

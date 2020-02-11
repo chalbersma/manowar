@@ -12,7 +12,7 @@ import urllib
 
 from flask import current_app, Blueprint, g, request, jsonify, render_template, abort
 
-import db_helper
+import manoward
 
 collatedresults = Blueprint('collatedresults', __name__)
 
@@ -36,7 +36,7 @@ def display2_collatedresults(collatedType=False, typefilter=False, auditID=False
                                 "qdeparse": True}
                 }
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args)
 
     meta_dict = dict()

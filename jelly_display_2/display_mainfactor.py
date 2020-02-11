@@ -12,7 +12,7 @@ import urllib
 
 from flask import current_app, Blueprint, g, request, jsonify, render_template, abort
 
-import db_helper
+import manoward
 
 mainfactor = Blueprint('mainfactor', __name__)
 
@@ -29,7 +29,7 @@ def display2_collatedresults(factor=None):
                             "enum": ("pop", "srvtype")}
                 }
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   include_hosts_sql=True,
                                   include_exact=True)

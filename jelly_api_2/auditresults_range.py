@@ -57,7 +57,7 @@ from datetime import date, timezone
 
 from flask import current_app, Blueprint, g, request, jsonify, send_from_directory, abort
 
-import db_helper
+import manoward
 
 auditresults_range = Blueprint('api2_auditresults_range', __name__)
 
@@ -82,7 +82,7 @@ def api2_auditresults_range(backdays=0, audit_id=0):
                                         "positive": True},
                            }
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   include_hosts_sql=True,
                                   include_ar_sql=True,
@@ -136,7 +136,7 @@ def api2_auditresults_range(backdays=0, audit_id=0):
     query_args = [[timestamp[0], timestamp[1], *args["args_clause_args"],
                    timestamp[2], timestamp[3]] for timestamp in check_timestamps]
 
-    run_result = db_helper.run_query(g.cur,
+    run_result = manoward.run_query(g.cur,
                                      audit_result_query,
                                      args=query_args,
                                      one=False,

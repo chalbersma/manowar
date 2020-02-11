@@ -43,7 +43,7 @@ import hashlib
 
 from flask import current_app, Blueprint, g, request, jsonify, send_from_directory
 
-import db_helper
+import manoward
 
 hostsearch = Blueprint('api2_hostsearch', __name__)
 
@@ -63,7 +63,7 @@ def api2_hostsearch():
                           "sql_exact_clause" : "collection.collection_type = %s",
                           "qdeparse": True}}
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   lulimit=g.twoDayTimestamp,
                                   include_hosts_sql=True,
@@ -108,12 +108,12 @@ def api2_hostsearch():
                                          " and ".join(args["args_clause"]))
 
 
-    results = db_helper.run_query(g.cur,
-                                  host_search,
-                                  args=args["args_clause_args"],
-                                  one=False,
-                                  do_abort=True,
-                                  require_results=False)
+    results = manoward.run_query(g.cur,
+                                 host_search,
+                                 args=args["args_clause_args"],
+                                 one=False,
+                                 do_abort=True,
+                                 require_results=False)
 
     for this_host in results.get("data", list()):
         this_results = dict()

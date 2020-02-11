@@ -36,7 +36,7 @@ import os
 from flask import current_app, Blueprint, g, request, jsonify, abort
 
 import audittools
-import db_helper
+import manoward
 
 cve_canonical = Blueprint('api2_cve_canonical', __name__)
 
@@ -59,7 +59,7 @@ def api2_cve_canonical(cve_name=None):
                              "qdeparse": False,
                              "regex_val" : r"^[Cc][Vv][Ee]-\d{4}-\d{4,9}$"}}
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args)
 
     meta_info = dict()

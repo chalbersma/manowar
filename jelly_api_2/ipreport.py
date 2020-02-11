@@ -55,13 +55,12 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 
 import json
 import ast
-import endorsementmgmt
 import ipaddress
 
 import requests
 from flask import current_app, Blueprint, g, request, jsonify
 
-import db_helper
+import manoward
 
 ipreport = Blueprint('api2_ipreport', __name__)
 
@@ -82,7 +81,7 @@ def api2_ipreport(hostid=None):
     # Enable this after testing
     this_endpoint_endorsements = ( ("conntype","ipintel"),("conntype","ldap"),("conntype","whitelist") )
 
-    endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements, \
+    manoward.process_endorsements(endorsements=this_endpoint_endorsements, \
                                          session_endorsements=g.session_endorsements, ignore_abort=g.debug)
 
     args_def = {"hostid": {"req_type": int,
@@ -106,7 +105,7 @@ def api2_ipreport(hostid=None):
                         "sql_param" : True,
                         "sql_clause" : " ip_hex=INET6_ATON(%s) "}}
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args)
 
     # Custom Validations

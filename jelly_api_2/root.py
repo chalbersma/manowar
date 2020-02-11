@@ -21,8 +21,6 @@ import json
 import ast
 import time
 
-import endorsementmgmt
-
 root = Blueprint('api2_root', __name__)
 
 @root.route("/")

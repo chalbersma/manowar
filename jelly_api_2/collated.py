@@ -58,7 +58,7 @@ import hashlib
 
 from flask import current_app, Blueprint, g, request, jsonify, send_from_directory, abort
 
-import db_helper
+import manoward
 
 collated = Blueprint('api2_collated', __name__)
 
@@ -87,7 +87,7 @@ def api2_collated(collatedType=False, typefilter=False, auditID=False):
                            "qdeparse": True}
                 }
 
-    args = db_helper.process_args(args_def, request.args)
+    args = manoward.process_args(args_def, request.args)
 
     meta_dict = dict()
     request_data = list()
@@ -122,7 +122,7 @@ def api2_collated(collatedType=False, typefilter=False, auditID=False):
                             GROUP BY {0}_text, fk_audits_id'''.format(collatedType,
                                                                       " and ".join(args["args_clause"]))
 
-    results = db_helper.run_query(g.cur,
+    results = manoward.run_query(g.cur,
                                   collated_query,
                                   args=args["args_clause_args"],
                                   one=False,

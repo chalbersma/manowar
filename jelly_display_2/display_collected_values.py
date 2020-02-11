@@ -12,7 +12,7 @@ import requests
 
 from flask import current_app, Blueprint, g, request, jsonify, render_template, abort
 
-import db_helper
+import manoward
 
 display_collected_values = Blueprint('display2_collected_values', __name__)
                                                                               
@@ -31,7 +31,7 @@ def display2_collected_values(ctype=None):
                           "required": True,
                           "qdeparse": False}}
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   include_hosts_sql=True,
                                   include_coll_sql=True,

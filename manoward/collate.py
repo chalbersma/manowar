@@ -26,7 +26,7 @@ import multiprocessing
 # Yes I use both!
 from queue import Queue
 
-import db_helper
+import manoward
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     # Parser Args
     args = parser.parse_args()
 
-    CONFIG = db_helper.get_manoward(explicit_config=args.config)
+    CONFIG = manoward.get_manoward(explicit_config=args.config)
 
     VERBOSE = len(args.verbose)
 
@@ -68,7 +68,7 @@ def collate(CONFIG):
     if isinstance(CONFIG, dict):
         config_items = CONFIG
     elif isinstance(CONFIG, str):
-        config_items = db_helper.get_manoward(explicit_config=CONFIG)
+        config_items = manoward.get_manoward(explicit_config=CONFIG)
     else:
         raise TypeError("No Configuration Given.")
 
@@ -86,7 +86,7 @@ def collate(CONFIG):
 
         logger = logging.getLogger("grab_single_collated")
 
-        db_conn = db_helper.get_conn(db_config, prefix="analyze_", tojq=".database", ac_def=True)
+        db_conn = manoward.get_conn(db_config, prefix="analyze_", tojq=".database", ac_def=True)
 
         cur = db_conn.cursor()
 
@@ -207,7 +207,7 @@ def collate(CONFIG):
         updates = 0
         inserts = 0
 
-        db_conn = db_helper.get_conn(db_config, prefix="analyze_", tojq=".database", ac_def=True)
+        db_conn = manoward.get_conn(db_config, prefix="analyze_", tojq=".database", ac_def=True)
 
         COLLATE_TIME = int(time())
 
@@ -334,7 +334,7 @@ def collate(CONFIG):
 
     def get_current_table_data(db_config, table):
 
-        db_conn = db_helper.get_conn(db_config, prefix="analyze_", tojq=".database", ac_def=True)
+        db_conn = manoward.get_conn(db_config, prefix="analyze_", tojq=".database", ac_def=True)
 
         cur = db_conn.cursor()
 

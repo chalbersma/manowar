@@ -12,7 +12,7 @@ import requests
 
 from flask import current_app, Blueprint, g, request, jsonify, render_template, abort
 
-import db_helper
+import manoward
 
 hostsearchresults = Blueprint('hostsearchresults', __name__)
                                                                               
@@ -26,7 +26,7 @@ def display2_hostsearchresults(exact=False, hostname=False, hoststatus=False, po
                           "sql_param": False,
                           "qdeparse": True}}
 
-    args = db_helper.process_args(args_def,
+    args = manoward.process_args(args_def,
                                   request.args,
                                   include_hosts_sql=True,
                                   include_coll_sql=True,

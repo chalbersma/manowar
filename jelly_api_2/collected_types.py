@@ -33,7 +33,7 @@ import os
 
 from flask import current_app, Blueprint, g, request, jsonify, send_from_directory
 
-import db_helper
+import manoward
 
 collected_types = Blueprint('api2_collected_type', __name__)
 
@@ -63,7 +63,7 @@ def api2_collected_types():
     collected_type_args = [g.twoDayTimestamp]
     collected_type_query = "select distinct(collection_type) from collection where last_update >= FROM_UNIXTIME(%s)"
 
-    results = db_helper.run_query(g.cur,
+    results = manoward.run_query(g.cur,
                                   collected_type_query,
                                   args=collected_type_args,
                                   one=False,

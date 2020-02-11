@@ -10,7 +10,7 @@ from configparser import ConfigParser
 import pymysql
 import logging
 
-import db_helper
+import manoward
 
 
 
@@ -20,7 +20,7 @@ def grab_all_sapi(config_items) :
 
     all_hosts = list()
         
-    db_conn = db_helper.get_conn(config_items, prefix="store_", tojq=".database", ac_def=True)
+    db_conn = manoward.get_conn(config_items, prefix="store_", tojq=".database", ac_def=True)
     db_cur = db_conn.cursor(pymysql.cursors.DictCursor)
     
     all_sapi_hosts_sql = "select hostname from sapiActiveHosts where last_updated >= (now() - INTERVAL 3 DAY) "
