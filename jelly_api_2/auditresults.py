@@ -51,7 +51,6 @@ auditresults = Blueprint('api2_auditresults', __name__)
 @auditresults.route("/auditresults/<int:audit_id>", methods=['GET'])
 @auditresults.route("/auditresults/<int:audit_id>/", methods=['GET'])
 def api2_auditresults(audit_id=0):
-
     '''
     Return the Audit Results for Particular Audit filtered by
     A series of Items.
@@ -66,8 +65,8 @@ def api2_auditresults(audit_id=0):
                            }
 
     args = manoward.process_args(args_def, request.args, include_hosts_sql=True,
-                                  include_ar_sql=True,
-                                  include_exact=True, abh_limit=g.twoDayTimestamp)
+                                 include_ar_sql=True,
+                                 include_exact=True, abh_limit=g.twoDayTimestamp)
 
     meta_dict = dict()
     request_data = list()
@@ -97,11 +96,11 @@ def api2_auditresults(audit_id=0):
                             where {}'''.format(" and ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
-                                  audit_result_query,
-                                  args=args["args_clause_args"],
-                                  one=False,
-                                  do_abort=True,
-                                  require_results=False)
+                                 audit_result_query,
+                                 args=args["args_clause_args"],
+                                 one=False,
+                                 do_abort=True,
+                                 require_results=False)
 
     for this_a_result in results.get("data", list()):
 

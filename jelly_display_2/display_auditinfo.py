@@ -22,16 +22,20 @@ auditinfo = Blueprint('auditinfo', __name__)
 @auditinfo.route("/auditinfo/<int:audit_id>")
 @auditinfo.route("/auditinfo/<int:audit_id>/")
 def display2_auditinfo(audit_id="0"):
+    
+    '''
+    Driver for non-bucket audit info. Loads the data from the database
+
+    Someday will load the bucketdata too.
+    '''
 
     args_def = {"audit_id": {"req_type": int,
                              "default": audit_id,
-                             "positive" : True,
+                             "positive": True,
                              "required": True}}
 
     args = manoward.process_args(args_def,
-                                  request.args)
-
-    argument_error = False
+                                 request.args)
 
     meta_dict = dict()
 
@@ -49,7 +53,8 @@ def display2_auditinfo(audit_id="0"):
         tr = requests.get(this_private_endpoint)
         content_object = tr.json()
     except Exception as api_error:
-        error_dict["Error Getting Endpoint"] = "Error getting endpoint: {}".format(api_error)
+        error_dict["Error Getting Endpoint"] = "Error getting endpoint: {}".format(
+            api_error)
         api_good = False
     else:
         g.logger.info(content_object)

@@ -42,26 +42,6 @@ else
   echo -e "Pylint Checks Passed"
 fi
 
-bash_files=$(find . -type d -wholename ./lib -prune -o \
-             -type d -wholename ./setup -prune -o \
-             -type d -prune -o \
-             -type f -regex ".*\.sh$")
-
-################### Bash Checks ######################################
-for file in ${bash_files} ; do
-  shellcheck "${file}"
-
-  was_shellcheck_good=$?
-
-  if [[ ${was_shellcheck_good} -gt 0 ]] ; then
-    echo -e "SHELLCHECK: ${file} had issues please investigate."
-    #exit 1
-  else
-    echo -e "SHELLCHECK: ${file} Good."
-  fi
-
-done
-
 ## Check Documentation
 mdl -s travis/artifacts/mdl_style source_docs
 

@@ -64,12 +64,12 @@ import manoward
 
 ipreport = Blueprint('api2_ipreport', __name__)
 
-@ipreport.route("/ip/report", methods=['GET','POST'])
-@ipreport.route("/ip/report/", methods=['GET','POST'])
-@ipreport.route("/ip/report/<int:hostid>", methods=['GET','POST'])
-@ipreport.route("/ip/report/<int:hostid>/", methods=['GET','POST'])
-def api2_ipreport(hostid=None):
 
+@ipreport.route("/ip/report", methods=['GET', 'POST'])
+@ipreport.route("/ip/report/", methods=['GET', 'POST'])
+@ipreport.route("/ip/report/<int:hostid>", methods=['GET', 'POST'])
+@ipreport.route("/ip/report/<int:hostid>/", methods=['GET', 'POST'])
+def api2_ipreport(hostid=None):
     '''
     Insert an IP Report For the given hostid
     '''
@@ -79,34 +79,35 @@ def api2_ipreport(hostid=None):
     links_dict = dict()
 
     # Enable this after testing
-    this_endpoint_endorsements = ( ("conntype","ipintel"),("conntype","ldap"),("conntype","whitelist") )
+    this_endpoint_endorsements = (
+        ("conntype", "ipintel"), ("conntype", "ldap"), ("conntype", "whitelist"))
 
-    manoward.process_endorsements(endorsements=this_endpoint_endorsements, \
-                                         session_endorsements=g.session_endorsements, ignore_abort=g.debug)
+    manoward.process_endorsements(endorsements=this_endpoint_endorsements,
+                                  session_endorsements=g.session_endorsements, ignore_abort=g.debug)
 
     args_def = {"hostid": {"req_type": int,
-                          "default": hostid,
-                          "required": True,
-                           "positive" : True,
+                           "default": hostid,
+                           "required": True,
+                           "positive": True,
                            "qdeparse": False,
-                           "sql_param" : True,
-                           "sql_clause" : " fk_host_id=%s "},
-                "iptype" : {"req_type" : str,
-                            "default" : None,
-                            "required" : True,
-                            "enum" : ("vips4","vips6","host4","host6","drac4", "drac6","netdev4","netdev6","unknown"),
-                            "qdeparse" : True,
-                            "sql_param" : True,
-                            "sql_clause" : " guessed_type=%s "},
-                "ip" : {"req_type" : str,
-                        "default" : None,
-                        "required" : True,
-                        "qdeparse" : True,
-                        "sql_param" : True,
-                        "sql_clause" : " ip_hex=INET6_ATON(%s) "}}
+                           "sql_param": True,
+                           "sql_clause": " fk_host_id=%s "},
+                "iptype": {"req_type": str,
+                           "default": None,
+                           "required": True,
+                           "enum": ("vips4", "vips6", "host4", "host6", "drac4", "drac6", "netdev4", "netdev6", "unknown"),
+                           "qdeparse": True,
+                           "sql_param": True,
+                           "sql_clause": " guessed_type=%s "},
+                "ip": {"req_type": str,
+                       "default": None,
+                       "required": True,
+                       "qdeparse": True,
+                       "sql_param": True,
+                       "sql_clause": " ip_hex=INET6_ATON(%s) "}}
 
     args = manoward.process_args(args_def,
-                                  request.args)
+                                 request.args)
 
     # Custom Validations
     try:
@@ -128,7 +129,8 @@ def api2_ipreport(hostid=None):
             self.logger.debug("{} is a multicast address.".format(this_ip))
             this_ip_good = False
         elif this_ip.is_unspecified:
-            self.logger.debug("{} is a unspecified (RFC 5735 or 2373) address.".format(this_ip))
+            self.logger.debug(
+                "{} is a unspecified (RFC 5735 or 2373) address.".format(this_ip))
             this_ip_good = False
         elif this_ip.is_loopback:
             self.logger.debug("{} is a loopback address.".format(this_ip))
@@ -141,18 +143,20 @@ def api2_ipreport(hostid=None):
             this_ip_good = False
 
         if this_ip_good is False:
-            self.logger.error("A Non-Usable Address, That's Okay I'll tell the client it's cool")
+            self.logger.error(
+                "A Non-Usable Address, That's Okay I'll tell the client it's cool")
 
-    meta_dict["version"]  = 2
+    meta_dict["version"] = 2
     meta_dict["name"] = "Jellyfish IP Report "
     meta_dict["status"] = "In Progress"
-    links_dict["parent"] = "{}{}".format(g.config_items["v2api"]["preroot"], g.config_items["v2api"]["root"])
+    links_dict["parent"] = "{}{}".format(
+        g.config_items["v2api"]["preroot"], g.config_items["v2api"]["root"])
     links_dict["self"] = "{}{}/ip/report/{}?{}".format(g.config_items["v2api"]["preroot"], g.config_items["v2api"]["root"],
                                                        args["hostid"], args["qdeparsed_string"])
     links_dict["ip"] = "{}{}/ip/search?{}".format(g.config_items["v2api"]["preroot"], g.config_items["v2api"]["root"],
                                                   args["hostid"], args["qdeparsed_string"])
 
-    error=False
+    error = False
 
     these_reports = list()
 

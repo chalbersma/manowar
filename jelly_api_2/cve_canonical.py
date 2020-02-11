@@ -40,6 +40,7 @@ import manoward
 
 cve_canonical = Blueprint('api2_cve_canonical', __name__)
 
+
 @cve_canonical.route("/cve/canonical", methods=['GET'])
 @cve_canonical.route("/cve/canonical/", methods=['GET'])
 @cve_canonical.route("/cve/canonical/<string:cve_name>", methods=['GET'])
@@ -47,7 +48,6 @@ cve_canonical = Blueprint('api2_cve_canonical', __name__)
 @cve_canonical.route("/cve/ubuntu/<string:cve_name>", methods=['GET'])
 @cve_canonical.route("/cve/ubuntu/<string:cve_name>/", methods=['GET'])
 def api2_cve_canonical(cve_name=None):
-
     '''
     Returns Data about an Ubuntu CVE
     '''
@@ -57,10 +57,10 @@ def api2_cve_canonical(cve_name=None):
                              "required": True,
                              "sql_param": False,
                              "qdeparse": False,
-                             "regex_val" : r"^[Cc][Vv][Ee]-\d{4}-\d{4,9}$"}}
+                             "regex_val": r"^[Cc][Vv][Ee]-\d{4}-\d{4,9}$"}}
 
     args = manoward.process_args(args_def,
-                                  request.args)
+                                 request.args)
 
     meta_info = dict()
     meta_info["version"] = 2
@@ -72,7 +72,7 @@ def api2_cve_canonical(cve_name=None):
 
     argument_error = False
 
-    requesttime=time.time()
+    requesttime = time.time()
 
     requesttype = "canonical_cve"
 
@@ -101,4 +101,3 @@ def api2_cve_canonical(cve_name=None):
         this_cve_data = this_cve_obj.summarize()
 
     return jsonify(meta=meta_info, data=this_cve_data, links=links_info)
-

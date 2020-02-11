@@ -85,10 +85,10 @@ def api2_auditresults_timestamp(request_timestamp=0, audit_id=0):
                            }
 
     args = manoward.process_args(args_def,
-                                  request.args,
-                                  include_hosts_sql=True,
-                                  include_ar_sql=True,
-                                  include_exact=True)
+                                 request.args,
+                                 include_hosts_sql=True,
+                                 include_ar_sql=True,
+                                 include_exact=True)
 
     meta_dict = dict()
     request_data = list()
@@ -118,14 +118,14 @@ def api2_auditresults_timestamp(request_timestamp=0, audit_id=0):
                                     join audits on fk_audits_id = audit_id
                                     where {}
                                     group by fk_host_id
-                                    '''.format(" and ".join(args["args_clause"])) 
+                                    '''.format(" and ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
-                                  audit_result_ts_query,
-                                  args=args["args_clause_args"],
-                                  one=False,
-                                  do_abort=True,
-                                  require_results=False)
+                                 audit_result_ts_query,
+                                 args=args["args_clause_args"],
+                                 one=False,
+                                 do_abort=True,
+                                 require_results=False)
 
     for this_result in results.get("data", list()):
         this_results = dict()

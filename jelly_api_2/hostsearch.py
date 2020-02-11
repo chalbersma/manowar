@@ -47,10 +47,10 @@ import manoward
 
 hostsearch = Blueprint('api2_hostsearch', __name__)
 
+
 @hostsearch.route("/hostsearch", methods=['GET'])
 @hostsearch.route("/hostsearch/", methods=['GET'])
 def api2_hostsearch():
-
     '''
     Execute a Search for Hosts
     '''
@@ -60,15 +60,15 @@ def api2_hostsearch():
                           "required": False,
                           "sql_param": True,
                           "sql_clause": "collection.collection_type REGEXP %s",
-                          "sql_exact_clause" : "collection.collection_type = %s",
+                          "sql_exact_clause": "collection.collection_type = %s",
                           "qdeparse": True}}
 
     args = manoward.process_args(args_def,
-                                  request.args,
-                                  lulimit=g.twoDayTimestamp,
-                                  include_hosts_sql=True,
-                                  include_coll_sql=True,
-                                  include_exact=True)
+                                 request.args,
+                                 lulimit=g.twoDayTimestamp,
+                                 include_hosts_sql=True,
+                                 include_coll_sql=True,
+                                 include_exact=True)
 
     meta_dict = dict()
     request_data = list()
@@ -77,14 +77,15 @@ def api2_hostsearch():
     if args.get("ctype", None) is None and args.get("csubtype", None) is None and args.get("value", None) is None:
         col_join = str()
     else:
-        g.logger.debug("I need Collections Joined. This may Slow down my Query.")
+        g.logger.debug(
+            "I need Collections Joined. This may Slow down my Query.")
         col_join = "join collection on host_id = collection.fk_host_id"
 
-        args["args_clause"].append("collection.last_update >= FROM_UNIXTIME(%s)")
+        args["args_clause"].append(
+            "collection.last_update >= FROM_UNIXTIME(%s)")
         args["args_clause_args"].append(g.twoDayTimestamp)
 
-
-    meta_dict["version"]  = 2
+    meta_dict["version"] = 2
     meta_dict["name"] = "Jellyfish API Version 2 Host Search results."
     meta_dict["status"] = "In Progress"
 
@@ -95,9 +96,7 @@ def api2_hostsearch():
                                                      g.config_items["v2api"]["root"],
                                                      args["qdeparsed_string"])
 
-
     requesttype = "hostquery"
-
 
     host_search = '''SELECT host_id, host_uber_id, hostname, pop, srvtype,
                      hoststatus, UNIX_TIMESTAMP(hosts.last_update) as last_update
@@ -105,8 +104,7 @@ def api2_hostsearch():
                      {0}
                      WHERE {1}
                      GROUP by host_id'''.format(col_join,
-                                         " and ".join(args["args_clause"]))
-
+                                                " and ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
                                  host_search,

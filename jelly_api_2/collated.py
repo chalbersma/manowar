@@ -62,29 +62,30 @@ import manoward
 
 collated = Blueprint('api2_collated', __name__)
 
+
 @collated.route("/collated/", methods=['GET'])
 @collated.route("/collated/<collatedType>", methods=['GET'])
 @collated.route("/collated/<collatedType>/", methods=['GET'])
 def api2_collated(collatedType=False, typefilter=False, auditID=False):
 
     args_def = {"collatedType": {"req_type": str,
-                            "default": collatedType,
-                            "required": True,
-                           "sql_param": False,
-                           "qdeparse": False,
-                           "enum" : ("pop", "srvtype", "acoll")},
+                                 "default": collatedType,
+                                 "required": True,
+                                 "sql_param": False,
+                                 "qdeparse": False,
+                                 "enum": ("pop", "srvtype", "acoll")},
                 "auditID": {"req_type": int,
                             "default": None,
                             "required": False,
-                           "sql_param": True,
-                           "sql_clause": "audits_by_{}.fk_audits_id = %s".format(collatedType),
-                           "qdeparse": True},
-                "typefilter" : {"req_type": str,
-                            "default": None,
-                            "required": False,
-                           "sql_param": True,
-                           "sql_clause": "audits_by_{}.{}_text REGEXP %s ".format(collatedType, collatedType),
-                           "qdeparse": True}
+                            "sql_param": True,
+                            "sql_clause": "audits_by_{}.fk_audits_id = %s".format(collatedType),
+                            "qdeparse": True},
+                "typefilter": {"req_type": str,
+                               "default": None,
+                               "required": False,
+                               "sql_param": True,
+                               "sql_clause": "audits_by_{}.{}_text REGEXP %s ".format(collatedType, collatedType),
+                               "qdeparse": True}
                 }
 
     args = manoward.process_args(args_def, request.args)
@@ -93,24 +94,25 @@ def api2_collated(collatedType=False, typefilter=False, auditID=False):
     request_data = list()
     links_dict = dict()
 
-    meta_dict["version"]  = 2
-    meta_dict["name"] = "Jellyfish API Version 2 Collated Resultsfor " + str(collatedType)
+    meta_dict["version"] = 2
+    meta_dict["name"] = "Jellyfish API Version 2 Collated Resultsfor " + \
+        str(collatedType)
     meta_dict["status"] = "In Progress"
 
     links_dict["parent"] = "{}{}/".format(g.config_items["v2api"]["preroot"],
                                           g.config_items["v2api"]["root"])
 
     links_dict["self"] = "{}{}/collated/{}/?{}".format(g.config_items["v2api"]["preroot"],
-                                          g.config_items["v2api"]["root"],
-                                          collatedType,
-                                          args["qdeparsed_string"])
+                                                       g.config_items["v2api"]["root"],
+                                                       collatedType,
+                                                       args["qdeparsed_string"])
 
     requesttype = "collated"
 
     # Add the Time Limitation
-    args["args_clause"].append("{}_last_audit >= FROM_UNIXTIME( %s )".format(collatedType))
+    args["args_clause"].append(
+        "{}_last_audit >= FROM_UNIXTIME( %s )".format(collatedType))
     args["args_clause_args"].append(g.twoDayTimestamp)
-
 
     collated_query = '''select {0}_id, {0}_text, fk_audits_id, audits.audit_name,
                             UNIX_TIMESTAMP({0}_initial_audit) as {0}_initial_audit,
@@ -123,12 +125,11 @@ def api2_collated(collatedType=False, typefilter=False, auditID=False):
                                                                       " and ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
-                                  collated_query,
-                                  args=args["args_clause_args"],
-                                  one=False,
-                                  do_abort=True,
-                                  require_results=False)
-
+                                 collated_query,
+                                 args=args["args_clause_args"],
+                                 one=False,
+                                 do_abort=True,
+                                 require_results=False)
 
     for this_csult in results.get("data", list()):
         this_results = dict()
@@ -140,7 +141,4 @@ def api2_collated(collatedType=False, typefilter=False, auditID=False):
         # Now pop this onto request_data
         request_data.append(this_results)
 
-
     return jsonify(meta=meta_dict, data=request_data, links=links_dict)
-
-

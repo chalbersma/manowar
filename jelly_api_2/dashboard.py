@@ -56,27 +56,28 @@ import manoward
 
 dashboard = Blueprint('api2_dashboard', __name__)
 
+
 @dashboard.route("/dashboard", methods=['GET'])
 @dashboard.route("/dashboard/<int:cust_dash_id>/", methods=['GET'])
 def api2_dashboard(cust_dash_id=None):
 
-    args_def = {"pass_audits" : {"required" : True,
-                                 "default" : "false",
-                                 "req_type" : str,
-                                 "enum" : ["true", "false"]},
-                "fail_audits" : {"required" : True,
-                                 "default" : "false",
-                                 "req_type" : str,
-                                 "enum" : ["true", "false"]},
-                "cust_dash_id" : {"required" : False,
-                                  "default" : cust_dash_id,
-                                  "req_type" : int,
-                                  "positive" : True}
-               }
+    args_def = {"pass_audits": {"required": True,
+                                "default": "false",
+                                "req_type": str,
+                                "enum": ["true", "false"]},
+                "fail_audits": {"required": True,
+                                "default": "false",
+                                "req_type": str,
+                                "enum": ["true", "false"]},
+                "cust_dash_id": {"required": False,
+                                 "default": cust_dash_id,
+                                 "req_type": int,
+                                 "positive": True}
+                }
 
     args = manoward.process_args(args_def, request.args)
 
-    requesttime=time.time()
+    requesttime = time.time()
 
     requesttype = "dashboard_query"
 
@@ -92,7 +93,7 @@ def api2_dashboard(cust_dash_id=None):
                                                  g.config_items["v2api"]["root"])
 
     links_info["parent"] = "{}{}/".format(g.config_items["v2api"]["preroot"],
-                                                 g.config_items["v2api"]["root"])
+                                          g.config_items["v2api"]["root"])
 
     links_info["children"] = dict()
 
@@ -101,7 +102,7 @@ def api2_dashboard(cust_dash_id=None):
     error_dict = dict()
     do_query = True
 
-    dashboard_query_head='''
+    dashboard_query_head = '''
 SELECT audits.audit_name,
        audits.audit_id,
        audits.audit_priority,
@@ -120,11 +121,10 @@ AND audits_by_acoll.fk_audits_id = maxdate.fk_audits_id
 JOIN audits ON audits.audit_id = maxdate.fk_audits_id
 '''
 
-
-    dashboard_query_args = [str(g.twoDayTimestamp) ]
+    dashboard_query_args = [str(g.twoDayTimestamp)]
 
     # Inject Custom Dashboard Items
-    #print(cust_dash_id)
+    # print(cust_dash_id)
     if args["cust_dash_id"] is not None:
         custdashboard_join = '''
         JOIN
@@ -139,86 +139,100 @@ JOIN audits ON audits.audit_id = maxdate.fk_audits_id
         meta_info["cust_dash_id"] = args["cust_dash_id"]
         meta_info["custom_dashbaord"] = True
 
-        this_endpoint = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/custdashboard/list/{}/".format(args["cust_dash_id"])
+        this_endpoint = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + \
+            "/custdashboard/list/{}/".format(args["cust_dash_id"])
         links_info["cust_dash_id"] = this_endpoint
 
     else:
         meta_info["custom_dashboard"] = False
 
-    if (args["pass_audits"] == "false" and args["fail_audits"] == "false") or (args["pass_audits"] == "true" and args["pass_audits"] == "true") :
+    if (args["pass_audits"] == "false" and args["fail_audits"] == "false") or (args["pass_audits"] == "true" and args["pass_audits"] == "true"):
         # Give me Everything
-        dashboard_query_mid="  "
-    elif args["pass_audits"] == "true" :
+        dashboard_query_mid = "  "
+    elif args["pass_audits"] == "true":
         # I want only the Audits that have completely passed (Where there are no failures)
-        dashboard_query_mid=" where acoll_failed = 0 "
+        dashboard_query_mid = " where acoll_failed = 0 "
         meta_info["Query Info"] = "Only Passing Audits have been returned (Audits where there are zero failures)."
-    elif args["fail_audits"] == "true" :
+    elif args["fail_audits"] == "true":
         # I want only the Audits that have failed (Where there are at least one failure)
-        dashboard_query_mid=" where acoll_failed > 0 "
+        dashboard_query_mid = " where acoll_failed > 0 "
         meta_info["Query Info"] = "Only Failing Audits have been returnd (Audits where there are more than zero failures)."
 
-    dashboard_query_tail="order by audits.audit_priority desc, acoll_failed desc"
+    dashboard_query_tail = "order by audits.audit_priority desc, acoll_failed desc"
 
-    dashboard_query = dashboard_query_head + dashboard_query_mid + dashboard_query_tail
+    dashboard_query = dashboard_query_head + \
+        dashboard_query_mid + dashboard_query_tail
 
     # Select Query
     if do_query is True:
 
         results = manoward.run_query(g.cur,
-                                      dashboard_query,
-                                      args=dashboard_query_args,
-                                      one=False,
-                                      do_abort=True,
-                                      require_results=False)
+                                     dashboard_query,
+                                     args=dashboard_query_args,
+                                     one=False,
+                                     do_abort=True,
+                                     require_results=False)
 
         all_collections = results["data"]
         amount_of_collections = len(results["data"])
 
-    else :
+    else:
         error_dict["do_query"] = "Query Ignored"
         amount_of_collections = 0
 
-    if amount_of_collections > 0 :
+    if amount_of_collections > 0:
         collections_good = True
         # Hydrate the dict with type & ids to be jsonapi compliant
-        for i in range(0, len(all_collections)) :
+        for i in range(0, len(all_collections)):
             this_results = dict()
             this_results["type"] = requesttype
             this_results["id"] = all_collections[i]["audit_id"]
             this_results["attributes"] = all_collections[i]
-            this_results["attributes"]["total_servers"] = all_collections[i]["acoll_exempt"] + all_collections[i]["acoll_failed"] + all_collections[i]["acoll_passed"]
-            this_results["attributes"]["total_pass_fail"] = all_collections[i]["acoll_failed"] + all_collections[i]["acoll_passed"]
+            this_results["attributes"]["total_servers"] = all_collections[i]["acoll_exempt"] + \
+                all_collections[i]["acoll_failed"] + \
+                all_collections[i]["acoll_passed"]
+            this_results["attributes"]["total_pass_fail"] = all_collections[i]["acoll_failed"] + \
+                all_collections[i]["acoll_passed"]
 
-            this_results["attributes"]["pass_percent"] = all_collections[i]["acoll_passed"] / this_results["attributes"]["total_servers"]
-            this_results["attributes"]["pass_percent_int"] = int((all_collections[i]["acoll_passed"] / this_results["attributes"]["total_servers"]) * 100)
-            this_results["attributes"]["fail_percent"] = all_collections[i]["acoll_failed"] / this_results["attributes"]["total_servers"]
-            this_results["attributes"]["fail_percent_int"] = int((all_collections[i]["acoll_failed"] / this_results["attributes"]["total_servers"]) * 100)
-            this_results["attributes"]["exempt_percent"] = all_collections[i]["acoll_exempt"] / this_results["attributes"]["total_servers"]
-            this_results["attributes"]["exempt_percent_int"] = int((all_collections[i]["acoll_exempt"] / this_results["attributes"]["total_servers"]) * 100)
+            this_results["attributes"]["pass_percent"] = all_collections[i]["acoll_passed"] / \
+                this_results["attributes"]["total_servers"]
+            this_results["attributes"]["pass_percent_int"] = int(
+                (all_collections[i]["acoll_passed"] / this_results["attributes"]["total_servers"]) * 100)
+            this_results["attributes"]["fail_percent"] = all_collections[i]["acoll_failed"] / \
+                this_results["attributes"]["total_servers"]
+            this_results["attributes"]["fail_percent_int"] = int(
+                (all_collections[i]["acoll_failed"] / this_results["attributes"]["total_servers"]) * 100)
+            this_results["attributes"]["exempt_percent"] = all_collections[i]["acoll_exempt"] / \
+                this_results["attributes"]["total_servers"]
+            this_results["attributes"]["exempt_percent_int"] = int(
+                (all_collections[i]["acoll_exempt"] / this_results["attributes"]["total_servers"]) * 100)
 
             this_results["relationships"] = dict()
-            this_results["relationships"]["auditinfo"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo/" + str(all_collections[i]["audit_id"])
-            this_results["relationships"]["display_auditinfo"] = g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditinfo/" + str(all_collections[i]["audit_id"])
-            this_results["relationships"]["auditresults"] = { "pass" : g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='pass'" ,
-                                             "fail" : g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='fail'" ,
-                                             "exempt" : g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='notafflicted'" }
-            this_results["relationships"]["display_auditresults"] = { "pass" : g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='pass'" ,
-                                             "fail" : g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='fail'" ,
-                                             "exempt" : g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='notafflicted'" }
-
+            this_results["relationships"]["auditinfo"] = g.config_items["v2api"]["preroot"] + \
+                g.config_items["v2api"]["root"] + "/auditinfo/" + \
+                str(all_collections[i]["audit_id"])
+            this_results["relationships"]["display_auditinfo"] = g.config_items["v2ui"]["preroot"] + \
+                g.config_items["v2ui"]["root"] + "/auditinfo/" + \
+                str(all_collections[i]["audit_id"])
+            this_results["relationships"]["auditresults"] = {"pass": g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='pass'",
+                                                             "fail": g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='fail'",
+                                                             "exempt": g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='notafflicted'"}
+            this_results["relationships"]["display_auditresults"] = {"pass": g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='pass'",
+                                                                     "fail": g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='fail'",
+                                                                     "exempt": g.config_items["v2ui"]["preroot"] + g.config_items["v2ui"]["root"] + "/auditresults/" + str(all_collections[i]["audit_id"]) + "?auditResult='notafflicted'"}
 
             # Now pop this onto request_data
             request_data.append(this_results)
-    else :
+    else:
         error_dict["ERROR"] = ["No Collections"]
         collections_good = False
 
-    all_res = {"meta" : meta_info,
-               "links" : links_info}
+    all_res = {"meta": meta_info,
+               "links": links_info}
 
-    if collections_good :
+    if collections_good:
         all_res["data"] = request_data
-    else :
+    else:
         all_res["errors"] = error_dict
 
     return jsonify(**all_res)

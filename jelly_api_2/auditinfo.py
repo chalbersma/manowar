@@ -68,8 +68,8 @@ def api2_auditinfo(audit_id=0):
     links_info = dict()
 
     links_info["self"] = "{}{}/auditinfo/{}".format(g.config_items["v2api"]["preroot"],
-                                                 g.config_items["v2api"]["root"],
-                                                 args["audit_id"])
+                                                    g.config_items["v2api"]["root"],
+                                                    args["audit_id"])
 
     links_info["parent"] = "{}{}".format(g.config_items["v2api"]["preroot"],
                                          g.config_items["v2api"]["root"])
@@ -91,11 +91,11 @@ def api2_auditinfo(audit_id=0):
                             order by audit_priority desc, audit_id desc ;"""
 
     run_result = manoward.run_query(g.cur,
-                                     select_query,
-                                     args=[args["audit_id"]],
-                                     one=True,
-                                     do_abort=True,
-                                     require_results=True)
+                                    select_query,
+                                    args=[args["audit_id"]],
+                                    one=True,
+                                    do_abort=True,
+                                    require_results=True)
 
     if run_result["has_error"] is True:
         g.logger.error("Error in Auditinfo Query")

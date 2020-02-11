@@ -52,6 +52,7 @@ import manoward
 
 hostcollections = Blueprint('api2_hostcollections', __name__)
 
+
 @hostcollections.route("/hostcollections/", methods=['GET'])
 @hostcollections.route("/hostcollections/<int:host_id>", methods=['GET'])
 @hostcollections.route("/hostcollections/<int:host_id>/", methods=['GET'])
@@ -63,29 +64,28 @@ def api2_hostcollections(host_id=0):
                            "positive": True,
                            "sql_param": True,
                            "sql_clause": " fk_host_id = %s "},
-               "ctype": {"req_type": str,
+                "ctype": {"req_type": str,
                           "default": None,
                           "required": False,
                           "sql_param": True,
                           "sql_clause": "collection.collection_type REGEXP %s",
-                          "sql_exact_clause" : "collection.collection_type = %s",
+                          "sql_exact_clause": "collection.collection_type = %s",
                           "qdeparse": True}
-               }
+                }
 
     args = manoward.process_args(args_def,
-                                  request.args,
-                                  coll_lulimit=g.twoDayTimestamp,
-                                  include_coll_sql=True,
-                                  include_exact=True)
-
+                                 request.args,
+                                 coll_lulimit=g.twoDayTimestamp,
+                                 include_coll_sql=True,
+                                 include_exact=True)
 
     meta_dict = dict()
     request_data = list()
     links_dict = dict()
 
-
-    meta_dict["version"]  = 2
-    meta_dict["name"] = "Jellyfish API Version 2 Host Results for Host ID {}".format(args["hostid"])
+    meta_dict["version"] = 2
+    meta_dict["name"] = "Jellyfish API Version 2 Host Results for Host ID {}".format(
+        args["hostid"])
     meta_dict["status"] = "In Progress"
 
     links_dict["parent"] = "{}{}/".format(g.config_items["v2api"]["preroot"],
@@ -97,7 +97,6 @@ def api2_hostcollections(host_id=0):
                                                       args["qdeparsed_string"])
 
     requesttype = "host_collections"
-
 
     host_collections_query = '''select collection_id, fk_host_id,
                                 UNIX_TIMESTAMP(initial_update) as initial_update,
@@ -111,12 +110,12 @@ def api2_hostcollections(host_id=0):
                                 group by collection_type, collection_subtype'''.format("  and  ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
-                                  host_collections_query,
-                                  args=args["args_clause_args"],
-                                  one=False,
-                                  do_abort=True,
-                                  require_results=False)
-    
+                                 host_collections_query,
+                                 args=args["args_clause_args"],
+                                 one=False,
+                                 do_abort=True,
+                                 require_results=False)
+
     meta_dict["host_information"] = dict()
     if len(results.get("data", list())) > 0:
         # Inject some Meta Data
@@ -133,7 +132,6 @@ def api2_hostcollections(host_id=0):
         meta_dict["host_information"]["srvtype"] = str()
         meta_dict["host_information"]["hoststatus"] = str()
         meta_dict["host_information"]["last_update"] = 0
-        
 
     for this_coll in results.get("data", list()):
         this_results = dict()
@@ -144,6 +142,5 @@ def api2_hostcollections(host_id=0):
 
         # Now pop this onto request_data
         request_data.append(this_results)
-
 
     return jsonify(meta=meta_dict, data=request_data, links=links_dict)

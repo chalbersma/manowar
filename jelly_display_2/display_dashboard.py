@@ -6,11 +6,10 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 """
 
 
-from flask import current_app, Blueprint, g, request, jsonify, render_template
 import json
-
 import ast
 
+from flask import current_app, Blueprint, g, request, jsonify, render_template
 import requests
 
 
@@ -22,7 +21,10 @@ dashboard = Blueprint("dashboard", __name__)
 @dashboard.route("/dashboard/<int:cust_dash_id>")
 @dashboard.route("/dashboard/<int:cust_dash_id>/")
 def display2_dashboard(cust_dash_id=None):
-
+    
+    '''
+    Reworked but displays the old fashion dashboard
+    '''
 
     argument_error = False
     meta_dict = dict()
@@ -41,7 +43,8 @@ def display2_dashboard(cust_dash_id=None):
     try:
         results = requests.get(this_private_endpoint).json()
     except Exception as e:
-        error_dict["Error Getting Endpoint"] = "Error getting endpoint: " + str(e)
+        error_dict["Error Getting Endpoint"] = "Error getting endpoint: " + \
+            str(e)
         api_error = True
     else:
         results["meta"]["Endpoint"] = this_endpoint

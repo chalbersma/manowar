@@ -137,15 +137,16 @@ from manoward.generic_large_compare import generic_large_compare
 
 genericlargecompare = Blueprint('api2_genericlargecompare', __name__)
 
+
 @genericlargecompare.route("/genericlargecompare", methods=['GET'])
 @genericlargecompare.route("/genericlargecompare/", methods=['GET'])
-def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=False, \
-                        hoststatus=False, status=False, matchcollection_pop=False, \
-                        matchcollection_ctype=False, matchcollection_csubtype=False, \
-                        matchcollection_cvalue=False, mtype=False, ctype=False, \
-                        csubtype=False, mvalue=False, fresh=172800):
+def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=False,
+                             hoststatus=False, status=False, matchcollection_pop=False,
+                             matchcollection_ctype=False, matchcollection_csubtype=False,
+                             matchcollection_cvalue=False, mtype=False, ctype=False,
+                             csubtype=False, mvalue=False, fresh=172800):
 
-    ## TODO Reconsider If this is a Wise Move.
+    # TODO Reconsider If this is a Wise Move.
 
     meta_dict = dict()
     request_data = list()
@@ -159,227 +160,250 @@ def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=Fal
     # Add Default Timestamp
     population_query_args = dict()
 
-    useCollectionMatch=False
-    if "matchcollection_pop" in request.args :
+    useCollectionMatch = False
+    if "matchcollection_pop" in request.args:
         try:
-            matchcollection_pop = ast.literal_eval(request.args["matchcollection_pop"])
-        except Exception as e :
-            error_dict["exact_read_error"] = "Error parsing collection_subtype " + str(e)
-            argument_error=True
+            matchcollection_pop = ast.literal_eval(
+                request.args["matchcollection_pop"])
+        except Exception as e:
+            error_dict["exact_read_error"] = "Error parsing collection_subtype " + \
+                str(e)
+            argument_error = True
         else:
-            if matchcollection_pop == True :
-                useCollectionMatch=True
+            if matchcollection_pop == True:
+                useCollectionMatch = True
                 population_query_args["matchcollection"] = "True"
 
-    if "matchcollection_ctype" in request.args and useCollectionMatch == True :
+    if "matchcollection_ctype" in request.args and useCollectionMatch == True:
         try:
             # Override query string for complex searches
-            matchcollection_ctype = ast.literal_eval(request.args["matchcollection_ctype"])
-        except Exception as e :
-            error_dict["matchcollection_ctype_error"] = "Error parsing matchcollection_ctype from query string " + str(e)
-            argument_error=True
+            matchcollection_ctype = ast.literal_eval(
+                request.args["matchcollection_ctype"])
+        except Exception as e:
+            error_dict["matchcollection_ctype_error"] = "Error parsing matchcollection_ctype from query string " + \
+                str(e)
+            argument_error = True
         else:
             # Because of Indexing, regex isn't supported for
             # Collection types.
-            population_query_args["ctype"] = "'{}'".format(str(matchcollection_ctype))
+            population_query_args["ctype"] = "'{}'".format(
+                str(matchcollection_ctype))
 
-    if "matchcollection_csubtype" in request.args and useCollectionMatch == True :
+    if "matchcollection_csubtype" in request.args and useCollectionMatch == True:
         try:
             # Override query string for complex searches
-            matchcollection_csubtype = ast.literal_eval(request.args["matchcollection_csubtype"])
-        except Exception as e :
-            error_dict["matchcollection_csubtype_error"] = "Error parsing matchcollection_csubtype from query string " + str(e)
-            argument_error=True
+            matchcollection_csubtype = ast.literal_eval(
+                request.args["matchcollection_csubtype"])
+        except Exception as e:
+            error_dict["matchcollection_csubtype_error"] = "Error parsing matchcollection_csubtype from query string " + \
+                str(e)
+            argument_error = True
         else:
             # Because of Indexing, regex isn't supported for
             # Collection types.
-            population_query_args["csubtype"] = "'{}'".format(str(matchcollection_csubtype))
+            population_query_args["csubtype"] = "'{}'".format(
+                str(matchcollection_csubtype))
 
-    if "matchcollection_cvalue" in request.args and useCollectionMatch == True :
+    if "matchcollection_cvalue" in request.args and useCollectionMatch == True:
         try:
             # Override query string for complex searches
-            matchcollection_cvalue = ast.literal_eval(request.args["matchcollection_cvalue"])
-        except Exception as e :
-            error_dict["matchcollection_cvalue_error"] = "Error parsing matchcollection_cvalue from query string " + str(e)
-            argument_error=True
+            matchcollection_cvalue = ast.literal_eval(
+                request.args["matchcollection_cvalue"])
+        except Exception as e:
+            error_dict["matchcollection_cvalue_error"] = "Error parsing matchcollection_cvalue from query string " + \
+                str(e)
+            argument_error = True
         else:
             # Because of Indexing, regex isn't supported for
             # Collection types.
-            population_query_args["cvalue"] = "'{}'".format(str(matchcollection_cvalue))
+            population_query_args["cvalue"] = "'{}'".format(
+                str(matchcollection_cvalue))
 
     if useCollectionMatch == True and \
-        ( matchcollection_cvalue == False or matchcollection_csubtype == False or matchcollection_ctype == False ):
-        argument_error=True
+            (matchcollection_cvalue == False or matchcollection_csubtype == False or matchcollection_ctype == False):
+        argument_error = True
 
-    if "mtype" in request.args :
+    if "mtype" in request.args:
         try:
             mtype = ast.literal_eval(request.args["mtype"])
-        except Exception as e :
+        except Exception as e:
             error_dict["mtype_read_error"] = "Error parsing mtype " + str(e)
-            argument_error=True
+            argument_error = True
         else:
             # Do type checking
-            if type(mtype) is list :
+            if type(mtype) is list:
                 argument_error = True
                 error_dict["mtype_futures_error"] = "Mtype array values not."
-            if type(mtype) is not str :
+            if type(mtype) is not str:
                 argument_error = True
                 error_dict["mtype_type_unknown"] = "Mtype type unknown."
-    else :
+    else:
         error_dict["mtype_required"] = "Match Type not found in query string."
         argument_error = True
 
-    if "ctype" in request.args :
+    if "ctype" in request.args:
         try:
             ctype = ast.literal_eval(request.args["ctype"])
-        except Exception as e :
-            error_dict["ctype_read_error"] = "Error parsing collection type " + str(e)
-            argument_error=True
+        except Exception as e:
+            error_dict["ctype_read_error"] = "Error parsing collection type " + \
+                str(e)
+            argument_error = True
         else:
-            if type(ctype) is not list :
+            if type(ctype) is not list:
                 argument_error = True
                 error_dict["ctype_type_unknown"] = "Ctype type unknown."
-    else :
+    else:
         error_dict["ctype_required"] = "ctype not found in query string."
         argument_error = True
 
-    if "csubtype" in request.args :
+    if "csubtype" in request.args:
         try:
             csubtype = ast.literal_eval(request.args["csubtype"])
-        except Exception as e :
-            error_dict["csubtype_read_error"] = "Error parsing collection subtype " + str(e)
-            argument_error=True
+        except Exception as e:
+            error_dict["csubtype_read_error"] = "Error parsing collection subtype " + \
+                str(e)
+            argument_error = True
         else:
-            if type(csubtype) is not list :
+            if type(csubtype) is not list:
                 argument_error = True
                 error_dict["csubtype_type_unknown"] = "Csubtype type unknown."
-    else :
+    else:
         error_dict["csubtype_required"] = "csubtype not found in query string."
         argument_error = True
 
-    if "mvalue" in request.args :
+    if "mvalue" in request.args:
         try:
             mvalue = ast.literal_eval(request.args["mvalue"])
-        except Exception as e :
-            error_dict["mvalue_read_error"] = "Error parsing match value " + str(e)
-            argument_error=True
+        except Exception as e:
+            error_dict["mvalue_read_error"] = "Error parsing match value " + \
+                str(e)
+            argument_error = True
         else:
-            if type(mvalue) is not list :
+            if type(mvalue) is not list:
                 argument_error = True
                 error_dict["mvalue_type_unknown"] = "MValue type unknown."
-    else :
+    else:
         error_dict["mvalue_required"] = "mvalue not found in query string."
         argument_error = True
 
-    if "fresh" in request.args :
+    if "fresh" in request.args:
         try:
             fresh = ast.literal_eval(request.args["fresh"])
-        except Exception as e :
-            error_dict["exact_read_error"] = "Error parsing collection_subtype " + str(e)
-            argument_error=True
+        except Exception as e:
+            error_dict["exact_read_error"] = "Error parsing collection_subtype " + \
+                str(e)
+            argument_error = True
         else:
-            if type(fresh) is int and fresh > 0 :
+            if type(fresh) is int and fresh > 0:
                 pass
             else:
                 argument_error = True
                 error_dict["invalid_fresh_argument"] = "Fresh Argument."
 
-    useRegex=True
-    if "exact" in request.args :
+    useRegex = True
+    if "exact" in request.args:
         try:
             exact = ast.literal_eval(request.args["exact"])
-        except Exception as e :
-            error_dict["exact_read_error"] = "Error parsing collection_subtype " + str(e)
-            argument_error=True
+        except Exception as e:
+            error_dict["exact_read_error"] = "Error parsing collection_subtype " + \
+                str(e)
+            argument_error = True
         else:
-            if exact == True :
+            if exact == True:
                 population_query_args["exact"] = "True"
 
     # Grab Values
-    if "hostname" in request.args :
+    if "hostname" in request.args:
         try:
             # Override query string for complex searches
             hostname = ast.literal_eval(request.args["hostname"])
-        except Exception as e :
-            error_dict["search read error"] = "Error parsing search from query string " + str(e)
-            argument_error=True
+        except Exception as e:
+            error_dict["search read error"] = "Error parsing search from query string " + \
+                str(e)
+            argument_error = True
         else:
             population_query_args["hostname"] = "'{}'".format(hostname)
 
-    if "pop" in request.args :
+    if "pop" in request.args:
         try:
             pop = ast.literal_eval(request.args["pop"])
-        except Exception as e :
+        except Exception as e:
             error_dict["pop_parse_error"] = "Could not parse pop." + str(e)
             argument_error = True
-        else :
+        else:
             population_query_args["pop"] = pop
 
-    if "srvtype" in request.args :
+    if "srvtype" in request.args:
         try:
             srvtype = ast.literal_eval(request.args["srvtype"])
-        except Exception as e :
-            error_dict["srvtype_parse_error"] = "Could not parse srvtype." + str(e)
+        except Exception as e:
+            error_dict["srvtype_parse_error"] = "Could not parse srvtype." + \
+                str(e)
             argument_error = True
-        else :
+        else:
             population_query_args["srvtype"] = "'{}'".format(srvtype)
 
-    have_hoststatus=False
-    if "hoststatus" in request.args :
+    have_hoststatus = False
+    if "hoststatus" in request.args:
         try:
             hoststatus = ast.literal_eval(request.args["hoststatus"])
-        except Exception as e :
-            error_dict["hoststatus_parse_error"] = "Could not parse hoststatus." + str(e)
+        except Exception as e:
+            error_dict["hoststatus_parse_error"] = "Could not parse hoststatus." + \
+                str(e)
             argument_error = True
-        else :
-            have_hoststatus=True
-    elif "status" in request.args :
+        else:
+            have_hoststatus = True
+    elif "status" in request.args:
         # Allow hoststatus override
         try:
             # Override
             hoststatus = ast.literal_eval(request.args["hoststatus"])
-        except Exception as e :
-            error_dict["hoststatus_parse_error"] = "Could not parse hoststatus." + str(e)
+        except Exception as e:
+            error_dict["hoststatus_parse_error"] = "Could not parse hoststatus." + \
+                str(e)
             argument_error = True
-        else :
-            have_hoststatus=True
-    if have_hoststatus :
+        else:
+            have_hoststatus = True
+    if have_hoststatus:
         population_query_args["hoststatus"] = "'{}'".format(hoststatus)
 
-
     # Hash Request For Caching
-    if argument_error == False :
+    if argument_error == False:
         try:
 
-            query_tuple = ( exact, hostname, pop, srvtype, \
-                        hoststatus, status, matchcollection_pop, \
-                        matchcollection_ctype, matchcollection_csubtype, \
-                        matchcollection_cvalue, mtype, ctype, \
-                        csubtype, mvalue, fresh)
+            query_tuple = (exact, hostname, pop, srvtype,
+                           hoststatus, status, matchcollection_pop,
+                           matchcollection_ctype, matchcollection_csubtype,
+                           matchcollection_cvalue, mtype, ctype,
+                           csubtype, mvalue, fresh)
 
             meta_dict["query_tuple"] = query_tuple
             query_string = str(query_tuple)
             # Sha1 used as a unique id it's fine if you can reverse it.
-            cache_hash_object = hashlib.sha1(query_string.encode()) # nosec
+            cache_hash_object = hashlib.sha1(query_string.encode())  # nosec
             cache_string = cache_hash_object.hexdigest()
         except Exception as e:
-            error_dict["cache_hash_error"] = "Error generating cache hash object" + str(e)
+            error_dict["cache_hash_error"] = "Error generating cache hash object" + \
+                str(e)
             argument_error = True
         else:
             meta_dict["cache_hash"] = cache_string
 
-        meta_dict["version"]  = 2
-        meta_dict["name"] = "Jellyfish API Version 2 Generic Large Comparison results for " + str(query_tuple)
+        meta_dict["version"] = 2
+        meta_dict["name"] = "Jellyfish API Version 2 Generic Large Comparison results for " + \
+            str(query_tuple)
         meta_dict["status"] = "In Progress"
 
-    if argument_error == False :
-        meta_dict["this_cached_file"] = g.config_items["v2api"]["cachelocation"] + "/glargecompare_" + cache_string + ".json"
-
+    if argument_error == False:
+        meta_dict["this_cached_file"] = g.config_items["v2api"]["cachelocation"] + \
+            "/glargecompare_" + cache_string + ".json"
 
     meta_dict["NOW"] = g.NOW
 
-    links_dict["parent"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/"
-    links_dict["self"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/genericlargecompare"
+    links_dict["parent"] = g.config_items["v2api"]["preroot"] + \
+        g.config_items["v2api"]["root"] + "/"
+    links_dict["self"] = g.config_items["v2api"]["preroot"] + \
+        g.config_items["v2api"]["root"] + "/genericlargecompare"
 
     requesttype = "genericlargecompare"
 
@@ -388,23 +412,23 @@ def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=Fal
     #print(meta_dict, argument_error)
 
     # Check to see if a Cache File exists
-    if argument_error == False and os.path.isfile(meta_dict["this_cached_file"]) is True  :
+    if argument_error == False and os.path.isfile(meta_dict["this_cached_file"]) is True:
         # There's a Cache File see if it's fresh
         cache_file_stats = os.stat(meta_dict["this_cached_file"])
         # Should be timestamp of file in seconds
-        cache_file_create_time  = int(cache_file_stats.st_ctime)
-        if cache_file_create_time > g.MIDNIGHT :
+        cache_file_create_time = int(cache_file_stats.st_ctime)
+        if cache_file_create_time > g.MIDNIGHT:
             # Cache is fresh as of midnight
-            with open(meta_dict["this_cached_file"]) as cached_data :
+            with open(meta_dict["this_cached_file"]) as cached_data:
                 try:
                     cached = json.load(cached_data)
-                except Exception as e :
-                    print("Error reading cache file: " + meta_dict["this_cached_file"] + " with error " + str(e) )
+                except Exception as e:
+                    print("Error reading cache file: " +
+                          meta_dict["this_cached_file"] + " with error " + str(e))
                 else:
                     return jsonify(**cached)
 
         # Have a deterministic query so that query caching can do it's job
-
 
     hosts_query_good = False
 
@@ -414,9 +438,10 @@ def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=Fal
 
         query_string = urllib.parse.urlencode(population_query_args)
 
-        population_query_private = "{}{}{}".format(g.HTTPENDPOINT, population_query, query_string)
+        population_query_private = "{}{}{}".format(
+            g.HTTPENDPOINT, population_query, query_string)
 
-        #print(population_query_private)
+        # print(population_query_private)
         content = requests.get(population_query_private)
 
         content_json = content.json()
@@ -425,41 +450,41 @@ def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=Fal
             population_error = True
             error_dict["population_error"] = "Errors getting population. "
             found_hosts = 0
-        else :
+        else:
 
             # Host Array
-            hosts_array = [ hostdict["attributes"] for hostdict in content_json["data"] ]
+            hosts_array = [hostdict["attributes"]
+                           for hostdict in content_json["data"]]
             found_hosts = len(hosts_array)
             hosts_query_good = True
 
-    if  hosts_query_good == True and found_hosts > 0:
+    if hosts_query_good == True and found_hosts > 0:
 
-        comparison_results = generic_large_compare(g.db, hosts_array, mtype, ctype, csubtype, \
-                          mvalue, FRESH=fresh, exemptfail=False)
+        comparison_results = generic_large_compare(g.db, hosts_array, mtype, ctype, csubtype,
+                                                   mvalue, FRESH=fresh, exemptfail=False)
 
-        for i in range(0, len(comparison_results)) :
+        for i in range(0, len(comparison_results)):
             this_results = dict()
             this_results["type"] = requesttype
             this_results["id"] = comparison_results[i]["host_id"]
             this_results["attributes"] = comparison_results[i]
 
-            if "pfe" not in comparison_results[i].keys() :
+            if "pfe" not in comparison_results[i].keys():
                 this_results["result"] = "notafflicted"
-            else :
+            else:
                 this_results["result"] = comparison_results[i]["pfe"]
-
 
             # Now pop this onto request_data
             request_data.append(this_results)
 
         collections_good = True
 
-    else :
+    else:
         error_dict["ERROR"] = ["No Collections"]
         collections_good = False
-        #print("Dafuq")
+        # print("Dafuq")
 
-    if collections_good :
+    if collections_good:
 
         response_dict = dict()
 
@@ -470,17 +495,18 @@ def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=Fal
 
         # Write Request to Disk.
         try:
-            with open(meta_dict["this_cached_file"], 'w') as cache_file_object :
+            with open(meta_dict["this_cached_file"], 'w') as cache_file_object:
                 json.dump(response_dict, cache_file_object)
-        except Exception as e :
-            print("Error writing file " + str(meta_dict["this_cached_file"]) + " with error " + str(e))
+        except Exception as e:
+            print("Error writing file " +
+                  str(meta_dict["this_cached_file"]) + " with error " + str(e))
         else:
             pass
             # No need to print evertime a cache file is written.
             #print("Cache File wrote to " + str(meta_dict["this_cached_file"]) + " at timestamp " + str(g.NOW))
 
         return jsonify(**response_dict)
-    else :
+    else:
 
         response_dict = dict()
         response_dict["meta"] = meta_dict

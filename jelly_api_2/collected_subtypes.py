@@ -47,32 +47,34 @@ import manoward
 
 collected_subtypes = Blueprint('api2_collected_subtype', __name__)
 
+
 @collected_subtypes.route("/collected/subtypes", methods=['GET'])
 @collected_subtypes.route("/collected/subtypes/", methods=['GET'])
 @collected_subtypes.route("/collected/subtypes/<string:ctype>", methods=['GET'])
 @collected_subtypes.route("/collected/subtypes/<string:ctype>/", methods=['GET'])
-def api2_collected_types(ctype="none"): 
-
+def api2_collected_types(ctype="none"):
     '''
     Return the Available Subtypes for a particular type
     '''
 
     args_def = {"ctype": {"req_type": str,
-                        "default": ctype,
-                        "required": True,
-                       "sql_param": True,
-                       "sql_clause": "collection_type = %s",
-                       "qdeparse": False}
+                          "default": ctype,
+                          "required": True,
+                          "sql_param": True,
+                          "sql_clause": "collection_type = %s",
+                          "qdeparse": False}
                 }
 
-    args = manoward.process_args(args_def, request.args, lulimit=g.twoDayTimestamp)
+    args = manoward.process_args(
+        args_def, request.args, lulimit=g.twoDayTimestamp)
 
     meta_dict = dict()
     request_data = list()
     links_dict = dict()
 
-    meta_dict["version"]  = 2
-    meta_dict["name"] = "Jellyfish API Version 2 : Collected Subtypes for type {}".format(args["ctype"])
+    meta_dict["version"] = 2
+    meta_dict["name"] = "Jellyfish API Version 2 : Collected Subtypes for type {}".format(
+        args["ctype"])
     meta_dict["status"] = "In Progress"
 
     links_dict["children"] = dict()
@@ -85,16 +87,17 @@ def api2_collected_types(ctype="none"):
     requesttype = "collection_subtype"
 
     # Have a deterministic query so that query caching can do it's job
-    collected_subtypes_filtered_query_args = [ str(g.twoDayTimestamp), str(ctype)]
-    collected_subtype_query='''select distinct(collection_subtype) as subtype_name from collection
+    collected_subtypes_filtered_query_args = [
+        str(g.twoDayTimestamp), str(ctype)]
+    collected_subtype_query = '''select distinct(collection_subtype) as subtype_name from collection
                                     where {}'''.format(" and ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
-                                  collected_subtype_query,
-                                  args=args["args_clause_args"],
-                                  one=False,
-                                  do_abort=True,
-                                  require_results=False)
+                                 collected_subtype_query,
+                                 args=args["args_clause_args"],
+                                 one=False,
+                                 do_abort=True,
+                                 require_results=False)
 
     for this_subtype in results.get("data", list()):
 
@@ -102,12 +105,11 @@ def api2_collected_types(ctype="none"):
         this_results["type"] = requesttype
         this_results["id"] = this_subtype["subtype_name"]
         this_results["attributes"] = this_subtype
-        this_results["relationships"] = {"values" : "{}{}/collected/values/{}/{}".format(g.config_items["v2api"]["preroot"],
-                                                                                         g.config_items["v2api"]["root"],
-                                                                                         args["ctype"],
-                                                                                         this_subtype["subtype_name"])}
+        this_results["relationships"] = {"values": "{}{}/collected/values/{}/{}".format(g.config_items["v2api"]["preroot"],
+                                                                                        g.config_items["v2api"]["root"],
+                                                                                        args["ctype"],
+                                                                                        this_subtype["subtype_name"])}
 
         request_data.append(this_results)
 
     return jsonify(meta=meta_dict, data=request_data, links=links_dict)
-

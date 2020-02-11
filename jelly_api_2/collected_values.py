@@ -57,7 +57,6 @@ collected_values = Blueprint('api2_collected_values', __name__)
 @collected_values.route("/collected/values/<string:ctype>", methods=['GET'])
 @collected_values.route("/collected/values/<string:ctype>/", methods=['GET'])
 def api2_collected_values(ctype="none"):
-
     '''
     Get's Actual Collections about a Particular Collection Type
     With Lot's of Filters
@@ -71,11 +70,11 @@ def api2_collected_values(ctype="none"):
                           "qdeparse": False}}
 
     args = manoward.process_args(args_def,
-                                  request.args,
-                                  coll_lulimit=g.twoDayTimestamp,
-                                  include_hosts_sql=True,
-                                  include_coll_sql=True,
-                                  include_exact=True)
+                                 request.args,
+                                 coll_lulimit=g.twoDayTimestamp,
+                                 include_hosts_sql=True,
+                                 include_coll_sql=True,
+                                 include_exact=True)
 
     meta_dict = dict()
     request_data = list()
@@ -109,11 +108,11 @@ def api2_collected_values(ctype="none"):
                                     where {}'''.format("  and  ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
-                                  collected_values_query,
-                                  args=args["args_clause_args"],
-                                  one=False,
-                                  do_abort=True,
-                                  require_results=False)
+                                 collected_values_query,
+                                 args=args["args_clause_args"],
+                                 one=False,
+                                 do_abort=True,
+                                 require_results=False)
 
     for this_coll in results.get("data", list()):
         this_results = dict()
@@ -125,4 +124,3 @@ def api2_collected_values(ctype="none"):
         request_data.append(this_results)
 
     return jsonify(meta=meta_dict, data=request_data, links=links_dict)
-    

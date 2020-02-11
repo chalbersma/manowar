@@ -24,6 +24,7 @@ script:
 - "./travis/testing.sh"
 - pylint-fail-under --fail_under 6.0 manoward
 - pylint-fail-under --fail_under 6.0 jelly_api_2 
+- pylint-fail-under --fail_under 6.0 jelly_display_2 
 - pylint-fail-under --fail_under 6.0 audittools
 - "./travis/swagger_test.sh"
 - "./travis/swagger_build.sh"

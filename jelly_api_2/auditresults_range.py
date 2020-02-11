@@ -83,10 +83,10 @@ def api2_auditresults_range(backdays=0, audit_id=0):
                            }
 
     args = manoward.process_args(args_def,
-                                  request.args,
-                                  include_hosts_sql=True,
-                                  include_ar_sql=True,
-                                  include_exact=True)
+                                 request.args,
+                                 include_hosts_sql=True,
+                                 include_ar_sql=True,
+                                 include_exact=True)
 
     meta_dict = dict()
     request_data = list()
@@ -137,12 +137,12 @@ def api2_auditresults_range(backdays=0, audit_id=0):
                    timestamp[2], timestamp[3]] for timestamp in check_timestamps]
 
     run_result = manoward.run_query(g.cur,
-                                     audit_result_query,
-                                     args=query_args,
-                                     one=False,
-                                     do_abort=True,
-                                     require_results=True,
-                                     many=True)
+                                    audit_result_query,
+                                    args=query_args,
+                                    one=False,
+                                    do_abort=True,
+                                    require_results=True,
+                                    many=True)
 
     for this_day_result in run_result.get("data", list()):
         this_results = dict()
@@ -155,10 +155,10 @@ def api2_auditresults_range(backdays=0, audit_id=0):
                                                                                 args["audit_id"])
 
         this_results["relationships"]["auditresults_timestamp"] = "{}{}/auditresults/{}/{}?{}".format(g.config_items["v2api"]["preroot"],
-                                                                                                   g.config_items["v2api"]["root"],
-                                                                                                   args["audit_id"],
-                                                                                                   this_day_result["timestamp"],
-                                                                                                   args.get("qdeparsed_string", ""))
+                                                                                                      g.config_items["v2api"]["root"],
+                                                                                                      args["audit_id"],
+                                                                                                      this_day_result["timestamp"],
+                                                                                                      args.get("qdeparsed_string", ""))
 
         # Now pop this onto request_data
         request_data.append(this_results)

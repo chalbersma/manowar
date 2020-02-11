@@ -125,11 +125,11 @@ def api2_auditlist(audit_name=None, audit_priority=None, audit_description=None,
     audit_list_query = audit_list_query + where_full_string
 
     results = manoward.run_query(g.cur,
-                                  audit_list_query,
-                                  args=args["args_clause_args"],
-                                  one=False,
-                                  do_abort=True,
-                                  require_results=True)
+                                 audit_list_query,
+                                 args=args["args_clause_args"],
+                                 one=False,
+                                 do_abort=True,
+                                 require_results=True)
 
     for this_audit in results.get("data", list()):
         this_results = dict()

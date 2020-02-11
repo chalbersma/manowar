@@ -112,10 +112,10 @@ def api2_ipsearch(ip=None):
                 }
 
     args = manoward.process_args(args_def,
-                                  request.args,
-                                  lulimit=g.twoDayTimestamp,
-                                  include_hosts_sql=True,
-                                  include_exact=True)
+                                 request.args,
+                                 lulimit=g.twoDayTimestamp,
+                                 include_hosts_sql=True,
+                                 include_exact=True)
 
     meta_info = dict()
     meta_info["version"] = 2
@@ -176,11 +176,11 @@ def api2_ipsearch(ip=None):
                         where {}'''.format(" and ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
-                                  ip_search_query,
-                                  args=args["args_clause_args"],
-                                  one=False,
-                                  do_abort=True,
-                                  require_results=False)
+                                 ip_search_query,
+                                 args=args["args_clause_args"],
+                                 one=False,
+                                 do_abort=True,
+                                 require_results=False)
 
     for this_ip in results.get("data", list()):
         this_results = dict()

@@ -86,11 +86,11 @@ def api2_auditinfo_buckets(audit_id=0):
         abort(404)
 
     run_result = manoward.run_query(g.cur,
-                                     select_query,
-                                     args=[audit_id],
-                                     one=True,
-                                     do_abort=True,
-                                     require_results=True)
+                                    select_query,
+                                    args=[audit_id],
+                                    one=True,
+                                    do_abort=True,
+                                    require_results=True)
 
     requested_audit = run_result.get("data", dict())
 

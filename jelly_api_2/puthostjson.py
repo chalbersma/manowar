@@ -39,12 +39,12 @@ from manoward.storage import storage
 
 puthostjson = Blueprint('puthostjson', __name__)
 
+
 @puthostjson.route("/puthostjson", methods=['GET', 'POST'])
 @puthostjson.route("/puthostjson/", methods=['GET', 'POST'])
 @puthostjson.route("/sapi/puthostjson", methods=['GET', 'POST'])
 @puthostjson.route("/sapi/puthostjson/", methods=['GET', 'POST'])
 def generic_puthostjson():
-
     '''
     Runs the /puthostjson endpoint. This stores the data sent from manowar_agent
     '''
@@ -59,14 +59,12 @@ def generic_puthostjson():
     this_endpoint_endorsements = (("conntype", "sapi"),)
 
     manoward.process_endorsements(endorsements=this_endpoint_endorsements,
-                                         session_endorsements=g.session_endorsements,
-                                         ignore_abort=g.debug)
-
+                                  session_endorsements=g.session_endorsements,
+                                  ignore_abort=g.debug)
 
     meta_dict["version"] = 2
     meta_dict["name"] = "Jellyfish SAPI PutHostJSON "
     meta_dict["status"] = "In Progress"
-
 
     error = False
 
@@ -82,7 +80,8 @@ def generic_puthostjson():
         request.json["collection_status"] = "STINGCELL"
 
         # Do a Storage Verify on this Mofo.
-        check_result_passed, check_result_message = storageJSONVerify(request.json)
+        check_result_passed, check_result_message = storageJSONVerify(
+            request.json)
 
         if check_result_passed is True:
             # It's good do the Storage
@@ -93,7 +92,8 @@ def generic_puthostjson():
             data_dict = dict()
             data_dict["storage_result"] = this_store_collection_result
         else:
-            g.logger.warning("Abnormal Check Result Storage Not Attempted : {}".format(check_result_message))
+            g.logger.warning("Abnormal Check Result Storage Not Attempted : {}".format(
+                check_result_message))
 
     if error is False:
 
