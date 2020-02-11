@@ -106,7 +106,8 @@ class AuditSourceUSN(AuditSource):
                            "vuln-primary-link" : self.usn_data["primary_link"],
                            "vuln-additional-links" : self.usn_data["reference_links"],
                            "vuln-short-description" : self.usn_data["isummary"],
-                           "vuln-priority" : self.usn_data["highest_priority"]}
+                           "vuln-priority" : self.usn_data["highest_priority"],
+                           "auditts" : int(self.usn_data["timestamp"])}
 
         # Caluclate Priority "vuln-priority" : kwargs.get("vuln-priority", None),
         self.audit_data["filters"], self.audit_data["comparisons"] = self.cal_bucket_defs()

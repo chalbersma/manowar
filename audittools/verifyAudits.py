@@ -240,6 +240,10 @@ def verifySingleAudit(auditfile):
                 elif item in field_uncontrolled:
                     # Uncontrolled Fields not Controlled
                     pass
+                elif item in field_ints_optional:
+                    if isinstance(this_audit_config[section][item], int) is False:
+                        logger.error("Optional Field {} Defined but is not an Integer. Breaking.".format(item))
+                        verified = False
                 else:
                     # Auto Error unkown Field
                     logger.error("Issue with file {} audit {} item {} field is Unknown.".format(audit_file_name, section, item))

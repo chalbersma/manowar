@@ -23,10 +23,6 @@ mkdocs --version
 mkdocs build
 mkdocs build --clean
 
-ssh-add -l
-ssh git@github.com
-git remote set-url origin git@github.com:chalbersma/manowar.git
-
 echo ${TRAVIS_BRANCH}
 echo ${TRAVIS_REPO_SLUG}
 echo ${TRAVIS_EVENT_TYPE}
