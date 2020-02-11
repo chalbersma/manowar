@@ -119,12 +119,7 @@ setuptools.setup(
         "yoyo-database-migrations",
         "pylxd"
     ],
-    scripts=["ui.py",
-             "analyze.py",
-             "collate.py",
-             "rss_creator.py",
-             "schedule3.py",
-             "storage.py"],
+    scripts=["manowar_server", ],
     data_files=[("etc/manowar", ["etc/manowar/manoward.yaml.sample"]),
                 ("etc/manowar/salt", ["etc/manowar/salt/master",
                                       "etc/manowar/salt/roster.sample",
