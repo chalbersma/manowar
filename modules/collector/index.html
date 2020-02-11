@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Collector - Man o' War Documentation</title>
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Collector";
+    var mkdocs_page_input_path = "modules/collector.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Man o' War Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Man o' War</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../authentication/">Authentication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../db_setup/">DB Setup</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../overview/">Man o' War</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Modules</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../analyze/">Analyze</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../canonical_cve/">Canonical CVE</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../collate/">Collate</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../collection_archive/">Collection Archive</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Collector</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#collector">Collector</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#collection-configuration">Collection Configuration</a></li>
+        
+            <li><a class="toctree-l4" href="#ssh">SSH</a></li>
+        
+            <li><a class="toctree-l4" href="#example">Example</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../scheduler/">Scheduler</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Man o' War Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Modules &raquo;</li>
+        
+      
+    
+    <li>Collector</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="collector">Collector</h1>
+<p>By itself <code>collector.py</code> is actually a simple module. It simply parses some configs
+to tell itself what it out to do. Then runs and parses those commands on individual
+hosts. It's main usage is to get called by <code>schedule2.py</code> over and over again to
+do the collections.</p>
+<p><img alt="Collector Arch" src="/plantuml/collector_diagram.svg" /></p>
+<h2 id="collection-configuration">Collection Configuration</h2>
+<p>Collection configuration is by default stored in svn in the <code>collector.ini</code> file.
+Here is an example of a collection :</p>
+<pre><code class="ini">[packages]
+; Remote Collection Command
+multi=TRUE
+collection=dpkg --list | grep -E '^ii' | awk '{print $2&quot;\011&quot;$3}'
+</code></pre>
+
+<p>Collections can be either single dimentional or multi-dimensional. Single dimentional
+lines will get stored as just one "default" collection subtype. Multidimentional
+ones will get stored with each line being treated as a <code>subtype value</code> combo where
+whitespace seperates the two items.</p>
+<p>Here are the top few results of what this command produces. Note how each package
+will end up being it's own subtype. :</p>
+<pre><code>&gt; dpkg --list | grep -E '^ii' | awk '{print $2&quot;\011&quot;$3}' | head
+accountsservice 0.6.42-0ubuntu3.1
+acl     2.2.52-3build1
+acpi-support    0.142
+acpid   1:2.0.28-1ubuntu1
+adduser 3.113+nmu3ubuntu5
+adium-theme-ubuntu      0.3.4-0ubuntu4
+adobe-flash-properties-gtk      1:20180313.1-0ubuntu0.17.10.1
+adobe-flashplugin       1:20180313.1-0ubuntu0.17.10.1
+adwaita-icon-theme      3.26.0-0ubuntu2
+aisleriot       1:3.22.2-0ubuntu1
+</code></pre>
+
+<p>Interpolation is a thing. When the config is parsed any <code>%</code> character is going to
+be specially viewed. If you need a <code>%</code> character (see example below) you'll need to
+write a <code>%%</code>. You'll find it useful with stat and date commands.
+Here is an example of a collection that uses this:</p>
+<pre><code class="ini">[ssh-host-key-age]
+; Grabs a hash of the SSH host key
+multi=TRUE
+collection=stat -c %%n&quot;     &quot;%%Y /etc/ssh/*.pub | tr '[/.]' '_'
+</code></pre>
+
+<h2 id="ssh">SSH</h2>
+<p>Python's <a href="http://www.paramiko.org/">Paramiko</a> module is used to log into each host
+and the jellyfish ssh key that get's installed in salt is generally used to log in.
+Currently that key is managed by hand on the jellyfish machine and it's public half
+is delivered via salt.</p>
+<h2 id="example">Example</h2>
+<p>Below is an example of a collection being ran manually and the data it produces
+(truncated to protect the innocent and the scrollwheels). Note that because of the
+uniqueness of bast servers a good chunk of collections don't work out of the box.</p>
+<pre><code class="json">{
+    &quot;collection_data&quot;: {
+        &quot;boottime&quot;: {
+            &quot;default&quot;: &quot;Tue Mar 20 00:00:00 UTC 2018&quot;
+        },
+        &quot;cpu-info&quot;: {
+            &quot;Architecture:&quot;: &quot;x86_64&quot;,
+            &quot;BogoMIPS:&quot;: &quot;4000.00&quot;,
+            &quot;Byte&quot;: &quot;Order: Little Endian&quot;,
+            &quot;CPU&quot;: &quot;MHz: 2000.000&quot;,
+            &quot;CPU(s):&quot;: &quot;8&quot;,
+            &quot;Core(s)&quot;: &quot;per socket: 4&quot;,
+            &quot;Hypervisor&quot;: &quot;vendor: VMware&quot;,
+            &quot;L1d&quot;: &quot;cache: 32K&quot;,
+            &quot;L1i&quot;: &quot;cache: 32K&quot;,
+            &quot;L2&quot;: &quot;cache: 256K&quot;,
+            &quot;L3&quot;: &quot;cache: 15360K&quot;,
+            &quot;Model:&quot;: &quot;45&quot;,
+            &quot;NUMA&quot;: &quot;node0 CPU(s): 0-7&quot;,
+            &quot;On-line&quot;: &quot;CPU(s) list: 0-7&quot;,
+            &quot;Socket(s):&quot;: &quot;2&quot;,
+            &quot;Stepping:&quot;: &quot;7&quot;,
+            &quot;Thread(s)&quot;: &quot;per core: 1&quot;,
+            &quot;Vendor&quot;: &quot;ID: GenuineIntel&quot;,
+            &quot;Virtualization&quot;: &quot;type: full&quot;
+        },
+        &quot;host_host&quot;: {
+            &quot;HOSTNAME&quot;: &quot;host1.host&quot;,
+            &quot;POP&quot;: &quot;N/A&quot;,
+            &quot;SRVTYPE&quot;: &quot;N/A&quot;,
+            &quot;STATUS&quot;: &quot;N/A&quot;,
+            &quot;UBERID&quot;: &quot;N/A&quot;
+        },
+        &quot;pci-info&quot;: {
+            &quot;00:00.0&quot;: &quot;Host bridge: Intel Corporation 440BX/ZX/DX - 82443BX/ZX/DX Host bridge (rev 01)&quot;,
+            &quot;00:01.0&quot;: &quot;PCI bridge: Intel Corporation 440BX/ZX/DX - 82443BX/ZX/DX AGP bridge (rev 01)&quot;,
+            &quot;00:07.0&quot;: &quot;ISA bridge: Intel Corporation 82371AB/EB/MB PIIX4 ISA (rev 08)&quot;,
+            &quot;00:07.1&quot;: &quot;IDE interface: Intel Corporation 82371AB/EB/MB PIIX4 IDE (rev 01)&quot;,
+            &quot;00:07.3&quot;: &quot;Bridge: Intel Corporation 82371AB/EB/MB PIIX4 ACPI (rev 08)&quot;,
+            &quot;00:07.7&quot;: &quot;System peripheral: VMware Virtual Machine Communication Interface (rev 10)&quot;,
+            &quot;00:0f.0&quot;: &quot;VGA compatible controller: VMware SVGA II Adapter&quot;,
+            &quot;00:11.0&quot;: &quot;PCI bridge: VMware PCI bridge (rev 02)&quot;,
+            &quot;00:15.0&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:15.1&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:15.2&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:15.3&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:15.4&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:15.5&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:15.6&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:15.7&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:16.0&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:16.1&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:16.2&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:16.3&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:16.4&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:16.5&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:16.6&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:16.7&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:17.0&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:17.1&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:17.2&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:17.3&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:17.4&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:17.5&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:17.6&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:17.7&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:18.0&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:18.1&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:18.2&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:18.3&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:18.4&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:18.5&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:18.6&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;00:18.7&quot;: &quot;PCI bridge: VMware PCI Express Root Port (rev 01)&quot;,
+            &quot;03:00.0&quot;: &quot;Ethernet controller: VMware VMXNET3 Ethernet Controller (rev 01)&quot;
+        },
+        &quot;reboot-needed&quot;: {
+            &quot;default&quot;: &quot;NO-REBOOT-REQUIRED&quot;
+        },
+        &quot;release&quot;: {
+            &quot;default&quot;: &quot;trusty&quot;
+        },
+        &quot;repositories-hash&quot;: {
+            &quot;default&quot;: &quot;1fe60f07c344e2a4e9459be05aed9c12+8&quot;
+        },
+        &quot;rkernel&quot;: {
+            &quot;default&quot;: &quot;4.4.0-103-generic&quot;
+        }
+    },
+    &quot;collection_hostname&quot;: &quot;host1.host&quot;,
+    &quot;collection_status&quot;: &quot;SSH SUCCESS&quot;,
+    &quot;collection_timestamp&quot;: 1522187510,
+    &quot;connection_string&quot;: &quot;chalbersma@1.1.1.1&quot;,
+    &quot;ip_intel&quot;: [
+        {
+            &quot;ip&quot;: &quot;1.1.1.1&quot;,
+            &quot;iptype&quot;: &quot;host4&quot;
+        }
+    ],
+    &quot;ipv6_val_error&quot;: &quot;Found IPV6 Address would not Validateillegal IP address string passed to inet_pton&quot;,
+    &quot;pop&quot;: &quot;N/A&quot;,
+    &quot;srvtype&quot;: &quot;N/A&quot;,
+    &quot;status&quot;: &quot;N/A&quot;,
+    &quot;uber_id&quot;: &quot;N/A&quot;
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../scheduler/" class="btn btn-neutral float-right" title="Scheduler">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../collection_archive/" class="btn btn-neutral" title="Collection Archive"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../collection_archive/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../scheduler/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Scheduler - Man o' War Documentation</title>
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Scheduler";
+    var mkdocs_page_input_path = "modules/scheduler.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Man o' War Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Man o' War</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../authentication/">Authentication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../db_setup/">DB Setup</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../overview/">Man o' War</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Modules</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../analyze/">Analyze</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../canonical_cve/">Canonical CVE</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../collate/">Collate</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../collection_archive/">Collection Archive</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../collector/">Collector</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Scheduler</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#scheduler">Scheduler</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#introduction">Introduction</a></li>
+        
+            <li><a class="toctree-l4" href="#performance">Performance</a></li>
+        
+            <li><a class="toctree-l4" href="#inputoutput">Input/Output</a></li>
+        
+            <li><a class="toctree-l4" href="#gap-fix">Gap Fix</a></li>
+        
+            <li><a class="toctree-l4" href="#future-state">Future State</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Man o' War Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Modules &raquo;</li>
+        
+      
+    
+    <li>Scheduler</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="scheduler">Scheduler</h1>
+<h2 id="introduction">Introduction</h2>
+<p>The scheduler is a module that essentially interacts with three other modules,
+<code>collector</code>, <code>storage</code> and <code>sapicheck</code>. It ties these together and in a big ole
+loop enumerates the systems in Uber and attempts to profile them.</p>
+<p><img alt="Scheduler Highlevel" src="/plantuml/scheduler_highlevel.svg" /></p>
+<h2 id="performance">Performance</h2>
+<p>As of this writing, the scheduler is configured to utilize 256 threads for collecting.
+Because of the nature of collections (it's a lot of do wait), most of the time
+you spend waiting for processes to return on the target hosts. The 256 threads limitiation
+is likely a database limitation.</p>
+<p>Because of these limitations the scheduler is limited to run for 8 hours a day.
+It prioritizes systems in production and ends up behind schedule quite a bit.
+The orignal plan was to migrate this into EBY but before we could do that SecEng
+was Oathafied. So the future of the product will be decided by whomever takes it over.</p>
+<h2 id="inputoutput">Input/Output</h2>
+<p>The scheduler is called by cron (at the moment) and it is fenced with a lockfile
+in <code>/var/run/jellyfish</code>. The scheduler utilizes a configurable amount of threads
+(configured in <code>scheduler.ini</code> in SVN) to run a number of instances of the Collector
+&amp; Storage modules. It uses the <code>server4.csv</code> file located in the netinfo svn
+location to grab a list of servers it needs to check.</p>
+<p>The module will quit after a certain amount of time where it can't reach all the
+hosts. In this scenario it will return an item in the output json that looks like
+this:</p>
+<pre><code>    "Timeout": "Timeout reached at 57627.98305392265 seconds with 29 items left on the queue.",
+</code></pre>
+<p>The Verbose module will output a status message to stdout for the duration of the
+run. Additionally a final status json will be outputted to stdout (and optionally
+to a seperate file) that contains the following pieces of information:</p>
+<ul>
+<li><code>global_fail_hosts</code> - How many hosts scheduler failed to collect data from</li>
+<li><code>global_fail_hosts_list</code> - A list of those hosts</li>
+<li><code>global_fail_prod</code> - How many hosts scheduler failed that were listed as "production".</li>
+<li><code>global_fail_prod_list</code> - A list of those production hosts.</li>
+<li><code>global_success_hosts</code> - How many hosts scheduler successfully collected data from.</li>
+<li><code>global_success_hosts_list</code> - A list of those hosts.</li>
+<li><code>jobtime</code> - How long, in seconds, scheduler ran for.</li>
+<li><code>threads</code> - How many threads the system used</li>
+</ul>
+<h2 id="gap-fix">Gap Fix</h2>
+<p>Gap fix is a related module to Scheduler. It's designed to find systems that are in
+prod in uber but don't have a recent result. It works almost the same as scheduler
+but has a lighter load so that it doesn't interrupt normal operations.</p>
+<p>Most importantly it doesn't trigger the lock file that keeps analysis from running.</p>
+<h2 id="future-state">Future State</h2>
+<h3 id="probable">Probable</h3>
+<p>Ideally this would in the future be replaced with stingcell, an agent that runs
+on hosts and reports information back via the storage api. Scheduler would likely
+have a funcationality similar to gap_fix and only stand to attempt to login to
+systems that hadn't checked in via the api for a period of time.</p>
+<p>It would be likely that a box in EC &amp; IR500 Command and Control environments would
+exist with API keys that can log into the missing hosts (See Diagram). And it, like
+stingcell would utlize the API to make it's storage calls. While the document only
+shows one LC, it's likely we'd have a node in every LC that we had along with
+(potentially) additional nodes for Cloud Assets if that was the direction we wanted
+to go.</p>
+<p><img alt="Scheduler Proposed Future State" src="/plantuml/scheduler_future_state.svg" /></p>
+<p>In a fully realized, microservices architecture the Scheduler would be obsolete.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../collector/" class="btn btn-neutral" title="Collector"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../collector/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>
