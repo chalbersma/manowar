@@ -3,7 +3,7 @@
 set -x
 
 # Run Scheduler Test
-./ui.py -d -c ./travis/artifacts/manoward.yaml > /home/travis/ui.log &
+./manowar_server -vvv api -d -c ./travis/artifacts/manoward.yaml > /home/travis/ui.log &
 
 uipid=$!
 

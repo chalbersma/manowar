@@ -18,18 +18,18 @@ before_script:
 - "./travis/db_setup.sh"
 - sudo pip3 install --upgrade setuptools
 - sudo pip3 install -r requirements.txt
-- sudo pip3 install mkdocs bandit twine
+- sudo pip3 install mkdocs bandit twine pylint
 - gem install mdl
 script:
 - "./travis/testing.sh"
 - "./travis/swagger_test.sh"
+- "./travis/swagger_build.sh"
 - "./travis/api_test.sh"
 - "./travis/sapi_test.sh"
 - "./travis/schedule_test.sh"
 - "./travis/analyze_test.sh"
 after_success:
 - "./travis/build_diag.sh"
-- "./travis/swagger_build.sh"
 - "./travis/build_docs.sh"
 - "./travis/packages.sh"
 before_install:

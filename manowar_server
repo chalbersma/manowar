@@ -44,9 +44,9 @@ if __name__ == "__main__":
     archive_parser.add_argument("--age", default=90, type=int, help="How far back to archive.")
 
     swagger_parser = subparsers.add_parser("swagger", help="Run a Swagger Pull Job")
-    swagger_parser.add_argument("-d", "--apiDirectory", help="API Directory to recurse through", required=True)
-    swagger_parser.add_argument("-o", "--outputfile", help="File to output the swagger doc to", required=True)
-    swagger_parser.add_argument("-t", "--template", help="Jinja Template to use for output", required=True)
+    swagger_parser.add_argument("-d", "--apiDirectory", help="API Directory to recurse through")
+    swagger_parser.add_argument("-o", "--outputfile", help="File to output the swagger doc to")
+    swagger_parser.add_argument("-t", "--template", help="Jinja Template to use for output")
     swagger_parser.add_argument("-C", "--checkonly", action="store_true", help="Check to ensure every file in api has definition", default=False)
 
     rss_parser = subparsers.add_parser("rss", help="Run a RSS Audit Collection Job")

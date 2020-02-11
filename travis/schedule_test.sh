@@ -9,7 +9,7 @@ echo -e "Testing Salt- Stack Setup"
 ./travis/salt_sanity.sh
 
 # Time for a Schedule 3 World
-./schedule3.py -p -vvv
+./manowar_server -vvv schedule -p
 
 # Now Test it WOrks
 whereis jq

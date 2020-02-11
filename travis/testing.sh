@@ -8,12 +8,11 @@
 # ./jelly_api & ./jelly_display are the older versions of
 # this project. They do not and should evaluated and are
 # there only in case something needs to be turned back on.
-python_files=$(find . -type d  -wholename ./jelly_api -prune -o \
-                    -type d -wholename ./jelly_display -prune -o \
-                    -type d -wholename ./lib -prune -o \
+python_files=$(find . -type d -wholename ./lib -prune -o \
                     -type f -regex ".*\.py$")
 
 bandit_failure="pass"
+pylint_failure="pass"
 for file in ${python_files} ; do
   this_temp=$(mktemp /tmp/banditout.XXXXX)
   bandit "${file}" > "${this_temp}"
@@ -21,18 +20,15 @@ for file in ${python_files} ; do
   if [[ ${this_file_good} -gt 0 ]] ; then
     echo -e "BANDIT: ${file} had issues please investigate."
     cat "${this_temp}"
-    failure="fail"
+    bandit_failure="fail"
   else
     echo -e "BANDIT: ${file} good."
   fi
 
-  # Get bandit working first
-
-  #pylint3 ${file}
-  #if [[ $? -gt 0 ]] ; then
-  #  echo -e "PYLINT:: ${file} had issues please investigate."
-  #  exit 1
-  #fi
+  pylint-fail-under --fail_under 6.0 ${file}
+  if [[ $? -gt 0 ]] ; then
+    pylint_failure="fail"
+  fi
 
 done
 
@@ -41,6 +37,13 @@ if [[ $bandit_failure == "fail" ]] ; then
   exit 1
 else
   echo -e "Bandit Checks Passed"
+fi
+
+if [[ $pylint_failure == "fail" ]] ; then
+  echo -e "Pylint Failures Detected"
+  exit 1
+else
+  echo -e "Pylint Checks Passed"
 fi
 
 bash_files=$(find . -type d -wholename ./lib -prune -o \
