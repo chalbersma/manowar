@@ -212,14 +212,15 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
 
                 try:
 
-                    as_obj = feed_config["audit_source_obj"](
-                        *as_args, **as_kwargs)
+                    as_obj = feed_config["audit_source_obj"](*as_args,
+                                                             **as_kwargs)
+                    
                 except Exception as audit_source_error:
-                    logger.error(
-                        "Unable to Pull Audit {}.".format(best_source_key))
+                    logger.error("Unable to Pull Audit {}.".format(best_source_key))
+                    
                     logger.debug("Pull Error : {}".format(audit_source_error))
-                    audit_source_items[best_source_key] = [
-                        False, "Error on Creation."]
+                    
+                    audit_source_items[best_source_key] = [False, "Error on Creation."]
                 else:
                     if as_obj.validate_audit_live() is True:
 

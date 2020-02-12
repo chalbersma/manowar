@@ -68,7 +68,7 @@ class AuditSourceRHSA(AuditSource):
     __ts_format = "%Y-%m-%dT%H:%M:%SZ"
 
     __epoch_regex = "^(\d)\:"
-    __el_regex = "^(\S+)\.el(\d{0,2})"
+    __el_regex = "^(\S+)[\.\+]el(\d{0,2})"
 
     def __init__(self, **kwargs):
 
@@ -105,7 +105,7 @@ class AuditSourceRHSA(AuditSource):
                            "filters": self.rhsa_filters,
                            "comparisons": self.rhsa_comparisons}
 
-        audit_date = datetime.datetime.strptime(self.oval_data["oval_definitions"]["generator"]["oval:timestamp"], self.__ts_format)
+        audit_date = datetime.datetime.strptime(self.oval_data["data"]["oval_definitions"]["generator"]["oval:timestamp"], self.__ts_format)
                                                                                                 
         self.audit_data["auditts"] = int(audit_date.timestamp())
 
@@ -271,7 +271,11 @@ class AuditSourceRHSA(AuditSource):
                         self.logger.debug("ISplit Found : {}".format(i_split))
 
                         # I have my Split let's add it
-                        self.insert_into_matrix(**i_split)
+                        if i_split["full_version"] is not None:
+                            self.insert_into_matrix(**i_split)
+                        else:
+                            self.logger.warning("Ignoring Split of {} as it has a missing Full Version.".format(i_split["package"]))
+                            self.logger.debug("Bad ISplit : {}".format(i_split))
 
                     else:
                         self.logger.debug(
@@ -362,8 +366,7 @@ class AuditSourceRHSA(AuditSource):
                 release_number= int(product_regex.group(2))
                 package_n_version= product_regex.group(1)
 
-            self.logger.debug("Found Package for Release {} : {}".format(
-                release_number, package_n_version))
+            self.logger.debug("Found Package for Release {} : {}".format(release_number, package_n_version))
 
             # Split Package Name from Version
             pnv_array= package_n_version.split("-")
@@ -378,26 +381,31 @@ class AuditSourceRHSA(AuditSource):
             package= kwargs["package_name"]
 
             product_regex= re.match(self.__el_regex, str(kwargs["package_version"]))
+            
+            self.logger.debug("Product {} Product Version {}".format(kwargs["package_name"], kwargs["package_version"]))
 
             if product_regex is not None:
-                release_number= int(product_regex.group(2))
+                release_number = int(product_regex.group(2))
                 # Since I was given it split, I don't have to worry about understanding the package
                 # vs. Version split. I can go straight to full_version
-                full_version= product_regex.group(1)
+                full_version = product_regex.group(1)
+            else:
+                full_version = None
+                release_number = 0
 
 
         # Okay Now let's handle Version stuff.
-        best_version= full_version
+        best_version = full_version
 
         # Let's see if I have an epoch, if so let's handle that
-        if re.match(self.__epoch_regex, full_version) is not None:
-            best_version= full_version.split(":")[1]
+        if full_version is not None and re.match(self.__epoch_regex, full_version) is not None:
+            best_version = full_version.split(":")[1]
             epoch= full_version.split(":")[0]
         else:
             epoch= None
 
         # Strip out Release Information if it exists
-        if len(best_version.split("-")) == 2:
+        if best_version is not None and len(best_version.split("-")) == 2:
             version_release= best_version.split("-")[1]
             best_version= best_version.split("-")[0]
         else:
