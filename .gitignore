@@ -5,6 +5,7 @@ __pycache__/
 pip-selfcheck.json
 .buildconfig
 *.kdev4
+.idea
 
 # C extensions
 *.so
