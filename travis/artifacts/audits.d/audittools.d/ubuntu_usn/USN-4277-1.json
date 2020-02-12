@@ -1,0 +1,156 @@
+{
+  "USN-4277-1": {
+    "auditts": 1581439684,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libexif12"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.6.21-4ubuntu0.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "libexif12"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.6.21-5.1ubuntu0.1"
+        ]
+      },
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "libexif12"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.6.20-2ubuntu0.2"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libexif12"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.6.21-1ubuntu1+esm1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libexif12"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.6.21-2ubuntu0.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2016-6328_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2016/CVE-2016-6328.html",
+      "CVE-2017-7544_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-7544.html",
+      "CVE-2019-9278_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-9278.html",
+      "USN-4277-1": "https://usn.ubuntu.com/4277-1/"
+    },
+    "vuln-long-description": "Liu Bingchang discovered that libexif incorrectly handled certain files.\nAn attacker could possibly use this issue to access sensitive information or\ncause a denial of service. This issue only affected Ubuntu 12.04 ESM, Ubuntu 14.04 ESM and\nUbuntu 16.04 LTS. (CVE-2016-6328)\n\nLili Xu and Bingchang Liu discovered that libexif incorrectly handled certain files.\nAn attacker could possibly use this issue to access sensitive information or cause\na denial of service. This issue only affected Ubuntu 12.04 ESM, Ubuntu 14.04 ESM and\nUbuntu 16.04 LTS. (CVE-2017-7544)\n\nIt was discovered that libexif incorrectly handled certain files. An attacker could\npossibly use this issue to execute arbitrary code. (CVE-2019-9278)\n\n\nTLDR: After a standard system update you need to restart your session to effect the necessary\nchanges.\n\n",
+    "vuln-name": "USN-4277-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4277-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in libexif.\n"
+  }
+}

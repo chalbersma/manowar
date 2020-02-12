@@ -1,0 +1,53 @@
+{
+  "USN-4276-1": {
+    "auditts": 1581432768,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libykpiv1",
+          "ykcs11",
+          "yubico-piv-tool"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.4.2-2ubuntu0.1",
+          "1.4.2-2ubuntu0.1",
+          "1.4.2-2ubuntu0.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2018-14779_(High)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-14779.html",
+      "CVE-2018-14780_(High)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-14780.html",
+      "USN-4276-1": "https://usn.ubuntu.com/4276-1/"
+    },
+    "vuln-long-description": "It was discovered that libykpiv, a supporting library of the Yubico PIV\nTool and YubiKey PIV Manager, mishandled specially crafted input. An\nattacker with a custom-made, malicious USB device could potentially execute\narbitrary code on a computer running the Yubico PIV Tool or Yubikey PIV\nManager.\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4276-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4276-1/",
+    "vuln-priority": 7,
+    "vuln-short-description": "Yubico PIV Tool could be made to crash or run programs as an administrator if it received specially crafted input.\n"
+  }
+}
