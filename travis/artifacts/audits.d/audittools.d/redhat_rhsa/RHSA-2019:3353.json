@@ -1,0 +1,86 @@
+{
+  "RHSA-2019:3353": {
+    "auditts": 1573681642,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "freeradius-utils",
+          "freeradius-unixODBC",
+          "freeradius-sqlite",
+          "freeradius-rest",
+          "freeradius-postgresql",
+          "freeradius-perl",
+          "freeradius-mysql",
+          "freeradius-ldap",
+          "freeradius-krb5",
+          "freeradius-doc",
+          "freeradius-devel",
+          "freeradius-debugsource",
+          "freeradius"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.0.17",
+          "3.0.17",
+          "3.0.17",
+          "3.0.17",
+          "3.0.17",
+          "3.0.17",
+          "3.0.17",
+          "3.0.17",
+          "3.0.17",
+          "3.0.17",
+          "3.0.17",
+          "3.0.17",
+          "3.0.17"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-10143": "https://access.redhat.com/security/cve/CVE-2019-10143",
+      "bz#1705340: CVE-2019-10143 freeradius: privilege escalation due to insecure logrotate configuration": "https://bugzilla.redhat.com/show_bug.cgi?id=1705340",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3353": "https://access.redhat.com/errata/RHSA-2019:3353",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1685546": "https://bugzilla.redhat.com/show_bug.cgi?id=1685546"
+    },
+    "vuln-long-description": "An update for the freeradius:3.0 module is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nFreeRADIUS is a high-performance and highly configurable free Remote Authentication Dial In User Service (RADIUS) server, designed to allow centralized authentication and authorization for a network.\nSecurity Fix(es):\n* freeradius: privilege escalation due to insecure logrotate configuration (CVE-2019-10143)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3353",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3353",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for the freeradius:3.0 module is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

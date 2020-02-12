@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0194": {
+    "auditts": 1579679482,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -34,7 +35,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-10086": "https://access.redhat.com/security/cve/CVE-2019-10086",
       "bz#1767483: CVE-2019-10086 apache-commons-beanutils: does not suppresses the class property in PropertyUtilsBean by default": "https://bugzilla.redhat.com/show_bug.cgi?id=1767483",

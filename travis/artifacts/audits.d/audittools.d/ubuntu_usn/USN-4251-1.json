@@ -1,10 +1,11 @@
 {
   "USN-4251-1": {
+    "auditts": 1580137549,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
-          "libtomcat8-java",
-          "tomcat8"
+          "tomcat8",
+          "libtomcat8-java"
         ],
         "comparison-collection-type": [
           "packages",
@@ -34,7 +35,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-12418_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12418.html",
       "CVE-2019-17563_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17563.html",

@@ -1,5 +1,6 @@
 {
   "USN-4223-1": {
+    "auditts": 1576624472,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -68,9 +69,9 @@
         "comparison-collection-subtype": [
           "openjdk-8-jre-zero",
           "openjdk-8-jre-jamvm",
-          "openjdk-8-jdk",
+          "openjdk-8-jre",
           "openjdk-8-jre-headless",
-          "openjdk-8-jre"
+          "openjdk-8-jdk"
         ],
         "comparison-collection-type": [
           "packages",
@@ -151,7 +152,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-2894_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2894.html",
       "CVE-2019-2945_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-2945.html",

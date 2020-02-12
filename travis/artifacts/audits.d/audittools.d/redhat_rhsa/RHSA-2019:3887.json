@@ -1,5 +1,6 @@
 {
   "RHSA-2019:3887": {
+    "auditts": 1573782432,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -58,7 +59,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-0155": "https://access.redhat.com/security/cve/CVE-2019-0155",
       "bz#1724398: CVE-2019-0155 hw: Intel GPU blitter manipulation can allow for arbitrary kernel memory write": "https://bugzilla.redhat.com/show_bug.cgi?id=1724398",

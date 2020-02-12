@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0196": {
+    "auditts": 1580298571,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -76,7 +77,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2020-2583": "https://access.redhat.com/security/cve/CVE-2020-2583",
       "CVE-2020-2590": "https://access.redhat.com/security/cve/CVE-2020-2590",
@@ -87,7 +88,7 @@
       "CVE-2020-2659": "https://access.redhat.com/security/cve/CVE-2020-2659",
       "bz#1790444: CVE-2020-2583 OpenJDK: Incorrect exception processing during deserialization in BeanContextSupport (Serialization, 8224909)": "https://bugzilla.redhat.com/show_bug.cgi?id=1790444",
       "bz#1790556: CVE-2020-2590 OpenJDK: Improper checks of SASL message properties in GssKrb5Base (Security, 8226352)": "https://bugzilla.redhat.com/show_bug.cgi?id=1790556",
-      "bz#1790570: CVE-2020-2601 OpenJDK: Use of unsafe RSA-MD5 checkum in Kerberos TGS (Security, 8229951)": "https://bugzilla.redhat.com/show_bug.cgi?id=1790570",
+      "bz#1790570: CVE-2020-2601 OpenJDK: Use of unsafe RSA-MD5 checksum in Kerberos TGS (Security, 8229951)": "https://bugzilla.redhat.com/show_bug.cgi?id=1790570",
       "bz#1790884: CVE-2020-2593 OpenJDK: Incorrect isBuiltinStreamHandler causing URL normalization issues (Networking, 8228548)": "https://bugzilla.redhat.com/show_bug.cgi?id=1790884",
       "bz#1790944: CVE-2020-2604 OpenJDK: Serialization filter changes via jdk.serialFilter property modification (Serialization, 8231422)": "https://bugzilla.redhat.com/show_bug.cgi?id=1790944",
       "bz#1791217: CVE-2020-2654 OpenJDK: Excessive memory usage in OID processing in X.509 certificate parsing (Libraries, 8234037)": "https://bugzilla.redhat.com/show_bug.cgi?id=1791217",

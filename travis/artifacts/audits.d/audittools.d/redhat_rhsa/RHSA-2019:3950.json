@@ -1,5 +1,6 @@
 {
   "RHSA-2019:3950": {
+    "auditts": 1577319646,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -37,7 +38,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-13616": "https://access.redhat.com/security/cve/CVE-2019-13616",
       "bz#1747237: CVE-2019-13616 SDL: heap-based buffer overflow in SDL blit functions in video/SDL_blit*.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1747237",

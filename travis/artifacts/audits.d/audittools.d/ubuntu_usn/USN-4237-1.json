@@ -1,5 +1,6 @@
 {
   "USN-4237-1": {
+    "auditts": 1578930405,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -112,16 +113,16 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2018-11805_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-11805.html",
-      "CVE-2019-12420_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12420.html",
+      "CVE-2018-11805_(Unknown)": null,
+      "CVE-2019-12420_(Unknown)": null,
       "USN-4237-1": "https://usn.ubuntu.com/4237-1/"
     },
     "vuln-long-description": "It was discovered that SpamAssassin incorrectly handled certain CF files.\nIf a user or automated system were tricked into using a specially-crafted\nCF file, a remote attacker could possibly run arbitrary code.\n(CVE-2018-11805)\n\nIt was discovered that SpamAssassin incorrectly handled certain messages.\nA remote attacker could possibly use this issue to cause SpamAssassin to\nconsume resources, resulting in a denial of service. (CVE-2019-12420)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4237-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4237-1/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "Several security issues were fixed in SpamAssassin.\n"
   }
 }

@@ -1,0 +1,79 @@
+{
+  "RHSA-2019:3600": {
+    "auditts": 1573681699,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "gnutls-debugsource",
+          "gnutls",
+          "gnutls-utils",
+          "gnutls-devel",
+          "gnutls-dane",
+          "gnutls-c++"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.6.8",
+          "3.6.8",
+          "3.6.8",
+          "3.6.8",
+          "3.6.8",
+          "3.6.8"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-3829": "https://access.redhat.com/security/cve/CVE-2019-3829",
+      "CVE-2019-3836": "https://access.redhat.com/security/cve/CVE-2019-3836",
+      "bz#1677048: CVE-2019-3829 gnutls: use-after-free/double-free in certificate verification": "https://bugzilla.redhat.com/show_bug.cgi?id=1677048",
+      "bz#1678411: CVE-2019-3836 gnutls: invalid pointer access upon receiving async handshake messages": "https://bugzilla.redhat.com/show_bug.cgi?id=1678411",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3600": "https://access.redhat.com/errata/RHSA-2019:3600",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1667427": "https://bugzilla.redhat.com/show_bug.cgi?id=1667427",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1673975": "https://bugzilla.redhat.com/show_bug.cgi?id=1673975",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1680509": "https://bugzilla.redhat.com/show_bug.cgi?id=1680509",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1680510": "https://bugzilla.redhat.com/show_bug.cgi?id=1680510",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1684461": "https://bugzilla.redhat.com/show_bug.cgi?id=1684461",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1684534": "https://bugzilla.redhat.com/show_bug.cgi?id=1684534",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1686579": "https://bugzilla.redhat.com/show_bug.cgi?id=1686579",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1686582": "https://bugzilla.redhat.com/show_bug.cgi?id=1686582",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1690440": "https://bugzilla.redhat.com/show_bug.cgi?id=1690440",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1691448": "https://bugzilla.redhat.com/show_bug.cgi?id=1691448",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1705478": "https://bugzilla.redhat.com/show_bug.cgi?id=1705478",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1706921": "https://bugzilla.redhat.com/show_bug.cgi?id=1706921",
+      "https://www.gnutls.org/security-new.html#GNUTLS-SA-2019-03-27": "https://www.gnutls.org/security-new.html#GNUTLS-SA-2019-03-27"
+    },
+    "vuln-long-description": "An update for gnutls is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe gnutls packages provide the GNU Transport Layer Security (GnuTLS) library, which implements cryptographic algorithms and protocols such as SSL, TLS, and DTLS.\nThe following packages have been upgraded to a later upstream version: gnutls (3.6.8). (BZ#1689967)\nSecurity Fix(es):\n* gnutls: use-after-free/double-free in certificate verification (CVE-2019-3829)\n* gnutls: invalid pointer access upon receiving async handshake messages (CVE-2019-3836)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3600",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3600",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for gnutls is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

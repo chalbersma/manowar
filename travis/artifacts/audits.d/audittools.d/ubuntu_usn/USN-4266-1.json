@@ -1,5 +1,6 @@
 {
   "USN-4266-1": {
+    "auditts": 1580843944,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
@@ -37,10 +38,10 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2017-17912_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-17912.html",
-      "CVE-2017-17913_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-17913.html",
+      "CVE-2017-17913_(Unknown)": null,
       "CVE-2017-17915_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-17915.html",
       "CVE-2017-18219_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-18219.html",
       "CVE-2017-18229_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-18229.html",

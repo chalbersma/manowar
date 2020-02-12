@@ -1,0 +1,127 @@
+{
+  "USN-4174-1": {
+    "auditts": 1572958226,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "haproxy"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.8-1ubuntu0.7"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "haproxy"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.19-1ubuntu1.2"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "haproxy"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.0.5-1ubuntu0.2"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "haproxy"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.6.3-1ubuntu0.3"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-18277_(Unknown)": null,
+      "USN-4174-1": "https://usn.ubuntu.com/4174-1/"
+    },
+    "vuln-long-description": "It was discovered that HAproxy incorrectly handled certain HTTP requests.\nAn attacker could possibly use this issue to a privilege escalation\n(Request Smuggling).\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4174-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4174-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "HAproxy would allow unintended access if ii received specially crafted\nHTTP request.\n"
+  }
+}

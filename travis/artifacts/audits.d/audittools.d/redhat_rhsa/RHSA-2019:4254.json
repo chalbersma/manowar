@@ -1,5 +1,6 @@
 {
   "RHSA-2019:4254": {
+    "auditts": 1576631720,
     "comparisons": {
       "6-bucket": {
         "comparison-collection-subtype": [
@@ -37,7 +38,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2015-9381": "https://access.redhat.com/security/cve/CVE-2015-9381",
       "CVE-2015-9382": "https://access.redhat.com/security/cve/CVE-2015-9382",

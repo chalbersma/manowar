@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0316": {
+    "auditts": 1580763079,
     "comparisons": {
       "6-bucket": {
         "comparison-collection-subtype": [
@@ -64,7 +65,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2018-17456": "https://access.redhat.com/security/cve/CVE-2018-17456",
       "bz#1636619: CVE-2018-17456 git: arbitrary code execution via .gitmodules": "https://bugzilla.redhat.com/show_bug.cgi?id=1636619",

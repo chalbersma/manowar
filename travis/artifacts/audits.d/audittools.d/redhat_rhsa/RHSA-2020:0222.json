@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0222": {
+    "auditts": 1579856315,
     "comparisons": {
       "8-bucket": {
         "comparison-collection-subtype": [
@@ -37,7 +38,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14869": "https://access.redhat.com/security/cve/CVE-2019-14869",
       "bz#1768911: CVE-2019-14869 ghostscript: -dSAFER escape in .charkeys (701841)": "https://bugzilla.redhat.com/show_bug.cgi?id=1768911",

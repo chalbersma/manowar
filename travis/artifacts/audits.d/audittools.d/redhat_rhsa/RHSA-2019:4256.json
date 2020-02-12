@@ -1,5 +1,6 @@
 {
   "RHSA-2019:4256": {
+    "auditts": 1576631714,
     "comparisons": {
       "6-bucket": {
         "comparison-collection-subtype": [
@@ -67,7 +68,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14821": "https://access.redhat.com/security/cve/CVE-2019-14821",
       "bz#1746708: CVE-2019-14821 Kernel: KVM: OOB memory access via mmio ring buffer": "https://bugzilla.redhat.com/show_bug.cgi?id=1746708",

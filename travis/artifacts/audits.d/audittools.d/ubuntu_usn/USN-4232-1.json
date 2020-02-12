@@ -1,5 +1,6 @@
 {
   "USN-4232-1": {
+    "auditts": 1578505339,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
@@ -37,13 +38,13 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2017-14165_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-14165.html",
       "CVE-2017-14314_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-14314.html",
       "CVE-2017-14504_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-14504.html",
       "CVE-2017-14649_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-14649.html",
-      "CVE-2017-14733_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-14733.html",
+      "CVE-2017-14733_(Unknown)": null,
       "CVE-2017-14994_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-14994.html",
       "CVE-2017-14997_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-14997.html",
       "CVE-2017-15277_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-15277.html",

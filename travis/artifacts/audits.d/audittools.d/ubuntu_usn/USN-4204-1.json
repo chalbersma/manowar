@@ -1,5 +1,6 @@
 {
   "USN-4204-1": {
+    "auditts": 1574945041,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -124,7 +125,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-18874_(Unknown)": null,
       "USN-4204-1": "https://usn.ubuntu.com/4204-1/"

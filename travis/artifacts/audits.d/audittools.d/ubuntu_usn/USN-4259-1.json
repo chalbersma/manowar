@@ -1,5 +1,6 @@
 {
   "USN-4259-1": {
+    "auditts": 1580316905,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
@@ -46,7 +47,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2017-12629_(Unknown)": null,
       "USN-4259-1": "https://usn.ubuntu.com/4259-1/"

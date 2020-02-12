@@ -1,5 +1,6 @@
 {
   "USN-4202-1": {
+    "auditts": 1574812056,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -58,7 +59,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-11755_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11755.html",
       "CVE-2019-11757_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11757.html",

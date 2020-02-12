@@ -1,0 +1,79 @@
+{
+  "USN-4172-2": {
+    "auditts": 1572539581,
+    "comparisons": {
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "libmagic1",
+          "file"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.09-2ubuntu0.8",
+          "5.09-2ubuntu0.8"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libmagic1",
+          "file"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:5.14-2ubuntu3.4+esm1",
+          "1:5.14-2ubuntu3.4+esm1"
+        ]
+      }
+    },
+    "filters": {
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-18218_(Unknown)": null,
+      "USN-4172-2": "https://usn.ubuntu.com/4172-2/"
+    },
+    "vuln-long-description": "USN-4172-1 fixed a vulnerability in file. This update provides\nthe corresponding update for Ubuntu 12.04 ESM Ubuntu 14.04 ESM.\n\nOriginal advisory details:\n\n It was discovered that file incorrectly handled certain malformed files. An\n attacker could use this issue to cause a denial of service, or possibly\n execute arbitrary code.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4172-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4172-2/",
+    "vuln-priority": 1,
+    "vuln-short-description": "file could be made to crash or run programs if it opened a specially\ncrafted file.\n"
+  }
+}

@@ -1,5 +1,6 @@
 {
   "USN-4244-1": {
+    "auditts": 1579611557,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -112,7 +113,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14902_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14902.html",
       "CVE-2019-14907_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14907.html",

@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0204": {
+    "auditts": 1579767875,
     "comparisons": {
       "8-bucket": {
         "comparison-collection-subtype": [
@@ -100,7 +101,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2018-12207": "https://access.redhat.com/security/cve/CVE-2018-12207",
       "CVE-2018-16884": "https://access.redhat.com/security/cve/CVE-2018-16884",

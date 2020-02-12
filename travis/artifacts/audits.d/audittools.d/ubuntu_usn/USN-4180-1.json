@@ -1,0 +1,46 @@
+{
+  "USN-4180-1": {
+    "auditts": 1573474913,
+    "comparisons": {
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "bash"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.2-2ubuntu2.9"
+        ]
+      }
+    },
+    "filters": {
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2012-6711_(Unknown)": null,
+      "USN-4180-1": "https://usn.ubuntu.com/4180-1/"
+    },
+    "vuln-long-description": "It was discovered that Bash incorrectly handled certain inputs.\nAn attacker could possibly use this issue to cause a crash or execute\narbitrary code.\n\n\nTLDR: After a standard system update you need to restart Bash to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4180-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4180-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "Bash could be made to crash or execute arbitrary code if it received\na specially crafted input.\n"
+  }
+}

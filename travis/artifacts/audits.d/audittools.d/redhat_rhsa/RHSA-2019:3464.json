@@ -1,0 +1,80 @@
+{
+  "RHSA-2019:3464": {
+    "auditts": 1573681719,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "virt-manager-common",
+          "virt-manager",
+          "virt-install"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.2.1",
+          "2.2.1",
+          "2.2.1"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-10183": "https://access.redhat.com/security/cve/CVE-2019-10183",
+      "bz#1726232: CVE-2019-10183 virt-install: unattended option leaks password via command line argument": "https://bugzilla.redhat.com/show_bug.cgi?id=1726232",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3464": "https://access.redhat.com/errata/RHSA-2019:3464",
+      "https://access.redhat.com/security/updates/classification/#low": "https://access.redhat.com/security/updates/classification/#low",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1599139": "https://bugzilla.redhat.com/show_bug.cgi?id=1599139",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1659354": "https://bugzilla.redhat.com/show_bug.cgi?id=1659354",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1660123": "https://bugzilla.redhat.com/show_bug.cgi?id=1660123",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1660467": "https://bugzilla.redhat.com/show_bug.cgi?id=1660467",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1661867": "https://bugzilla.redhat.com/show_bug.cgi?id=1661867",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1666597": "https://bugzilla.redhat.com/show_bug.cgi?id=1666597",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1667025": "https://bugzilla.redhat.com/show_bug.cgi?id=1667025",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1671599": "https://bugzilla.redhat.com/show_bug.cgi?id=1671599",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1679018": "https://bugzilla.redhat.com/show_bug.cgi?id=1679018",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1683609": "https://bugzilla.redhat.com/show_bug.cgi?id=1683609",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1690685": "https://bugzilla.redhat.com/show_bug.cgi?id=1690685",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1690687": "https://bugzilla.redhat.com/show_bug.cgi?id=1690687",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1692489": "https://bugzilla.redhat.com/show_bug.cgi?id=1692489",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1700354": "https://bugzilla.redhat.com/show_bug.cgi?id=1700354",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1707379": "https://bugzilla.redhat.com/show_bug.cgi?id=1707379",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1709857": "https://bugzilla.redhat.com/show_bug.cgi?id=1709857",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1714304": "https://bugzilla.redhat.com/show_bug.cgi?id=1714304",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1718065": "https://bugzilla.redhat.com/show_bug.cgi?id=1718065",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1722820": "https://bugzilla.redhat.com/show_bug.cgi?id=1722820",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1724287": "https://bugzilla.redhat.com/show_bug.cgi?id=1724287",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1727811": "https://bugzilla.redhat.com/show_bug.cgi?id=1727811",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1727881": "https://bugzilla.redhat.com/show_bug.cgi?id=1727881",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1741846": "https://bugzilla.redhat.com/show_bug.cgi?id=1741846",
+      "https://virt-manager.org/download/": "https://virt-manager.org/download/",
+      "https://www.openwall.com/lists/oss-security/2019/07/03/1": "https://www.openwall.com/lists/oss-security/2019/07/03/1"
+    },
+    "vuln-long-description": "An update for virt-manager is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nVirtual Machine Manager (virt-manager) is a graphical tool for administering virtual machines for KVM, Xen, and Linux Containers (LXC). The virt-manager utility uses the libvirt API and can start, stop, add or remove virtualized devices, connect to a graphical or serial console, and view resource usage statistics for existing virtualized guests on local or remote machines. \nThe following packages have been upgraded to a later upstream version: virt-manager (2.2.1). (BZ#1727881)\nSecurity Fix(es):\n* virt-install: unattended option leaks password via command line argument (CVE-2019-10183)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3464",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3464",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for virt-manager is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

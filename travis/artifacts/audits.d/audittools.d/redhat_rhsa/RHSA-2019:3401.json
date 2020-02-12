@@ -1,0 +1,88 @@
+{
+  "RHSA-2019:3401": {
+    "auditts": 1573681649,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "389-ds-base-snmp",
+          "389-ds-base-libs",
+          "389-ds-base-legacy-tools",
+          "389-ds-base-devel",
+          "389-ds-base-debugsource",
+          "389-ds-base",
+          "python3-lib389"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.4.1.3",
+          "1.4.1.3",
+          "1.4.1.3",
+          "1.4.1.3",
+          "1.4.1.3",
+          "1.4.1.3",
+          "1.4.1.3"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2018-10871": "https://access.redhat.com/security/cve/CVE-2018-10871",
+      "CVE-2019-10224": "https://access.redhat.com/security/cve/CVE-2019-10224",
+      "CVE-2019-14824": "https://access.redhat.com/security/cve/CVE-2019-14824",
+      "CVE-2019-3883": "https://access.redhat.com/security/cve/CVE-2019-3883",
+      "bz#1591480: CVE-2018-10871 389-ds-base: replication and the Retro Changelog plugin store plaintext password by default": "https://bugzilla.redhat.com/show_bug.cgi?id=1591480",
+      "bz#1677147: CVE-2019-10224 389-ds-base: using dscreate in verbose mode results in information disclosure": "https://bugzilla.redhat.com/show_bug.cgi?id=1677147",
+      "bz#1693612: CVE-2019-3883 389-ds-base: DoS via hanging secured connections": "https://bugzilla.redhat.com/show_bug.cgi?id=1693612",
+      "bz#1747448: CVE-2019-14824 389-ds-base: Read permission check bypass via the deref plugin": "https://bugzilla.redhat.com/show_bug.cgi?id=1747448",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3401": "https://access.redhat.com/errata/RHSA-2019:3401",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1654056": "https://bugzilla.redhat.com/show_bug.cgi?id=1654056",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1654059": "https://bugzilla.redhat.com/show_bug.cgi?id=1654059",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1678517": "https://bugzilla.redhat.com/show_bug.cgi?id=1678517",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1702024": "https://bugzilla.redhat.com/show_bug.cgi?id=1702024",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1706224": "https://bugzilla.redhat.com/show_bug.cgi?id=1706224",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1712467": "https://bugzilla.redhat.com/show_bug.cgi?id=1712467",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1715675": "https://bugzilla.redhat.com/show_bug.cgi?id=1715675",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1717540": "https://bugzilla.redhat.com/show_bug.cgi?id=1717540",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1720331": "https://bugzilla.redhat.com/show_bug.cgi?id=1720331",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1725815": "https://bugzilla.redhat.com/show_bug.cgi?id=1725815",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1729069": "https://bugzilla.redhat.com/show_bug.cgi?id=1729069",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1739183": "https://bugzilla.redhat.com/show_bug.cgi?id=1739183",
+      "https://pagure.io/389-ds-base/issue/49789": "https://pagure.io/389-ds-base/issue/49789",
+      "https://pagure.io/389-ds-base/issue/50251": "https://pagure.io/389-ds-base/issue/50251",
+      "https://pagure.io/389-ds-base/issue/50716": "https://pagure.io/389-ds-base/issue/50716"
+    },
+    "vuln-long-description": "An update for the 389-ds:1.4 module is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\n389 Directory Server is an LDAP version 3 (LDAPv3) compliant server. The base packages include the Lightweight Directory Access Protocol (LDAP) server and command-line utilities for server administration.\nThe following packages have been upgraded to a later upstream version: 389-ds-base (1.4.1.3). (BZ#1712467)\nSecurity Fix(es):\n* 389-ds-base: Read permission check bypass via the deref plugin (CVE-2019-14824)\n* 389-ds-base: replication and the Retro Changelog plugin store plaintext password by default (CVE-2018-10871)\n* 389-ds-base: DoS via hanging secured connections (CVE-2019-3883)\n* 389-ds-base: using dscreate in verbose mode results in information disclosure (CVE-2019-10224)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3401",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3401",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for the 389-ds:1.4 module is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

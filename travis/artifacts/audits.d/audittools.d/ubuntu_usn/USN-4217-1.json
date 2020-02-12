@@ -1,5 +1,6 @@
 {
   "USN-4217-1": {
+    "auditts": 1575982460,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -124,7 +125,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14861_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14861.html",
       "CVE-2019-14870_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14870.html",

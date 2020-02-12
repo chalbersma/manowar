@@ -1,5 +1,6 @@
 {
   "RHSA-2019:4190": {
+    "auditts": 1578620492,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -61,7 +62,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-11729": "https://access.redhat.com/security/cve/CVE-2019-11729",
       "CVE-2019-11745": "https://access.redhat.com/security/cve/CVE-2019-11745",

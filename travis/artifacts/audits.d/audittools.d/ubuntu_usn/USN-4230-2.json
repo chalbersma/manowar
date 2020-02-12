@@ -1,5 +1,6 @@
 {
   "USN-4230-2": {
+    "auditts": 1579803556,
     "comparisons": {
       "precise-bucket": {
         "comparison-collection-subtype": [
@@ -58,7 +59,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-15961_(Unknown)": null,
       "USN-4230-2": "https://usn.ubuntu.com/4230-2/"

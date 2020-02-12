@@ -1,5 +1,6 @@
 {
   "USN-4212-1": {
+    "auditts": 1575463685,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -85,7 +86,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-19330_(Unknown)": null,
       "USN-4212-1": "https://usn.ubuntu.com/4212-1/"

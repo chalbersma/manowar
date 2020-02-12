@@ -1,5 +1,6 @@
 {
   "RHSA-2019:3968": {
+    "auditts": 1574813416,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -40,7 +41,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14378": "https://access.redhat.com/security/cve/CVE-2019-14378",
       "bz#1734745: CVE-2019-14378 QEMU: slirp: heap buffer overflow during packet reassembly": "https://bugzilla.redhat.com/show_bug.cgi?id=1734745",

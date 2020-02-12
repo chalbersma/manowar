@@ -1,5 +1,6 @@
 {
   "RHSA-2019:3390": {
+    "auditts": 1573681693,
     "comparisons": {
       "8-bucket": {
         "comparison-collection-subtype": [
@@ -100,7 +101,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2018-15518": "https://access.redhat.com/security/cve/CVE-2018-15518",
       "CVE-2018-19870": "https://access.redhat.com/security/cve/CVE-2018-19870",
@@ -114,10 +115,10 @@
       "https://bugzilla.redhat.com/show_bug.cgi?id=1692970": "https://bugzilla.redhat.com/show_bug.cgi?id=1692970",
       "https://bugzilla.redhat.com/show_bug.cgi?id=1709949": "https://bugzilla.redhat.com/show_bug.cgi?id=1709949"
     },
-    "vuln-long-description": "\nAn update for qt5-qtbase is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    \n\n\nQt is a software toolkit for developing applications. The qt5-base packages contain base tools for string, xml, and network handling in Qt.\n\nSecurity Fix(es):\n\n* qt5-qtbase: Double free in QXmlStreamReader (CVE-2018-15518)\n\n* qt5-qtbase: QImage allocation failure in qgifhandler (CVE-2018-19870)\n\n* qt5-qtbase: QBmpHandler segmentation fault on malformed BMP file (CVE-2018-19873)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nAdditional Changes:\n\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n    \n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-long-description": "An update for qt5-qtbase is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nQt is a software toolkit for developing applications. The qt5-base packages contain base tools for string, xml, and network handling in Qt.\nSecurity Fix(es):\n* qt5-qtbase: Double free in QXmlStreamReader (CVE-2018-15518)\n* qt5-qtbase: QImage allocation failure in qgifhandler (CVE-2018-19870)\n* qt5-qtbase: QBmpHandler segmentation fault on malformed BMP file (CVE-2018-19873)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
     "vuln-name": "RHSA-2019:3390",
     "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3390",
     "vuln-priority": 1,
-    "vuln-short-description": "\nAn update for qt5-qtbase is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    "
+    "vuln-short-description": "An update for qt5-qtbase is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
   }
 }

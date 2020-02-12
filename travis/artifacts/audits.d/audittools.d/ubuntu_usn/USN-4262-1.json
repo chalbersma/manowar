@@ -1,5 +1,6 @@
 {
   "USN-4262-1": {
+    "auditts": 1580389604,
     "comparisons": {
       "eoan-bucket": {
         "comparison-collection-subtype": [
@@ -34,7 +35,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-19687_(Unknown)": null,
       "USN-4262-1": "https://usn.ubuntu.com/4262-1/"

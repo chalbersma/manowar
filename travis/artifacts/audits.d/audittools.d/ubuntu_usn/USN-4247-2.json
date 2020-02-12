@@ -1,5 +1,6 @@
 {
   "USN-4247-2": {
+    "auditts": 1579734682,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -124,7 +125,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "LP : 1860606": "https://launchpad.net/bugs/1860606",
       "USN-4247-2": "https://usn.ubuntu.com/4247-2/"

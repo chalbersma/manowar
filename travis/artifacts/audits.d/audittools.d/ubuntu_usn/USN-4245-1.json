@@ -1,5 +1,6 @@
 {
   "USN-4245-1": {
+    "auditts": 1579624902,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -124,15 +125,15 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2020-5390_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-5390.html",
+      "CVE-2020-5390_(Unknown)": null,
       "USN-4245-1": "https://usn.ubuntu.com/4245-1/"
     },
     "vuln-long-description": "It was discovered that PySAML2 incorrectly handled certain SAML files.\nAn attacker could possibly use this issue to bypass signature verification\nwith arbitrary data.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4245-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4245-1/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "PySAML2 could be made to bypass signature verification with arbitrary data.\n"
   }
 }

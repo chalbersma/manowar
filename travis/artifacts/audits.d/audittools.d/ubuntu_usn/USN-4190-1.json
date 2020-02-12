@@ -1,0 +1,103 @@
+{
+  "USN-4190-1": {
+    "auditts": 1573655721,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libjpeg-turbo8"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.5.2-0ubuntu5.18.04.3"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "libjpeg-turbo8"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.0.1-0ubuntu2.2"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libjpeg-turbo8"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.4.2-0ubuntu3.3"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2018-14498_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-14498.html",
+      "CVE-2018-19664_(Unknown)": null,
+      "CVE-2018-20330_(Unknown)": null,
+      "CVE-2019-2201_(Unknown)": null,
+      "USN-4190-1": "https://usn.ubuntu.com/4190-1/"
+    },
+    "vuln-long-description": "It was discovered that libjpeg-turbo incorrectly handled certain BMP images.\nAn attacker could possibly use this issue to expose sensitive information.\nThis issue only affected Ubuntu 16.04 LTS and Ubuntu 18.04 LTS.\n(CVE-2018-14498)\n\nIt was discovered that libjpeg-turbo incorrectly handled certain JPEG images.\nAn attacker could possibly use this issue to expose sensitive information.\nThis issue only affected Ubuntu 19.04. (CVE-2018-19664)\n\nIt was discovered that libjpeg-turbo incorrectly handled certain BMP images.\nAn attacker could possibly use this issue to execute arbitrary code. This\nissue only affected Ubuntu 19.04. (CVE-2018-20330)\n\nIt was discovered that libjpeg-turbo incorrectly handled certain JPEG images.\nAn attacker could possibly cause a denial of service or execute arbitrary code.\n(CVE-2019-2201)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4190-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4190-1/",
+    "vuln-priority": 3,
+    "vuln-short-description": "Several security issues were fixed in libjpeg-turbo.\n"
+  }
+}

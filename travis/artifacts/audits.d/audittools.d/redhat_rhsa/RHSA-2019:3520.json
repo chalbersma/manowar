@@ -1,0 +1,88 @@
+{
+  "RHSA-2019:3520": {
+    "auditts": 1573681690,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "python3-debugsource",
+          "python3-test",
+          "python3-libs",
+          "platform-python",
+          "python3-tkinter",
+          "python3-idle",
+          "platform-python-devel",
+          "platform-python-debug"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.6.8",
+          "3.6.8",
+          "3.6.8",
+          "3.6.8",
+          "3.6.8",
+          "3.6.8",
+          "3.6.8",
+          "3.6.8"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-5010": "https://access.redhat.com/security/cve/CVE-2019-5010",
+      "CVE-2019-9740": "https://access.redhat.com/security/cve/CVE-2019-9740",
+      "CVE-2019-9947": "https://access.redhat.com/security/cve/CVE-2019-9947",
+      "CVE-2019-9948": "https://access.redhat.com/security/cve/CVE-2019-9948",
+      "bz#1666519: CVE-2019-5010 python: NULL pointer dereference using a specially crafted X509 certificate": "https://bugzilla.redhat.com/show_bug.cgi?id=1666519",
+      "bz#1688169: CVE-2019-9740 python: CRLF injection via the query part of the url passed to urlopen()": "https://bugzilla.redhat.com/show_bug.cgi?id=1688169",
+      "bz#1695570: CVE-2019-9948 python: Undocumented local_file protocol allows remote attackers to bypass protection mechanisms": "https://bugzilla.redhat.com/show_bug.cgi?id=1695570",
+      "bz#1695572: CVE-2019-9947 python: CRLF injection via the path part of the url passed to urlopen()": "https://bugzilla.redhat.com/show_bug.cgi?id=1695572",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3520": "https://access.redhat.com/errata/RHSA-2019:3520",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1634784": "https://bugzilla.redhat.com/show_bug.cgi?id=1634784",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1639531": "https://bugzilla.redhat.com/show_bug.cgi?id=1639531",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1665514": "https://bugzilla.redhat.com/show_bug.cgi?id=1665514",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1671353": "https://bugzilla.redhat.com/show_bug.cgi?id=1671353",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1701286": "https://bugzilla.redhat.com/show_bug.cgi?id=1701286",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1725721": "https://bugzilla.redhat.com/show_bug.cgi?id=1725721",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1731424": "https://bugzilla.redhat.com/show_bug.cgi?id=1731424",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1744670": "https://bugzilla.redhat.com/show_bug.cgi?id=1744670",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1745499": "https://bugzilla.redhat.com/show_bug.cgi?id=1745499",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1745685": "https://bugzilla.redhat.com/show_bug.cgi?id=1745685",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1760106": "https://bugzilla.redhat.com/show_bug.cgi?id=1760106",
+      "https://python-security.readthedocs.io/vuln/ssl-crl-dps-dos.html": "https://python-security.readthedocs.io/vuln/ssl-crl-dps-dos.html"
+    },
+    "vuln-long-description": "An update for python3 is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nPython is an interpreted, interactive, object-oriented programming language, which includes modules, classes, exceptions, very high level dynamic data types and dynamic typing. Python supports interfaces to many system calls and libraries, as well as to various windowing systems.\nSecurity Fix(es):\n* python: NULL pointer dereference using a specially crafted X509 certificate (CVE-2019-5010)\n* python: CRLF injection via the query part of the url passed to urlopen() (CVE-2019-9740)\n* python: CRLF injection via the path part of the url passed to urlopen() (CVE-2019-9947)\n* python: Undocumented local_file protocol allows remote attackers to bypass protection mechanisms (CVE-2019-9948)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3520",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3520",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for python3 is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

@@ -1,5 +1,6 @@
 {
   "USN-4246-1": {
+    "auditts": 1579719608,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
@@ -43,7 +44,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2016-9840_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2016/CVE-2016-9840.html",
       "CVE-2016-9841_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2016/CVE-2016-9841.html",

@@ -1,0 +1,56 @@
+{
+  "USN-4171-2": {
+    "auditts": 1572870641,
+    "comparisons": {
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "apport",
+          "python-apport",
+          "python3-apport"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.14.1-0ubuntu3.29+esm2",
+          "2.14.1-0ubuntu3.29+esm2",
+          "2.14.1-0ubuntu3.29+esm2"
+        ]
+      }
+    },
+    "filters": {
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-11481_(Unknown)": null,
+      "CVE-2019-11482_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11482.html",
+      "CVE-2019-11483_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11483.html",
+      "CVE-2019-11485_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11485.html",
+      "CVE-2019-15790_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15790.html",
+      "USN-4171-2": "https://usn.ubuntu.com/4171-2/"
+    },
+    "vuln-long-description": "USN-4171-1 fixed several vulnerabilities in apport. This update provides\nthe corresponding update for Ubuntu 14.04 ESM.\n\nOriginal advisory details:\n\n Kevin Backhouse discovered Apport would read its user-controlled settings\n file as the root user. This could be used by a local attacker to possibly\n crash Apport or have other unspecified consequences. (CVE-2019-11481)\n\n Sander Bos discovered a race-condition in Apport during core dump\n creation. This could be used by a local attacker to generate a crash report\n for a privileged process that is readable by an unprivileged user.\n (CVE-2019-11482)\n\n Sander Bos discovered Apport mishandled crash dumps originating from\n containers. This could be used by a local attacker to generate a crash\n report for a privileged process that is readable by an unprivileged user.\n (CVE-2019-11483)\n\n Sander Bos discovered Apport mishandled lock-file creation. This could be\n used by a local attacker to cause a denial of service against Apport.\n (CVE-2019-11485)\n\n Kevin Backhouse discovered Apport read various process-specific files with\n elevated privileges during crash dump generation. This could could be used\n by a local attacker to generate a crash report for a privileged process\n that is readable by an unprivileged user. (CVE-2019-15790)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4171-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4171-2/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in Apport.\n"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "RHSA-2019:3530": {
+    "auditts": 1573681690,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "glib2-debugsource",
+          "glib2-fam",
+          "glib2-tests",
+          "glib2",
+          "glib2-devel",
+          "glib2-static",
+          "glib2-doc"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.56.4",
+          "2.56.4",
+          "2.56.4",
+          "2.56.4",
+          "2.56.4",
+          "2.56.4",
+          "2.56.4"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-12450": "https://access.redhat.com/security/cve/CVE-2019-12450",
+      "bz#1719141: CVE-2019-12450 glib2: file_copy_fallback in gio/gfile.c in GNOME GLib does not properly restrict file permissions while a copy operation is in progress": "https://bugzilla.redhat.com/show_bug.cgi?id=1719141",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3530": "https://access.redhat.com/errata/RHSA-2019:3530",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1630260": "https://bugzilla.redhat.com/show_bug.cgi?id=1630260",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1713081": "https://bugzilla.redhat.com/show_bug.cgi?id=1713081",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1715951": "https://bugzilla.redhat.com/show_bug.cgi?id=1715951"
+    },
+    "vuln-long-description": "An update for glib2 is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nGLib provides the core application building blocks for libraries and applications written in C. It provides the core object system used in GNOME, the main loop implementation, and a large set of utility functions for strings and common data structures.\nSecurity Fix(es):\n* glib2: file_copy_fallback in gio/gfile.c in GNOME GLib does not properly restrict file permissions while a copy operation is in progress (CVE-2019-12450)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3530",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3530",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for glib2 is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

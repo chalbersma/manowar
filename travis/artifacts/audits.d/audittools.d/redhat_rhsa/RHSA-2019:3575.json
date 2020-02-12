@@ -1,0 +1,83 @@
+{
+  "RHSA-2019:3575": {
+    "auditts": 1573681643,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "elfutils-default-yama-scope",
+          "elfutils",
+          "elfutils-libelf-devel",
+          "elfutils-libelf",
+          "elfutils-debugsource",
+          "elfutils-libs",
+          "elfutils-devel",
+          "elfutils-devel-static",
+          "elfutils-libelf-devel-static"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.176",
+          "0.176",
+          "0.176",
+          "0.176",
+          "0.176",
+          "0.176",
+          "0.176",
+          "0.176",
+          "0.176"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-7146": "https://access.redhat.com/security/cve/CVE-2019-7146",
+      "CVE-2019-7149": "https://access.redhat.com/security/cve/CVE-2019-7149",
+      "CVE-2019-7150": "https://access.redhat.com/security/cve/CVE-2019-7150",
+      "CVE-2019-7664": "https://access.redhat.com/security/cve/CVE-2019-7664",
+      "CVE-2019-7665": "https://access.redhat.com/security/cve/CVE-2019-7665",
+      "bz#1671432: CVE-2019-7146 elfutils: buffer over-read in the ebl_object_note function in eblobjnote.c in libebl": "https://bugzilla.redhat.com/show_bug.cgi?id=1671432",
+      "bz#1671443: CVE-2019-7149 elfutils: heap-based buffer over-read in read_srclines in dwarf_getsrclines.c in libdw": "https://bugzilla.redhat.com/show_bug.cgi?id=1671443",
+      "bz#1671446: CVE-2019-7150 elfutils: segmentation fault in elf64_xlatetom in libelf/elf32_xlatetom.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1671446",
+      "bz#1677536: CVE-2019-7664 elfutils: out of bound write in elf_cvt_note in libelf/note_xlate.h": "https://bugzilla.redhat.com/show_bug.cgi?id=1677536",
+      "bz#1677538: CVE-2019-7665 elfutils: heap-based buffer over-read in function elf32_xlatetom in elf32_xlatetom.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1677538",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3575": "https://access.redhat.com/errata/RHSA-2019:3575",
+      "https://access.redhat.com/security/updates/classification/#low": "https://access.redhat.com/security/updates/classification/#low",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1674430": "https://bugzilla.redhat.com/show_bug.cgi?id=1674430",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1705138": "https://bugzilla.redhat.com/show_bug.cgi?id=1705138"
+    },
+    "vuln-long-description": "An update for elfutils is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe elfutils packages contain a number of utility programs and libraries related to the creation and maintenance of executable code.\nThe following packages have been upgraded to a later upstream version: elfutils (0.176). (BZ#1683705)\nSecurity Fix(es):\n* elfutils: buffer over-read in the ebl_object_note function in eblobjnote.c in libebl (CVE-2019-7146)\n* elfutils: heap-based buffer over-read in read_srclines in dwarf_getsrclines.c in libdw (CVE-2019-7149)\n* elfutils: segmentation fault in elf64_xlatetom in libelf/elf32_xlatetom.c (CVE-2019-7150)\n* elfutils: out of bound write in elf_cvt_note in libelf/note_xlate.h (CVE-2019-7664)\n* elfutils: heap-based buffer over-read in function elf32_xlatetom in elf32_xlatetom.c (CVE-2019-7665)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3575",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3575",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for elfutils is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

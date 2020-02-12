@@ -1,5 +1,6 @@
 {
   "USN-4248-1": {
+    "auditts": 1579718555,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
@@ -37,7 +38,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2017-16545_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-16545.html",
       "CVE-2017-16547_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-16547.html",
@@ -48,7 +49,7 @@
       "CVE-2017-17502_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-17502.html",
       "CVE-2017-17503_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-17503.html",
       "CVE-2017-17782_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-17782.html",
-      "CVE-2017-17783_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-17783.html",
+      "CVE-2017-17783_(Unknown)": null,
       "USN-4248-1": "https://usn.ubuntu.com/4248-1/"
     },
     "vuln-long-description": "It was discovered that GraphicsMagick incorrectly handled certain image files.\nAn attacker could possibly use this issue to cause a denial of service or other\nunspecified impact.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",

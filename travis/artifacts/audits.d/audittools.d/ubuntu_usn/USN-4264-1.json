@@ -1,5 +1,6 @@
 {
   "USN-4264-1": {
+    "auditts": 1580784298,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -64,15 +65,15 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2020-7471_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-7471.html",
+      "CVE-2020-7471_(Unknown)": null,
       "USN-4264-1": "https://usn.ubuntu.com/4264-1/"
     },
     "vuln-long-description": "Simon Charette discovered that Django incorrectly handled input in the\nPostgreSQL module. A remote attacker could possibly use this to perform SQL\ninjection attacks.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4264-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4264-1/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "Django could be vulnerable to SQL injection attacks.\n"
   }
 }

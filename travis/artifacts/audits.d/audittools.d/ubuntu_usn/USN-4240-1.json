@@ -1,5 +1,6 @@
 {
   "USN-4240-1": {
+    "auditts": 1579199474,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
@@ -31,15 +32,15 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2018-8828_(High)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-8828.html",
+      "CVE-2018-8828_(Unknown)": null,
       "USN-4240-1": "https://usn.ubuntu.com/4240-1/"
     },
-    "vuln-long-description": "It was discovered that Kamailio can be exploited by using a specially crafted\nmessage that can cause a buffer overflow issue.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-long-description": "It was discovered that Kamailio incorrectly handled a specially crafted file.\nAn attacker could possibly use this issue to cause a denial of service or\nother unspecified impact.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4240-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4240-1/",
-    "vuln-priority": 7,
+    "vuln-priority": 1,
     "vuln-short-description": "kamailio could be made to crash if it opened a specially crafted file.\n"
   }
 }

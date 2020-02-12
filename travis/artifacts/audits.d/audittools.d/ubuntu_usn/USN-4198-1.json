@@ -1,0 +1,131 @@
+{
+  "USN-4198-1": {
+    "auditts": 1574364582,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libdjvulibre21"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.5.27.1-8ubuntu0.1"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "libdjvulibre21"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.5.27.1-10ubuntu0.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "libdjvulibre21"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.5.27.1-13ubuntu0.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libdjvulibre21"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.5.27.1-5ubuntu0.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-15142_(Unknown)": null,
+      "CVE-2019-15143_(Unknown)": null,
+      "CVE-2019-15144_(Unknown)": null,
+      "CVE-2019-15145_(Unknown)": null,
+      "CVE-2019-18804_(Unknown)": null,
+      "USN-4198-1": "https://usn.ubuntu.com/4198-1/"
+    },
+    "vuln-long-description": "It was discovered that DjVuLibre incorrectly handled certain memory\noperations. If a user or automated system were tricked into processing a\nspecially crafted DjVu file, a remote attacker could cause applications\nto hang or crash, resulting in a denial of service, or possibly execute\narbitrary code.\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4198-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4198-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "Several security issues were fixed in DjVuLibre.\n"
+  }
+}

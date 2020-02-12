@@ -1,5 +1,6 @@
 {
   "USN-4253-2": {
+    "auditts": 1580254723,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -52,7 +53,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14615_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14615.html",
       "USN-4253-2": "https://usn.ubuntu.com/4253-2/"

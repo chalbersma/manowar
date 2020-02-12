@@ -1,5 +1,6 @@
 {
   "USN-4226-1": {
+    "auditts": 1578363408,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -42,23 +43,23 @@
       },
       "disco-bucket": {
         "comparison-collection-subtype": [
-          "linux-image-kvm",
+          "linux-image-5.0.0-1009-oracle",
           "linux-image-gke",
           "linux-image-5.0.0-38-generic-lpae",
           "linux-image-5.0.0-1024-raspi2",
+          "linux-image-kvm",
           "linux-image-5.0.0-1023-aws",
           "linux-image-5.0.0-38-generic",
           "linux-image-5.0.0-1024-kvm",
           "linux-image-5.0.0-1028-azure",
           "linux-image-generic-lpae",
-          "linux-image-virtual",
-          "linux-image-5.0.0-1009-oracle",
-          "linux-image-azure",
-          "linux-image-aws",
-          "linux-image-generic",
-          "linux-image-gcp",
-          "linux-image-5.0.0-38-lowlatency",
           "linux-image-5.0.0-1028-gcp",
+          "linux-image-virtual",
+          "linux-image-azure",
+          "linux-image-generic",
+          "linux-image-aws",
+          "linux-image-5.0.0-38-lowlatency",
+          "linux-image-gcp",
           "linux-image-oracle",
           "linux-image-lowlatency",
           "linux-image-raspi2"
@@ -87,23 +88,23 @@
         ],
         "comparison-match": "aptge",
         "comparison-match-value": [
-          "5.0.0.1024.25",
+          "5.0.0-1009.14",
           "5.0.0.1028.53",
           "5.0.0-38.41",
           "5.0.0-1024.25",
+          "5.0.0.1024.25",
           "5.0.0-1023.26",
           "5.0.0-38.41",
           "5.0.0-1024.26",
           "5.0.0-1028.30",
           "5.0.0.38.40",
-          "5.0.0.38.40",
-          "5.0.0-1009.14",
-          "5.0.0.1028.28",
-          "5.0.0.1023.25",
-          "5.0.0.38.40",
-          "5.0.0.1028.53",
-          "5.0.0-38.41",
           "5.0.0-1028.29",
+          "5.0.0.38.40",
+          "5.0.0.1028.28",
+          "5.0.0.38.40",
+          "5.0.0.1023.25",
+          "5.0.0-38.41",
+          "5.0.0.1028.53",
           "5.0.0.1009.35",
           "5.0.0.38.40",
           "5.0.0.1024.22"
@@ -142,7 +143,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-10220_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-10220.html",
       "CVE-2019-14895_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14895.html",

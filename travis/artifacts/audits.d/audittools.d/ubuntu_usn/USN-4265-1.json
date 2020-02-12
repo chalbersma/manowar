@@ -1,5 +1,6 @@
 {
   "USN-4265-1": {
+    "auditts": 1580827400,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -85,16 +86,16 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2020-1930_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1930.html",
-      "CVE-2020-1931_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1931.html",
+      "CVE-2020-1930_(Unknown)": null,
+      "CVE-2020-1931_(Unknown)": null,
       "USN-4265-1": "https://usn.ubuntu.com/4265-1/"
     },
     "vuln-long-description": "It was discovered that SpamAssassin incorrectly handled certain CF files.\nIf a user or automated system were tricked into using a specially-crafted\nCF file, a remote attacker could possibly run arbitrary code.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4265-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4265-1/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "Several security issues were fixed in SpamAssassin.\n"
   }
 }

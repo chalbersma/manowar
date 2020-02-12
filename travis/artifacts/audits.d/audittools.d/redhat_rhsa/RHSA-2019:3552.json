@@ -1,0 +1,107 @@
+{
+  "RHSA-2019:3552": {
+    "auditts": 1573681739,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "bind-debugsource",
+          "bind-export-libs",
+          "bind-export-devel",
+          "python3-bind",
+          "bind-license",
+          "bind-utils",
+          "bind-sdb-chroot",
+          "bind-sdb",
+          "bind-pkcs11-utils",
+          "bind-pkcs11-libs",
+          "bind-pkcs11-devel",
+          "bind-pkcs11",
+          "bind-lite-devel",
+          "bind-libs-lite",
+          "bind-libs",
+          "bind-devel",
+          "bind-chroot",
+          "bind"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4",
+          "32:9.11.4"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2018-5745": "https://access.redhat.com/security/cve/CVE-2018-5745",
+      "CVE-2019-6465": "https://access.redhat.com/security/cve/CVE-2019-6465",
+      "bz#1679303: CVE-2018-5745 bind: An assertion failure if a trust anchor rolls over to an unsupported key algorithm when using managed-keys": "https://bugzilla.redhat.com/show_bug.cgi?id=1679303",
+      "bz#1679304: CVE-2019-6465 bind: Controls for zone transfers may not be properly applied to DLZs if the zones are writable": "https://bugzilla.redhat.com/show_bug.cgi?id=1679304",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3552": "https://access.redhat.com/errata/RHSA-2019:3552",
+      "https://access.redhat.com/security/updates/classification/#low": "https://access.redhat.com/security/updates/classification/#low",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1666785": "https://bugzilla.redhat.com/show_bug.cgi?id=1666785",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1668682": "https://bugzilla.redhat.com/show_bug.cgi?id=1668682",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1679307": "https://bugzilla.redhat.com/show_bug.cgi?id=1679307",
+      "https://kb.isc.org/docs/cve-2018-5745": "https://kb.isc.org/docs/cve-2018-5745",
+      "https://kb.isc.org/docs/cve-2019-6465": "https://kb.isc.org/docs/cve-2019-6465"
+    },
+    "vuln-long-description": "An update for bind is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe Berkeley Internet Name Domain (BIND) is an implementation of the Domain Name System (DNS) protocols. BIND includes a DNS server (named); a resolver library (routines for applications to use when interfacing with DNS); and tools for verifying that the DNS server is operating correctly.\nSecurity Fix(es):\n* bind: An assertion failure if a trust anchor rolls over to an unsupported key algorithm when using managed-keys (CVE-2018-5745)\n* bind: Controls for zone transfers may not be properly applied to DLZs if the zones are writable (CVE-2019-6465)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3552",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3552",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for bind is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

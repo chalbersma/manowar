@@ -1,0 +1,201 @@
+{
+  "USN-4185-1": {
+    "auditts": 1573606963,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-powerpc-e500mc",
+          "linux-image-4.15.0-1054-aws",
+          "linux-image-4.15.0-1029-oracle",
+          "linux-image-4.15.0-69-generic-lpae",
+          "linux-image-oracle",
+          "linux-image-gke-4.15",
+          "linux-image-oracle-lts-18.04",
+          "linux-image-virtual",
+          "linux-image-powerpc64-emb",
+          "linux-image-gke",
+          "linux-image-4.15.0-1050-kvm",
+          "linux-image-4.15.0-69-generic",
+          "linux-image-aws-lts-18.04",
+          "linux-image-generic",
+          "linux-image-4.15.0-69-lowlatency",
+          "linux-image-oem",
+          "linux-image-aws",
+          "linux-image-kvm",
+          "linux-image-powerpc-smp",
+          "linux-image-generic-lpae",
+          "linux-image-4.15.0-1048-gke",
+          "linux-image-powerpc64-smp",
+          "linux-image-4.15.0-1063-oem",
+          "linux-image-lowlatency"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.15.0.69.71",
+          "4.15.0-1054.56",
+          "4.15.0-1029.32",
+          "4.15.0-69.78",
+          "4.15.0.1029.34",
+          "4.15.0.1048.51",
+          "4.15.0.1029.34",
+          "4.15.0.69.71",
+          "4.15.0.69.71",
+          "4.15.0.1048.51",
+          "4.15.0-1050.50",
+          "4.15.0-69.78",
+          "4.15.0.1054.55",
+          "4.15.0.69.71",
+          "4.15.0-69.78",
+          "4.15.0.1063.67",
+          "4.15.0.1054.55",
+          "4.15.0.1050.50",
+          "4.15.0.69.71",
+          "4.15.0.69.71",
+          "4.15.0-1048.51",
+          "4.15.0.69.71",
+          "4.15.0-1063.72",
+          "4.15.0.69.71"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-gke",
+          "linux-image-4.15.0-69-generic",
+          "linux-image-4.15.0-1054-aws",
+          "linux-image-4.15.0-1049-gcp",
+          "linux-image-gcp",
+          "linux-image-generic-hwe-16.04",
+          "linux-image-4.15.0-69-lowlatency",
+          "linux-image-oem",
+          "linux-image-lowlatency-hwe-16.04",
+          "linux-image-4.15.0-1029-oracle",
+          "linux-image-aws-hwe",
+          "linux-image-virtual-hwe-16.04",
+          "linux-image-4.15.0-69-generic-lpae",
+          "linux-image-oracle",
+          "linux-image-azure",
+          "linux-image-generic-lpae-hwe-16.04",
+          "linux-image-4.15.0-1063-azure"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.15.0.1049.63",
+          "4.15.0-69.78~16.04.1",
+          "4.15.0-1054.56~16.04.1",
+          "4.15.0-1049.52",
+          "4.15.0.1049.63",
+          "4.15.0.69.89",
+          "4.15.0-69.78~16.04.1",
+          "4.15.0.69.89",
+          "4.15.0.69.89",
+          "4.15.0-1029.32~16.04.1",
+          "4.15.0.1054.54",
+          "4.15.0.69.89",
+          "4.15.0-69.78~16.04.1",
+          "4.15.0.1029.22",
+          "4.15.0.1063.66",
+          "4.15.0.69.89",
+          "4.15.0-1063.68"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2018-12207_(High)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-12207.html",
+      "CVE-2019-0154_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-154.html",
+      "CVE-2019-0155_(High)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-155.html",
+      "CVE-2019-11135_(High)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11135.html",
+      "CVE-2019-15098_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15098.html",
+      "CVE-2019-17052_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17052.html",
+      "CVE-2019-17053_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17053.html",
+      "CVE-2019-17054_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17054.html",
+      "CVE-2019-17055_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17055.html",
+      "CVE-2019-17056_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17056.html",
+      "CVE-2019-17666_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17666.html",
+      "USN-4185-1": "https://usn.ubuntu.com/4185-1/",
+      "https://wiki.ubuntu.com/SecurityTeam/KnowledgeBase/TAA_MCEPSC_i915": "https://wiki.ubuntu.com/SecurityTeam/KnowledgeBase/TAA_MCEPSC_i915"
+    },
+    "vuln-long-description": "Stephan van Schaik, Alyssa Milburn, Sebastian \u00d6sterlund, Pietro Frigo,\nKaveh Razavi, Herbert Bos, Cristiano Giuffrida, Giorgi Maisuradze, Moritz\nLipp, Michael Schwarz, Daniel Gruss, and Jo Van Bulck discovered that Intel\nprocessors using Transactional Synchronization Extensions (TSX) could\nexpose memory contents previously stored in microarchitectural buffers to a\nmalicious process that is executing on the same CPU core. A local attacker\ncould use this to expose sensitive information. (CVE-2019-11135)\n\nIt was discovered that the Intel i915 graphics chipsets allowed userspace\nto modify page table entries via writes to MMIO from the Blitter Command\nStreamer and expose kernel memory information. A local attacker could use\nthis to expose sensitive information or possibly elevate privileges.\n(CVE-2019-0155)\n\nDeepak Gupta discovered that on certain Intel processors, the Linux kernel\ndid not properly perform invalidation on page table updates by virtual\nguest operating systems. A local attacker in a guest VM could use this to\ncause a denial of service (host system crash). (CVE-2018-12207)\n\nIt was discovered that the Intel i915 graphics chipsets could cause a\nsystem hang when userspace performed a read from GT memory mapped input\noutput (MMIO) when the product is in certain low power states. A local\nattacker could use this to cause a denial of service. (CVE-2019-0154)\n\nHui Peng discovered that the Atheros AR6004 USB Wi-Fi device driver for the\nLinux kernel did not properly validate endpoint descriptors returned by the\ndevice. A physically proximate attacker could use this to cause a denial of\nservice (system crash). (CVE-2019-15098)\n\nOri Nimron discovered that the AX25 network protocol implementation in the\nLinux kernel did not properly perform permissions checks. A local attacker\ncould use this to create a raw socket. (CVE-2019-17052)\n\nOri Nimron discovered that the IEEE 802.15.4 Low-Rate Wireless network\nprotocol implementation in the Linux kernel did not properly perform\npermissions checks. A local attacker could use this to create a raw socket.\n(CVE-2019-17053)\n\nOri Nimron discovered that the Appletalk network protocol implementation in\nthe Linux kernel did not properly perform permissions checks. A local\nattacker could use this to create a raw socket. (CVE-2019-17054)\n\nOri Nimron discovered that the modular ISDN network protocol implementation\nin the Linux kernel did not properly perform permissions checks. A local\nattacker could use this to create a raw socket. (CVE-2019-17055)\n\nOri Nimron discovered that the Near field Communication (NFC) network\nprotocol implementation in the Linux kernel did not properly perform\npermissions checks. A local attacker could use this to create a raw socket.\n(CVE-2019-17056)\n\nNico Waisman discovered that a buffer overflow existed in the Realtek Wi-Fi\ndriver for the Linux kernel when handling Notice of Absence frames. A\nphysically proximate attacker could use this to cause a denial of service\n(system crash) or possibly execute arbitrary code. (CVE-2019-17666)\n\n\n\nTLDR: Please note that mitigating the TSX (CVE-2019-11135) and i915\n(CVE-2019-0154) issues requires corresponding microcode and graphics\nfirmware updates respectively.\n\nAfter a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4185-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4185-1/",
+    "vuln-priority": 7,
+    "vuln-short-description": "Several security issues were fixed in the Linux kernel.\n"
+  }
+}

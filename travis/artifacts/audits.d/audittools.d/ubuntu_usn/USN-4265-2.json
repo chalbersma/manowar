@@ -1,5 +1,6 @@
 {
   "USN-4265-2": {
+    "auditts": 1580841136,
     "comparisons": {
       "precise-bucket": {
         "comparison-collection-subtype": [
@@ -58,16 +59,16 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2020-1930_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1930.html",
-      "CVE-2020-1931_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1931.html",
+      "CVE-2020-1930_(Unknown)": null,
+      "CVE-2020-1931_(Unknown)": null,
       "USN-4265-2": "https://usn.ubuntu.com/4265-2/"
     },
     "vuln-long-description": "USN-4265-1 fixed several vulnerabilities in SpamAssassin. This update provides\nthe corresponding update for Ubuntu 12.04 ESM and 14.04 ESM.\n\nOriginal advisory details:\n\n It was discovered that SpamAssassin incorrectly handled certain CF files.\n If a user or automated system were tricked into using a specially-crafted\n CF file, a remote attacker could possibly run arbitrary code.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4265-2",
     "vuln-primary-link": "https://usn.ubuntu.com/4265-2/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "Several security issues were fixed in SpamAssassin.\n"
   }
 }

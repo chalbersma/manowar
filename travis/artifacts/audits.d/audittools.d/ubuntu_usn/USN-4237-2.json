@@ -1,5 +1,6 @@
 {
   "USN-4237-2": {
+    "auditts": 1579084672,
     "comparisons": {
       "precise-bucket": {
         "comparison-collection-subtype": [
@@ -58,16 +59,16 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2018-11805_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-11805.html",
-      "CVE-2019-12420_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12420.html",
+      "CVE-2018-11805_(Unknown)": null,
+      "CVE-2019-12420_(Unknown)": null,
       "USN-4237-2": "https://usn.ubuntu.com/4237-2/"
     },
     "vuln-long-description": "USN-4237-1 fixed several vulnerabilities in SpamAssassin. This update provides\nthe corresponding update for Ubuntu 12.04 ESM and 14.04 ESM.\n\nOriginal advisory details:\n\n It was discovered that SpamAssassin incorrectly handled certain CF files.\n If a user or automated system were tricked into using a specially-crafted\n CF file, a remote attacker could possibly run arbitrary code.\n (CVE-2018-11805)\n\n It was discovered that SpamAssassin incorrectly handled certain messages.\n A remote attacker could possibly use this issue to cause SpamAssassin to\n consume resources, resulting in a denial of service. (CVE-2019-12420)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4237-2",
     "vuln-primary-link": "https://usn.ubuntu.com/4237-2/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "Several security issues were fixed in SpamAssassin.\n"
   }
 }

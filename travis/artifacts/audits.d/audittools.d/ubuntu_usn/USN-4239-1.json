@@ -1,5 +1,6 @@
 {
   "USN-4239-1": {
+    "auditts": 1579094483,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -262,18 +263,18 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2019-11045_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11045.html",
-      "CVE-2019-11046_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11046.html",
-      "CVE-2019-11047_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11047.html",
-      "CVE-2019-11050_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11050.html",
+      "CVE-2019-11045_(Unknown)": null,
+      "CVE-2019-11046_(Unknown)": null,
+      "CVE-2019-11047_(Unknown)": null,
+      "CVE-2019-11050_(Unknown)": null,
       "USN-4239-1": "https://usn.ubuntu.com/4239-1/"
     },
     "vuln-long-description": "It was discovered that PHP incorrectly handled certain files. An attacker\ncould possibly use this issue to cause a denial of service. This issue only affected\nUbuntu 14.04 ESM, 16.04 LTS, 18.04 LTS, 19.04 and 19.10. (CVE-2019-11045)\n\nIt was discovered that PHP incorrectly handled certain inputs. An attacker\ncould possibly use this issue to expose sensitive information.\n(CVE-2019-11046)\n\nIt was discovered that PHP incorrectly handled certain images. An attacker\ncould possibly use this issue to access sensitive information.\n(CVE-2019-11047, CVE-2019-11050)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4239-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4239-1/",
-    "vuln-priority": 3,
+    "vuln-priority": 1,
     "vuln-short-description": "Several security issues were fixed in PHP.\n"
   }
 }

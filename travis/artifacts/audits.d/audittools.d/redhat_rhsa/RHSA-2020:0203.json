@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0203": {
+    "auditts": 1579745769,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -40,7 +41,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-18408": "https://access.redhat.com/security/cve/CVE-2019-18408",
       "bz#1769979: CVE-2019-18408 libarchive: use-after-free in archive_read_format_rar_read_data when there is an error in the decompression of an archive entry": "https://bugzilla.redhat.com/show_bug.cgi?id=1769979",

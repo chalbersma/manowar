@@ -1,0 +1,68 @@
+{
+  "USN-4187-1": {
+    "auditts": 1573609496,
+    "comparisons": {
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-server",
+          "linux-image-3.13.0-175-generic",
+          "linux-image-generic",
+          "linux-image-3.13.0-175-lowlatency",
+          "linux-image-virtual",
+          "linux-image-generic-lpae",
+          "linux-image-3.13.0-175-generic-lpae",
+          "linux-image-lowlatency"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.13.0.175.186",
+          "3.13.0-175.226",
+          "3.13.0.175.186",
+          "3.13.0-175.226",
+          "3.13.0.175.186",
+          "3.13.0.175.186",
+          "3.13.0-175.226",
+          "3.13.0.175.186"
+        ]
+      }
+    },
+    "filters": {
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-11135_(High)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11135.html",
+      "USN-4187-1": "https://usn.ubuntu.com/4187-1/",
+      "https://wiki.ubuntu.com/SecurityTeam/KnowledgeBase/TAA_MCEPSC_i915": "https://wiki.ubuntu.com/SecurityTeam/KnowledgeBase/TAA_MCEPSC_i915"
+    },
+    "vuln-long-description": "Stephan van Schaik, Alyssa Milburn, Sebastian \u00d6sterlund, Pietro Frigo,\nKaveh Razavi, Herbert Bos, Cristiano Giuffrida, Giorgi Maisuradze, Moritz\nLipp, Michael Schwarz, Daniel Gruss, and Jo Van Bulck discovered that Intel\nprocessors using Transactional Synchronization Extensions (TSX) could\nexpose memory contents previously stored in microarchitectural buffers to a\nmalicious process that is executing on the same CPU core. A local attacker\ncould use this to expose sensitive information.\n\n\nTLDR: Please note that mitigating the TSX (CVE-2019-11135) issue requires\na corresponding Intel processor microcode update.\n\nAfter a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4187-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4187-1/",
+    "vuln-priority": 7,
+    "vuln-short-description": "The system could be made to expose sensitive information.\n"
+  }
+}

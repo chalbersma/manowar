@@ -1,5 +1,6 @@
 {
   "USN-4220-1": {
+    "auditts": 1576004407,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -112,23 +113,23 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2019-1348_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1348.html",
-      "CVE-2019-1349_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1349.html",
-      "CVE-2019-1350_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1350.html",
-      "CVE-2019-1351_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1351.html",
-      "CVE-2019-1352_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1352.html",
-      "CVE-2019-1353_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1353.html",
-      "CVE-2019-1354_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1354.html",
-      "CVE-2019-1387_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-1387.html",
-      "CVE-2019-19604_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19604.html",
+      "CVE-2019-1348_(Unknown)": null,
+      "CVE-2019-1349_(Unknown)": null,
+      "CVE-2019-1350_(Unknown)": null,
+      "CVE-2019-1351_(Unknown)": null,
+      "CVE-2019-1352_(Unknown)": null,
+      "CVE-2019-1353_(Unknown)": null,
+      "CVE-2019-1354_(Unknown)": null,
+      "CVE-2019-1387_(Unknown)": null,
+      "CVE-2019-19604_(Unknown)": null,
       "USN-4220-1": "https://usn.ubuntu.com/4220-1/"
     },
     "vuln-long-description": "Joern Schneeweisz and Nicolas Joly discovered that Git contained various\nsecurity flaws. An attacker could possibly use these issues to overwrite\narbitrary paths, execute arbitrary code, and overwrite files in the .git\ndirectory.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4220-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4220-1/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "Several security issues were fixed in Git.\n"
   }
 }

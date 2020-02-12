@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0243": {
+    "auditts": 1580188008,
     "comparisons": {
       "8-bucket": {
         "comparison-collection-subtype": [
@@ -61,7 +62,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-11745": "https://access.redhat.com/security/cve/CVE-2019-11745",
       "bz#1774831: CVE-2019-11745 nss: Out-of-bounds write when passing an output buffer smaller than the block size to NSC_EncryptUpdate": "https://bugzilla.redhat.com/show_bug.cgi?id=1774831",

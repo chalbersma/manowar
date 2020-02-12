@@ -1,5 +1,6 @@
 {
   "USN-4214-1": {
+    "auditts": 1575555321,
     "comparisons": {
       "disco-bucket": {
         "comparison-collection-subtype": [
@@ -94,7 +95,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-18609_(Unknown)": null,
       "USN-4214-1": "https://usn.ubuntu.com/4214-1/"

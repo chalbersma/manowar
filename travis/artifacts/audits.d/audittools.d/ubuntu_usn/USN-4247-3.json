@@ -1,5 +1,6 @@
 {
   "USN-4247-3": {
+    "auditts": 1579792276,
     "comparisons": {
       "precise-bucket": {
         "comparison-collection-subtype": [
@@ -64,16 +65,16 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-15795_(Unknown)": null,
-      "CVE-2019-15796_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15796.html",
+      "CVE-2019-15796_(Unknown)": null,
       "USN-4247-3": "https://usn.ubuntu.com/4247-3/"
     },
     "vuln-long-description": "USN-4247-1 fixed several vulnerabilities in python-apt. This update\nprovides the corresponding updates for Ubuntu 12.04 ESM and Ubuntu 14.04 ESM.\n\nOriginal advisory details:\n\n It was discovered that python-apt would still use MD5 hashes to validate\n certain downloaded packages. If a remote attacker were able to perform a\n man-in-the-middle attack, this flaw could potentially be used to install\n altered packages. (CVE-2019-15795)\n\n It was discovered that python-apt could install packages from untrusted\n repositories, contrary to expectations. (CVE-2019-15796)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4247-3",
     "vuln-primary-link": "https://usn.ubuntu.com/4247-3/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "Several security issues were fixed in python-apt.\n"
   }
 }

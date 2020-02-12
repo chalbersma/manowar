@@ -1,0 +1,48 @@
+{
+  "USN-4182-2": {
+    "auditts": 1573596257,
+    "comparisons": {
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "intel-microcode"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.20191112-0ubuntu0.14.04.2"
+        ]
+      }
+    },
+    "filters": {
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-11135_(High)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-11135.html",
+      "CVE-2019-11139_(Unknown)": null,
+      "USN-4182-2": "https://usn.ubuntu.com/4182-2/",
+      "https://wiki.ubuntu.com/SecurityTeam/KnowledgeBase/TAA_MCEPSC_i915": "https://wiki.ubuntu.com/SecurityTeam/KnowledgeBase/TAA_MCEPSC_i915"
+    },
+    "vuln-long-description": "USN-4182-2 provided updates for Intel Microcode. This update provides\nthe corresponding update for Ubuntu 14.04 ESM.\n\nStephan van Schaik, Alyssa Milburn, Sebastian \u00d6sterlund, Pietro Frigo,\nKaveh Razavi, Herbert Bos, Cristiano Giuffrida, Giorgi Maisuradze, Moritz\nLipp, Michael Schwarz, Daniel Gruss, and Jo Van Bulck discovered that Intel\nprocessors using Transactional Synchronization Extensions (TSX) could\nexpose memory contents previously stored in microarchitectural buffers to a\nmalicious process that is executing on the same CPU core. A local attacker\ncould use this to expose sensitive information. (CVE-2019-11135)\n\nIt was discovered that certain Intel Xeon processors did not properly\nrestrict access to a voltage modulation interface. A local privileged\nattacker could use this to cause a denial of service (system crash).\n(CVE-2019-11139)\n\n\nTLDR: After a standard system update you need to reboot your computer.\nPlease note that in order to fully mitigate CVE-2019-11139, a warm\nreboot is required *after* applying the microcode update; so in effect\na second reboot.\n\n",
+    "vuln-name": "USN-4182-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4182-2/",
+    "vuln-priority": 7,
+    "vuln-short-description": "Several security issues were fixed in Intel Microcode.\n"
+  }
+}

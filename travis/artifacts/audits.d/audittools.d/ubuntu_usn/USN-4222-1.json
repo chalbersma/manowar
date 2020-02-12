@@ -1,5 +1,6 @@
 {
   "USN-4222-1": {
+    "auditts": 1576514225,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
@@ -37,7 +38,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2017-11638_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-11638.html",
       "CVE-2017-11641_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-11641.html",

@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0199": {
+    "auditts": 1579745769,
     "comparisons": {
       "6-bucket": {
         "comparison-collection-subtype": [
@@ -37,7 +38,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-5544": "https://access.redhat.com/security/cve/CVE-2019-5544",
       "bz#1777788: CVE-2019-5544 openslp: Heap-based buffer overflow in ProcessSrvRqst() in slpd_process.c leading to remote code execution": "https://bugzilla.redhat.com/show_bug.cgi?id=1777788",

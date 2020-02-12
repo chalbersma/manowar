@@ -1,5 +1,6 @@
 {
   "RHSA-2019:3756": {
+    "auditts": 1573678795,
     "comparisons": {
       "6-bucket": {
         "comparison-collection-subtype": [
@@ -31,7 +32,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-11757": "https://access.redhat.com/security/cve/CVE-2019-11757",
       "CVE-2019-11758": "https://access.redhat.com/security/cve/CVE-2019-11758",
@@ -63,10 +64,10 @@
       "https://www.mozilla.org/en-US/security/advisories/mfsa2019-33/#CVE-2019-11764": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-33/#CVE-2019-11764",
       "https://www.mozilla.org/en-US/security/advisories/mfsa2019-35/": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-35/"
     },
-    "vuln-long-description": "\nAn update for thunderbird is now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    \n\n\nMozilla Thunderbird is a standalone mail and newsgroup client.\n\nThis update upgrades Thunderbird to version 68.2.0.\n\nSecurity Fix(es):\n\n* Mozilla: Memory safety bugs fixed in Firefox 70 and Firefox ESR 68.2 (CVE-2019-11764)\n\n* Mozilla: Use-after-free when creating index updates in IndexedDB (CVE-2019-11757)\n\n* Mozilla: Potentially exploitable crash due to 360 Total Security (CVE-2019-11758)\n\n* Mozilla: Stack buffer overflow in HKDF output (CVE-2019-11759)\n\n* Mozilla: Stack buffer overflow in WebRTC networking (CVE-2019-11760)\n\n* Mozilla: Unintended access to a privileged JSONView object (CVE-2019-11761)\n\n* Mozilla: document.domain-based origin isolation has same-origin-property violation (CVE-2019-11762)\n\n* Mozilla: Incorrect HTML parsing results in XSS bypass technique (CVE-2019-11763)\n\n* expat: heap-based buffer over-read via crafted XML input (CVE-2019-15903)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n    \n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-long-description": "An update for thunderbird is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nMozilla Thunderbird is a standalone mail and newsgroup client.\nThis update upgrades Thunderbird to version 68.2.0.\nSecurity Fix(es):\n* Mozilla: Memory safety bugs fixed in Firefox 70 and Firefox ESR 68.2 (CVE-2019-11764)\n* Mozilla: Use-after-free when creating index updates in IndexedDB (CVE-2019-11757)\n* Mozilla: Potentially exploitable crash due to 360 Total Security (CVE-2019-11758)\n* Mozilla: Stack buffer overflow in HKDF output (CVE-2019-11759)\n* Mozilla: Stack buffer overflow in WebRTC networking (CVE-2019-11760)\n* Mozilla: Unintended access to a privileged JSONView object (CVE-2019-11761)\n* Mozilla: document.domain-based origin isolation has same-origin-property violation (CVE-2019-11762)\n* Mozilla: Incorrect HTML parsing results in XSS bypass technique (CVE-2019-11763)\n* expat: heap-based buffer over-read via crafted XML input (CVE-2019-15903)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
     "vuln-name": "RHSA-2019:3756",
     "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3756",
     "vuln-priority": 1,
-    "vuln-short-description": "\nAn update for thunderbird is now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    "
+    "vuln-short-description": "An update for thunderbird is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
   }
 }

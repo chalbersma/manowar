@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0230": {
+    "auditts": 1580143738,
     "comparisons": {
       "8-bucket": {
         "comparison-collection-subtype": [
@@ -34,7 +35,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-17626": "https://access.redhat.com/security/cve/CVE-2019-17626",
       "bz#1769661: CVE-2019-17626 python-reportlab: code injection in colors.py allows attacker to execute code": "https://bugzilla.redhat.com/show_bug.cgi?id=1769661",

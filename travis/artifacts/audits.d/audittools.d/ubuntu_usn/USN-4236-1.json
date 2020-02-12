@@ -1,5 +1,6 @@
 {
   "USN-4236-1": {
+    "auditts": 1578929816,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -85,15 +86,15 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2019-13627_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-13627.html",
+      "CVE-2019-13627_(Unknown)": null,
       "USN-4236-1": "https://usn.ubuntu.com/4236-1/"
     },
     "vuln-long-description": "It was discovered that Libgcrypt was susceptible to a ECDSA timing attack.\nAn attacker could possibly use this attack to recover sensitive\ninformation.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4236-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4236-1/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "Libgcrypt could be made to expose sensitive information.\n"
   }
 }

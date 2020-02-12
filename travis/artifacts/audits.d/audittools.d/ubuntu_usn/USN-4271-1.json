@@ -1,13 +1,14 @@
 {
   "USN-4271-1": {
+    "auditts": 1580994655,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
           "libd3dadapter9-mesa",
           "libgl1-mesa-dri",
-          "mesa-vulkan-drivers",
-          "mesa-opencl-icd",
           "libgl1-mesa-glx",
+          "mesa-opencl-icd",
+          "mesa-vulkan-drivers",
           "libglx-mesa0",
           "libwayland-egl1-mesa",
           "libosmesa6",
@@ -15,10 +16,10 @@
           "libegl-mesa0",
           "libegl1-mesa",
           "mesa-va-drivers",
-          "libgbm1",
+          "libxatracker2",
           "mesa-vdpau-drivers",
           "libglapi-mesa",
-          "libxatracker2"
+          "libgbm1"
         ],
         "comparison-collection-type": [
           "packages",
@@ -62,9 +63,9 @@
         "comparison-collection-subtype": [
           "libd3dadapter9-mesa",
           "libgl1-mesa-dri",
-          "mesa-vulkan-drivers",
-          "mesa-opencl-icd",
           "libgl1-mesa-glx",
+          "mesa-opencl-icd",
+          "mesa-vulkan-drivers",
           "libglx-mesa0",
           "libwayland-egl1-mesa",
           "libosmesa6",
@@ -72,10 +73,10 @@
           "libegl-mesa0",
           "libegl1-mesa",
           "mesa-va-drivers",
-          "libgbm1",
+          "libxatracker2",
           "mesa-vdpau-drivers",
           "libglapi-mesa",
-          "libxatracker2"
+          "libgbm1"
         ],
         "comparison-collection-type": [
           "packages",
@@ -148,7 +149,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-5068_(Unknown)": null,
       "USN-4271-1": "https://usn.ubuntu.com/4271-1/"

@@ -1,5 +1,6 @@
 {
   "USN-4206-1": {
+    "auditts": 1575316015,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
@@ -37,7 +38,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2017-10794_(Unknown)": null,
       "CVE-2017-10799_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2017/CVE-2017-10799.html",

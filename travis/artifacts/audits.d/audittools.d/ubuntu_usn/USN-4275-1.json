@@ -1,5 +1,6 @@
 {
   "USN-4275-1": {
+    "auditts": 1581341681,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -94,7 +95,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2018-19872_(Unknown)": null,
       "CVE-2019-18281_(Unknown)": null,

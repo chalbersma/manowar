@@ -1,0 +1,197 @@
+{
+  "USN-4191-1": {
+    "auditts": 1573690482,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "qemu-system-common",
+          "qemu-user-static",
+          "qemu-kvm",
+          "qemu-utils",
+          "qemu-system-x86",
+          "qemu"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:2.11+dfsg-1ubuntu7.20",
+          "1:2.11+dfsg-1ubuntu7.20",
+          "1:2.11+dfsg-1ubuntu7.20",
+          "1:2.11+dfsg-1ubuntu7.20",
+          "1:2.11+dfsg-1ubuntu7.20",
+          "1:2.11+dfsg-1ubuntu7.20"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "qemu-system-common",
+          "qemu-user-static",
+          "qemu-kvm",
+          "qemu-utils",
+          "qemu-system-x86",
+          "qemu-system-gui",
+          "qemu"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:3.1+dfsg-2ubuntu3.6",
+          "1:3.1+dfsg-2ubuntu3.6",
+          "1:3.1+dfsg-2ubuntu3.6",
+          "1:3.1+dfsg-2ubuntu3.6",
+          "1:3.1+dfsg-2ubuntu3.6",
+          "1:3.1+dfsg-2ubuntu3.6",
+          "1:3.1+dfsg-2ubuntu3.6"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "qemu-system-common",
+          "qemu-user-static",
+          "qemu-kvm",
+          "qemu-utils",
+          "qemu-system-x86",
+          "qemu-system-gui",
+          "qemu"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:4.0+dfsg-0ubuntu9.1",
+          "1:4.0+dfsg-0ubuntu9.1",
+          "1:4.0+dfsg-0ubuntu9.1",
+          "1:4.0+dfsg-0ubuntu9.1",
+          "1:4.0+dfsg-0ubuntu9.1",
+          "1:4.0+dfsg-0ubuntu9.1",
+          "1:4.0+dfsg-0ubuntu9.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "qemu-system-common",
+          "qemu-user-static",
+          "qemu-kvm",
+          "qemu-utils",
+          "qemu-system-x86",
+          "qemu"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:2.5+dfsg-5ubuntu10.42",
+          "1:2.5+dfsg-5ubuntu10.42",
+          "1:2.5+dfsg-5ubuntu10.42",
+          "1:2.5+dfsg-5ubuntu10.42",
+          "1:2.5+dfsg-5ubuntu10.42",
+          "1:2.5+dfsg-5ubuntu10.42"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-12068_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12068.html",
+      "CVE-2019-12155_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12155.html",
+      "CVE-2019-13164_(Unknown)": null,
+      "CVE-2019-14378_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14378.html",
+      "CVE-2019-15890_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15890.html",
+      "USN-4191-1": "https://usn.ubuntu.com/4191-1/"
+    },
+    "vuln-long-description": "It was discovered that the LSI SCSI adapter emulator implementation in QEMU\ndid not properly validate executed scripts. A local attacker could use this\nto cause a denial of service. (CVE-2019-12068)\n\nSergej Schumilo, Cornelius Aschermann and Simon W\u00f6rner discovered that the\nqxl paravirtual graphics driver implementation in QEMU contained a null\npointer dereference. A local attacker in a guest could use this to cause a\ndenial of service. (CVE-2019-12155)\n\nRiccardo Schirone discovered that the QEMU bridge helper did not properly\nvalidate network interface names. A local attacker could possibly use this\nto bypass ACL restrictions. (CVE-2019-13164)\n\nIt was discovered that a heap-based buffer overflow existed in the SLiRP\nnetworking implementation of QEMU. A local attacker in a guest could use\nthis to cause a denial of service or possibly execute arbitrary code in the\nhost. (CVE-2019-14378)\n\nIt was discovered that a use-after-free vulnerability existed in the SLiRP\nnetworking implementation of QEMU. A local attacker in a guest could use\nthis to cause a denial of service. (CVE-2019-15890)\n\n\nTLDR: After a standard system update you need to restart all QEMU virtual\nmachines to make all the necessary changes.\n\n",
+    "vuln-name": "USN-4191-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4191-1/",
+    "vuln-priority": 3,
+    "vuln-short-description": "Several security issues were fixed in QEMU.\n"
+  }
+}

@@ -1,5 +1,6 @@
 {
   "USN-4249-1": {
+    "auditts": 1579782080,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -166,15 +167,15 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2019-5188_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-5188.html",
+      "CVE-2019-5188_(Unknown)": null,
       "USN-4249-1": "https://usn.ubuntu.com/4249-1/"
     },
     "vuln-long-description": "It was discovered that e2fsprogs incorrectly handled certain ext4 partitions.\nAn attacker could possibly use this issue to execute arbitrary code.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4249-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4249-1/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "e2fsprogs could be made to execute arbitrary code if it was running\nin a crafted ext4 partition.\n"
   }
 }

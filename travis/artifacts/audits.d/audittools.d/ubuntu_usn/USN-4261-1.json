@@ -1,5 +1,6 @@
 {
   "USN-4261-1": {
+    "auditts": 1580327474,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -64,7 +65,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-8835_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-8835.html",
       "CVE-2019-8844_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-8844.html",

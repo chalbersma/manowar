@@ -1,5 +1,6 @@
 {
   "USN-4254-1": {
+    "auditts": 1580182035,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
@@ -23,9 +24,9 @@
           "linux-image-powerpc-smp",
           "linux-image-4.4.0-173-generic-lpae",
           "linux-image-generic-lpae",
-          "linux-image-lowlatency",
+          "linux-image-4.4.0-173-powerpc-e500mc",
           "linux-image-powerpc64-smp",
-          "linux-image-4.4.0-173-powerpc-e500mc"
+          "linux-image-lowlatency"
         ],
         "comparison-collection-type": [
           "packages",
@@ -74,9 +75,9 @@
           "4.4.0.173.181",
           "4.4.0-173.203",
           "4.4.0.173.181",
+          "4.4.0-173.203",
           "4.4.0.173.181",
-          "4.4.0.173.181",
-          "4.4.0-173.203"
+          "4.4.0.173.181"
         ]
       }
     },
@@ -97,7 +98,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14615_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14615.html",
       "CVE-2019-15291_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15291.html",

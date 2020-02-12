@@ -1,5 +1,6 @@
 {
   "RHSA-2019:4191": {
+    "auditts": 1576034687,
     "comparisons": {
       "5-bucket": {
         "comparison-collection-subtype": [
@@ -31,7 +32,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14287": "https://access.redhat.com/security/cve/CVE-2019-14287",
       "bz#1760531: CVE-2019-14287 sudo: Privilege escalation via 'Runas' specification with 'ALL' keyword": "https://bugzilla.redhat.com/show_bug.cgi?id=1760531",

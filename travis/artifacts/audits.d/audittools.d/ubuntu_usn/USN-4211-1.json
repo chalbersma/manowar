@@ -1,5 +1,6 @@
 {
   "USN-4211-1": {
+    "auditts": 1575339471,
     "comparisons": {
       "xenial-bucket": {
         "comparison-collection-subtype": [
@@ -97,7 +98,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2018-20784_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-20784.html",
       "CVE-2019-17075_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17075.html",

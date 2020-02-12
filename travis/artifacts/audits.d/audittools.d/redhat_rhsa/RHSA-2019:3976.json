@@ -1,5 +1,6 @@
 {
   "RHSA-2019:3976": {
+    "auditts": 1574813419,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -31,7 +32,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2018-19519": "https://access.redhat.com/security/cve/CVE-2018-19519",
       "bz#1655374: CVE-2018-19519 tcpdump: Stack-based buffer over-read in print-hncp.c:print_prefix() via crafted pcap": "https://bugzilla.redhat.com/show_bug.cgi?id=1655374",

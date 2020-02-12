@@ -1,0 +1,91 @@
+{
+  "RHSA-2019:3592": {
+    "auditts": 1573681709,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "systemd-debugsource",
+          "systemd-udev",
+          "systemd-tests",
+          "systemd-pam",
+          "systemd-libs",
+          "systemd-journal-remote",
+          "systemd-devel",
+          "systemd-container",
+          "systemd"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "239",
+          "239",
+          "239",
+          "239",
+          "239",
+          "239",
+          "239",
+          "239",
+          "239"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-15718": "https://access.redhat.com/security/cve/CVE-2019-15718",
+      "bz#1746057: CVE-2019-15718 systemd: systemd-resolved allows unprivileged users to configure DNS": "https://bugzilla.redhat.com/show_bug.cgi?id=1746057",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3592": "https://access.redhat.com/errata/RHSA-2019:3592",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1658691": "https://bugzilla.redhat.com/show_bug.cgi?id=1658691",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1667065": "https://bugzilla.redhat.com/show_bug.cgi?id=1667065",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1670728": "https://bugzilla.redhat.com/show_bug.cgi?id=1670728",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1683334": "https://bugzilla.redhat.com/show_bug.cgi?id=1683334",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1689832": "https://bugzilla.redhat.com/show_bug.cgi?id=1689832",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1691691": "https://bugzilla.redhat.com/show_bug.cgi?id=1691691",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1691817": "https://bugzilla.redhat.com/show_bug.cgi?id=1691817",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1692991": "https://bugzilla.redhat.com/show_bug.cgi?id=1692991",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1694999": "https://bugzilla.redhat.com/show_bug.cgi?id=1694999",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1695601": "https://bugzilla.redhat.com/show_bug.cgi?id=1695601",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1697893": "https://bugzilla.redhat.com/show_bug.cgi?id=1697893",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1703485": "https://bugzilla.redhat.com/show_bug.cgi?id=1703485",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1705971": "https://bugzilla.redhat.com/show_bug.cgi?id=1705971",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1707175": "https://bugzilla.redhat.com/show_bug.cgi?id=1707175",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1708849": "https://bugzilla.redhat.com/show_bug.cgi?id=1708849",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1712524": "https://bugzilla.redhat.com/show_bug.cgi?id=1712524",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1719153": "https://bugzilla.redhat.com/show_bug.cgi?id=1719153",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1733395": "https://bugzilla.redhat.com/show_bug.cgi?id=1733395"
+    },
+    "vuln-long-description": "An update for systemd is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe systemd packages contain systemd, a system and service manager for Linux, compatible with the SysV and LSB init scripts. It provides aggressive parallelism capabilities, uses socket and D-Bus activation for starting services, offers on-demand starting of daemons, and keeps track of processes using Linux cgroups. In addition, it supports snapshotting and restoring of the system state, maintains mount and automount points, and implements an elaborate transactional dependency-based service control logic. It can also work as a drop-in replacement for sysvinit.\nSecurity Fix(es):\n* systemd: systemd-resolved allows unprivileged users to configure DNS (CVE-2019-15718)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3592",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3592",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for systemd is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

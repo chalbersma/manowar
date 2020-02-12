@@ -1,0 +1,46 @@
+{
+  "USN-4194-2": {
+    "auditts": 1575398051,
+    "comparisons": {
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "postgresql-common"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "154ubuntu1.1+esm1"
+        ]
+      }
+    },
+    "filters": {
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-3466_(Unknown)": null,
+      "USN-4194-2": "https://usn.ubuntu.com/4194-2/"
+    },
+    "vuln-long-description": "USN-4194-1 fixed a vulnerability in postgresql-common. This update provides\nthe corresponding update for Ubuntu 14.04 ESM.\n\nOriginal advisory details:\n\n Rich Mirch discovered that the postgresql-common pg_ctlcluster script\n incorrectly handled directory creation. A local attacker could possibly use\n this issue to escalate privileges.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4194-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4194-2/",
+    "vuln-priority": 1,
+    "vuln-short-description": "postgresql-common could be made to create arbitrary directories.\n"
+  }
+}

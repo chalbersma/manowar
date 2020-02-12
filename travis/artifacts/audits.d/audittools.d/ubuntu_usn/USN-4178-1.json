@@ -1,0 +1,82 @@
+{
+  "USN-4178-1": {
+    "auditts": 1573135368,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libwebkit2gtk-4.0-37",
+          "libjavascriptcoregtk-4.0-18"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.26.1-0ubuntu0.18.04.1",
+          "2.26.1-0ubuntu0.18.04.1"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "libwebkit2gtk-4.0-37",
+          "libjavascriptcoregtk-4.0-18"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.26.1-0ubuntu0.19.04.3",
+          "2.26.1-0ubuntu0.19.04.3"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-8625_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-8625.html",
+      "CVE-2019-8720_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-8720.html",
+      "CVE-2019-8769_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-8769.html",
+      "CVE-2019-8771_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-8771.html",
+      "USN-4178-1": "https://usn.ubuntu.com/4178-1/"
+    },
+    "vuln-long-description": "A large number of security issues were discovered in the WebKitGTK+ Web and\nJavaScript engines. If a user were tricked into viewing a malicious\nwebsite, a remote attacker could exploit a variety of issues related to web\nbrowser security, including cross-site scripting attacks, denial of service\nattacks, and arbitrary code execution.\n\n\nTLDR: This update uses a new upstream release, which includes additional bug\nfixes. After a standard system update you need to restart any applications\nthat use WebKitGTK+, such as Epiphany, to make all the necessary changes.\n\n",
+    "vuln-name": "USN-4178-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4178-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in WebKitGTK+.\n"
+  }
+}

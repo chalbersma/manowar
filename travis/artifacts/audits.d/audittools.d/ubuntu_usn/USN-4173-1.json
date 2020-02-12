@@ -1,0 +1,127 @@
+{
+  "USN-4173-1": {
+    "auditts": 1572443771,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "freetds-bin",
+          "tdsodbc",
+          "libct4",
+          "libsybdb5"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.00.82-2ubuntu0.1",
+          "1.00.82-2ubuntu0.1",
+          "1.00.82-2ubuntu0.1",
+          "1.00.82-2ubuntu0.1"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "freetds-bin",
+          "tdsodbc",
+          "libct4",
+          "libsybdb5"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.00.104-1ubuntu0.1",
+          "1.00.104-1ubuntu0.1",
+          "1.00.104-1ubuntu0.1",
+          "1.00.104-1ubuntu0.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "freetds-bin",
+          "tdsodbc",
+          "libct4",
+          "libsybdb5"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.1.6-1ubuntu0.1",
+          "1.1.6-1ubuntu0.1",
+          "1.1.6-1ubuntu0.1",
+          "1.1.6-1ubuntu0.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-13508_(Unknown)": null,
+      "USN-4173-1": "https://usn.ubuntu.com/4173-1/"
+    },
+    "vuln-long-description": "Felix Wilhelm discovered that FreeTDS incorrectly handled certain types\nafter a protocol downgrade. A remote attacker could use this issue to cause\nFreeTDS to crash, resulting in a denial of service, or possibly execute\narbitrary code.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4173-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4173-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "FreeTDS could be made to crash or run programs if it received specially\ncrafted network traffic.\n"
+  }
+}

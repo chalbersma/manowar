@@ -1,0 +1,46 @@
+{
+  "USN-4177-1": {
+    "auditts": 1573065240,
+    "comparisons": {
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "rygel"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.38.1-2ubuntu3.3"
+        ]
+      }
+    },
+    "filters": {
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "LP : 1848692": "https://launchpad.net/bugs/1848692",
+      "USN-4177-1": "https://usn.ubuntu.com/4177-1/"
+    },
+    "vuln-long-description": "It was discovered that the Rygel package automatically started the daemon\nby default in user sessions. In certain environments, this resulted in\nmedia being shared contrary to expectations.\n\n\nTLDR: After a standard system update you need to restart your session to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4177-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4177-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "The system could be made to expose sensitive information.\n"
+  }
+}

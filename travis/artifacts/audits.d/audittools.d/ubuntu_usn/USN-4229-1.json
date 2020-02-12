@@ -1,5 +1,6 @@
 {
   "USN-4229-1": {
+    "auditts": 1578595454,
     "comparisons": {
       "precise-bucket": {
         "comparison-collection-subtype": [
@@ -85,7 +86,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2018-12327_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-12327.html",
       "USN-4229-1": "https://usn.ubuntu.com/4229-1/"

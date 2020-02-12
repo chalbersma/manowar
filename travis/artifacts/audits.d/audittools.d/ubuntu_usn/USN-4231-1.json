@@ -1,5 +1,6 @@
 {
   "USN-4231-1": {
+    "auditts": 1578505600,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -166,15 +167,15 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2019-17006_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17006.html",
+      "CVE-2019-17006_(Unknown)": null,
       "USN-4231-1": "https://usn.ubuntu.com/4231-1/"
     },
     "vuln-long-description": "It was discovered that NSS incorrectly handled certain inputs. An\nattacker could possibly use this issue to execute arbitrary code.\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\n",
     "vuln-name": "USN-4231-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4231-1/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "NSS could be made to execute arbitrary code if it received a specially\ncrafted input.\n"
   }
 }

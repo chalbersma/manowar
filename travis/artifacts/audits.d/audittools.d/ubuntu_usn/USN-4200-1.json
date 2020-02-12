@@ -1,10 +1,11 @@
 {
   "USN-4200-1": {
+    "auditts": 1574729356,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
-          "redmine-sqlite",
           "redmine",
+          "redmine-sqlite",
           "redmine-mysql",
           "redmine-pgsql"
         ],
@@ -24,8 +25,8 @@
       },
       "disco-bucket": {
         "comparison-collection-subtype": [
-          "redmine-sqlite",
           "redmine",
+          "redmine-sqlite",
           "redmine-mysql",
           "redmine-pgsql"
         ],
@@ -45,8 +46,8 @@
       },
       "xenial-bucket": {
         "comparison-collection-subtype": [
-          "redmine-sqlite",
           "redmine",
+          "redmine-sqlite",
           "redmine-mysql",
           "redmine-pgsql"
         ],
@@ -112,7 +113,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-17427_(Unknown)": null,
       "CVE-2019-18890_(Unknown)": null,

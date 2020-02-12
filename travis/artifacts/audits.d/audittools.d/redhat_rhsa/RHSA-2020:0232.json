@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0232": {
+    "auditts": 1580165873,
     "comparisons": {
       "8-bucket": {
         "comparison-collection-subtype": [
@@ -55,7 +56,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2020-2583": "https://access.redhat.com/security/cve/CVE-2020-2583",
       "CVE-2020-2590": "https://access.redhat.com/security/cve/CVE-2020-2590",

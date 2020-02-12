@@ -1,5 +1,6 @@
 {
   "RHSA-2019:4024": {
+    "auditts": 1575323524,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -37,7 +38,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14906": "https://access.redhat.com/security/cve/CVE-2019-14906",
       "bz#1777372: CVE-2019-14906 SDL: CVE-2019-13616 not fixed in Red Hat Enterprise Linux 7 erratum RHSA-2019:3950": "https://bugzilla.redhat.com/show_bug.cgi?id=1777372",

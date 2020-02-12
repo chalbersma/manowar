@@ -1,5 +1,6 @@
 {
   "USN-4236-3": {
+    "auditts": 1580230362,
     "comparisons": {
       "precise-bucket": {
         "comparison-collection-subtype": [
@@ -58,7 +59,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-13627_(Unknown)": null,
       "USN-4236-3": "https://usn.ubuntu.com/4236-3/"

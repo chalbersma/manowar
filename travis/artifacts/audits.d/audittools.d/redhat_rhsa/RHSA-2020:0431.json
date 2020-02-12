@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0431": {
+    "auditts": 1580939984,
     "comparisons": {
       "8-bucket": {
         "comparison-collection-subtype": [
@@ -34,7 +35,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14868": "https://access.redhat.com/security/cve/CVE-2019-14868",
       "bz#1757324: CVE-2019-14868 ksh: certain environment variables interpreted as arithmetic expressions on startup, leading to code injection": "https://bugzilla.redhat.com/show_bug.cgi?id=1757324",

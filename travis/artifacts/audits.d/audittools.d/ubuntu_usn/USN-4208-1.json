@@ -1,5 +1,6 @@
 {
   "USN-4208-1": {
+    "auditts": 1575329857,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -20,6 +21,7 @@
         "comparison-collection-subtype": [
           "linux-image-5.3.0-24-lowlatency",
           "linux-image-gke",
+          "linux-image-lowlatency",
           "linux-image-generic",
           "linux-image-5.3.0-1008-kvm",
           "linux-image-gcp",
@@ -28,13 +30,12 @@
           "linux-image-5.3.0-24-generic",
           "linux-image-virtual",
           "linux-image-5.3.0-24-generic-lpae",
-          "linux-image-5.3.0-24-snapdragon",
           "linux-image-generic-lpae",
           "linux-image-snapdragon",
           "linux-image-aws",
           "linux-image-kvm",
           "linux-image-oracle",
-          "linux-image-lowlatency",
+          "linux-image-5.3.0-24-snapdragon",
           "linux-image-5.3.0-1007-oracle"
         ],
         "comparison-collection-type": [
@@ -62,6 +63,7 @@
           "5.3.0-24.26",
           "5.3.0.1009.10",
           "5.3.0.24.28",
+          "5.3.0.24.28",
           "5.3.0-1008.9",
           "5.3.0.1009.10",
           "5.3.0-1009.10",
@@ -69,13 +71,12 @@
           "5.3.0-24.26",
           "5.3.0.24.28",
           "5.3.0-24.26",
-          "5.3.0-24.26",
           "5.3.0.24.28",
           "5.3.0.24.28",
           "5.3.0.1008.10",
           "5.3.0.1008.10",
           "5.3.0.1007.8",
-          "5.3.0.24.28",
+          "5.3.0-24.26",
           "5.3.0-1007.8"
         ]
       }
@@ -112,7 +113,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-15794_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15794.html",
       "CVE-2019-17075_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17075.html",

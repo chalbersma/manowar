@@ -1,5 +1,6 @@
 {
   "USN-4247-1": {
+    "auditts": 1579716912,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -124,16 +125,16 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2019-15795_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15795.html",
-      "CVE-2019-15796_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15796.html",
+      "CVE-2019-15795_(Unknown)": null,
+      "CVE-2019-15796_(Unknown)": null,
       "USN-4247-1": "https://usn.ubuntu.com/4247-1/"
     },
     "vuln-long-description": "It was discovered that python-apt would still use MD5 hashes to validate\ncertain downloaded packages. If a remote attacker were able to perform a\nman-in-the-middle attack, this flaw could potentially be used to install\naltered packages. (CVE-2019-15795)\n\nIt was discovered that python-apt could install packages from untrusted\nrepositories, contrary to expectations. (CVE-2019-15796)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4247-1",
     "vuln-primary-link": "https://usn.ubuntu.com/4247-1/",
-    "vuln-priority": 5,
+    "vuln-priority": 1,
     "vuln-short-description": "Several security issues were fixed in python-apt.\n"
   }
 }

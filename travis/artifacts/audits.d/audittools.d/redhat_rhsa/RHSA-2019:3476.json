@@ -1,0 +1,65 @@
+{
+  "RHSA-2019:3476": {
+    "auditts": 1573681658,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "squid-debugsource",
+          "squid",
+          "libecap-devel",
+          "libecap-debugsource",
+          "libecap"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.4",
+          "4.4",
+          "1.0.1",
+          "1.0.1",
+          "1.0.1"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-13345": "https://access.redhat.com/security/cve/CVE-2019-13345",
+      "bz#1727744: CVE-2019-13345 squid: XSS via user_name or auth parameter in cachemgr.cgi": "https://bugzilla.redhat.com/show_bug.cgi?id=1727744",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3476": "https://access.redhat.com/errata/RHSA-2019:3476",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1679526": "https://bugzilla.redhat.com/show_bug.cgi?id=1679526",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1683527": "https://bugzilla.redhat.com/show_bug.cgi?id=1683527",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1703117": "https://bugzilla.redhat.com/show_bug.cgi?id=1703117",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1717046": "https://bugzilla.redhat.com/show_bug.cgi?id=1717046"
+    },
+    "vuln-long-description": "An update for the squid:4 module is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nSquid is a high-performance proxy caching server for web clients, supporting FTP, Gopher, and HTTP data objects.\nSecurity Fix(es):\n* squid: XSS via user_name or auth parameter in cachemgr.cgi (CVE-2019-13345)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3476",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3476",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for the squid:4 module is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

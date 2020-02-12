@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0262": {
+    "auditts": 1580254340,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -40,7 +41,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2020-6851": "https://access.redhat.com/security/cve/CVE-2020-6851",
       "bz#1790511: CVE-2020-6851 openjpeg: Heap-based buffer overflow in opj_t1_clbl_decode_processor()": "https://bugzilla.redhat.com/show_bug.cgi?id=1790511",

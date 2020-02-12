@@ -1,5 +1,6 @@
 {
   "USN-4210-1": {
+    "auditts": 1575334808,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -97,19 +98,19 @@
       "xenial-bucket": {
         "comparison-collection-subtype": [
           "linux-image-gke",
+          "linux-image-lowlatency-hwe-16.04",
           "linux-image-4.15.0-1050-gcp",
-          "linux-image-4.15.0-72-generic-lpae",
           "linux-image-gcp",
           "linux-image-4.15.0-1030-oracle",
           "linux-image-oem",
-          "linux-image-lowlatency-hwe-16.04",
-          "linux-image-aws-hwe",
+          "linux-image-4.15.0-72-generic-lpae",
+          "linux-image-generic-lpae-hwe-16.04",
           "linux-image-4.15.0-72-lowlatency",
           "linux-image-generic-hwe-16.04",
           "linux-image-virtual-hwe-16.04",
           "linux-image-oracle",
           "linux-image-4.15.0-72-generic",
-          "linux-image-generic-lpae-hwe-16.04",
+          "linux-image-aws-hwe",
           "linux-image-4.15.0-1056-aws"
         ],
         "comparison-collection-type": [
@@ -132,19 +133,19 @@
         "comparison-match": "aptge",
         "comparison-match-value": [
           "4.15.0.1050.64",
+          "4.15.0.72.92",
           "4.15.0-1050.53",
-          "4.15.0-72.81~16.04.1",
           "4.15.0.1050.64",
           "4.15.0-1030.33~16.04.1",
           "4.15.0.72.92",
+          "4.15.0-72.81~16.04.1",
           "4.15.0.72.92",
-          "4.15.0.1056.56",
           "4.15.0-72.81~16.04.1",
           "4.15.0.72.92",
           "4.15.0.72.92",
           "4.15.0.1030.23",
           "4.15.0-72.81~16.04.1",
-          "4.15.0.72.92",
+          "4.15.0.1056.56",
           "4.15.0-1056.58~16.04.1"
         ]
       }
@@ -181,7 +182,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-16746_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-16746.html",
       "CVE-2019-17075_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17075.html",

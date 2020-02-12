@@ -1,5 +1,6 @@
 {
   "USN-4269-1": {
+    "auditts": 1580920786,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
@@ -85,7 +86,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2018-16888_(Unknown)": null,
       "CVE-2019-20386_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-20386.html",

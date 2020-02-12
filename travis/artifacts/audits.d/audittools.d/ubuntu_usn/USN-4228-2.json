@@ -1,15 +1,16 @@
 {
   "USN-4228-2": {
+    "auditts": 1578427837,
     "comparisons": {
       "trusty-bucket": {
         "comparison-collection-subtype": [
           "linux-image-powerpc-smp-lts-xenial",
-          "linux-image-generic-lpae-lts-xenial",
+          "linux-image-lowlatency-lts-xenial",
           "linux-image-virtual-lts-xenial",
           "linux-image-powerpc64-emb-lts-xenial",
           "linux-image-4.4.0-171-generic-lpae",
           "linux-image-4.4.0-171-powerpc64-smp",
-          "linux-image-lowlatency-lts-xenial",
+          "linux-image-generic-lpae-lts-xenial",
           "linux-image-powerpc64-smp-lts-xenial",
           "linux-image-4.4.0-171-powerpc64-emb",
           "linux-image-4.4.0-1060-aws",
@@ -79,7 +80,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14895_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14895.html",
       "CVE-2019-14896_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14896.html",

@@ -1,24 +1,25 @@
 {
   "USN-4211-2": {
+    "auditts": 1575341527,
     "comparisons": {
       "trusty-bucket": {
         "comparison-collection-subtype": [
           "linux-image-powerpc-smp-lts-xenial",
-          "linux-image-generic-lpae-lts-xenial",
-          "linux-image-4.4.0-170-generic",
-          "linux-image-4.4.0-170-lowlatency",
-          "linux-image-4.4.0-170-powerpc-smp",
-          "linux-image-4.4.0-170-powerpc64-smp",
           "linux-image-lowlatency-lts-xenial",
-          "linux-image-powerpc64-smp-lts-xenial",
+          "linux-image-generic-lts-xenial",
+          "linux-image-4.4.0-170-generic",
+          "linux-image-4.4.0-170-powerpc64-emb",
+          "linux-image-4.4.0-170-lowlatency",
+          "linux-image-4.4.0-170-powerpc64-smp",
+          "linux-image-generic-lpae-lts-xenial",
           "linux-image-4.4.0-1059-aws",
           "linux-image-4.4.0-170-generic-lpae",
-          "linux-image-powerpc-e500mc-lts-xenial",
-          "linux-image-aws",
-          "linux-image-generic-lts-xenial",
           "linux-image-powerpc64-emb-lts-xenial",
+          "linux-image-4.4.0-170-powerpc-smp",
+          "linux-image-powerpc64-smp-lts-xenial",
+          "linux-image-aws",
           "linux-image-4.4.0-170-powerpc-e500mc",
-          "linux-image-4.4.0-170-powerpc64-emb",
+          "linux-image-powerpc-e500mc-lts-xenial",
           "linux-image-virtual-lts-xenial"
         ],
         "comparison-collection-type": [
@@ -44,20 +45,20 @@
         "comparison-match-value": [
           "4.4.0.170.149",
           "4.4.0.170.149",
-          "4.4.0-170.199~14.04.1",
-          "4.4.0-170.199~14.04.1",
-          "4.4.0-170.199~14.04.1",
-          "4.4.0-170.199~14.04.1",
           "4.4.0.170.149",
+          "4.4.0-170.199~14.04.1",
+          "4.4.0-170.199~14.04.1",
+          "4.4.0-170.199~14.04.1",
+          "4.4.0-170.199~14.04.1",
           "4.4.0.170.149",
           "4.4.0-1059.63",
           "4.4.0-170.199~14.04.1",
           "4.4.0.170.149",
+          "4.4.0-170.199~14.04.1",
+          "4.4.0.170.149",
           "4.4.0.1059.60",
-          "4.4.0.170.149",
-          "4.4.0.170.149",
           "4.4.0-170.199~14.04.1",
-          "4.4.0-170.199~14.04.1",
+          "4.4.0.170.149",
           "4.4.0.170.149"
         ]
       }
@@ -79,7 +80,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2018-20784_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-20784.html",
       "CVE-2019-17075_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17075.html",

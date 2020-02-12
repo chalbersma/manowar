@@ -1,5 +1,6 @@
 {
   "RHSA-2019:3981": {
+    "auditts": 1574813423,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -40,7 +41,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14824": "https://access.redhat.com/security/cve/CVE-2019-14824",
       "bz#1747448: CVE-2019-14824 389-ds-base: Read permission check bypass via the deref plugin": "https://bugzilla.redhat.com/show_bug.cgi?id=1747448",

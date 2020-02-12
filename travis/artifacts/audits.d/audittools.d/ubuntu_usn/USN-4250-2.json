@@ -1,15 +1,16 @@
 {
   "USN-4250-2": {
+    "auditts": 1581032920,
     "comparisons": {
       "bionic-bucket": {
         "comparison-collection-subtype": [
-          "mariadb-client-10.1",
           "mariadb-server-10.1",
           "mariadb-server-core-10.1",
           "mariadb-plugin-mroonga",
           "libmariadbd18",
           "mariadb-plugin-cracklib-password-check",
           "mariadb-plugin-gssapi-server",
+          "mariadb-plugin-gssapi-client",
           "mariadb-plugin-tokudb",
           "mariadb-server",
           "mariadb-plugin-connect",
@@ -19,7 +20,7 @@
           "mariadb-client-core-10.1",
           "libmariadbclient18",
           "mariadb-client",
-          "mariadb-plugin-gssapi-client"
+          "mariadb-client-10.1"
         ],
         "comparison-collection-type": [
           "packages",
@@ -157,7 +158,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2020-2574_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-2574.html",
       "USN-4250-2": "https://usn.ubuntu.com/4250-2/",

@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0291": {
+    "auditts": 1580409319,
     "comparisons": {
       "8-bucket": {
         "comparison-collection-subtype": [
@@ -37,7 +38,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-18397": "https://access.redhat.com/security/cve/CVE-2019-18397",
       "bz#1768750: CVE-2019-18397 fribidi: buffer overflow in fribidi_get_par_embedding_levels_ex() in lib/fribidi-bidi.c leading to denial of service and possible code execution": "https://bugzilla.redhat.com/show_bug.cgi?id=1768750",

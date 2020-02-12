@@ -1,0 +1,121 @@
+{
+  "RHSA-2019:3582": {
+    "auditts": 1573681701,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "samba-pidl",
+          "samba-common",
+          "samba-debugsource",
+          "samba-winbind-modules",
+          "samba-winbind-krb5-locator",
+          "samba-winbind-clients",
+          "samba-winbind",
+          "samba-test-libs",
+          "samba-libs",
+          "samba-krb5-printing",
+          "samba-common-tools",
+          "samba-common-libs",
+          "samba-client-libs",
+          "samba-client",
+          "samba",
+          "python3-samba-test",
+          "python3-samba",
+          "libwbclient",
+          "libsmbclient",
+          "ctdb-tests",
+          "ctdb",
+          "samba-test",
+          "libwbclient-devel",
+          "libsmbclient-devel"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4",
+          "4.10.4"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-3880": "https://access.redhat.com/security/cve/CVE-2019-3880",
+      "bz#1691518: CVE-2019-3880 samba: save registry file outside share as unprivileged user": "https://bugzilla.redhat.com/show_bug.cgi?id=1691518",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3582": "https://access.redhat.com/errata/RHSA-2019:3582",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1669004": "https://bugzilla.redhat.com/show_bug.cgi?id=1669004",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1672167": "https://bugzilla.redhat.com/show_bug.cgi?id=1672167",
+      "https://www.samba.org/samba/security/CVE-2019-3880.html": "https://www.samba.org/samba/security/CVE-2019-3880.html"
+    },
+    "vuln-long-description": "An update for samba is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nSamba is an open-source implementation of the Server Message Block (SMB) protocol and the related Common Internet File System (CIFS) protocol, which allow PC-compatible machines to share files, printers, and various information.\nThe following packages have been upgraded to a later upstream version: samba (4.10.4). (BZ#1638001)\nSecurity Fix(es):\n* samba: save registry file outside share as unprivileged user (CVE-2019-3880)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nAdditional Changes:\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3582",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3582",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for samba is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

@@ -1,5 +1,6 @@
 {
   "USN-4263-2": {
+    "auditts": 1580908213,
     "comparisons": {
       "precise-bucket": {
         "comparison-collection-subtype": [
@@ -64,15 +65,15 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
-      "CVE-2019-18634_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18634.html",
+      "CVE-2019-18634_(Unknown)": null,
       "USN-4263-2": "https://usn.ubuntu.com/4263-2/"
     },
     "vuln-long-description": "USN-4263-1 fixed a vulnerability in Sudo. This update provides\nthe corresponding update for Ubuntu 12.04 ESM and Ubuntu 14.04 ESM.\n\nOriginal advisory details:\n\n Joe Vennix discovered that Sudo incorrectly handled memory operations when\n the pwfeedback option is enabled. A local attacker could possibly use this\n issue to obtain unintended access to the administrator account.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
     "vuln-name": "USN-4263-2",
     "vuln-primary-link": "https://usn.ubuntu.com/4263-2/",
-    "vuln-priority": 3,
+    "vuln-priority": 1,
     "vuln-short-description": "Sudo could allow unintended access to the administrator account.\n"
   }
 }

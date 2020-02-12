@@ -1,0 +1,117 @@
+{
+  "USN-4184-2": {
+    "auditts": 1573671209,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-5.0.0-36-lowlatency",
+          "linux-image-generic-hwe-18.04",
+          "linux-image-virtual-hwe-18.04",
+          "linux-image-generic-lpae-hwe-18.04",
+          "linux-image-lowlatency-hwe-18.04",
+          "linux-image-oem-osp1",
+          "linux-image-5.0.0-36-generic",
+          "linux-image-5.0.0-36-generic-lpae",
+          "linux-image-5.0.0-1028-oem-osp1"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.0.0-36.39~18.04.1",
+          "5.0.0.36.94",
+          "5.0.0.36.94",
+          "5.0.0.36.94",
+          "5.0.0.36.94",
+          "5.0.0.1028.32",
+          "5.0.0-36.39~18.04.1",
+          "5.0.0-36.39~18.04.1",
+          "5.0.0-1028.32"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-5.0.0-36-lowlatency",
+          "linux-image-generic-lpae",
+          "linux-image-virtual",
+          "linux-image-generic",
+          "linux-image-5.0.0-36-generic",
+          "linux-image-5.0.0-36-generic-lpae",
+          "linux-image-lowlatency"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.0.0-36.39",
+          "5.0.0.36.38",
+          "5.0.0.36.38",
+          "5.0.0.36.38",
+          "5.0.0-36.39",
+          "5.0.0-36.39",
+          "5.0.0.36.38"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-0155_(High)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-155.html",
+      "USN-4184-2": "https://usn.ubuntu.com/4184-2/",
+      "https://bugs.launchpad.net/bugs/1851709": "https://bugs.launchpad.net/bugs/1851709",
+      "https://bugs.launchpad.net/bugs/1852141": "https://bugs.launchpad.net/bugs/1852141"
+    },
+    "vuln-long-description": "USN-4184-1 fixed vulnerabilities in the Linux kernel. It was discovered\nthat the kernel fix for CVE-2019-0155 (i915 missing Blitter Command\nStreamer check) was incomplete on 64-bit Intel x86 systems. Also, the\nupdate introduced a regression that broke KVM guests where extended\npage tables (EPT) are disabled or not supported. This update addresses\nboth issues.\n\nWe apologize for the inconvenience.\n\nOriginal advisory details:\n\n Stephan van Schaik, Alyssa Milburn, Sebastian \u00d6sterlund, Pietro Frigo,\n Kaveh Razavi, Herbert Bos, Cristiano Giuffrida, Giorgi Maisuradze, Moritz\n Lipp, Michael Schwarz, Daniel Gruss, and Jo Van Bulck discovered that Intel\n processors using Transactional Synchronization Extensions (TSX) could\n expose memory contents previously stored in microarchitectural buffers to a\n malicious process that is executing on the same CPU core. A local attacker\n could use this to expose sensitive information. (CVE-2019-11135)\n\n It was discovered that the Intel i915 graphics chipsets allowed userspace\n to modify page table entries via writes to MMIO from the Blitter Command\n Streamer and expose kernel memory information. A local attacker could use\n this to expose sensitive information or possibly elevate privileges.\n (CVE-2019-0155)\n\n Deepak Gupta discovered that on certain Intel processors, the Linux kernel\n did not properly perform invalidation on page table updates by virtual\n guest operating systems. A local attacker in a guest VM could use this to\n cause a denial of service (host system crash). (CVE-2018-12207)\n\n It was discovered that the Intel i915 graphics chipsets could cause a\n system hang when userspace performed a read from GT memory mapped input\n output (MMIO) when the product is in certain low power states. A local\n attacker could use this to cause a denial of service. (CVE-2019-0154)\n\n Hui Peng discovered that the Atheros AR6004 USB Wi-Fi device driver for the\n Linux kernel did not properly validate endpoint descriptors returned by the\n device. A physically proximate attacker could use this to cause a denial of\n service (system crash). (CVE-2019-15098)\n\n Jann Horn discovered a reference count underflow in the shiftfs\n implementation in the Linux kernel. A local attacker could use this to\n cause a denial of service (system crash) or possibly execute arbitrary\n code. (CVE-2019-15791)\n\n Jann Horn discovered a type confusion vulnerability in the shiftfs\n implementation in the Linux kernel. A local attacker could use this to\n cause a denial of service (system crash) or possibly execute arbitrary\n code. (CVE-2019-15792)\n\n Jann Horn discovered that the shiftfs implementation in the Linux kernel\n did not use the correct file system uid/gid when the user namespace of a\n lower file system is not in the init user namespace. A local attacker could\n use this to possibly bypass DAC permissions or have some other unspecified\n impact. (CVE-2019-15793)\n\n Ori Nimron discovered that the AX25 network protocol implementation in the\n Linux kernel did not properly perform permissions checks. A local attacker\n could use this to create a raw socket. (CVE-2019-17052)\n\n Ori Nimron discovered that the IEEE 802.15.4 Low-Rate Wireless network\n protocol implementation in the Linux kernel did not properly perform\n permissions checks. A local attacker could use this to create a raw socket.\n (CVE-2019-17053)\n\n Ori Nimron discovered that the Appletalk network protocol implementation in\n the Linux kernel did not properly perform permissions checks. A local\n attacker could use this to create a raw socket. (CVE-2019-17054)\n\n Ori Nimron discovered that the modular ISDN network protocol implementation\n in the Linux kernel did not properly perform permissions checks. A local\n attacker could use this to create a raw socket. (CVE-2019-17055)\n\n Ori Nimron discovered that the Near field Communication (NFC) network\n protocol implementation in the Linux kernel did not properly perform\n permissions checks. A local attacker could use this to create a raw socket.\n (CVE-2019-17056)\n\n Nico Waisman discovered that a buffer overflow existed in the Realtek Wi-Fi\n driver for the Linux kernel when handling Notice of Absence frames. A\n physically proximate attacker could use this to cause a denial of service\n (system crash) or possibly execute arbitrary code. (CVE-2019-17666)\n\n\nTLDR: Please note that mitigating the TSX (CVE-2019-11135) and i915\n(CVE-2019-0154) issues requires corresponding microcode and graphics\nfirmware updates respectively.\n\nAfter a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4184-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4184-2/",
+    "vuln-priority": 7,
+    "vuln-short-description": "Several issues were fixed in the Linux kernel.\n"
+  }
+}

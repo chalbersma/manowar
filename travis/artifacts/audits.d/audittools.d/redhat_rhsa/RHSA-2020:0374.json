@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0374": {
+    "auditts": 1580895762,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -76,7 +77,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-14816": "https://access.redhat.com/security/cve/CVE-2019-14816",
       "CVE-2019-14895": "https://access.redhat.com/security/cve/CVE-2019-14895",

@@ -1,5 +1,6 @@
 {
   "RHSA-2020:0124": {
+    "auditts": 1579215994,
     "comparisons": {
       "7-bucket": {
         "comparison-collection-subtype": [
@@ -82,7 +83,7 @@
         ]
       }
     },
-    "jellyfishversion": 2,
+    "jellyfishversion": "2.6",
     "vuln-additional-links": {
       "CVE-2019-1387": "https://access.redhat.com/security/cve/CVE-2019-1387",
       "bz#1781127: CVE-2019-1387 git: Remote code execution in recursive clones with nested submodules": "https://bugzilla.redhat.com/show_bug.cgi?id=1781127",
