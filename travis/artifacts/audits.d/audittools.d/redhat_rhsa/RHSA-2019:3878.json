@@ -1,0 +1,85 @@
+{
+  "RHSA-2019:3878": {
+    "comparisons": {
+      "6-bucket": {
+        "comparison-collection-subtype": [
+          "kernel-firmware",
+          "kernel-doc",
+          "kernel-abi-whitelists",
+          "perf",
+          "kernel-headers",
+          "kernel-devel",
+          "kernel-debug-devel",
+          "kernel-debug",
+          "kernel",
+          "python-perf",
+          "kernel-bootwrapper",
+          "kernel-kdump-devel",
+          "kernel-kdump"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32"
+        ]
+      }
+    },
+    "filters": {
+      "6-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          6
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-0155": "https://access.redhat.com/security/cve/CVE-2019-0155",
+      "bz#1724398: CVE-2019-0155 hw: Intel GPU blitter manipulation can allow for arbitrary kernel memory write": "https://bugzilla.redhat.com/show_bug.cgi?id=1724398",
+      "https://access.redhat.com/errata/RHSA-2019:3878": "https://access.redhat.com/errata/RHSA-2019:3878",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://access.redhat.com/solutions/i915-graphics": "https://access.redhat.com/solutions/i915-graphics",
+      "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00242.html": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00242.html"
+    },
+    "vuln-long-description": "An update for kernel is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\nSecurity Fix(es):\n* hw: Intel GPU blitter manipulation can allow for arbitrary kernel memory write (CVE-2019-0155)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3878",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3878",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for kernel is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

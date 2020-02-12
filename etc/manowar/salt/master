@@ -1,0 +1,17 @@
+roster_defaults:
+  user: ubuntu
+  sudo: True
+  tty: True
+  config_dir: ./
+
+pki_dir: ./pki_dir
+cachedir: /tmp/cache
+ssh_priv: ./ssh/salt_key
+
+file_root:
+  base:
+  - ./state
+
+pillar_roots:
+  base:
+  - ./pillar

@@ -1,0 +1,83 @@
+{
+  "USN-4238-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libsdl-image1.2"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.2.12-8ubuntu0.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libsdl-image1.2"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.2.12-5+deb9u1ubuntu0.16.04.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-3977_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2018/CVE-2018-3977.html",
+      "CVE-2019-12216_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12216.html",
+      "CVE-2019-12217_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12217.html",
+      "CVE-2019-12218_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12218.html",
+      "CVE-2019-12219_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12219.html",
+      "CVE-2019-12220_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12220.html",
+      "CVE-2019-12221_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12221.html",
+      "CVE-2019-12222_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12222.html",
+      "CVE-2019-13616_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-13616.html",
+      "CVE-2019-5051_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-5051.html",
+      "CVE-2019-5052_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-5052.html",
+      "CVE-2019-7635_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-7635.html",
+      "USN-4238-1": "https://usn.ubuntu.com/4238-1/"
+    },
+    "vuln-long-description": "It was discovered that SDL_image incorrectly handled certain image files. An\nattacker could possibly use this issue to cause a denial of service or other\nunspecified impact.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4238-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4238-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in SDL_image.\n"
+  }
+}

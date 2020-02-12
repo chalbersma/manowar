@@ -11,6 +11,8 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
       Accepts a valid host json and stores it in the api. This call is fenced
       by an api token that you need to specify and won't work in the interactive
       version of this.
+    tags:
+      - sapi
     responses:
       200:
         description: OK
@@ -25,68 +27,75 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 ```
 """
 
-from flask import current_app, Blueprint, g, request, jsonify
+
 import json
 import ast
-import endorsementmgmt
+import logging
 
-from storageJSONVerify import storageJSONVerify
-from storage import storage
+from flask import current_app, Blueprint, g, request, jsonify
+
+import manoward
+from manoward.storage import storage
 
 puthostjson = Blueprint('puthostjson', __name__)
 
-@puthostjson.route("/puthostjson", methods=['GET','POST'])
-@puthostjson.route("/puthostjson/", methods=['GET','POST'])
-@puthostjson.route("/sapi/puthostjson", methods=['GET','POST'])
-@puthostjson.route("/sapi/puthostjson/", methods=['GET','POST'])
+
+@puthostjson.route("/puthostjson", methods=['GET', 'POST'])
+@puthostjson.route("/puthostjson/", methods=['GET', 'POST'])
+@puthostjson.route("/sapi/puthostjson", methods=['GET', 'POST'])
+@puthostjson.route("/sapi/puthostjson/", methods=['GET', 'POST'])
 def generic_puthostjson():
+    '''
+    Runs the /puthostjson endpoint. This stores the data sent from manowar_agent
+    '''
 
     meta_dict = dict()
-    request_data = list()
+    #request_data = list()
     links_dict = dict()
     error_dict = dict()
 
-    this_endpoint_endorsements = ( ("conntype","sapi"), )
+    g.logger.warning("Recieved Upload Request.")
 
-    endorsementmgmt.process_endorsements(endorsements=this_endpoint_endorsements, \
-                                session_endorsements=g.session_endorsements )
+    this_endpoint_endorsements = (("conntype", "sapi"),)
 
+    manoward.process_endorsements(endorsements=this_endpoint_endorsements,
+                                  session_endorsements=g.session_endorsements,
+                                  ignore_abort=g.debug)
 
-    argument_error = False
-    where_clauses = list()
-
-    meta_dict["version"]  = 2
+    meta_dict["version"] = 2
     meta_dict["name"] = "Jellyfish SAPI PutHostJSON "
     meta_dict["status"] = "In Progress"
 
-    error=False
+    error = False
 
-    if request.json == None :
-        # No Json Data Given
+    g.logger.debug("Recieved Authenticated Request Request")
+
+    if request.json is None:
         error_dict["nodata"] = True
-        error=True
+        error = True
 
+    if error is False:
 
-    #print(type(g.SCHEMAFILE))
-
-    if error == False :
+        # Note that this is an API host
+        request.json["collection_status"] = "STINGCELL"
 
         # Do a Storage Verify on this Mofo.
-        check_result=storageJSONVerify(g.config_items["sapi"].get("puthost_schema", "puthost_schema.json"), \
-                                       request.json)
+        check_result_passed, check_result_message = storageJSONVerify(
+            request.json)
 
-        # Parse Result
-        check_result_passed=check_result[0]
-        check_result_message=check_result[1]
-
-        if check_result_passed is True :
+        if check_result_passed is True:
             # It's good do the Storage
-            this_store_collection_result = storage(g.config_items["sapi"].get("storageconfig", "storage.ini"), request.json, sapi=True)
+            this_store_collection_result = storage(g.config_items,
+                                                   request.json,
+                                                   sapi=True)
 
-            data_dict=dict()
+            data_dict = dict()
             data_dict["storage_result"] = this_store_collection_result
+        else:
+            g.logger.warning("Abnormal Check Result Storage Not Attempted : {}".format(
+                check_result_message))
 
-    if error == False :
+    if error is False:
 
         response_dict = dict()
 
@@ -95,13 +104,11 @@ def generic_puthostjson():
         response_dict["data"] = data_dict
         response_dict["links"] = links_dict
 
-        return jsonify(**response_dict)
-
-    else :
+    else:
 
         response_dict = dict()
         response_dict["meta"] = meta_dict
         response_dict["errors"] = error_dict
         response_dict["links"] = links_dict
 
-        return jsonify(**response_dict)
+    return jsonify(**response_dict)

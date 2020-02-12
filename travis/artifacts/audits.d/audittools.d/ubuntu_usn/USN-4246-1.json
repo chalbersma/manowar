@@ -1,0 +1,60 @@
+{
+  "USN-4246-1": {
+    "comparisons": {
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libx32z1",
+          "lib64z1",
+          "libn32z1",
+          "lib32z1",
+          "zlib1g"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:1.2.8.dfsg-2ubuntu4.3",
+          "1:1.2.8.dfsg-2ubuntu4.3",
+          "1:1.2.8.dfsg-2ubuntu4.3",
+          "1:1.2.8.dfsg-2ubuntu4.3",
+          "1:1.2.8.dfsg-2ubuntu4.3"
+        ]
+      }
+    },
+    "filters": {
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2016-9840_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2016/CVE-2016-9840.html",
+      "CVE-2016-9841_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2016/CVE-2016-9841.html",
+      "CVE-2016-9842_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2016/CVE-2016-9842.html",
+      "CVE-2016-9843_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2016/CVE-2016-9843.html",
+      "USN-4246-1": "https://usn.ubuntu.com/4246-1/"
+    },
+    "vuln-long-description": "\nIt was discovered that zlib incorrectly handled pointer arithmetic. An attacker\ncould use this issue to cause zlib to crash, resulting in a denial of\nservice, or possibly execute arbitrary code. (CVE-2016-9840, CVE-2016-9841)\n\nIt was discovered that zlib incorrectly handled vectors involving left shifts of\nnegative integers. An attacker could use this issue to cause zlib to\ncrash, resulting in a denial of service, or possibly execute arbitrary code.\n(CVE-2016-9842)\n\nIt was discovered that zlib incorrectly handled vectors involving big-endian CRC\ncalculation. An attacker could use this issue to cause zlib to crash,\nresulting in a denial of service, or possibly execute arbitrary code.\n(CVE-2016-9843)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4246-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4246-1/",
+    "vuln-priority": 3,
+    "vuln-short-description": "Several security issues were fixed in zlib\n"
+  }
+}

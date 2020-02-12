@@ -1,0 +1,48 @@
+{
+  "USN-4262-1": {
+    "comparisons": {
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "python3-keystone",
+          "keystone"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:16.0.0-0ubuntu1.1",
+          "2:16.0.0-0ubuntu1.1"
+        ]
+      }
+    },
+    "filters": {
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-19687_(Unknown)": null,
+      "USN-4262-1": "https://usn.ubuntu.com/4262-1/"
+    },
+    "vuln-long-description": "Daniel Preussker discovered that OpenStack Keystone incorrectly handled the\nlist credentials API. A user with a role on the project could use this\nissue to view any other user's credentials.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4262-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4262-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "OpenStack Keystone could be made to expose sensitive information over the\nnetwork.\n"
+  }
+}

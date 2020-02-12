@@ -1,0 +1,89 @@
+{
+  "RHSA-2020:0375": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "kernel-rt-doc",
+          "kernel-rt-trace-devel",
+          "kernel-rt-trace",
+          "kernel-rt-devel",
+          "kernel-rt-debug-devel",
+          "kernel-rt-debug",
+          "kernel-rt",
+          "kernel-rt-trace-kvm",
+          "kernel-rt-kvm",
+          "kernel-rt-debug-kvm"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14816": "https://access.redhat.com/security/cve/CVE-2019-14816",
+      "CVE-2019-14895": "https://access.redhat.com/security/cve/CVE-2019-14895",
+      "CVE-2019-14898": "https://access.redhat.com/security/cve/CVE-2019-14898",
+      "CVE-2019-14901": "https://access.redhat.com/security/cve/CVE-2019-14901",
+      "CVE-2019-17133": "https://access.redhat.com/security/cve/CVE-2019-17133",
+      "bz#1744149: CVE-2019-14816 kernel: heap overflow in mwifiex_update_vs_ie() function of Marvell WiFi driver": "https://bugzilla.redhat.com/show_bug.cgi?id=1744149",
+      "bz#1771909: CVE-2019-17133 kernel: buffer overflow in cfg80211_mgd_wext_giwessid in net/wireless/wext-sme.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1771909",
+      "bz#1773519: CVE-2019-14901 kernel: heap overflow in marvell/mwifiex/tdls.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1773519",
+      "bz#1774671: CVE-2019-14898 kernel: incomplete fix  for race condition between mmget_not_zero()/get_task_mm() and core dumping in CVE-2019-11599": "https://bugzilla.redhat.com/show_bug.cgi?id=1774671",
+      "bz#1774870: CVE-2019-14895 kernel: heap-based buffer overflow in mwifiex_process_country_ie() function in drivers/net/wireless/marvell/mwifiex/sta_ioctl.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1774870",
+      "https://access.redhat.com/errata/RHSA-2020:0375": "https://access.redhat.com/errata/RHSA-2020:0375",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://bugs.chromium.org/p/project-zero/issues/detail?id=1790": "https://bugs.chromium.org/p/project-zero/issues/detail?id=1790",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=1781157": "https://bugzilla.redhat.com/show_bug.cgi?id=1781157",
+      "https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.14.114": "https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.14.114",
+      "https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.19.37": "https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.19.37",
+      "https://cdn.kernel.org/pub/linux/kernel/v5.x/ChangeLog-5.0.10": "https://cdn.kernel.org/pub/linux/kernel/v5.x/ChangeLog-5.0.10",
+      "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7caac62ed598a196d6ddf8d9c121e12e082cac3a": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7caac62ed598a196d6ddf8d9c121e12e082cac3a",
+      "https://www.openwall.com/lists/oss-security/2019/11/22/2": "https://www.openwall.com/lists/oss-security/2019/11/22/2"
+    },
+    "vuln-long-description": "An update for kernel-rt is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe kernel-rt packages provide the Real Time Linux Kernel, which enables fine-tuning for systems with extremely high determinism requirements.\nSecurity Fix(es):\n* kernel: heap overflow in mwifiex_update_vs_ie() function of Marvell WiFi driver (CVE-2019-14816)\n* kernel: heap-based buffer overflow in mwifiex_process_country_ie() function in drivers/net/wireless/marvell/mwifiex/sta_ioctl.c (CVE-2019-14895)\n* kernel: heap overflow in marvell/mwifiex/tdls.c (CVE-2019-14901)\n* kernel: buffer overflow in cfg80211_mgd_wext_giwessid in net/wireless/wext-sme.c (CVE-2019-17133)\n* kernel: incomplete fix  for race condition between mmget_not_zero()/get_task_mm() and core dumping in CVE-2019-11599 (CVE-2019-14898)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nBug Fix(es):\n* patchset for x86/atomic: Fix smp_mb__{before,after}_atomic() [kernel-rt] (BZ#1772522)\n* kernel-rt: update to the RHEL7.7.z batch#4 source tree (BZ#1780322)\n* kvm nx_huge_pages_recovery_ratio=0 is needed to meet KVM-RT low latency requirement (BZ#1781157)\n* kernel-rt:  hard lockup panic in during execution of CFS bandwidth period timer (BZ#1788057)\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0375",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0375",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for kernel-rt is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

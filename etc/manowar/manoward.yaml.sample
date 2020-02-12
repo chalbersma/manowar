@@ -1,0 +1,86 @@
+---
+global:
+  jellyfish_version: 4
+webserver:
+  bindaddress: 127.0.0.1
+  accesslink: http://localhost:5000
+  port: 5000
+database:
+  ## Global Settings ##
+  # Someday Change to SSL for TLS encryption from yoyo
+  req_enc: "NONE"
+
+  ## API User ##
+  api_dbhostname: localhost
+  api_dbusername: manowar
+  api_hostmask: "%"
+  api_dbpassword: longshittypassword_api
+  api_dbport: 3306
+  api_dbdb: manowar2
+  # For TLS in Motion
+  #api_ssl: true
+  #api_dbsslca: /path/to/cacert
+
+  ## Analyze User ##
+  analyze_dbhostname: localhost
+  analyze_dbusername: manowar_analyze
+  analyze_hostmask: "%"
+  analyze_dbpassword: longshittypassword_analyze
+  analyze_dbport: 3306
+  analyze_dbdb: manowar2
+  # For TLS in Motion
+  #analyze_ssl: true
+  #analyze_dbsslca: /path/to/cacert
+
+  ## Storage User ##
+  store_dbhostname: localhost
+  store_dbusername: manowar_store
+  store_hostmask: "%"
+  store_dbpassword: longshittypassword_store
+  store_dbport: 3306
+  store_dbdb: manowar2
+  # For TLS in Motion
+  #store_ssl: true
+  #store_dbsslca: /path/to/cacert
+
+v2api:
+  root: /v2
+  preroot: /manowar
+  # If this is a shared box you should move this elsewhere
+  cachelocation: /tmp/manoward/
+v2ui:
+  root: /display/v2
+  preroot: /manowar
+# Rewrite of Auth at somepoint will make this uneccessary
+#tokenmgmt:
+#  vt_types:
+#    - sapi
+#    - robot
+#    - ipintel
+storage:
+  collectionmaxchars: 255
+  puthost_schema: jellyfish_storage.json.schema
+analyze:
+  freshseconds: 172800
+  maxthreads: 32
+collate:
+  freshseconds: 86400
+ip_intel:
+  do_intel: true
+  # If this is a node sperated from the api node(s) you may need to change localhost to the fqdn
+  report_url: "http://localhost:5000/v2/ip/report"
+schedule:
+  output_report: "/tmp/sched_output.json"
+  # Salt-SSH Configuration Location
+  salt_ssh_basedir: "/etc/manowar/salt/"
+  max_threads: 128
+  max_runtime: 28800
+  collection_config_file: "/etc/manowar_agent/collector.yaml"
+  local_collections: false
+  local_collections_location: "/etc/manowar_agent/collections.d/"
+  # If you run the schedule with the system python you can set this to false
+  # This is the location from your salt-ssh location in salt_ssh_basedir
+  # To here. This is blind. It's dangerous. It probably shouldn't be
+  # a feature
+  #relative_venv: "source ../../../bin/activate; "
+  relative_venv: false

@@ -1,0 +1,72 @@
+{
+  "USN-4233-2": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libgnutls30"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.5.18-1ubuntu1.3"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libgnutls30"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.4.10-4ubuntu1.7"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "LP : 1860656": "https://launchpad.net/bugs/1860656",
+      "USN-4233-2": "https://usn.ubuntu.com/4233-2/"
+    },
+    "vuln-long-description": "USN-4233-1 disabled SHA1 being used for digital signature operations in\nGnuTLS. In certain network environments, certificates using SHA1 may still\nbe in use. This update adds the %VERIFY_ALLOW_BROKEN and\n%VERIFY_ALLOW_SIGN_WITH_SHA1 priority strings that can be used to\ntemporarily re-enable SHA1 until certificates can be replaced with a\nstronger algorithm.\n\nOriginal advisory details:\n\n As a security improvement, this update marks SHA1 as being untrusted for\n digital signature operations.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4233-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4233-2/",
+    "vuln-priority": 1,
+    "vuln-short-description": "USN-4233-1 marked SHA1 as untrusted in GnuTLS with no workaround.\n"
+  }
+}

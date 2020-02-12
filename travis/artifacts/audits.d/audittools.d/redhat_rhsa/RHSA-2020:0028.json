@@ -1,0 +1,62 @@
+{
+  "RHSA-2020:0028": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "kpatch-patch-3_10_0-1062",
+          "kpatch-patch-3_10_0-1062_1_2",
+          "kpatch-patch-3_10_0-1062_4_1",
+          "kpatch-patch-3_10_0-1062_1_1"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1",
+          "1",
+          "1",
+          "1"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-12207": "https://access.redhat.com/security/cve/CVE-2018-12207",
+      "CVE-2019-11135": "https://access.redhat.com/security/cve/CVE-2019-11135",
+      "bz#1646768: CVE-2018-12207 hw: Machine Check Error on Page Size Change (IFU)": "https://bugzilla.redhat.com/show_bug.cgi?id=1646768",
+      "bz#1753062: CVE-2019-11135 hw: TSX Transaction Asynchronous Abort (TAA)": "https://bugzilla.redhat.com/show_bug.cgi?id=1753062",
+      "https://access.redhat.com/errata/RHSA-2020:0028": "https://access.redhat.com/errata/RHSA-2020:0028",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://access.redhat.com/security/vulnerabilities/ifu-page-mce": "https://access.redhat.com/security/vulnerabilities/ifu-page-mce",
+      "https://access.redhat.com/solutions/tsx-asynchronousabort": "https://access.redhat.com/solutions/tsx-asynchronousabort",
+      "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00210.html": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00210.html",
+      "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00270.html": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00270.html"
+    },
+    "vuln-long-description": "An update for kpatch-patch is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThis is a kernel live patch module which is automatically loaded by the RPM post-install script to modify the code of a running kernel.\nSecurity Fix(es):\n* hw: Machine Check Error on Page Size Change (IFU) (CVE-2018-12207)\n* hw: TSX Transaction Asynchronous Abort (TAA) (CVE-2019-11135)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0028",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0028",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for kpatch-patch is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

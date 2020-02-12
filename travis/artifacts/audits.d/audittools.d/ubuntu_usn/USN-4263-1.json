@@ -1,0 +1,108 @@
+{
+  "USN-4263-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "sudo-ldap",
+          "sudo"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.21p2-3ubuntu1.2",
+          "1.8.21p2-3ubuntu1.2"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "sudo-ldap",
+          "sudo"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.27-1ubuntu4.1",
+          "1.8.27-1ubuntu4.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "sudo-ldap",
+          "sudo"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.16-0ubuntu1.9",
+          "1.8.16-0ubuntu1.9"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-18634_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18634.html",
+      "USN-4263-1": "https://usn.ubuntu.com/4263-1/"
+    },
+    "vuln-long-description": "Joe Vennix discovered that Sudo incorrectly handled memory operations when\nthe pwfeedback option is enabled. A local attacker could possibly use this\nissue to obtain unintended access to the administrator account.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4263-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4263-1/",
+    "vuln-priority": 3,
+    "vuln-short-description": "Sudo could allow unintended access to the administrator account.\n"
+  }
+}

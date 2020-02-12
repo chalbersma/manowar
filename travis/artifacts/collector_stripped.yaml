@@ -1,0 +1,67 @@
+manowar_version: 3
+
+# Stripped Down for Quicker CI/CD Pipline Stuff
+
+collections:
+  packages:
+    salt: true
+    multi: true
+    saltfactor: "pkg.list_pkgs"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: "."
+  release:
+    salt: true
+    multi: false
+    saltfactor: "cmd.run"
+    saltargs: ["lsb_release -sc"]
+    saltkwargs: {}
+    jq_parse: "."
+    grain_limit:
+      - jq: ".kernel"
+        regex: Linux
+  os:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["os"]
+    saltkwargs: {}
+    jq_parse: "."
+  os_version:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["osversion"]
+    saltkwargs: {}
+    jq_parse: "."
+    len_zero_defualt: "not found"
+  os_fullname:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["osfullname"]
+    saltkwargs: {}
+    jq_parse: "."
+    len_zero_defualt: "not found"
+  os_release:
+    salt: true
+    multi: false
+    saltfactor: "grains.get"
+    saltargs: ["osrelease"]
+    saltkwargs: {}
+    jq_parse: "."
+    len_zero_default: "not found"
+  ipv4_addr:
+    salt: true
+    multi: true
+    saltfactor: "network.ip_addrs"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[ .[] | { (.) : "IPV4" } ] | add'
+  ipv6_addr:
+    salt: true
+    multi: true
+    saltfactor: "network.ip_addrs6"
+    saltargs: []
+    saltkwargs: {}
+    jq_parse: '[ .[] | { (.) : "IPV6" } ] | add'

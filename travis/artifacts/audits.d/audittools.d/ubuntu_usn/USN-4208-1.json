@@ -1,0 +1,137 @@
+{
+  "USN-4208-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-5.3.0-1009-gcp",
+          "linux-image-gcp-edge"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.3.0-1009.10~18.04.1",
+          "5.3.0.1009.9"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-5.3.0-24-lowlatency",
+          "linux-image-gke",
+          "linux-image-generic",
+          "linux-image-5.3.0-1008-kvm",
+          "linux-image-gcp",
+          "linux-image-5.3.0-1009-gcp",
+          "linux-image-5.3.0-1008-aws",
+          "linux-image-5.3.0-24-generic",
+          "linux-image-virtual",
+          "linux-image-5.3.0-24-generic-lpae",
+          "linux-image-5.3.0-24-snapdragon",
+          "linux-image-generic-lpae",
+          "linux-image-snapdragon",
+          "linux-image-aws",
+          "linux-image-kvm",
+          "linux-image-oracle",
+          "linux-image-lowlatency",
+          "linux-image-5.3.0-1007-oracle"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.3.0-24.26",
+          "5.3.0.1009.10",
+          "5.3.0.24.28",
+          "5.3.0-1008.9",
+          "5.3.0.1009.10",
+          "5.3.0-1009.10",
+          "5.3.0-1008.9",
+          "5.3.0-24.26",
+          "5.3.0.24.28",
+          "5.3.0-24.26",
+          "5.3.0-24.26",
+          "5.3.0.24.28",
+          "5.3.0.24.28",
+          "5.3.0.1008.10",
+          "5.3.0.1008.10",
+          "5.3.0.1007.8",
+          "5.3.0.24.28",
+          "5.3.0-1007.8"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-15794_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-15794.html",
+      "CVE-2019-17075_(Unknown)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17075.html",
+      "CVE-2019-17133_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-17133.html",
+      "CVE-2019-18810_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18810.html",
+      "CVE-2019-19048_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19048.html",
+      "CVE-2019-19060_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19060.html",
+      "CVE-2019-19061_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19061.html",
+      "CVE-2019-19065_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19065.html",
+      "CVE-2019-19067_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19067.html",
+      "CVE-2019-19069_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19069.html",
+      "CVE-2019-19075_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19075.html",
+      "CVE-2019-19083_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19083.html",
+      "USN-4208-1": "https://usn.ubuntu.com/4208-1/"
+    },
+    "vuln-long-description": "Jann Horn discovered that the OverlayFS and ShiftFS Drivers in the Linux\nkernel did not properly handle reference counting during memory mapping\noperations when used in conjunction with AUFS. A local attacker could use\nthis to cause a denial of service (system crash) or possibly execute\narbitrary code. (CVE-2019-15794)\n\nNicolas Waisman discovered that the WiFi driver stack in the Linux kernel\ndid not properly validate SSID lengths. A physically proximate attacker\ncould use this to cause a denial of service (system crash).\n(CVE-2019-17133)\n\nIt was discovered that the ARM Komeda display driver for the Linux kernel\ndid not properly deallocate memory in certain error conditions. A local\nattacker could use this to cause a denial of service (memory exhaustion).\n(CVE-2019-18810)\n\nIt was discovered that the VirtualBox guest driver implementation in the\nLinux kernel did not properly deallocate memory in certain error\nconditions. A local attacker could use this to cause a denial of service\n(memory exhaustion). (CVE-2019-19048)\n\nIt was discovered that the ADIS16400 IIO IMU Driver for the Linux kernel\ndid not properly deallocate memory in certain error conditions. A local\nattacker could use this to cause a denial of service (memory exhaustion).\n(CVE-2019-19060, CVE-2019-19061)\n\nIt was discovered that the Intel OPA Gen1 Infiniband Driver for the Linux\nkernel did not properly deallocate memory in certain error conditions. A\nlocal attacker could use this to cause a denial of service (memory\nexhaustion). (CVE-2019-19065)\n\nIt was discovered that the AMD Audio CoProcessor Driver for the Linux\nkernel did not properly deallocate memory in certain error conditions. A\nlocal attacker with the ability to load modules could use this to cause a\ndenial of service (memory exhaustion). (CVE-2019-19067)\n\nIt was discovered in the Qualcomm FastRPC Driver for the Linux kernel did\nnot properly deallocate memory in certain error conditions. A local\nattacker could use this to cause a denial of service (memory exhaustion).\n(CVE-2019-19069)\n\nIt was discovered that the Cascoda CA8210 SPI 802.15.4 wireless controller\ndriver for the Linux kernel did not properly deallocate memory in certain\nerror conditions. A local attacker could use this to cause a denial of\nservice (memory exhaustion). (CVE-2019-19075)\n\nIt was discovered that the AMD Display Engine Driver in the Linux kernel\ndid not properly deallocate memory in certain error conditions. A local\nattack could use this to cause a denial of service (memory exhaustion).\n(CVE-2019-19083)\n\nNicolas Waisman discovered that the Chelsio T4/T5 RDMA Driver for the Linux\nkernel performed DMA from a kernel stack. A local attacker could use this\nto cause a denial of service (system crash). (CVE-2019-17075)\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4208-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4208-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in the Linux kernel.\n"
+  }
+}

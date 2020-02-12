@@ -1,0 +1,103 @@
+{
+  "USN-4269-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "systemd"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "237-3ubuntu10.38"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "systemd"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "242-7ubuntu3.6"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "systemd"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "229-4ubuntu21.27"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-16888_(Unknown)": null,
+      "CVE-2019-20386_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-20386.html",
+      "CVE-2019-3843_(Unknown)": null,
+      "CVE-2019-3844_(Unknown)": null,
+      "CVE-2020-1712_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1712.html",
+      "USN-4269-1": "https://usn.ubuntu.com/4269-1/"
+    },
+    "vuln-long-description": "It was discovered that systemd incorrectly handled certain PIDFile files.\nA local attacker could possibly use this issue to trick systemd into\nkilling privileged processes. This issue only affected Ubuntu 16.04 LTS.\n(CVE-2018-16888)\n\nIt was discovered that systemd incorrectly handled certain udevadm trigger\ncommands. A local attacker could possibly use this issue to cause systemd\nto consume resources, leading to a denial of service. (CVE-2019-20386)\n\nJann Horn discovered that systemd incorrectly handled services that use the\nDynamicUser property. A local attacker could possibly use this issue to\naccess resources owned by a different service in the future. This issue\nonly affected Ubuntu 18.04 LTS. (CVE-2019-3843, CVE-2019-3844)\n\nTavis Ormandy discovered that systemd incorrectly handled certain Polkit\nqueries. A local attacker could use this issue to cause systemd to crash,\nresulting in a denial of service, or possibly execute arbitrary code and\nescalate privileges. (CVE-2020-1712)\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4269-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4269-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in systemd.\n"
+  }
+}

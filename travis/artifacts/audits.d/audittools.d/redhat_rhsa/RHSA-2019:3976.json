@@ -1,0 +1,47 @@
+{
+  "RHSA-2019:3976": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "tcpdump"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "14:4.9.2"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-19519": "https://access.redhat.com/security/cve/CVE-2018-19519",
+      "bz#1655374: CVE-2018-19519 tcpdump: Stack-based buffer over-read in print-hncp.c:print_prefix() via crafted pcap": "https://bugzilla.redhat.com/show_bug.cgi?id=1655374",
+      "https://access.redhat.com/errata/RHSA-2019:3976": "https://access.redhat.com/errata/RHSA-2019:3976",
+      "https://access.redhat.com/security/updates/classification/#low": "https://access.redhat.com/security/updates/classification/#low"
+    },
+    "vuln-long-description": "An update for tcpdump is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe tcpdump packages contain the tcpdump utility for monitoring network traffic. The tcpdump utility can capture and display the packet headers on a particular network interface or on all interfaces.\nSecurity Fix(es):\n* tcpdump: Stack-based buffer over-read in print-hncp.c:print_prefix() via crafted pcap (CVE-2018-19519)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3976",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3976",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for tcpdump is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

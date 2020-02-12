@@ -1,0 +1,18 @@
+[DEFAULT]
+
+#
+# Sample Yoyo Configuration file
+# Big thing is to replace the database parameter with
+# the location of your databasredentials
+#
+
+sources = %(here)s/migrations
+
+# Target Database
+database = mysql://administrator:administrator@localhost/manowar2
+
+# Verbosity
+verbosity = 3
+
+# Batch Mode
+batch_mode = on

@@ -1,0 +1,60 @@
+{
+  "RHSA-2019:3352": {
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "gdb-doc",
+          "gdb-gdbserver",
+          "gdb-headless",
+          "gdb",
+          "gdb-debugsource"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "8.2",
+          "8.2",
+          "8.2",
+          "8.2",
+          "8.2"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-20657": "https://access.redhat.com/security/cve/CVE-2018-20657",
+      "bz#1664708: CVE-2018-20657 libiberty: Memory leak in demangle_template function resulting in a denial of service": "https://bugzilla.redhat.com/show_bug.cgi?id=1664708",
+      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.1_release_notes/",
+      "https://access.redhat.com/errata/RHSA-2019:3352": "https://access.redhat.com/errata/RHSA-2019:3352",
+      "https://access.redhat.com/security/updates/classification/#low": "https://access.redhat.com/security/updates/classification/#low"
+    },
+    "vuln-long-description": "\nAn update for gdb is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    \n\n\nThe GNU Debugger (GDB) allows users to debug programs written in various programming languages including C, C++, and Fortran. \n\nSecurity Fix(es):\n\n* libiberty: Memory leak in demangle_template function resulting in a denial of service (CVE-2018-20657)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nAdditional Changes:\n\nFor detailed information on changes in this release, see the Red Hat Enterprise Linux 8.1 Release Notes linked from the References section.\n    \n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3352",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3352",
+    "vuln-priority": 1,
+    "vuln-short-description": "\nAn update for gdb is now available for Red Hat Enterprise Linux 8.\n\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n    "
+  }
+}

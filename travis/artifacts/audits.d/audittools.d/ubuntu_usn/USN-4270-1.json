@@ -1,0 +1,108 @@
+{
+  "USN-4270-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "exiv2",
+          "libexiv2-14"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.25-3.1ubuntu0.18.04.5",
+          "0.25-3.1ubuntu0.18.04.5"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "exiv2",
+          "libexiv2-14"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.25-4ubuntu2.2",
+          "0.25-4ubuntu2.2"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "exiv2",
+          "libexiv2-14"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.25-2.1ubuntu16.04.6",
+          "0.25-2.1ubuntu16.04.6"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-20421_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-20421.html",
+      "USN-4270-1": "https://usn.ubuntu.com/4270-1/"
+    },
+    "vuln-long-description": "It was discovered that Exiv2 incorrectly handled certain images.\nAn attacker could possibly use this issue to cause a denial of service.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4270-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4270-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Exiv2 could be made to crash if it opened a specially crafted image.\n"
+  }
+}

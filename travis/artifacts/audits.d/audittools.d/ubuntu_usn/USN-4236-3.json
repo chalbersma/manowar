@@ -1,0 +1,72 @@
+{
+  "USN-4236-3": {
+    "comparisons": {
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "libgcrypt11"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.5.0-3ubuntu0.9"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libgcrypt11"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.5.3-2ubuntu4.6+esm1"
+        ]
+      }
+    },
+    "filters": {
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-13627_(Unknown)": null,
+      "USN-4236-3": "https://usn.ubuntu.com/4236-3/"
+    },
+    "vuln-long-description": "USN-4236-1 fixed a vulnerability in Libgcrypt. This update provides\nthe corresponding update for Ubuntu 12.04 ESM and Ubuntu 14.04 ESM.\n\nOriginal advisory details:\n\n It was discovered that Libgcrypt was susceptible to a ECDSA timing attack.\n An attacker could possibly use this attack to recover sensitive\n information.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4236-3",
+    "vuln-primary-link": "https://usn.ubuntu.com/4236-3/",
+    "vuln-priority": 1,
+    "vuln-short-description": "Libgcrypt could be made to expose sensitive information.\n"
+  }
+}

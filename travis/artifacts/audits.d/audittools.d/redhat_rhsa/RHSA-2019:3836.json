@@ -1,0 +1,95 @@
+{
+  "RHSA-2019:3836": {
+    "comparisons": {
+      "6-bucket": {
+        "comparison-collection-subtype": [
+          "kernel-firmware",
+          "kernel-doc",
+          "kernel-abi-whitelists",
+          "perf",
+          "kernel-headers",
+          "kernel-devel",
+          "kernel-debug-devel",
+          "kernel-debug",
+          "kernel",
+          "python-perf",
+          "kernel-bootwrapper",
+          "kernel-kdump-devel",
+          "kernel-kdump"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32"
+        ]
+      }
+    },
+    "filters": {
+      "6-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          6
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2018-12207": "https://access.redhat.com/security/cve/CVE-2018-12207",
+      "CVE-2019-0154": "https://access.redhat.com/security/cve/CVE-2019-0154",
+      "CVE-2019-11135": "https://access.redhat.com/security/cve/CVE-2019-11135",
+      "CVE-2019-3900": "https://access.redhat.com/security/cve/CVE-2019-3900",
+      "bz#1646768: CVE-2018-12207 hw: Machine Check Error on Page Size Change (IFU)": "https://bugzilla.redhat.com/show_bug.cgi?id=1646768",
+      "bz#1698757: CVE-2019-3900 Kernel: vhost_net: infinite loop while receiving packets leads to DoS": "https://bugzilla.redhat.com/show_bug.cgi?id=1698757",
+      "bz#1724393: CVE-2019-0154 hw: Intel GPU Denial Of Service while accessing MMIO in lower power state": "https://bugzilla.redhat.com/show_bug.cgi?id=1724393",
+      "bz#1753062: CVE-2019-11135 hw: TSX Transaction Asynchronous Abort (TAA)": "https://bugzilla.redhat.com/show_bug.cgi?id=1753062",
+      "https://access.redhat.com/errata/RHSA-2019:3836": "https://access.redhat.com/errata/RHSA-2019:3836",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://access.redhat.com/security/vulnerabilities/ifu-page-mce": "https://access.redhat.com/security/vulnerabilities/ifu-page-mce",
+      "https://access.redhat.com/solutions/i915-graphics": "https://access.redhat.com/solutions/i915-graphics",
+      "https://access.redhat.com/solutions/tsx-asynchronousabort": "https://access.redhat.com/solutions/tsx-asynchronousabort",
+      "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00210.html": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00210.html",
+      "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00260.html": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00260.html",
+      "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00270.html": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00270.html"
+    },
+    "vuln-long-description": "An update for kernel is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\nSecurity Fix(es):\n* hw: Machine Check Error on Page Size Change (IFU) (CVE-2018-12207)\n* hw: TSX Transaction Asynchronous Abort (TAA) (CVE-2019-11135)\n* Kernel: vhost_net: infinite loop while receiving packets leads to DoS (CVE-2019-3900)\n* hw: Intel GPU Denial Of Service while accessing MMIO in lower power state (CVE-2019-0154)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nBug Fix(es):\n* [Intel 6.10 Bug] With mWait/C-states disabled, HT on, ibrs enabled, performance impact observed on user space benchmark (BZ#1560787)\n* kernel-2.6.32-573.60.2.el6 hangs/resets during boot in efi_enter_virtual_mode() on Xeon v2 E7-2870 (BZ#1645724)\n* Slab leak: skbuff_head_cache slab object still allocated after mcast processes are stopped and \"fragments dropped after timeout\" errors are shown (BZ#1752536)\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3836",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3836",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for kernel is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

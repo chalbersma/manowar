@@ -1,0 +1,118 @@
+{
+  "USN-4228-1": {
+    "comparisons": {
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-powerpc-e500mc",
+          "linux-image-4.4.0-1100-aws",
+          "linux-image-4.4.0-171-generic-lpae",
+          "linux-image-4.4.0-171-generic",
+          "linux-image-4.4.0-171-lowlatency",
+          "linux-image-4.4.0-171-powerpc-e500mc",
+          "linux-image-4.4.0-171-powerpc64-smp",
+          "linux-image-virtual",
+          "linux-image-snapdragon",
+          "linux-image-powerpc64-emb",
+          "linux-image-4.4.0-1064-kvm",
+          "linux-image-generic",
+          "linux-image-4.4.0-171-powerpc64-emb",
+          "linux-image-aws",
+          "linux-image-kvm",
+          "linux-image-4.4.0-1127-raspi2",
+          "linux-image-raspi2",
+          "linux-image-powerpc-smp",
+          "linux-image-generic-lpae",
+          "linux-image-4.4.0-1131-snapdragon",
+          "linux-image-powerpc64-smp",
+          "linux-image-lowlatency",
+          "linux-image-4.4.0-171-powerpc-smp"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.4.0.171.179",
+          "4.4.0-1100.111",
+          "4.4.0-171.200",
+          "4.4.0-171.200",
+          "4.4.0-171.200",
+          "4.4.0-171.200",
+          "4.4.0-171.200",
+          "4.4.0.171.179",
+          "4.4.0.1131.123",
+          "4.4.0.171.179",
+          "4.4.0-1064.71",
+          "4.4.0.171.179",
+          "4.4.0-171.200",
+          "4.4.0.1100.104",
+          "4.4.0.1064.64",
+          "4.4.0-1127.136",
+          "4.4.0.1127.127",
+          "4.4.0.171.179",
+          "4.4.0.171.179",
+          "4.4.0-1131.139",
+          "4.4.0.171.179",
+          "4.4.0.171.179",
+          "4.4.0-171.200"
+        ]
+      }
+    },
+    "filters": {
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14895_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14895.html",
+      "CVE-2019-14896_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14896.html",
+      "CVE-2019-14897_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14897.html",
+      "CVE-2019-14901_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14901.html",
+      "CVE-2019-18660_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18660.html",
+      "CVE-2019-19052_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19052.html",
+      "CVE-2019-19524_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19524.html",
+      "CVE-2019-19534_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19534.html",
+      "USN-4228-1": "https://usn.ubuntu.com/4228-1/"
+    },
+    "vuln-long-description": "It was discovered that a heap-based buffer overflow existed in the Marvell\nWiFi-Ex Driver for the Linux kernel. A physically proximate attacker could\nuse this to cause a denial of service (system crash) or possibly execute\narbitrary code. (CVE-2019-14895, CVE-2019-14901)\n\nIt was discovered that a heap-based buffer overflow existed in the Marvell\nLibertas WLAN Driver for the Linux kernel. A physically proximate attacker\ncould use this to cause a denial of service (system crash) or possibly\nexecute arbitrary code. (CVE-2019-14896, CVE-2019-14897)\n\nAnthony Steinhauser discovered that the Linux kernel did not properly\nperform Spectre_RSB mitigations to all processors for PowerPC architecture\nsystems in some situations. A local attacker could use this to expose\nsensitive information. (CVE-2019-18660)\n\nIt was discovered that Geschwister Schneider USB CAN interface driver in\nthe Linux kernel did not properly deallocate memory in certain failure\nconditions. A physically proximate attacker could use this to cause a\ndenial of service (kernel memory exhaustion). (CVE-2019-19052)\n\nIt was discovered that the driver for memoryless force-feedback input\ndevices in the Linux kernel contained a use-after-free vulnerability. A\nphysically proximate attacker could possibly use this to cause a denial of\nservice (system crash) or execute arbitrary code. (CVE-2019-19524)\n\nIt was discovered that the PEAK-System Technik USB driver in the Linux\nkernel did not properly sanitize memory before sending it to the device. A\nphysically proximate attacker could use this to expose sensitive\ninformation (kernel memory). (CVE-2019-19534)\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4228-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4228-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in the Linux kernel.\n"
+  }
+}

@@ -15,15 +15,24 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    tags:
+      - dashboard
     parameters:
       - name: dash_id
         in: query
         description: |
-            The Dashbaord identifier you would like to reference. Can be either
-            the dashboard short name (does regex search) or the dashboard id number
-            (does exact match).
+          The Dashbaord identifier you would like to reference. Can be either
+          the dashboard short name (does regex search) or the dashboard id number
+          (does exact match).
         schema:
-          type: string
+          type: integer
+        required: false
+      - name: dash_name
+        in: query
+        description: |
+          Searches a Regex for the Dashboard Name you're looking for.
+        schema:
+          type: integer
         required: false
 ```
 
@@ -37,6 +46,7 @@ import os
 import hashlib
 
 custdashboard_list = Blueprint('api2_custdashboard_list', __name__)
+
 
 @custdashboard_list.route("/custdashboard/list", methods=['GET'])
 @custdashboard_list.route("/custdashboard/list/", methods=['GET'])
@@ -55,32 +65,33 @@ def api2_custdashboard_list(dash_id=None, dash_name=None):
     where_clauses = list()
     where_clause_args = list()
 
-    if dash_id != None :
+    if dash_id != None:
         # Use Dash ID
         where_clauses.append(" custdashboardid = %s ")
         where_clause_args.append(int(dash_id))
-    elif dash_name != None :
+    elif dash_name != None:
         where_clauses.append(" dashboard_name REGEXP %s ")
         where_clause_args.append(str(dash_name))
     else:
         # List them All!
         pass
 
-    meta_dict["version"]  = 2
+    meta_dict["version"] = 2
     meta_dict["name"] = "Jellyfish API Version 2 Customdashboard List Dashboards "
     meta_dict["status"] = "In Progress"
     meta_dict["request_tuple"] = (dash_id, dash_name)
 
-    if argument_error == False :
-        hash_string=str(meta_dict["request_tuple"])
+    if argument_error == False:
+        hash_string = str(meta_dict["request_tuple"])
         cache_hash_object = hashlib.sha512(hash_string.encode())
         cache_string = cache_hash_object.hexdigest()
-        meta_dict["this_cached_file"] = g.config_items["v2api"]["cachelocation"] + "/custdashboard_list_"+cache_string+".json"
-
+        meta_dict["this_cached_file"] = g.config_items["v2api"]["cachelocation"] + \
+            "/custdashboard_list_"+cache_string+".json"
 
     meta_dict["NOW"] = g.NOW
 
-    links_dict["parent"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/custdashboard"
+    links_dict["parent"] = g.config_items["v2api"]["preroot"] + \
+        g.config_items["v2api"]["root"] + "/custdashboard"
 
     requesttype = "customdashboard_list_item"
 
@@ -107,32 +118,33 @@ def api2_custdashboard_list(dash_id=None, dash_name=None):
                     return jsonify(**cached)
     '''
 
-    if len(where_clause_args) > 0 :
+    if len(where_clause_args) > 0:
         where_string = " where "
-    else :
+    else:
         where_string = " "
 
     where_clause_string = " and ".join(where_clauses)
 
-    list_custdashboard_query='''select custdashboardid, owner, dashboard_name,
+    list_custdashboard_query = '''select custdashboardid, owner, dashboard_name,
                                 dashboard_description from custdashboard'''
 
-    list_custdashboard_query=list_custdashboard_query + where_string + where_clause_string
+    list_custdashboard_query = list_custdashboard_query + \
+        where_string + where_clause_string
 
     print(do_query, argument_error)
 
-    if do_query and argument_error == False :
-        #print(audit_result_query)
-        g.cur.execute(list_custdashboard_query, where_clause_args);
+    if do_query and argument_error == False:
+        # print(audit_result_query)
+        g.cur.execute(list_custdashboard_query, where_clause_args)
         all_custdashboards = g.cur.fetchall()
         amount_of_dashboards = len(all_custdashboards)
-    else :
+    else:
         error_dict["do_query"] = "Query Ignored"
         amount_of_dashboards = 0
 
-    if amount_of_dashboards > 0 :
+    if amount_of_dashboards > 0:
         # Hydrate the dict with type & ids to be jsonapi compliant
-        for i in range(0, len(all_custdashboards)) :
+        for i in range(0, len(all_custdashboards)):
             this_results = dict()
             this_results["type"] = requesttype
             this_results["id"] = all_custdashboards[i]["custdashboardid"]
@@ -142,13 +154,11 @@ def api2_custdashboard_list(dash_id=None, dash_name=None):
             request_data.append(this_results)
         collections_good = True
 
-    else :
+    else:
         error_dict["ERROR"] = "No Dashbaords"
         collections_good = False
 
-
-
-    if collections_good :
+    if collections_good:
 
         response_dict = dict()
 
@@ -168,9 +178,8 @@ def api2_custdashboard_list(dash_id=None, dash_name=None):
             print("Cache File wrote to " + str(meta_dict["this_cached_file"]) + " at timestamp " + str(g.NOW))
         '''
 
-
         return jsonify(**response_dict)
-    else :
+    else:
 
         response_dict = dict()
         response_dict["meta"] = meta_dict
@@ -178,5 +187,3 @@ def api2_custdashboard_list(dash_id=None, dash_name=None):
         response_dict["links"] = links_dict
 
         return jsonify(**response_dict)
-
-    

@@ -1,0 +1,49 @@
+{
+  "USN-4217-2": {
+    "comparisons": {
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libsmbclient",
+          "samba"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:4.3.11+dfsg-0ubuntu0.14.04.20+esm4",
+          "2:4.3.11+dfsg-0ubuntu0.14.04.20+esm4"
+        ]
+      }
+    },
+    "filters": {
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14861_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14861.html",
+      "CVE-2019-14870_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14870.html",
+      "USN-4217-2": "https://usn.ubuntu.com/4217-2/"
+    },
+    "vuln-long-description": "USN-4217-1 fixed several vulnerabilities in Samba. This update provides\nthe corresponding update for Ubuntu 14.04 ESM.\n\nOriginal advisory details:\n\n Andreas Oster discovered that the Samba DNS management server incorrectly\n handled certain records. An authenticated attacker could possibly use this\n issue to crash Samba, resulting in a denial of service. (CVE-2019-14861)\n\n Isaac Boukris discovered that Samba did not enforce the Kerberos\n DelegationNotAllowed feature restriction, contrary to expectations.\n (CVE-2019-14870)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4217-2",
+    "vuln-primary-link": "https://usn.ubuntu.com/4217-2/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in Samba.\n"
+  }
+}

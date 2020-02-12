@@ -1,0 +1,80 @@
+{
+  "RHSA-2020:0295": {
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "firefox-debugsource",
+          "firefox"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "68.4.1",
+          "68.4.1"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-17005": "https://access.redhat.com/security/cve/CVE-2019-17005",
+      "CVE-2019-17008": "https://access.redhat.com/security/cve/CVE-2019-17008",
+      "CVE-2019-17010": "https://access.redhat.com/security/cve/CVE-2019-17010",
+      "CVE-2019-17011": "https://access.redhat.com/security/cve/CVE-2019-17011",
+      "CVE-2019-17012": "https://access.redhat.com/security/cve/CVE-2019-17012",
+      "CVE-2019-17016": "https://access.redhat.com/security/cve/CVE-2019-17016",
+      "CVE-2019-17017": "https://access.redhat.com/security/cve/CVE-2019-17017",
+      "CVE-2019-17022": "https://access.redhat.com/security/cve/CVE-2019-17022",
+      "CVE-2019-17024": "https://access.redhat.com/security/cve/CVE-2019-17024",
+      "CVE-2019-17026": "https://access.redhat.com/security/cve/CVE-2019-17026",
+      "bz#1779431: CVE-2019-17008 Mozilla: Use-after-free in worker destruction": "https://bugzilla.redhat.com/show_bug.cgi?id=1779431",
+      "bz#1779434: CVE-2019-17010 Mozilla: Use-after-free when performing device orientation checks": "https://bugzilla.redhat.com/show_bug.cgi?id=1779434",
+      "bz#1779435: CVE-2019-17005 Mozilla: Buffer overflow in plain text serializer": "https://bugzilla.redhat.com/show_bug.cgi?id=1779435",
+      "bz#1779436: CVE-2019-17011 Mozilla: Use-after-free when retrieving a document in antitracking": "https://bugzilla.redhat.com/show_bug.cgi?id=1779436",
+      "bz#1779437: CVE-2019-17012 Mozilla: Memory safety bugs fixed in Firefox 71 and Firefox ESR 68.3": "https://bugzilla.redhat.com/show_bug.cgi?id=1779437",
+      "bz#1788723: CVE-2019-17016 Mozilla: Bypass of @namespace CSS sanitization during pasting": "https://bugzilla.redhat.com/show_bug.cgi?id=1788723",
+      "bz#1788724: CVE-2019-17017 Mozilla: Type Confusion in XPCVariant.cpp": "https://bugzilla.redhat.com/show_bug.cgi?id=1788724",
+      "bz#1788726: CVE-2019-17022 Mozilla: CSS sanitization does not escape HTML tags": "https://bugzilla.redhat.com/show_bug.cgi?id=1788726",
+      "bz#1788727: CVE-2019-17024 Mozilla: Memory safety bugs fixed in Firefox 72 and Firefox ESR 68.4": "https://bugzilla.redhat.com/show_bug.cgi?id=1788727",
+      "bz#1789214: CVE-2019-17026 Mozilla: IonMonkey type confusion with StoreElementHole and FallibleStoreElement": "https://bugzilla.redhat.com/show_bug.cgi?id=1789214",
+      "https://access.redhat.com/errata/RHSA-2020:0295": "https://access.redhat.com/errata/RHSA-2020:0295",
+      "https://access.redhat.com/security/updates/classification/#critical": "https://access.redhat.com/security/updates/classification/#critical",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/#CVE-2019-17005": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/#CVE-2019-17005",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/#CVE-2019-17008": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/#CVE-2019-17008",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/#CVE-2019-17010": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/#CVE-2019-17010",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/#CVE-2019-17011": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/#CVE-2019-17011",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/#CVE-2019-17012": "https://www.mozilla.org/en-US/security/advisories/mfsa2019-37/#CVE-2019-17012",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/#CVE-2019-17016": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/#CVE-2019-17016",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/#CVE-2019-17017": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/#CVE-2019-17017",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/#CVE-2019-17022": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/#CVE-2019-17022",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/#CVE-2019-17024": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-02/#CVE-2019-17024",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2020-03/#CVE-2019-17026": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-03/#CVE-2019-17026"
+    },
+    "vuln-long-description": "An update for firefox is now available for Red Hat Enterprise Linux 8.0 Update Services for SAP Solutions.\nRed Hat Product Security has rated this update as having a security impact of Critical. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nMozilla Firefox is an open-source web browser, designed for standards compliance, performance, and portability.\nThis update upgrades Firefox to version 68.4.1 ESR.\nSecurity Fix(es):\n* Mozilla: IonMonkey type confusion with StoreElementHole and FallibleStoreElement (CVE-2019-17026)\n* Mozilla: Use-after-free in worker destruction (CVE-2019-17008)\n* Mozilla: Memory safety bugs fixed in Firefox 71 and Firefox ESR 68.3 (CVE-2019-17012)\n* Mozilla: Bypass of @namespace CSS sanitization during pasting (CVE-2019-17016)\n* Mozilla: Type Confusion in XPCVariant.cpp (CVE-2019-17017)\n* Mozilla: Memory safety bugs fixed in Firefox 72 and Firefox ESR 68.4 (CVE-2019-17024)\n* Mozilla: Buffer overflow in plain text serializer (CVE-2019-17005)\n* Mozilla: Use-after-free when performing device orientation checks (CVE-2019-17010)\n* Mozilla: Use-after-free when retrieving a document in antitracking (CVE-2019-17011)\n* Mozilla: CSS sanitization does not escape HTML tags (CVE-2019-17022)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0295",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0295",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for firefox is now available for Red Hat Enterprise Linux 8.0 Update Services for SAP Solutions.\nRed Hat Product Security has rated this update as having a security impact of Critical. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

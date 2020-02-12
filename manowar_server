@@ -1,0 +1,167 @@
+#!/usr/bin/env python3
+
+'''
+manowar_server This acts as the Entry point for all the Scripts
+
+Options are :
+  - ui
+  - analyze
+  - collate
+  - archive
+  - swagger
+  - rss_creator
+  - scheduler
+
+System should Pass additional arguments and then "do the right thing" for each sub Item
+'''
+
+import logging
+import argparse
+import os
+import sys
+import json
+
+import manoward
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-c", "--config", help="[GLOBAL] Config File for Manowar Server", required=False, default=None)
+    parser.add_argument("-v", "--verbose", action='append_const', help="[GLOBAL] Control Verbosity", const=1, default=[])
+    
+    subparsers = parser.add_subparsers(help="commands", dest="command")
+
+    api_parser = subparsers.add_parser("api", help="Run API Server")
+    api_parser.add_argument("-d", "--flaskdebug", action='store_true', help="Turn on Flask Debugging", default=False)
+
+    analyze_parser = subparsers.add_parser("analyze", help="Run an Analyze Audits Job")
+    analyze_parser.add_argument("-a", "--auditdir", help="Directory that Contains the audits", required=False, action='append')
+    analyze_parser.add_argument("-p", "--print", action='store_true', help="Print Results", default=False)
+    analyze_parser.add_argument("-n", "--newerthan", help="Audit Files newer than this (-1 to disable)", default=-1, type=int)
+
+    collate_parser = subparsers.add_parser("collate", help="Run an Collation of Audits Job")
+    collate_parser.add_argument("-p", "--print", action='store_true', help="Print Results", default=False)
+
+    archive_parser = subparsers.add_parser("archive", help="Run an Achival Process")
+    archive_parser.add_argument("--age", default=90, type=int, help="How far back to archive.")
+
+    swagger_parser = subparsers.add_parser("swagger", help="Run a Swagger Pull Job")
+    swagger_parser.add_argument("-d", "--apiDirectory", help="API Directory to recurse through")
+    swagger_parser.add_argument("-o", "--outputfile", help="File to output the swagger doc to")
+    swagger_parser.add_argument("-t", "--template", help="Jinja Template to use for output")
+    swagger_parser.add_argument("-C", "--checkonly", action="store_true", help="Check to ensure every file in api has definition", default=False)
+
+    rss_parser = subparsers.add_parser("rss", help="Run a RSS Audit Collection Job")
+    rss_parser.add_argument("-b", "--basedir", default=os.getcwd())
+    rss_parser.add_argument("-f", "--feed", required=True)
+    rss_parser.add_argument("-C", "--confirm", action="store_true", default=False)
+    rss_parser.add_argument("-m", "--max", type=int, default=5)
+    rss_parser.add_argument("-p", "--print", action='store_true', help="Print Results", default=False)
+
+    schedule_parser = subparsers.add_parser("schedule", help="Run A Scheduling Job")
+    schedule_parser.add_argument("-r", "--regex", help="Only Hosts that Match this Regex", default=None)
+    schedule_parser.add_argument("-p", "--print", action="store_true", help="Print Results to Screen", default=False)
+    schedule_parser.add_argument("-s", "--shard", help="Match only This Shard", default=None)
+
+    # Put this in an argument Group
+
+    args = parser.parse_args()
+
+    VERBOSE = len(args.verbose)
+
+    if VERBOSE == 0:
+        logging.basicConfig(level=logging.ERROR)
+
+    elif VERBOSE == 1:
+        logging.basicConfig(level=logging.WARNING)
+
+    elif VERBOSE == 2:
+        logging.basicConfig(level=logging.INFO)
+
+    elif VERBOSE > 2:
+        logging.basicConfig(level=logging.DEBUG)
+
+    LOGGER = logging.getLogger("manowar_server")
+
+    LOGGER.debug("Welcome to Man 'o War")
+
+
+    CONFIG = manoward.get_manoward(explicit_config=args.config,
+                                    only_file=False)
+    
+    LOGGER.debug(args)
+
+    if args.command == "api":
+        
+        from manoward.ui import ui
+        ui(CONFIG, args.flaskdebug) 
+        
+    elif args.command == "analyze":
+        from manoward.analyze import analyze
+        
+        configdirs = list()
+        # Massage Configdir to not include trailing /
+        for thisdir in args.auditdir :
+            # Removing Trailing /
+            if thisdir[-1] == "/" :
+                configdirs.append(thisdir[0:-1])
+            else :
+                configdirs.append(thisdir)
+
+        if list(configdirs) == 0:
+            for this_path in ["/etc/manowar/audits.d", "./etc/manowar/audits.d"]:
+                if os.isdir(this_path) is True:
+                    CONFIGDIR.append(this_path)
+        
+        analyze_stats = analyze(configdirs, CONFIG, newer=args.newerthan)
+
+        if args.print is True:
+            print(json.dumps(analyze_stats, sort_keys=True, indent=4))
+    elif args.command == "collate":
+        
+        from manoward.collate import collate
+        
+        results = collate(CONFIG)
+
+        if args.print is True:
+            print(json.dumps(results, sort_keys=True, indent=4))
+    elif args.command == "archive":
+        
+        from manoward.collection_archive import archive_collections
+        
+        archive_collections(CONFIG, age=args.age)
+        
+    elif args.command == "swagger":
+        
+        import manoward.pull_swagger
+        
+        swaggerPieces = manoward.pull_swagger.generateSwaggerPieces(args.apiDirectory)
+
+        if args.checkonly == True :
+            # Do Check
+            if len(swaggerPieces["undoc"]) > 0 :
+                # Problems
+                print("Check Failure: Found undocumented endpoints!")
+                print(swaggerPieces["undoc"])
+                sys.exit(1)
+            else:
+                print("Check OK: No Undocumented Endpoints Found")
+                sys.exit(0)
+        else :
+            manoward.pull_swagger.generateOutputFile(swaggerPieces["data"], args.outputfile, args.template)
+        
+    elif args.command == "schedule":
+        
+        from manoward.schedule3 import schedule
+        
+        schedule(CONFIG, regex=args.regex, shard=args.shard, do_print=args.print)
+        
+    elif args.command == "rss":
+        
+        from manoward.rss_creator import feed_create
+        
+        results = feed_create(args.feed, basedir=args.basedir, confirm=args.confirm, max_audit=args.max)
+        
+        if args.print:
+            print(json.dumps(results, indent=2))
+    
+    

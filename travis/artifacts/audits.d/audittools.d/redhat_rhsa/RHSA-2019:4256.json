@@ -1,0 +1,83 @@
+{
+  "RHSA-2019:4256": {
+    "comparisons": {
+      "6-bucket": {
+        "comparison-collection-subtype": [
+          "python-perf",
+          "kernel-firmware",
+          "kernel-doc",
+          "kernel-abi-whitelists",
+          "perf",
+          "kernel-headers",
+          "kernel-devel",
+          "kernel-debug-devel",
+          "kernel-debug",
+          "kernel",
+          "kernel-bootwrapper",
+          "kernel-kdump-devel",
+          "kernel-kdump"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32",
+          "2.6.32"
+        ]
+      }
+    },
+    "filters": {
+      "6-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          6
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14821": "https://access.redhat.com/security/cve/CVE-2019-14821",
+      "bz#1746708: CVE-2019-14821 Kernel: KVM: OOB memory access via mmio ring buffer": "https://bugzilla.redhat.com/show_bug.cgi?id=1746708",
+      "https://access.redhat.com/errata/RHSA-2019:4256": "https://access.redhat.com/errata/RHSA-2019:4256",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important"
+    },
+    "vuln-long-description": "An update for kernel is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\nSecurity Fix(es):\n* Kernel: KVM: OOB memory access via mmio ring buffer (CVE-2019-14821)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nBug Fix(es):\n* KEYS: prevent creating a different user's keyrings RHEL-6.10 (BZ#1537371)\n* BUG: unable to handle kernel NULL pointer dereference at (null) (BZ#1733760)\n* long I/O stalls with bnx2fc from not masking off scope bits of retry delay value (BZ#1749512)\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:4256",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:4256",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for kernel is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

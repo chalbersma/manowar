@@ -1,0 +1,56 @@
+{
+  "RHSA-2020:0203": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "libarchive-devel",
+          "bsdtar",
+          "bsdcpio",
+          "libarchive"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.1.2",
+          "3.1.2",
+          "3.1.2",
+          "3.1.2"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-18408": "https://access.redhat.com/security/cve/CVE-2019-18408",
+      "bz#1769979: CVE-2019-18408 libarchive: use-after-free in archive_read_format_rar_read_data when there is an error in the decompression of an archive entry": "https://bugzilla.redhat.com/show_bug.cgi?id=1769979",
+      "https://access.redhat.com/errata/RHSA-2020:0203": "https://access.redhat.com/errata/RHSA-2020:0203",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important"
+    },
+    "vuln-long-description": "An update for libarchive is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe libarchive programming library can create and read several different streaming archive formats, including GNU tar, cpio, and ISO 9660 CD-ROM images. Libarchive is used notably in the bsdtar utility, scripting language bindings such as python-libarchive, and several popular desktop file managers.\nSecurity Fix(es):\n* libarchive: use-after-free in archive_read_format_rar_read_data when there is an error in the decompression of an archive entry (CVE-2019-18408)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0203",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0203",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for libarchive is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

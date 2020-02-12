@@ -1,0 +1,72 @@
+{
+  "USN-4268-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "opensmtpd"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "6.0.3p1-1ubuntu0.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "opensmtpd"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "6.0.3p1-6ubuntu0.1"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2020-7247_(High)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-7247.html",
+      "USN-4268-1": "https://usn.ubuntu.com/4268-1/"
+    },
+    "vuln-long-description": "It was discovered that OpenSMTPD incorrectly verified the sender's or\nreceiver's e-mail addresses under certain conditions. An attacker could use\nthis vulnerability to execute arbitrary commands as root.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4268-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4268-1/",
+    "vuln-priority": 7,
+    "vuln-short-description": "OpenSMTPD could be made to run programs as root if it received specially\ncrafted input over the network.\n"
+  }
+}

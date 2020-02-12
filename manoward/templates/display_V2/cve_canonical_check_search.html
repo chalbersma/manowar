@@ -1,0 +1,86 @@
+{% include 'base_header.html' %}
+{% from "error.html" import with_errors %}
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish.css" media="screen" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+	google.charts.load('current', {'packages':['corechart']});
+</script>
+<div class="col-md-10">
+<h1>CVE Population Check</h1>
+<script type="text/javascript">
+function do_search(){
+
+    base_url="{{ g.config_items["v2ui"]["preroot"] }}{{ g.config_items["v2ui"]["root"] }}/cve_canonical_check_results"
+
+    string_querydata = {
+        "hostname" : $('#hostname').val(),
+        "pop" : $('#pop').val(),
+        "srvtype" : $('#srvtype').val(),
+        "hoststatus" : $('#hoststatus').val(),
+        "cve_name" : $('#cve_name').val(),
+    }
+
+    // Check if checkbox checked if so add entry to string_querydata
+
+    query_string="/?"
+
+    if ($('#exact').is(":checked") ) {
+        query_string = query_string + "exact=True&"
+    }
+    for (var key in string_querydata){
+        if (string_querydata[key].length > 0 ){
+            query_string=query_string+key+"='"+string_querydata[key]+"'&"
+        }
+    }
+
+    url=base_url + query_string
+    $(location).attr('href',url)
+}
+</script>
+<form id="SearchForm" method="POST">
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="cve_name">CVE Name :</label>
+        <input id="cve_name" type="text" name="value" class="form-control ember-text-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="hostname">Hostname :</label>
+        <input id="hostname" type="text" name="value" class="form-control ember-text-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="pop">Pop :</label>
+        <input id="pop" type="text" name="value" class="form-control ember-text-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="srvtype">Srvtype :</label>
+        <input id="srvtype" type="text" name="value" class="form-control ember-text-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="hoststatus">Hoststatus :</label>
+        <input id="hoststatus" type="text" name="value" class="form-control ember-text-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <label for="exact">Use Exact Matching :</label>
+        <input id="exact" type="checkbox" name="value" class="form-control ember-checkbox-field">
+    </div>
+</div>
+<div class="row form-group">
+    <div class="col-sm-4">
+        <input type="button" value="Search" onclick="do_search()" class="form-control ember-button-field">
+    </div>
+</div>
+</form>
+</div>
+
+
+{% include 'base_footer.html' %}

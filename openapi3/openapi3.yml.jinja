@@ -1,13 +1,13 @@
 ---
 openapi: 3.0.0
 info:
-  title: Jellyfish 2 API
+  title: Manowar 2.x API
   description: |
-    Jellyfish 2 API. Designed to be a progrmattic way to interact with the data
+    Manowar 2 API. Designed to be a progrmattic way to interact with the data
     collected and analyzed by Jellyfish 2.
-  version: "2.0"
+  version: "2.6"
 servers:
-  - url: https://manowar.yourfqdn.tld/manowar/v2
+  - url: /manowar/v2
 components:
   securitySchemes:
     basicAuth:
@@ -16,6 +16,6 @@ components:
 security:
   - basicAuth: []
 paths:
-{% for endpoint in swagger_pieces %}
+{% for endpoint in swagger_pieces -%}
   {{ endpoint["text"] | indent(2, True)}}
-{% endfor %}
+{% endfor -%}

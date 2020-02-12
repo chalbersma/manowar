@@ -1,0 +1,50 @@
+{
+  "RHSA-2020:0431": {
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "ksh-debugsource",
+          "ksh"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "20120801",
+          "20120801"
+        ]
+      }
+    },
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14868": "https://access.redhat.com/security/cve/CVE-2019-14868",
+      "bz#1757324: CVE-2019-14868 ksh: certain environment variables interpreted as arithmetic expressions on startup, leading to code injection": "https://bugzilla.redhat.com/show_bug.cgi?id=1757324",
+      "https://access.redhat.com/errata/RHSA-2020:0431": "https://access.redhat.com/errata/RHSA-2020:0431",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important"
+    },
+    "vuln-long-description": "An update for ksh is now available for Red Hat Enterprise Linux 8.0 Update Services for SAP Solutions.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nKornShell (ksh) is a Unix shell developed by AT&T Bell Laboratories, which is backward-compatible with the Bourne shell (sh) and includes many features of the C shell. The most recent version is KSH-93. KornShell complies with the POSIX.2 standard (IEEE Std 1003.2-1992).\nSecurity Fix(es):\n* ksh: certain environment variables interpreted as arithmetic expressions on startup, leading to code injection (CVE-2019-14868)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0431",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0431",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for ksh is now available for Red Hat Enterprise Linux 8.0 Update Services for SAP Solutions.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

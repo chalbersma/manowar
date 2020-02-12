@@ -1,0 +1,169 @@
+{
+  "USN-4274-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libxml2",
+          "libxml2-utils"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.9.4+dfsg1-6.1ubuntu1.3",
+          "2.9.4+dfsg1-6.1ubuntu1.3"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "libxml2",
+          "libxml2-utils"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.9.4+dfsg1-7ubuntu3.1",
+          "2.9.4+dfsg1-7ubuntu3.1"
+        ]
+      },
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "libxml2",
+          "libxml2-utils"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.7.8.dfsg-5.1ubuntu4.22",
+          "2.7.8.dfsg-5.1ubuntu4.22"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libxml2",
+          "libxml2-utils"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.9.1+dfsg1-3ubuntu4.13+esm1",
+          "2.9.1+dfsg1-3ubuntu4.13+esm1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libxml2",
+          "libxml2-utils"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.9.3+dfsg1-1ubuntu0.7",
+          "2.9.3+dfsg1-1ubuntu0.7"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-19956_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19956.html",
+      "CVE-2020-7595_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-7595.html",
+      "USN-4274-1": "https://usn.ubuntu.com/4274-1/"
+    },
+    "vuln-long-description": "It was discovered that libxml2 incorrectly handled certain XML files.\nAn attacker could possibly use this issue to cause a denial of service.\n(CVE-2019-19956, CVE-2020-7595)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4274-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4274-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in libxml2.\n"
+  }
+}

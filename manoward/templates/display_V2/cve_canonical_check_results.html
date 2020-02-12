@@ -1,0 +1,118 @@
+{% include 'base_header.html' %}
+{% from "error.html" import with_errors %}
+<link rel="stylesheet" type="text/css" href="{{ g.config_items["v2ui"]["preroot"] }}/static/css/jellyfish.css" media="screen" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+	google.charts.load('current', {'packages':['corechart']});
+</script>
+<div class="col-md-10">
+<h1>CVE Population Check Results</h1>
+<h2>{{ meta["args"]["cve_name"] }}</h2>
+{% for release in content["data"].keys() %}
+    <h3>Release: {{ release }}</h3>
+    <!--// Add Pending Release Notice Here //-->
+    {% if content["meta"]["cve_check_data"][release]["pending_packages"] == True %}
+        <p>Packages Pending</p>
+        <ul>
+            {% for package_name in content["meta"]["cve_check_data"][release]["packages_pending_release"] %}
+            <li>{{ package_name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if content["data"][release]["count"] >= 1 %}
+        <div id="data_div">
+            <table id="{{ release }}" class="display" width="100%">
+                <thead>
+                    <tr>
+                        <td>Hostname</td>
+                        <td>Status</td>
+                        <td>Pop</td>
+                        <td>Srvtype</td>
+                        <td>Last Seen</td>
+                        <td>Result</td>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td>Hostname</td>
+                        <td>Status</td>
+                        <td>Pop</td>
+                        <td>Srvtype</td>
+                        <td>Last Seen</td>
+                        <td>Result</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for this_host in content["data"][release]["results"] %}
+                    <tr>
+                        <td><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/hostcollections/{{ this_host["attributes"]["host_id"] }}/">{{ this_host["attributes"]["hostname"]|lower }}</a></td>
+                        <td>{{ this_host["attributes"]["hoststatus"] }}</td>
+                        <td>{{ this_host["attributes"]["pop"] }}</td>
+                        <td>{{ this_host["attributes"]["srvtype"] }}</td>
+                        <td>{{ this_host["attributes"]["last_update"]|ctime }}</td>
+                        <td>{{ this_host["result"] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No Results.</p>
+    {% endif %}
+    <hr/>
+{% endfor %}
+<h3>Population Data</h3>
+<table class="display" width=25% class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="table-header">Factor</th>
+            <th class="table-header">Value</th>
+        </tr>
+    </thead>
+    {% for arg in meta["args"].keys() %}
+    <tr>
+        <td>{{ arg }}:</td>
+        <td>{{ meta["args"][arg] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% include 'endpoint_link.html' %}
+<script>
+    // Prettyize the Table
+    $(document).ready(function() {
+
+
+    {% for release in content["data"].keys() %}
+        {% if content["data"][release]["count"] >= 1 %}
+            $('#{{ release }} tfoot tr td').each( function () {
+                var title = $(this).text();
+                //console.log(title)
+                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            } );
+
+            var {{ release }}_table = $('#{{ release }}').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            } );
+
+            {{ release }}_table.columns().every( function () {
+                var that = this;
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                            default_data=table.rows({ search: 'applied' }).data().toArray()
+                    }
+                } );
+            } );
+
+        {% endif %}
+    {% endfor %}
+    } );
+</script>
+</div>
+
+{% include 'base_footer.html' %}

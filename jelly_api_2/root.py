@@ -21,9 +21,8 @@ import json
 import ast
 import time
 
-import endorsementmgmt
-
 root = Blueprint('api2_root', __name__)
+
 
 @root.route("/")
 @root.route("/root")
@@ -41,10 +40,11 @@ def api2_root():
     root_meta_dict["name"] = "Jellyfish2 API Version 2"
     root_meta_dict["state"] = "In Progress"
 
-    root_links_dict["children"] = { "dashboard": ( g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/dashboard" ),
-                                    "collected": ( g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/collected" ),
-                                    "auditinfo": ( g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo" ) }
+    root_links_dict["children"] = {"dashboard": (g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/dashboard"),
+                                   "collected": (g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/collected"),
+                                   "auditinfo": (g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"] + "/auditinfo")}
 
-    root_links_dict["self"] = g.config_items["v2api"]["preroot"] + g.config_items["v2api"]["root"]  + "/"
+    root_links_dict["self"] = g.config_items["v2api"]["preroot"] + \
+        g.config_items["v2api"]["root"] + "/"
 
     return jsonify(data=root_data_dict, meta=root_meta_dict, links=root_links_dict)

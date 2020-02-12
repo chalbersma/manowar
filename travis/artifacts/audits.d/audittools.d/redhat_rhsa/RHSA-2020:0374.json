@@ -1,0 +1,106 @@
+{
+  "RHSA-2020:0374": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "kernel-tools-libs-devel",
+          "kernel-doc",
+          "kernel-abi-whitelists",
+          "python-perf",
+          "perf",
+          "kernel-tools-libs",
+          "kernel-tools",
+          "kernel-headers",
+          "kernel-devel",
+          "kernel-debug-devel",
+          "kernel-debug",
+          "kernel",
+          "bpftool",
+          "kernel-bootwrapper",
+          "kernel-kdump-devel",
+          "kernel-kdump"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0",
+          "3.10.0"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14816": "https://access.redhat.com/security/cve/CVE-2019-14816",
+      "CVE-2019-14895": "https://access.redhat.com/security/cve/CVE-2019-14895",
+      "CVE-2019-14898": "https://access.redhat.com/security/cve/CVE-2019-14898",
+      "CVE-2019-14901": "https://access.redhat.com/security/cve/CVE-2019-14901",
+      "CVE-2019-17133": "https://access.redhat.com/security/cve/CVE-2019-17133",
+      "bz#1744149: CVE-2019-14816 kernel: heap overflow in mwifiex_update_vs_ie() function of Marvell WiFi driver": "https://bugzilla.redhat.com/show_bug.cgi?id=1744149",
+      "bz#1771909: CVE-2019-17133 kernel: buffer overflow in cfg80211_mgd_wext_giwessid in net/wireless/wext-sme.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1771909",
+      "bz#1773519: CVE-2019-14901 kernel: heap overflow in marvell/mwifiex/tdls.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1773519",
+      "bz#1774671: CVE-2019-14898 kernel: incomplete fix  for race condition between mmget_not_zero()/get_task_mm() and core dumping in CVE-2019-11599": "https://bugzilla.redhat.com/show_bug.cgi?id=1774671",
+      "bz#1774870: CVE-2019-14895 kernel: heap-based buffer overflow in mwifiex_process_country_ie() function in drivers/net/wireless/marvell/mwifiex/sta_ioctl.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1774870",
+      "https://access.redhat.com/errata/RHSA-2020:0374": "https://access.redhat.com/errata/RHSA-2020:0374",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://bugs.chromium.org/p/project-zero/issues/detail?id=1790": "https://bugs.chromium.org/p/project-zero/issues/detail?id=1790",
+      "https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.14.114": "https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.14.114",
+      "https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.19.37": "https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.19.37",
+      "https://cdn.kernel.org/pub/linux/kernel/v5.x/ChangeLog-5.0.10": "https://cdn.kernel.org/pub/linux/kernel/v5.x/ChangeLog-5.0.10",
+      "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7caac62ed598a196d6ddf8d9c121e12e082cac3a": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7caac62ed598a196d6ddf8d9c121e12e082cac3a",
+      "https://www.openwall.com/lists/oss-security/2019/11/22/2": "https://www.openwall.com/lists/oss-security/2019/11/22/2"
+    },
+    "vuln-long-description": "An update for kernel is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe kernel packages contain the Linux kernel, the core of any Linux operating system.\nSecurity Fix(es):\n* kernel: heap overflow in mwifiex_update_vs_ie() function of Marvell WiFi driver (CVE-2019-14816)\n* kernel: heap-based buffer overflow in mwifiex_process_country_ie() function in drivers/net/wireless/marvell/mwifiex/sta_ioctl.c (CVE-2019-14895)\n* kernel: heap overflow in marvell/mwifiex/tdls.c (CVE-2019-14901)\n* kernel: buffer overflow in cfg80211_mgd_wext_giwessid in net/wireless/wext-sme.c (CVE-2019-17133)\n* kernel: incomplete fix  for race condition between mmget_not_zero()/get_task_mm() and core dumping in CVE-2019-11599 (CVE-2019-14898)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nBug Fix(es):\n* [Azure][7.8] Include patch \"PCI: hv: Avoid use of hv_pci_dev->pci_slot after freeing it\" (BZ#1766089)\n* [Hyper-V][RHEL7.8] When accelerated networking is enabled on RedHat, network interface(eth0) moved to new network namespace does not obtain IP address. (BZ#1766093)\n* [Azure][RHEL 7.6] hv_vmbus probe pass-through GPU card failed (BZ#1766097)\n* SMB3: Do not error out on large file transfers if server responds with STATUS_INSUFFICIENT_RESOURCES (BZ#1767621)\n* Since RHEL commit 5330f5d09820 high load can cause dm-multipath path failures (BZ#1770113)\n* Hard lockup in free_one_page()->_raw_spin_lock() because sosreport command is reading from /proc/pagetypeinfo (BZ#1770732)\n* patchset for x86/atomic: Fix smp_mb__{before,after}_atomic() (BZ#1772812)\n* fix compat statfs64() returning EOVERFLOW for when _FILE_OFFSET_BITS=64 (BZ#1775678)\n* Guest crash after load cpuidle-haltpoll driver (BZ#1776289)\n* RHEL 7.7 long I/O stalls with bnx2fc from not masking off scope bits of retry delay value (BZ#1776290)\n* Multiple \"mv\" processes hung on a gfs2 filesystem (BZ#1777297)\n* Moving Egress IP will result in conntrack sessions being DESTROYED (BZ#1779564)\n* core: backports from upstream (BZ#1780033)\n* kernel BUG at arch/powerpc/platforms/pseries/lpar.c:482! (BZ#1780148)\n* Race between tty_open() and flush_to_ldisc()  using the tty_struct->driver_data field. (BZ#1780163)\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0374",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0374",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for kernel is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

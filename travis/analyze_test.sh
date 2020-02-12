@@ -3,14 +3,14 @@
 set -x
 
 # Run Scheduler Test
-./analyze.py -a travis/artifacts/audits.d -c travis/artifacts/analyze.ini -V
+./manowar_server -vvv -c travis/artifacts/manoward.yaml analyze -a travis/artifacts/audits.d 
 
 analyze_good=$?
 
 if [[ ${analyze_good} -eq 0 ]] ; then
 	# Analyze Worked, let's try to collate
 	# Collate Here
-	./collate.py -c travis/artifacts/collate.ini -V
+	./manowar_server -vvv -c travis/artifacts/manoward.yaml collate
 
 	collate_good=$?
 

@@ -1,0 +1,153 @@
+{
+  "USN-4256-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libsasl2-2"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.1.27~101-g0780600+dfsg-3ubuntu2.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "libsasl2-2"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.1.27+dfsg-1ubuntu0.1"
+        ]
+      },
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "libsasl2-2"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.1.25.dfsg1-3ubuntu0.2"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libsasl2-2"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.1.25.dfsg1-17ubuntu0.1~esm1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libsasl2-2"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.1.26.dfsg1-14ubuntu0.2"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-19906_(Unknown)": null,
+      "USN-4256-1": "https://usn.ubuntu.com/4256-1/"
+    },
+    "vuln-long-description": "It was discovered that Cyrus SASL incorrectly handled certain LDAP packets.\nAn attacker could possibly use this issue to execute arbitrary code or cause\na denial of service.\n\n\nTLDR: After a standard system update you need to restart services using\nSASL to effect the necessary changes.\n\n",
+    "vuln-name": "USN-4256-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4256-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "Cyrus SASL could be made to crash or execute arbitrary code if it received\na specially crafted LDAP packet.\n"
+  }
+}

@@ -1,5 +1,9 @@
 language: python
+cache: pip
+python:
+  - 3.7
 sudo: required
+dist: xenail
 notifications:
   email:
     recipients:
@@ -7,27 +11,30 @@ notifications:
   on_success: always
   on_failure: always
 before_script:
-- sudo apt-get -y install openssh-server
 - "./travis/pre_build.sh"
-- "./travis/ssh_setup.sh"
 - export DEBIAN_FRONTEND=noninteractive; sudo -E apt-get -y  install python3-pip python-dev
-  shellcheck mariadb-server mariadb-client jq openjdk-7-jre graphviz
+  shellcheck mariadb-server mariadb-client jq openjdk-8-jre graphviz openssh-server
+- "./travis/ssh_setup.sh"
 - "./travis/db_setup.sh"
 - sudo pip3 install --upgrade setuptools
-- sudo pip3 install bandit pylint paramiko pymysql colorama flask flask_cors jsonschema
-  lxml pika mkdocs requests
+- sudo pip3 install -r requirements.txt
+- sudo pip3 install mkdocs bandit twine pylint pylint-fail-under
 - gem install mdl
 script:
 - "./travis/testing.sh"
+- pylint-fail-under --fail_under 6.0 manoward
+- pylint-fail-under --fail_under 6.0 jelly_api_2 
+- pylint-fail-under --fail_under 6.0 jelly_display_2 
+- pylint-fail-under --fail_under 6.0 audittools
 - "./travis/swagger_test.sh"
+- "./travis/swagger_build.sh"
 - "./travis/api_test.sh"
-- "./travis/sapi_test.sh"
 - "./travis/schedule_test.sh"
 - "./travis/analyze_test.sh"
 after_success:
 - "./travis/build_diag.sh"
-- "./travis/swagger_build.sh"
 - "./travis/build_docs.sh"
+- "./travis/packages.sh"
 before_install:
 - pwd
 - openssl aes-256-cbc -K $encrypted_1acdf71f7d2b_key -iv $encrypted_1acdf71f7d2b_iv

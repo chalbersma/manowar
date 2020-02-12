@@ -1,0 +1,53 @@
+{
+  "RHSA-2019:3950": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "SDL-static",
+          "SDL-devel",
+          "SDL"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.2.15",
+          "1.2.15",
+          "1.2.15"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-13616": "https://access.redhat.com/security/cve/CVE-2019-13616",
+      "bz#1747237: CVE-2019-13616 SDL: heap-based buffer overflow in SDL blit functions in video/SDL_blit*.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1747237",
+      "https://access.redhat.com/errata/RHSA-2019:3950": "https://access.redhat.com/errata/RHSA-2019:3950",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important"
+    },
+    "vuln-long-description": "An update for SDL is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n[Updated 3 December 2019]\nThe packages distributed via this erratum did not include the fix for CVE-2019-13616 as claimed. RHSA-2019:4024 was released on 2 December 2019 to address this issue.\n\nSimple DirectMedia Layer (SDL) is a cross-platform multimedia library designed to provide fast access to the graphics frame buffer and audio device.\nSecurity Fix(es):\n* SDL: heap-based buffer overflow in SDL blit functions in video/SDL_blit*.c (CVE-2019-13616)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2019:3950",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2019:3950",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for SDL is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n[Updated 3 December 2019]\nThe packages distributed via this erratum did not include the fix for CVE-2019-13616 as claimed. RHSA-2019:4024 was released on 2 December 2019 to address this issue."
+  }
+}

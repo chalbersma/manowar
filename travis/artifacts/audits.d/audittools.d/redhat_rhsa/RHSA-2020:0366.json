@@ -1,0 +1,60 @@
+{
+  "RHSA-2020:0366": {
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "qemu-kvm-tools",
+          "qemu-kvm-common",
+          "qemu-kvm",
+          "qemu-img"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "10:1.5.3",
+          "10:1.5.3",
+          "10:1.5.3",
+          "10:1.5.3"
+        ]
+      }
+    },
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-11135": "https://access.redhat.com/security/cve/CVE-2019-11135",
+      "CVE-2019-14378": "https://access.redhat.com/security/cve/CVE-2019-14378",
+      "bz#1734745: CVE-2019-14378 QEMU: slirp: heap buffer overflow during packet reassembly": "https://bugzilla.redhat.com/show_bug.cgi?id=1734745",
+      "bz#1753062: CVE-2019-11135 hw: TSX Transaction Asynchronous Abort (TAA)": "https://bugzilla.redhat.com/show_bug.cgi?id=1753062",
+      "https://access.redhat.com/errata/RHSA-2020:0366": "https://access.redhat.com/errata/RHSA-2020:0366",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://access.redhat.com/solutions/tsx-asynchronousabort": "https://access.redhat.com/solutions/tsx-asynchronousabort",
+      "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00270.html": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00270.html"
+    },
+    "vuln-long-description": "An update for qemu-kvm is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nKernel-based Virtual Machine (KVM) is a full virtualization solution for Linux on a variety of architectures. The qemu-kvm packages provide the user-space component for running virtual machines that use KVM.\nSecurity Fix(es):\n* hw: TSX Transaction Asynchronous Abort (TAA) (CVE-2019-11135)\n* QEMU: slirp: heap buffer overflow during packet reassembly (CVE-2019-14378)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\nBug Fix(es):\n* [Intel 7.8 Bug] [KVM][CLX] CPUID_7_0_EDX_ARCH_CAPABILITIES is not enabled in VM qemu-kvm (BZ#1730606)\nEnhancement(s):\n* [Intel 7.8 FEAT] MDS_NO exposure to guest - qemu-kvm (BZ#1755333)\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0366",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0366",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for qemu-kvm is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

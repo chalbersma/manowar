@@ -1,0 +1,91 @@
+{
+  "USN-4255-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-powerpc-smp",
+          "linux-image-powerpc-e500mc",
+          "linux-image-aws-lts-18.04",
+          "linux-image-generic",
+          "linux-image-4.15.0-1067-oem",
+          "linux-image-oem",
+          "linux-image-4.15.0-76-generic",
+          "linux-image-4.15.0-1058-aws",
+          "linux-image-4.15.0-76-lowlatency",
+          "linux-image-virtual",
+          "linux-image-powerpc64-smp",
+          "linux-image-generic-lpae",
+          "linux-image-aws",
+          "linux-image-lowlatency",
+          "linux-image-powerpc64-emb",
+          "linux-image-4.15.0-76-generic-lpae"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "4.15.0.76.78",
+          "4.15.0.76.78",
+          "4.15.0.1058.59",
+          "4.15.0.76.78",
+          "4.15.0-1067.77",
+          "4.15.0.1067.71",
+          "4.15.0-76.86",
+          "4.15.0-1058.60",
+          "4.15.0-76.86",
+          "4.15.0.76.78",
+          "4.15.0.76.78",
+          "4.15.0.76.78",
+          "4.15.0.1058.59",
+          "4.15.0.76.78",
+          "4.15.0.76.78",
+          "4.15.0-76.86"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-14615_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14615.html",
+      "CVE-2020-7053_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-7053.html",
+      "USN-4255-1": "https://usn.ubuntu.com/4255-1/"
+    },
+    "vuln-long-description": "It was discovered that the Linux kernel did not properly clear data\nstructures on context switches for certain Intel graphics processors. A\nlocal attacker could use this to expose sensitive information.\n(CVE-2019-14615)\n\nIt was discovered that a race condition can lead to a use-after-free while\ndestroying GEM contexts in the i915 driver for the Linux kernel. A local\nattacker could use this to cause a denial of service (system crash) or\npossibly execute arbitrary code. (CVE-2020-7053)\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4255-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4255-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in the Linux kernel.\n"
+  }
+}

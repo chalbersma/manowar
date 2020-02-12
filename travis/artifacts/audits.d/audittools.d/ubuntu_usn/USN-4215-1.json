@@ -1,0 +1,153 @@
+{
+  "USN-4215-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libnss3"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:3.35-2ubuntu2.6"
+        ]
+      },
+      "disco-bucket": {
+        "comparison-collection-subtype": [
+          "libnss3"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:3.42-1ubuntu2.4"
+        ]
+      },
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "libnss3"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:3.28.4-0ubuntu0.12.04.6"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "libnss3"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:3.28.4-0ubuntu0.14.04.5+esm3"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "libnss3"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2:3.28.4-0ubuntu0.16.04.9"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "disco-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "disco"
+        ]
+      },
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-17007_(Unknown)": null,
+      "USN-4215-1": "https://usn.ubuntu.com/4215-1/"
+    },
+    "vuln-long-description": "It was discovered that NSS incorrectly handled certain certificates.\nAn attacker could possibly use this issue to cause a denial of service.\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4215-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4215-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "NSS could be made to crash if it received a specially crafted certificate.\n"
+  }
+}

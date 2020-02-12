@@ -1,0 +1,162 @@
+{
+  "USN-4271-1": {
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libd3dadapter9-mesa",
+          "libgl1-mesa-dri",
+          "mesa-vulkan-drivers",
+          "mesa-opencl-icd",
+          "libgl1-mesa-glx",
+          "libglx-mesa0",
+          "libwayland-egl1-mesa",
+          "libosmesa6",
+          "libgles2-mesa",
+          "libegl-mesa0",
+          "libegl1-mesa",
+          "mesa-va-drivers",
+          "libgbm1",
+          "mesa-vdpau-drivers",
+          "libglapi-mesa",
+          "libxatracker2"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2",
+          "19.2.8-0ubuntu0~18.04.2"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "libd3dadapter9-mesa",
+          "libgl1-mesa-dri",
+          "mesa-vulkan-drivers",
+          "mesa-opencl-icd",
+          "libgl1-mesa-glx",
+          "libglx-mesa0",
+          "libwayland-egl1-mesa",
+          "libosmesa6",
+          "libgles2-mesa",
+          "libegl-mesa0",
+          "libegl1-mesa",
+          "mesa-va-drivers",
+          "libgbm1",
+          "mesa-vdpau-drivers",
+          "libglapi-mesa",
+          "libxatracker2"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2",
+          "19.2.8-0ubuntu0~19.10.2"
+        ]
+      }
+    },
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": 2,
+    "vuln-additional-links": {
+      "CVE-2019-5068_(Unknown)": null,
+      "USN-4271-1": "https://usn.ubuntu.com/4271-1/"
+    },
+    "vuln-long-description": "Tim Brown discovered that Mesa incorrectly handled shared memory\npermissions. A local attacker could use this issue to obtain and possibly\nalter sensitive information belonging to another user.\n\n\nTLDR: After a standard system update you need to restart your session to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4271-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4271-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "Mesa could be made to expose sensitive information.\n"
+  }
+}
