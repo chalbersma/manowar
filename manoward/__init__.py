@@ -16,8 +16,8 @@ from .sapicheck import grab_all_sapi
 # Process IP
 from .process_ip_intel import process_ip_intel
 
-#
+# Include Storage JSON Verify
 from .storageJSONVerify import storageJSONVerify
 
-#
+# Include process_endorsements
 from .endorsementmgmt import process_endorsements

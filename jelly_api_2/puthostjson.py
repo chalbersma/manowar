@@ -27,12 +27,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 ```
 """
 
-
-import json
-import ast
-import logging
-
-from flask import current_app, Blueprint, g, request, jsonify
+from flask import current_app, Blueprint, g, request, jsonify, abort
 
 import manoward
 from manoward.storage import storage
@@ -80,8 +75,7 @@ def generic_puthostjson():
         request.json["collection_status"] = "STINGCELL"
 
         # Do a Storage Verify on this Mofo.
-        check_result_passed, check_result_message = storageJSONVerify(
-            request.json)
+        check_result_passed, check_result_message = manoward.storageJSONVerify(request.json)
 
         if check_result_passed is True:
             # It's good do the Storage
