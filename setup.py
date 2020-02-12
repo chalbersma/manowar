@@ -9,10 +9,12 @@ An attempt to make a ghetto packaging script.
 import setuptools
 import sys
 import os
-import git
 import subprocess # nosec
 import datetime
 import logging
+import glob
+
+import git
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -117,7 +119,8 @@ setuptools.setup(
         "feedparser",
         "pyjq",
         "yoyo-database-migrations",
-        "pylxd"
+        "pylxd",
+        "colorama"
     ],
     scripts=["manowar_server", ],
     data_files=[("etc/manowar", ["etc/manowar/manoward.yaml.sample"]),
@@ -132,7 +135,9 @@ setuptools.setup(
                 ("etc/manowar/salt/pki_dir", ["etc/manowar/salt/pki_dir/keep"]),
                 ("etc/manowar/salt/ssh", ["etc/manowar/salt/ssh/keep"]),
                 ("etc/manowar/salt/state", ["etc/manowar/salt/state/keep",
-                                            "etc/manowar/salt/state/top.sls"])
+                                            "etc/manowar/salt/state/top.sls"]),
+                ("share/manoward/yoyo_steps", ["yoyo_steps/yoyo.ini.sample"]),
+                ("share/manoward/yoyo_steps/migrations", glob.glob("yoyo_steps/migrations/*"))
                ]
 )
 

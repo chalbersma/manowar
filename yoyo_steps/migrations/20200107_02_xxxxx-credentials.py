@@ -62,7 +62,8 @@ logger.info("Finding Configuration File yoyo.ini")
 possible_config_files =  ["/etc/manowar/manoward.yaml", 
                           "./etc/manowar/manoward.yaml", 
                           "/usr/local/etc/manowar/manoward.yaml",
-                          "../etc/manowar/manoward.yaml"]
+                          "../etc/manowar/manoward.yaml",
+                          "../../etc/manowar/manoward.yaml"]
 
 if os.environ.get("TRAVIS", None) is not None:
     logger.info("In a Travis Build Add the Travis Paths to Configuration.")
