@@ -26,7 +26,7 @@ _known_feeds = {"usn": {"url": "https://usn.ubuntu.com/usn/atom.xml",
                         "subdir": "ubuntu_usn",
                         "jq_obj_source_key": ".title",
                         "regex_obj_source_key": r"(USN-\d{1,4}-\d{1,2})",
-                        "update_existing": False,
+                        "overwrite": "newer",
                         "audit_source_obj": audittools.audits_usn.AuditSourceUSN,
                         "audit_source_kwargs": {"cachefile": "/tmp/usn_db.json",  # nosec
                                                 "cacheage": 21600},
@@ -39,7 +39,7 @@ _known_feeds = {"usn": {"url": "https://usn.ubuntu.com/usn/atom.xml",
                              "jq_obj_source_key": ".",
                              "regex_obj_source_key": r"(USN-\d{1,4}-\d{1,2})",
                              "regex_obj_replace": [r"(.+)", r"USN-\1"],
-                             "update_existing": False,
+                             "overwrite": "newer",
                              "audit_source_obj": audittools.audits_usn.AuditSourceUSN,
                              "audit_source_kwargs": {"cachefile": "/tmp/usn_db.json",  # nosec
                                                      "cacheage": 21600},
@@ -49,7 +49,7 @@ _known_feeds = {"usn": {"url": "https://usn.ubuntu.com/usn/atom.xml",
                          "reqtype": "json",
                          "subdir": "redhat_rhsa",
                          "jq_obj_source_key": ".RHSA",
-                         "update_existing": False,
+                         "overwrite": "newer",
                          "audit_source_obj": audittools.audits_rhsa.AuditSourceRHSA,
                          "format": "json"
                          }
@@ -205,6 +205,7 @@ def feed_create(feed_name, feed_config=None, basedir=None, confirm=False, max_au
                 as_kwargs = {"source_key": best_source_key,
                              "audit_filename": "{}.{}".format(best_source_key, feed_config["format"]),
                              "audit_path": this_path,
+                             "overwrite" : feed_config.get("overwrite", "no"),
                              **feed_config.get("audit_source_kwargs", dict())
                              }
 

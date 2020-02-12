@@ -11,8 +11,8 @@ import configparser
 import os
 import os.path
 
-import requests
 import yaml
+import packaging.version
 
 if __name__ == "__main__" or __name__ == "audit_source":
     from verifyAudits import verifySingleAudit
@@ -40,6 +40,8 @@ class AuditSource:
 
         self.audit_filename = kwargs.get("audit_filename", None)
         self.audit_path = kwargs.get("audit_path", None)
+
+        self.overwrite_strategy = kwargs.get("overwrite", "no")
 
         self.audit_data = {"vuln-name" : kwargs.get("vuln-name", None),
                            "vuln-primary-link" : kwargs.get("vuln-primary-link", None),
@@ -112,8 +114,40 @@ class AuditSource:
 
         audit_file = os.path.join(self.audit_path, self.audit_filename)
 
-        if os.path.isfile(audit_file) is True:
-            exists = True
+        if self.overwrite_strategy == "yes":
+            self.logger.debug("Overwrite is set to yes. Always overwriting.")
+        else:
+            if os.path.isfile(audit_file) is True:
+                if self.overwrite_strategy == "newer":
+                    self.logger.debug("Checking Existing File for Newness")
+                    try:
+                        with open(audit_file, "r") as existing_audit_file:
+                            newer = False
+                            existing_audit_data = json.load(existing_audit_file)[self.source_key]
+
+                            existing_ts = existing_audit_data.get("auditts", 0)
+                            existing_ver = packaging.version.parse(str(existing_audit_data.get("jellyfishversion", "0.0")))
+                            new_ver = packaging.version.parse(str(self.audit_data.get("jellyfishversion", "0.0")))
+
+                            if self.audit_data.get("auditts", 0) > existing_ts:
+                                self.logger.info("Overwriting Audit As Existing TS is older than New TS")
+                                self.logger.debug("{} > {}".format(self.audit_data.get("auditts", 0), existing_ts))
+                                newer = True
+
+                            if new_ver > existing_ver:
+                                self.logger.info("Overwriting Audit As Existing Audit Version is older than New Audit Version")
+                                self.logger.debug("{} > {}".format(existing_ver, new_ver))
+                                newer = True
+
+                            if newer is False:
+                                exists = True
+                    except:
+                        self.logger.warning("Unable to Read File as Expected. I'm not going to attempt an overwrite.")
+                        exists = True
+                else:
+                    # All other overwrite Strategies got to the default, ignore if no new.
+                    self.logger.debug("Existing File Not Overwriting")
+                    exists = True
 
         return exists
 

@@ -3,7 +3,8 @@
 set -x
 
 # Run Scheduler Test
-./manowar_server -vvv -c travis/artifacts/manoward.yaml analyze -a travis/artifacts/audits.d 
+# TO Speed things up -n 14 grabs only audits from the last 14 days.
+./manowar_server -vvv -c travis/artifacts/manoward.yaml analyze -a travis/artifacts/audits.d  -n 14
 
 analyze_good=$?
 

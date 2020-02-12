@@ -108,6 +108,12 @@ def analyze(CONFIGDIR, CONFIG, newer=-1):
         # Grab all my Audits in CONFIGDIR Stuff
         auditfiles = audittools.walk_auditd_dir(CONFIGDIR)
 
+        if newer > 0:
+            midnight = (int(time() // 86400)) * 86400
+            beat_ts =  midnight - (86400 * newer)
+        else:
+            beat_ts = 0
+
         # Read all my Audits
         audits = dict()
         for auditfile in auditfiles:
@@ -118,6 +124,9 @@ def analyze(CONFIGDIR, CONFIG, newer=-1):
                 if found_audit_name in audits.keys():
                     logger.warning("Duplicate definition for {} found. Ignoring definition in file {}".format(
                         found_audit_name, auditfile))
+                elif these_audits[found_audit_name].get("auditts", 0) < beat_ts:
+                    logger.info("Audit {} in {} Ignored as it's older than {} Days Ago".format(found_audit_name, auditfile, newer))
+                    logger.debug("Audit Age {} < Beat TS {}".format(these_audits[found_audit_name].get("auditts", 0), beat_ts))
                 else:
                     # Add that audit
                     audits[found_audit_name] = these_audits[found_audit_name]
