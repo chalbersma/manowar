@@ -49,7 +49,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
             - netdev4
             - netdev6
             - unknown
-        required: true
+        required: false
       - name: hostid
         in: query
         description: |
@@ -167,13 +167,11 @@ def api2_ipsearch(ip=None):
                         ip_id,
                         guessed_type,
                         fk_host_id,
-                        hosts.hostname,
-                        hosts.pop,
-                        hosts.srvtype,
-                        hosts.hoststatus
+                        {}
                         from ip_intel
                         join hosts on ip_intel.fk_host_id = hosts.host_id
-                        where {}'''.format(" and ".join(args["args_clause"]))
+                        where {}'''.format(" , ".join(g.host_data_columns),
+                                           " and ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
                                  ip_search_query,

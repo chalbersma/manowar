@@ -98,12 +98,12 @@ def api2_hostsearch():
 
     requesttype = "hostquery"
 
-    host_search = '''SELECT host_id, host_uber_id, hostname, pop, srvtype,
-                     hoststatus, UNIX_TIMESTAMP(hosts.last_update) as last_update
+    host_search = '''SELECT {0}
                      FROM hosts
-                     {0}
-                     WHERE {1}
-                     GROUP by host_id'''.format(col_join,
+                     {1}
+                     WHERE {2}
+                     GROUP by host_id'''.format(" , ".join(g.host_data_columns),
+                                                col_join,
                                                 " and ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,

@@ -86,14 +86,14 @@ def api2_auditresults(audit_id=0):
                                                           args["audit_id"],
                                                           args["qdeparsed_string"])
 
-    audit_result_query = '''select audit_result_id, audits.audit_name, fk_host_id, hosts.hostname, fk_audits_id,
+    audit_result_query = '''select audit_result_id, audits.audit_name, fk_host_id, fk_audits_id,
                             UNIX_TIMESTAMP(initial_audit) as 'initial_audit', UNIX_TIMESTAMP(last_audit) as 'last_audit',
-                            bucket, audit_result, audit_result_text,
-                            hosts.pop, hosts.srvtype, hosts.hoststatus
+                            bucket, audit_result, audit_result_text, {}
                             from audits_by_host
                             join hosts on fk_host_id = host_id
                             join audits on fk_audits_id = audit_id
-                            where {}'''.format(" and ".join(args["args_clause"]))
+                            where {}'''.format(" , ".join(g.host_data_columns),
+                                               " and ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
                                  audit_result_query,

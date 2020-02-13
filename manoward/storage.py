@@ -127,8 +127,22 @@ def insert_update_host(hostdata, db_conn):
         insert_values.append("%s")
         insert_columns_args.append(host_id)
 
+    # Turn my Arguments into a JsonBlob for DB Insertion
+    if isinstance(hostdata.get("arguments", None), dict):
+        hostdata["args_json"] = json.dumps(hostdata["arguments"])
+
     # V2 Factors like pop srvtype and the like
-    for v2factor in [("pop", "pop"), ("srvtype", "srvtype"), ("status", "hoststatus"), ("uber_id", "host_uber_id")]:
+    for v2factor in [("pop", "pop"),
+                     ("srvtype", "srvtype"),
+                     ("status", "hoststatus"),
+                     ("uber_id", "host_uber_id"),
+                     ("resource", "mresource"),
+                     ("partition", "mpartition"),
+                     ("service", "mservice"),
+                     ("region", "mregion"),
+                     ("mown_base", "mownbase"),
+                     ("mown_full", "mownfull"),
+                     ("args_json", "mowntags")]:
         if hostdata[v2factor[0]] != "N/A" and hostdata[v2factor[0]] is not None:
             insert_columns.append(v2factor[1])
             insert_values.append("%s")

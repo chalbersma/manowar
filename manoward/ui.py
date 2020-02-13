@@ -231,6 +231,23 @@ def ui(CONFIG, FDEBUG):
         g.NOW = NOW
         g.MIDNIGHT = MIDNIGHT
         g.twoDayTimestamp = oldest
+
+        # DB Columns
+        g.host_data_columns = ["hosts.host_id as host_id",
+                               "hosts.host_uber_id as host_uber",
+                               "hosts.hostname as hostname",
+                               "hosts.pop as pop",
+                               "hosts.srvtype as srvtype",
+                               "hoststatus", "UNIX_TIMESTAMP(hosts.last_update) as hlast_update",
+                               "hosts.mresource as resource",
+                               "hosts.mpartition as mpartition", # Partition is a Reserved Word in mariadb
+                               "hosts.mservice as service",
+                               "hosts.mregion as region",
+                               "hosts.maccountid as accountid",
+                               "hosts.mownbase",
+                               "hosts.mownfull",
+                               "hosts.mowntags"]
+
         g.cur = g.db.cursor(pymysql.cursors.DictCursor)
         g.HTTPENDPOINT = config_items["webserver"]["accesslink"]
         g.config_items = config_items

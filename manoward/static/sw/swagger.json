@@ -150,6 +150,82 @@
             }
           },
           {
+            "name": "resource",
+            "in": "query",
+            "description": "Matches the MOWN Resource either via Regex or Exactly (with exact). Keep in mind resources include\nthe resource qualifier and resource subtype if applicable.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partition",
+            "in": "query",
+            "description": "Matches the MOWN Parition either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "description": "Matches the MOWN Service either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountid",
+            "in": "query",
+            "description": "Matches the MOWN Account ID either via Regex or Exactly\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownbase",
+            "in": "query",
+            "description": "Matches the MOWN Base URI fully (with regex or Exactly). Does not include\na matching of arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownfull",
+            "in": "query",
+            "description": "Matches the MOWN full URI fully (with regex or Exactly). Includes a Matching of Arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagged",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined (even if the tag is set to something\nlike false). Specify using JQ style formatting. Uses the [JSON_EXISTS](https://mariadb.com/kb/en/json_exists/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\."
+          },
+          {
+            "name": "taggedtrue",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined as true Uses the \n[JSON_EXTRACT](https://mariadb.com/kb/en/json_extract/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\nWill match against [true](https://mariadb.com/kb/en/true-false/), a builtin boolean. So if you specify something\nlike `{\"loveit\" : \"false\"}` (Note the String not boolean) it will return true and if you have something like\n`{\"zerosareawesome\" : 0}` it should return false.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\.\""
+          },
+          {
             "name": "exact",
             "in": "query",
             "description": "Controls your other filters and flips them from regex matches (default) to exact matches\n",
@@ -469,6 +545,82 @@
             }
           },
           {
+            "name": "resource",
+            "in": "query",
+            "description": "Matches the MOWN Resource either via Regex or Exactly (with exact). Keep in mind resources include\nthe resource qualifier and resource subtype if applicable.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partition",
+            "in": "query",
+            "description": "Matches the MOWN Parition either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "description": "Matches the MOWN Service either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountid",
+            "in": "query",
+            "description": "Matches the MOWN Account ID either via Regex or Exactly\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownbase",
+            "in": "query",
+            "description": "Matches the MOWN Base URI fully (with regex or Exactly). Does not include\na matching of arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownfull",
+            "in": "query",
+            "description": "Matches the MOWN full URI fully (with regex or Exactly). Includes a Matching of Arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagged",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined (even if the tag is set to something\nlike false). Specify using JQ style formatting. Uses the [JSON_EXISTS](https://mariadb.com/kb/en/json_exists/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\."
+          },
+          {
+            "name": "taggedtrue",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined as true Uses the \n[JSON_EXTRACT](https://mariadb.com/kb/en/json_extract/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\nWill match against [true](https://mariadb.com/kb/en/true-false/), a builtin boolean. So if you specify something\nlike `{\"loveit\" : \"false\"}` (Note the String not boolean) it will return true and if you have something like\n`{\"zerosareawesome\" : 0}` it should return false.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\.\""
+          },
+          {
             "name": "exact",
             "in": "query",
             "description": "Controls your other filters and flips them from regex matches (default) to exact matches\n",
@@ -751,6 +903,82 @@
             }
           },
           {
+            "name": "resource",
+            "in": "query",
+            "description": "Matches the MOWN Resource either via Regex or Exactly (with exact). Keep in mind resources include\nthe resource qualifier and resource subtype if applicable.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partition",
+            "in": "query",
+            "description": "Matches the MOWN Parition either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "description": "Matches the MOWN Service either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountid",
+            "in": "query",
+            "description": "Matches the MOWN Account ID either via Regex or Exactly\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownbase",
+            "in": "query",
+            "description": "Matches the MOWN Base URI fully (with regex or Exactly). Does not include\na matching of arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownfull",
+            "in": "query",
+            "description": "Matches the MOWN full URI fully (with regex or Exactly). Includes a Matching of Arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagged",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined (even if the tag is set to something\nlike false). Specify using JQ style formatting. Uses the [JSON_EXISTS](https://mariadb.com/kb/en/json_exists/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\."
+          },
+          {
+            "name": "taggedtrue",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined as true Uses the \n[JSON_EXTRACT](https://mariadb.com/kb/en/json_extract/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\nWill match against [true](https://mariadb.com/kb/en/true-false/), a builtin boolean. So if you specify something\nlike `{\"loveit\" : \"false\"}` (Note the String not boolean) it will return true and if you have something like\n`{\"zerosareawesome\" : 0}` it should return false.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\.\""
+          },
+          {
             "name": "exact",
             "in": "query",
             "description": "Controls your other filters and flips them from regex matches (default) to exact matches\n",
@@ -904,6 +1132,82 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "resource",
+            "in": "query",
+            "description": "Matches the MOWN Resource either via Regex or Exactly (with exact). Keep in mind resources include\nthe resource qualifier and resource subtype if applicable.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partition",
+            "in": "query",
+            "description": "Matches the MOWN Parition either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "description": "Matches the MOWN Service either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountid",
+            "in": "query",
+            "description": "Matches the MOWN Account ID either via Regex or Exactly\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownbase",
+            "in": "query",
+            "description": "Matches the MOWN Base URI fully (with regex or Exactly). Does not include\na matching of arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownfull",
+            "in": "query",
+            "description": "Matches the MOWN full URI fully (with regex or Exactly). Includes a Matching of Arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagged",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined (even if the tag is set to something\nlike false). Specify using JQ style formatting. Uses the [JSON_EXISTS](https://mariadb.com/kb/en/json_exists/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\."
+          },
+          {
+            "name": "taggedtrue",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined as true Uses the \n[JSON_EXTRACT](https://mariadb.com/kb/en/json_extract/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\nWill match against [true](https://mariadb.com/kb/en/true-false/), a builtin boolean. So if you specify something\nlike `{\"loveit\" : \"false\"}` (Note the String not boolean) it will return true and if you have something like\n`{\"zerosareawesome\" : 0}` it should return false.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\.\""
           }
         ]
       }
@@ -1005,6 +1309,82 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "resource",
+            "in": "query",
+            "description": "Matches the MOWN Resource either via Regex or Exactly (with exact). Keep in mind resources include\nthe resource qualifier and resource subtype if applicable.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partition",
+            "in": "query",
+            "description": "Matches the MOWN Parition either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "description": "Matches the MOWN Service either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountid",
+            "in": "query",
+            "description": "Matches the MOWN Account ID either via Regex or Exactly\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownbase",
+            "in": "query",
+            "description": "Matches the MOWN Base URI fully (with regex or Exactly). Does not include\na matching of arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownfull",
+            "in": "query",
+            "description": "Matches the MOWN full URI fully (with regex or Exactly). Includes a Matching of Arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagged",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined (even if the tag is set to something\nlike false). Specify using JQ style formatting. Uses the [JSON_EXISTS](https://mariadb.com/kb/en/json_exists/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\."
+          },
+          {
+            "name": "taggedtrue",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined as true Uses the \n[JSON_EXTRACT](https://mariadb.com/kb/en/json_extract/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\nWill match against [true](https://mariadb.com/kb/en/true-false/), a builtin boolean. So if you specify something\nlike `{\"loveit\" : \"false\"}` (Note the String not boolean) it will return true and if you have something like\n`{\"zerosareawesome\" : 0}` it should return false.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\.\""
           },
           {
             "name": "exact",
@@ -1138,6 +1518,82 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "resource",
+            "in": "query",
+            "description": "Matches the MOWN Resource either via Regex or Exactly (with exact). Keep in mind resources include\nthe resource qualifier and resource subtype if applicable.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partition",
+            "in": "query",
+            "description": "Matches the MOWN Parition either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "description": "Matches the MOWN Service either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountid",
+            "in": "query",
+            "description": "Matches the MOWN Account ID either via Regex or Exactly\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownbase",
+            "in": "query",
+            "description": "Matches the MOWN Base URI fully (with regex or Exactly). Does not include\na matching of arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownfull",
+            "in": "query",
+            "description": "Matches the MOWN full URI fully (with regex or Exactly). Includes a Matching of Arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagged",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined (even if the tag is set to something\nlike false). Specify using JQ style formatting. Uses the [JSON_EXISTS](https://mariadb.com/kb/en/json_exists/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\."
+          },
+          {
+            "name": "taggedtrue",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined as true Uses the \n[JSON_EXTRACT](https://mariadb.com/kb/en/json_extract/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\nWill match against [true](https://mariadb.com/kb/en/true-false/), a builtin boolean. So if you specify something\nlike `{\"loveit\" : \"false\"}` (Note the String not boolean) it will return true and if you have something like\n`{\"zerosareawesome\" : 0}` it should return false.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\.\""
           },
           {
             "name": "exact",
@@ -1458,6 +1914,82 @@
             }
           },
           {
+            "name": "resource",
+            "in": "query",
+            "description": "Matches the MOWN Resource either via Regex or Exactly (with exact). Keep in mind resources include\nthe resource qualifier and resource subtype if applicable.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partition",
+            "in": "query",
+            "description": "Matches the MOWN Parition either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "description": "Matches the MOWN Service either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountid",
+            "in": "query",
+            "description": "Matches the MOWN Account ID either via Regex or Exactly\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownbase",
+            "in": "query",
+            "description": "Matches the MOWN Base URI fully (with regex or Exactly). Does not include\na matching of arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownfull",
+            "in": "query",
+            "description": "Matches the MOWN full URI fully (with regex or Exactly). Includes a Matching of Arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagged",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined (even if the tag is set to something\nlike false). Specify using JQ style formatting. Uses the [JSON_EXISTS](https://mariadb.com/kb/en/json_exists/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\."
+          },
+          {
+            "name": "taggedtrue",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined as true Uses the \n[JSON_EXTRACT](https://mariadb.com/kb/en/json_extract/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\nWill match against [true](https://mariadb.com/kb/en/true-false/), a builtin boolean. So if you specify something\nlike `{\"loveit\" : \"false\"}` (Note the String not boolean) it will return true and if you have something like\n`{\"zerosareawesome\" : 0}` it should return false.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\.\""
+          },
+          {
             "name": "exact",
             "in": "query",
             "description": "Controls your other filters and flips them from regex matches (default) to exact matches\n",
@@ -1735,7 +2267,7 @@
                 "unknown"
               ]
             },
-            "required": true
+            "required": false
           },
           {
             "name": "hostid",
@@ -1780,6 +2312,82 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "resource",
+            "in": "query",
+            "description": "Matches the MOWN Resource either via Regex or Exactly (with exact). Keep in mind resources include\nthe resource qualifier and resource subtype if applicable.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partition",
+            "in": "query",
+            "description": "Matches the MOWN Parition either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "description": "Matches the MOWN Service either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountid",
+            "in": "query",
+            "description": "Matches the MOWN Account ID either via Regex or Exactly\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownbase",
+            "in": "query",
+            "description": "Matches the MOWN Base URI fully (with regex or Exactly). Does not include\na matching of arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownfull",
+            "in": "query",
+            "description": "Matches the MOWN full URI fully (with regex or Exactly). Includes a Matching of Arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagged",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined (even if the tag is set to something\nlike false). Specify using JQ style formatting. Uses the [JSON_EXISTS](https://mariadb.com/kb/en/json_exists/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\."
+          },
+          {
+            "name": "taggedtrue",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined as true Uses the \n[JSON_EXTRACT](https://mariadb.com/kb/en/json_extract/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\nWill match against [true](https://mariadb.com/kb/en/true-false/), a builtin boolean. So if you specify something\nlike `{\"loveit\" : \"false\"}` (Note the String not boolean) it will return true and if you have something like\n`{\"zerosareawesome\" : 0}` it should return false.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\.\""
           },
           {
             "name": "exact",

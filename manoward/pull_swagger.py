@@ -58,6 +58,75 @@ _host_filters = '''
   required: false
   schema:
     type: string
+- name: resource
+  in: query
+  description: |
+    Matches the MOWN Resource either via Regex or Exactly (with exact). Keep in mind resources include
+    the resource qualifier and resource subtype if applicable.
+  required: false
+  schema:
+    type: string
+- name: partition
+  in: query
+  description: |
+    Matches the MOWN Parition either via Regex or Exactly.
+  required: false
+  schema:
+    type: string
+- name: service
+  in: query
+  description: |
+    Matches the MOWN Service either via Regex or Exactly.
+  required: false
+  schema:
+    type: string
+- name: accountid
+  in: query
+  description: |
+    Matches the MOWN Account ID either via Regex or Exactly
+  required: false
+  schema:
+    type: string
+- name: mownbase
+  in: query
+  description: |
+    Matches the MOWN Base URI fully (with regex or Exactly). Does not include
+    a matching of arguments
+  required: false
+  schema:
+    type: string
+- name: mownfull
+  in: query
+  description: |
+    Matches the MOWN full URI fully (with regex or Exactly). Includes a Matching of Arguments
+  required: false
+  schema:
+    type: string
+- name: tagged
+  in: query
+  description: |
+    Matches an individual tag. Returns true if the tag is defined (even if the tag is set to something
+    like false). Specify using JQ style formatting. Uses the [JSON_EXISTS](https://mariadb.com/kb/en/json_exists/)
+    functionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.
+  required: false
+  schema:
+    type: string
+  format: jsonpath
+  pattern: ^\\$\\.
+- name: taggedtrue
+  in: query
+  description: |
+    Matches an individual tag. Returns true if the tag is defined as true Uses the 
+    [JSON_EXTRACT](https://mariadb.com/kb/en/json_extract/)
+    functionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.
+    Will match against [true](https://mariadb.com/kb/en/true-false/), a builtin boolean. So if you specify something
+    like `{"loveit" : "false"}` (Note the String not boolean) it will return true and if you have something like
+    `{"zerosareawesome" : 0}` it should return false.
+  required: false
+  schema: 
+    type: string
+  format: jsonpath
+  pattern: ^\\$\\."
 '''
 
 # Audit Result Filters

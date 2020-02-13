@@ -98,14 +98,14 @@ def api2_collected_values(ctype="none"):
 
     requesttype = "collected_value"
 
-    collected_values_query = '''SELECT collection_id, hosts.host_id, hosts.hostname,
-                                    hosts.hoststatus, hosts.pop, hosts.srvtype,
-                                    collection_type, collection_subtype, collection_value,
+    collected_values_query = '''SELECT collection_id, collection_type, collection_subtype, collection_value,
                                     UNIX_TIMESTAMP(collection.initial_update) as initial_update,
-                                    UNIX_TIMESTAMP(collection.last_update) as last_update
+                                    UNIX_TIMESTAMP(collection.last_update) as last_update,
+                                    {}
                                     FROM collection
                                     JOIN hosts ON fk_host_id = hosts.host_id
-                                    where {}'''.format("  and  ".join(args["args_clause"]))
+                                    where {}'''.format(" , ".join(g.host_data_columns),
+                                                       "  and  ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
                                  collected_values_query,

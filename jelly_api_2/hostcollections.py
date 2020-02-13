@@ -101,13 +101,13 @@ def api2_hostcollections(host_id=0):
     host_collections_query = '''select collection_id, fk_host_id,
                                 UNIX_TIMESTAMP(initial_update) as initial_update,
                                 UNIX_TIMESTAMP(collection.last_update) as last_update,
-                                hostname, pop, srvtype, hoststatus, 
-                                UNIX_TIMESTAMP(hosts.last_update) as hlast_update,
-                                collection_type, collection_subtype, collection_value
+                                collection_type, collection_subtype, collection_value,
+                                {}
                                 from collection
                                 join hosts on collection.fk_host_id = hosts.host_id
                                 where {}
-                                group by collection_type, collection_subtype'''.format("  and  ".join(args["args_clause"]))
+                                group by collection_type, collection_subtype'''.format(" , ".join(g.host_data_columns),
+                                                                                       "  and  ".join(args["args_clause"]))
 
     results = manoward.run_query(g.cur,
                                  host_collections_query,
@@ -126,6 +126,14 @@ def api2_hostcollections(host_id=0):
         meta_dict["host_information"]["srvtype"] = hostzero["srvtype"]
         meta_dict["host_information"]["hoststatus"] = hostzero["hoststatus"]
         meta_dict["host_information"]["last_update"] = hostzero["hlast_update"]
+        meta_dict["host_information"]["resource"] = hostzero["resource"]
+        meta_dict["host_information"]["partition"] = hostzero["mpartition"]
+        meta_dict["host_information"]["service"] = hostzero["service"]
+        meta_dict["host_information"]["region"] = hostzero["region"]
+        meta_dict["host_information"]["accountid"] = hostzero["accountid"]
+        meta_dict["host_information"]["mownbase"] = hostzero["mownbase"]
+        meta_dict["host_information"]["mownfull"] = hostzero["mownfull"]
+        meta_dict["host_information"]["tags"] = json.loads(hostzero["mowntags"])
     else:
         meta_dict["host_information"]["hostname"] = "No Results"
         meta_dict["host_information"]["pop"] = str()
