@@ -389,8 +389,7 @@ def schedule(config_items, regex=None, shard=None, do_print=False):
                 logger.debug("Running Threads : {}".format(threads_running))
                 logger.debug("Finished Threads : {}".format(threads_finished))
                 logger.debug("Hosts Left : {}".format(host_queue.qsize()))
-                logger.debug("Results Recieved : {}".format(
-                    results_queue.qsize()))
+                logger.debug("Results Recieved : {}".format(result_queue.qsize()))
 
             if any_threads_alive == False:
                 # Break While Loop
