@@ -6,21 +6,15 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 '''
 
 import logging
-#from configparser import ConfigParser
 import argparse
-import json
 import ast
 import time
-import datetime
 import os
-import sys
 import base64
 
-from flask import Flask, current_app, g, request, render_template, abort
-from flask_cors import CORS, cross_origin
+from flask import Flask, g, request, render_template, abort
+from flask_cors import CORS
 import pymysql
-import yaml
-
 
 import manoward
 import manoward.pull_swagger
@@ -247,6 +241,12 @@ def ui(CONFIG, FDEBUG):
                                "hosts.mownbase",
                                "hosts.mownfull",
                                "hosts.mowntags"]
+        g.coll_data_columns = ["UNIX_TIMESTAMP(collection.initial_update) as initial_update",
+                               "UNIX_TIMESTAMP(collection.last_update) as last_update",
+                               "collection.collection_type as collection_type",
+                               "collection.collection_subtype as collection_subtype",
+                               "collection.collection_value as collection_value",
+                               "collection.collection_id as collection_id"]
 
         g.cur = g.db.cursor(pymysql.cursors.DictCursor)
         g.HTTPENDPOINT = config_items["webserver"]["accesslink"]
@@ -300,8 +300,8 @@ def ui(CONFIG, FDEBUG):
     from jelly_api_2 import auditlist
     from jelly_api_2 import factorlist
     from jelly_api_2 import cve_canonical
-    from jelly_api_2 import genericlargecompare
-    from jelly_api_2 import cve_canonical_check
+    #from jelly_api_2 import genericlargecompare
+    #from jelly_api_2 import cve_canonical_check
     #from jelly_api_2 import getconfig
     from jelly_api_2 import puthostjson
     from jelly_api_2 import extendpopulationjson
@@ -324,8 +324,8 @@ def ui(CONFIG, FDEBUG):
     from jelly_display_2 import display_custdashboard_modify
     #from jelly_display_2 import display_custdashboard_create_results
     from jelly_display_2 import display_hostsearch_search
-    from jelly_display_2 import display_cve_canonical_check_results
-    from jelly_display_2 import display_cve_canonical_search
+    #from jelly_display_2 import display_cve_canonical_check_results
+    #from jelly_display_2 import display_cve_canonical_search
     from jelly_display_2 import display_collatedresults
     from jelly_display_2 import display_mainfactor
     from jelly_display_2 import display_custdashboardlist
@@ -384,10 +384,8 @@ def ui(CONFIG, FDEBUG):
                            url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(cve_canonical.cve_canonical,
                            url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(genericlargecompare.genericlargecompare,
-                           url_prefix=config_items["v2api"]["root"])
-    app.register_blueprint(cve_canonical_check.cve_canonical_check,
-                           url_prefix=config_items["v2api"]["root"])
+    #app.register_blueprint(genericlargecompare.genericlargecompare, url_prefix=config_items["v2api"]["root"])
+    #app.register_blueprint(cve_canonical_check.cve_canonical_check, url_prefix=config_items["v2api"]["root"])
     # No Longer A Thing that Makes General & Good Sense
     #app.register_blueprint(getconfig.getconfig, url_prefix=config_items["v2api"]["root"])
     app.register_blueprint(puthostjson.puthostjson,
@@ -429,10 +427,8 @@ def ui(CONFIG, FDEBUG):
     #app.register_blueprint(display_custdashboard_create_results.display_custdashboard_create_results, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_hostsearch_search.display_hostsearch_search,
                            url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_cve_canonical_check_results.display_cve_canonical_check_results,
-                           url_prefix=config_items["v2ui"]["root"])
-    app.register_blueprint(display_cve_canonical_search.display_cve_canonical_search,
-                           url_prefix=config_items["v2ui"]["root"])
+    #app.register_blueprint(display_cve_canonical_check_results.display_cve_canonical_check_results, url_prefix=config_items["v2ui"]["root"])
+    #app.register_blueprint(display_cve_canonical_search.display_cve_canonical_search, url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_collatedresults.collatedresults,
                            url_prefix=config_items["v2ui"]["root"])
     app.register_blueprint(display_mainfactor.mainfactor,
