@@ -53,54 +53,54 @@ _hosts_sql = {"hostname": {"req_type": str,
                           "sql_clause": "hosts.srvtype REGEXP %s",
                           "sql_exact_clause": "hosts.srvtype = %s",
                           "qdeparse": True},
-              "resource" : {"req_type": str,
-                          "default": None,
-                          "required": False,
-                          "sql_param": True,
-                          "sql_clause": "hosts.mresource REGEXP %s",
-                          "sql_exact_clause": "hosts.mresource = %s",
-                          "qdeparse": True},
-              "partition" : {"req_type": str,
-                             "default": None,
-                             "required": False,
-                             "sql_param": True,
-                             "sql_clause": "hosts.mpartition REGEXP %s",
-                             "sql_exact_clause": "hosts.mpartititon = %s",
-                             "qdeparse": True},
-              "service" : {"req_type": str,
-                             "default": None,
-                             "required": False,
-                             "sql_param": True,
-                             "sql_clause": "hosts.mservice REGEXP %s",
-                             "sql_exact_clause": "hosts.mservice = %s",
-                             "qdeparse": True},
-              "accountid" : {"req_type": str,
+              "resource": {"req_type": str,
                            "default": None,
                            "required": False,
                            "sql_param": True,
-                           "sql_clause": "hosts.maccountid REGEXP %s",
-                           "sql_exact_clause": "hosts.maccountid = %s",
+                           "sql_clause": "hosts.mresource REGEXP %s",
+                           "sql_exact_clause": "hosts.mresource = %s",
                            "qdeparse": True},
-              "mownbase" : {"req_type": str,
-                             "default": None,
-                             "required": False,
-                             "sql_param": True,
-                             "sql_clause": "hosts.mownbase REGEXP %s",
-                             "sql_exact_clause": "hosts.mownbase = %s",
-                             "qdeparse": True},
-              "mownfull" : {"req_type": str,
-                             "default": None,
-                             "required": False,
-                             "sql_param": True,
-                             "sql_clause": "hosts.mownfull REGEXP %s",
-                             "sql_exact_clause": "hosts.mownfull = %s"},
-              "tagged" : {"req_type": str,
+              "partition": {"req_type": str,
+                            "default": None,
+                            "required": False,
+                            "sql_param": True,
+                            "sql_clause": "hosts.mpartition REGEXP %s",
+                            "sql_exact_clause": "hosts.mpartititon = %s",
+                            "qdeparse": True},
+              "service": {"req_type": str,
+                          "default": None,
+                          "required": False,
+                          "sql_param": True,
+                          "sql_clause": "hosts.mservice REGEXP %s",
+                          "sql_exact_clause": "hosts.mservice = %s",
+                          "qdeparse": True},
+              "accountid": {"req_type": str,
+                            "default": None,
+                            "required": False,
+                            "sql_param": True,
+                            "sql_clause": "hosts.maccountid REGEXP %s",
+                            "sql_exact_clause": "hosts.maccountid = %s",
+                            "qdeparse": True},
+              "mownbase": {"req_type": str,
+                           "default": None,
+                           "required": False,
+                           "sql_param": True,
+                           "sql_clause": "hosts.mownbase REGEXP %s",
+                           "sql_exact_clause": "hosts.mownbase = %s",
+                           "qdeparse": True},
+              "mownfull": {"req_type": str,
+                           "default": None,
+                           "required": False,
+                           "sql_param": True,
+                           "sql_clause": "hosts.mownfull REGEXP %s",
+                           "sql_exact_clause": "hosts.mownfull = %s"},
+              "tagged": {"req_type": str,
                          "default": None,
                          "required": False,
                          "sql_param": True,
                          "sql_clause": "JSON_EXISTS(hosts.mowntags, %s)",
                          "qdeparse": True},
-              "taggedtrue" : {"req_type": str,
+              "taggedtrue": {"req_type": str,
                              "default": None,
                              "required": False,
                              "sql_param": True,
@@ -246,7 +246,7 @@ def process_args(definitions, this_request_args, **kwargs):
                         "Variable {} Requested a Postive Integer. Did not Recieve".format(this_var))
                     abort(415)
 
-            if isinstance(this_def.get("enum", None), (list, tuple)) and this_def.get("req_type", None) is str:
+            if isinstance(this_def.get("enum", None), (list, tuple)) and isinstance("req_type", (str,int)):
 
                 match = [matched for matched in this_def["enum"]
                          if matched == return_dict[this_var]]
@@ -256,6 +256,17 @@ def process_args(definitions, this_request_args, **kwargs):
                         logger.error("Value {} Isn't in Known Enum List : {}".format(return_dict[this_var],
                                                                                      this_def["enum"]))
                         abort(415)
+                        
+            if this_def.get("require_alpha", False) and isinstance(return_dict[this_var], str):
+                if return_dict[this_var].isalpha() is False:
+                    logger.error("Value {} Needs to be Alphabetic only.".format(return_dict[this_var]))
+                    abort(415)
+                    
+            if this_def.get("require_lower", False) and isinstance(return_dict[this_var], str):
+                if return_dict[this_var].islower() is False:
+                    logger.error("Value {} Needs to be Lower Case only.".format(return_dict[this_var]))
+                    abort(415)
+
 
         finally:
             # Process Where Args and Such Where I have a Result

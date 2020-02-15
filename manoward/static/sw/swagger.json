@@ -25,7 +25,6 @@
   ],
   "paths": {
     "/sapi/listusers/": {
-      "x-cached-length": "Every Midnight",
       "get": {
         "description": "Designed to grab a list of hosts that either pass or fail an audit\nalong with the relevant data about each host. Similar to the audit_table\nitem from the old api.\n",
         "tags": [
@@ -35,7 +34,36 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "apiuid",
+            "in": "query",
+            "description": "API User Ids\n",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false
+          },
+          {
+            "name": "apiusername",
+            "in": "query",
+            "description": "The username associated with the Username. Regex (Unless Exact used)\n",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "name": "apiuser_purpose",
+            "in": "query",
+            "description": "The API Purpose of the Usernames. Regex (Unless Exact)\n",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ]
       }
     },
     "/collected/": {
@@ -403,6 +431,19 @@
               "type": "integer"
             },
             "required": false
+          },
+          {
+            "name": "exact",
+            "in": "query",
+            "description": "Controls your other filters and flips them from regex matches (default) to exact matches\n",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                true,
+                false
+              ]
+            }
           }
         ]
       }
@@ -410,6 +451,7 @@
     "/cve/canoncial_check/{cve_name}/": {
       "x-cached-length": "Every Midnight",
       "get": {
+        "depreciated": true,
         "description": "Gives you a check against a particular cve for the population you specify\nin the arguments. Accepts the non collection paramaters (as this utilizes\nthe collection paramaters) to make the check.\n",
         "tags": [
           "cve"
@@ -655,8 +697,8 @@
       }
     },
     "/sapi/extendpopulationjson/": {
-      "post": {
-        "description": "Accepts a valid extenstion json and stores it for the host or population\nof hosts specified. This call is fenced by an api token that you need to\nspecify and won't work in the interactive version of this. Population is\ndefined by hostsearch.\n",
+      "get": {
+        "description": "Allows you to \"extend\" a host or population of hosts with new data. Gives a generic way\nto insert new collections for an existing host.\n",
         "responses": {
           "200": {
             "description": "OK"
@@ -680,17 +722,95 @@
         },
         "parameters": [
           {
-            "name": "hostname",
+            "name": "host_id",
+            "in": "path",
+            "description": "The id of a specific host you'd like to use. If this is specified the hostname & collection type arguments\nthat can be used to specify a population are ignored.\n",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false
+          },
+          {
+            "name": "ctype",
             "in": "query",
-            "description": "hostname or hostname regex that should be specified.\n",
+            "description": "A regex to match for the collection_type. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type\nregular expressions are accepted. Matched on the collection_type column in the collection table.\nOnly hosts with one or more results of this collection type will be returned.\n",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "name": "ictype",
+            "in": "query",
+            "description": "The name of the collection type you'd like to record. \"Inserted\" collection type.\n",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "icsubtype",
+            "in": "query",
+            "description": "The name of the collection subtype type you'd like to record. \"Inserted\" collection subtype.\n",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "ivalue",
+            "in": "query",
+            "description": "The value you'd like to record. \"Inserted\" value.\n",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "exact",
+            "in": "query",
+            "description": "Controls your other filters and flips them from regex matches (default) to exact matches\n",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                true,
+                false
+              ]
+            }
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "description": "Value of the collection You wish to search for. Regex by Default\n",
+            "required": false,
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "exact",
+            "name": "csubtype",
             "in": "query",
-            "description": "Wether to match all the population itesm exactly or to do so\nwith a regex. By default is regex use \"True\" to do exact.\n",
+            "description": "Value of the collection  subtype You wish to search for. Regex by Default\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hostname",
+            "in": "query",
+            "description": "A regex to match for the hostname. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type\nregular expressions are accepted. Matched on the hostname column in the host table. With exact\nwill match exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "A regex to match for the status. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type\nregular expressions are accepted. Matched on the status column in the host table. With exact\nwill match exactly.\n",
+            "required": false,
             "schema": {
               "type": "string"
             }
@@ -698,17 +818,96 @@
           {
             "name": "pop",
             "in": "query",
-            "description": "Which pop to match against can be regex or exact\n",
+            "description": "A regex to match for the pop. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type\nregular expressions are accepted. Matched on the status column in the host table. With exact\nwill match exactly.\n",
+            "required": false,
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "hoststatus",
-            "description": "Which status to search against. Can be exact or regex based\non exact value.\n",
+            "name": "srvtype",
+            "in": "query",
+            "description": "A regex to match for the srvtype. [PCRE](https://mariadb.com/kb/en/mariadb/regexp/) type\nregular expressions are accepted. Matched on the status column in the host table. With exact\nwill match exactly.\n",
+            "required": false,
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "resource",
+            "in": "query",
+            "description": "Matches the MOWN Resource either via Regex or Exactly (with exact). Keep in mind resources include\nthe resource qualifier and resource subtype if applicable.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partition",
+            "in": "query",
+            "description": "Matches the MOWN Parition either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "service",
+            "in": "query",
+            "description": "Matches the MOWN Service either via Regex or Exactly.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountid",
+            "in": "query",
+            "description": "Matches the MOWN Account ID either via Regex or Exactly\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownbase",
+            "in": "query",
+            "description": "Matches the MOWN Base URI fully (with regex or Exactly). Does not include\na matching of arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mownfull",
+            "in": "query",
+            "description": "Matches the MOWN full URI fully (with regex or Exactly). Includes a Matching of Arguments\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagged",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined (even if the tag is set to something\nlike false). Specify using JQ style formatting. Uses the [JSON_EXISTS](https://mariadb.com/kb/en/json_exists/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\."
+          },
+          {
+            "name": "taggedtrue",
+            "in": "query",
+            "description": "Matches an individual tag. Returns true if the tag is defined as true Uses the \n[JSON_EXTRACT](https://mariadb.com/kb/en/json_extract/)\nfunctionality to do the JSON mapping. So **if you're looking for tag `loveit` you'd want to speicfy `$.loveit`**.\nWill match against [true](https://mariadb.com/kb/en/true-false/), a builtin boolean. So if you specify something\nlike `{\"loveit\" : \"false\"}` (Note the String not boolean) it will return true and if you have something like\n`{\"zerosareawesome\" : 0}` it should return false.\n",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "format": "jsonpath",
+            "pattern": "^\\$\\.\""
           }
         ]
       }
@@ -716,7 +915,7 @@
     "/soc/vipporttohost/": {
       "x-cached-length": "Every Midnight",
       "get": {
-        "description": "Grabs a list of hosts that are beind the given vip with the proper\nport/protocol open.\n",
+        "description": "Grabs a list of hosts that are beind the given vip with the proper\nport/protocol open. This is a rather specific endpoint for a particular cause.\nGiven a VIP and a port/protocol that something was seen on. This will show\nyou all the hosts associated with that vip that have that same port/protocol\n",
         "tags": [
           "liveaudit"
         ],
@@ -734,7 +933,7 @@
             "schema": {
               "type": "string"
             },
-            "x-astliteraleval": true
+            "format": "ipv46"
           },
           {
             "name": "port",
@@ -743,31 +942,37 @@
             "schema": {
               "type": "integer"
             },
-            "required": true
+            "required": true,
+            "default": 443
           },
           {
             "name": "protocol",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "udp",
+                "tcp"
+              ]
             },
             "in": "query",
             "description": "This is a string that will accept `tcp` or `udp` (default is tcp)\nand use it in conjunction with the ports.\n",
-            "required": false
+            "required": false,
+            "default": "tcp"
           },
           {
             "name": "ipv",
-            "x-astliteraleval": true,
             "in": "query",
             "description": "By default this will be `4` (as in ipv4). But you can set it to\n`6` which will allow you to look for ipv6 ports and protocols on\nipv6 vips.\n",
             "schema": {
-              "type": "string"
+              "type": "integer"
             },
-            "required": false
+            "required": false,
+            "default": 4
           }
         ]
       }
     },
-    "/sapi/addtoken/": {
+    "/addtoken/": {
       "x-cached-length": "Every Midnight",
       "get": {
         "description": "Adds a new token for a particular user.\n",
@@ -781,34 +986,37 @@
         ],
         "parameters": [
           {
-            "name": "user",
-            "x-astliteraleval": true,
+            "name": "apiuid",
             "in": "query",
             "description": "Username or UserID of user who should have token created.\n",
             "schema": {
-              "type": "string"
+              "type": "integer"
             },
             "required": true
           },
           {
             "name": "validfor",
-            "x-astliteraleval": true,
             "in": "query",
             "description": "How many days token should be valid for (default 7 days)\n",
             "schema": {
-              "type": "string"
+              "type": "integer"
             },
-            "required": false
+            "required": true,
+            "default": 7
           },
           {
             "name": "tokentype",
-            "x-astliteraleval": true,
             "in": "query",
             "description": "What type of token to insert. Default is sapi.\n",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "robot",
+                "storage"
+              ]
             },
-            "required": false
+            "required": true,
+            "default": "storage"
           }
         ]
       }
@@ -1011,7 +1219,7 @@
     "/custdashboard/create/": {
       "x-cached-length": "Every Midnight",
       "get": {
-        "description": "Creates a New Jellyfish2 Custom Audit.\n",
+        "description": "Creates a New Custom Dashboard\n",
         "responses": {
           "200": {
             "description": "OK"
@@ -1022,8 +1230,7 @@
         ],
         "parameters": [
           {
-            "name": "username",
-            "x-astliteraleval": true,
+            "name": "dashboard_name",
             "in": "query",
             "description": "Username that wants to be created.\n",
             "schema": {
@@ -1032,10 +1239,9 @@
             "required": true
           },
           {
-            "name": "purpose",
-            "x-astliteraleval": true,
+            "name": "dashboard_description",
             "in": "query",
-            "description": "Reason that user was created. Requires a ticket denoted in brackets.\n",
+            "description": "Accompying Description to go with this Dashboard\n",
             "schema": {
               "type": "string"
             },
@@ -1614,6 +1820,7 @@
     "/genericlargecompare/": {
       "x-cached-length": "Every Midnight",
       "get": {
+        "depreciated": true,
         "description": "Generic Large Commparison against a particular hoststatus.\n",
         "responses": {
           "200": {
@@ -2182,7 +2389,7 @@
         ]
       }
     },
-    "/sapi/adduser/": {
+    "/adduser/": {
       "x-cached-length": "Every Midnight",
       "get": {
         "description": "Designed to grab a list of hosts that either pass or fail an audit\nalong with the relevant data about each host. Similar to the audit_table\nitem from the old api.\n",
@@ -2197,9 +2404,8 @@
         "parameters": [
           {
             "name": "username",
-            "x-astliteraleval": true,
             "in": "query",
-            "description": "Username that wants to be created.\n",
+            "description": "Username that wants to be created. Must be Lowercase and  All Letters\n",
             "schema": {
               "type": "string"
             },
@@ -2207,9 +2413,8 @@
           },
           {
             "name": "purpose",
-            "x-astliteraleval": true,
             "in": "query",
-            "description": "Reason that user was created. Requires a ticket denoted in brackets.\n",
+            "description": "Reason that user was created. Requires a ticket denoted in brackets. Like [TKT-101]\n",
             "schema": {
               "type": "string"
             },
