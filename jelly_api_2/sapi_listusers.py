@@ -8,7 +8,6 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 
 ```swagger-yaml
 /sapi/listusers/ :
-  x-cached-length: "Every Midnight"
   get:
     description: |
       Designed to grab a list of hosts that either pass or fail an audit
@@ -19,121 +18,115 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
     responses:
       200:
         description: OK
+    parameters:
+      - name: apiuid
+        in: query
+        description: |
+          API User Ids
+        schema:
+          type: integer
+        required: false
+      - name: apiusername
+        in: query
+        description: |
+          The username associated with the Username. Regex (Unless Exact used)
+        schema:
+          type: string
+        required: false
+      - name: apiuser_purpose
+        in: query
+        description: |
+          The API Purpose of the Usernames. Regex (Unless Exact)
+        schema:
+          type: string
+        required: false
 ```
 
 '''
 
-from flask import current_app, Blueprint, g, request, jsonify, send_from_directory
 import json
-import ast
-import time
-import os
-import hashlib
+
+from flask import Blueprint, g, jsonify
+
+import manoward
 
 sapi_listusers = Blueprint('api2_sapi_listusers', __name__)
 
 
+
+@sapi_listusers.route("/listusers", methods=['GET'])
+@sapi_listusers.route("/listusers/", methods=['GET'])
 @sapi_listusers.route("/sapi/listusers", methods=['GET'])
 @sapi_listusers.route("/sapi/listusers/", methods=['GET'])
 def api2_sapi_listusers():
+
+    args_def = args_def = {"apiuid": {"req_type": int,
+                                        "default": None,
+                                        "required": False,
+                                        "positive" : True,
+                                        "sql_param" : True,
+                                        "sql_clause" : " apiuid = %s ",
+                                        "qdeparse" : True},
+                           "apiusername": {"req_type": str,
+                                           "default": None,
+                                           "required": False,
+                                           "sql_param": True,
+                                           "sql_clause": "apiusername REGEXP %s",
+                                           "sql_exact_clause": "apiusername = %s",
+                                           "qdeparse" : True},
+                           "apiuser_purpose": {"req_type": str,
+                                               "default": None,
+                                               "required": False,
+                                               "sql_param": True,
+                                               "sql_clause": "apiuser_purpose REGEXP %s",
+                                               "sql_exact_clause": "apiuser_purpose = %s",
+                                               "qdeparse" : True}
+                           }
+
+    args = manoward.process_args(args_def,
+                                 request.args,
+                                 include_exact=True)
 
     meta_dict = dict()
     request_data = list()
     links_dict = dict()
     error_dict = dict()
 
-    argument_error = False
-    where_clauses = list()
-
     meta_dict["version"] = 2
     meta_dict["name"] = "Jellyfish API Version 2 SAPI List Users "
     meta_dict["status"] = "In Progress"
 
-    if argument_error == False:
-        meta_dict["this_cached_file"] = g.config_items["v2api"]["cachelocation"] + \
-            "/sapi_listusers.json"
+    links_dict["parent"] = "{}{}/".format(g.config_items["v2api"]["preroot"],
+                                          g.config_items["v2api"]["root"])
 
-    meta_dict["NOW"] = g.NOW
-
-    links_dict["parent"] = g.config_items["v2api"]["preroot"] + \
-        g.config_items["v2api"]["root"] + "/sapi"
+    links_dict["self"] = "{}{}/listusers".format(g.config_items["v2api"]["preroot"],
+                                                      g.config_items["v2api"]["root"])
 
     requesttype = "sapi_listusers"
 
     do_query = True
 
-    #print(meta_dict, argument_error)
-
-    # Check to see if a Cache File exists
-    if argument_error == False and os.path.isfile(meta_dict["this_cached_file"]) is True:
-        # There's a Cache File see if it's fresh
-        cache_file_stats = os.stat(meta_dict["this_cached_file"])
-        # Should be timestamp of file in seconds
-        cache_file_create_time = int(cache_file_stats.st_ctime)
-        if cache_file_create_time > g.MIDNIGHT:
-            # Cache is fresh as of midnight
-            with open(meta_dict["this_cached_file"]) as cached_data:
-                try:
-                    cached = json.load(cached_data)
-                except Exception as e:
-                    print("Error reading cache file: " +
-                          meta_dict["this_cached_file"] + " with error " + str(e))
-                else:
-                    return jsonify(**cached)
-
-    list_user_query = "select apiuid, apiusername, apiuser_purpose from apiUsers;"
-
-    if do_query and argument_error == False:
-        # print(audit_result_query)
-        g.cur.execute(list_user_query)
-        all_users = g.cur.fetchall()
-        amount_of_users = len(all_users)
+    if len(args["args_clause"]) > 0:
+        where = " where "
     else:
-        error_dict["do_query"] = "Query Ignored"
-        amount_of_users = 0
+        where = " "
 
-    if amount_of_users > 0:
-        # Hydrate the dict with type & ids to be jsonapi compliant
-        for i in range(0, len(all_users)):
-            this_results = dict()
-            this_results["type"] = requesttype
-            this_results["id"] = all_users[i]["apiuid"]
-            this_results["attributes"] = all_users[i]
+    list_user_query = '''select apiuid, apiusername, apiuser_purpose from apiUsers
+                         {} {}'''.format(where,
+                                         " and ".join(args["args_clause"]))
 
-            # Now pop this onto request_data
-            request_data.append(this_results)
-        collections_good = True
 
-    else:
-        error_dict["ERROR"] = "No Users"
-        collections_good = False
+    run_result = manoward.run_query(g.cur,
+                                    list_user_query,
+                                    args=args["args_clause_args"],
+                                    do_abort=True)
 
-    if collections_good:
+    for this_user in run_result.get("data", list()):
+        this_results = dict()
+        this_results["type"] = requesttype
+        this_results["id"] = this_user["apiuid"]
+        this_results["attributes"] = this_user
 
-        response_dict = dict()
+        request_data.append(this_results)
 
-        response_dict = dict()
-        response_dict["meta"] = meta_dict
-        response_dict["data"] = request_data
-        response_dict["links"] = links_dict
-
-        # Write Request to Disk.
-        try:
-            with open(meta_dict["this_cached_file"], 'w') as cache_file_object:
-                json.dump(response_dict, cache_file_object)
-        except Exception as e:
-            print("Error writing file " +
-                  str(meta_dict["this_cached_file"]) + " with error " + str(e))
-        else:
-            print("Cache File wrote to " +
-                  str(meta_dict["this_cached_file"]) + " at timestamp " + str(g.NOW))
-
-        return jsonify(**response_dict)
-    else:
-
-        response_dict = dict()
-        response_dict["meta"] = meta_dict
-        response_dict["errors"] = error_dict
-        response_dict["links"] = links_dict
-
-        return jsonify(**response_dict)
+    return jsonify(meta=meta_dict, data=request, links=links_dict)
