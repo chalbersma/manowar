@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-'''
+"""
 Copyright 2018, VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
@@ -48,7 +48,7 @@ Accepts a regex filter for the main name
           type: string
         required: false
 ```
-'''
+"""
 
 import json
 import ast
@@ -67,6 +67,10 @@ collated = Blueprint('api2_collated', __name__)
 @collated.route("/collated/<collatedType>", methods=['GET'])
 @collated.route("/collated/<collatedType>/", methods=['GET'])
 def api2_collated(collatedType=False, typefilter=False, auditID=False):
+
+    """
+    API2 Collated
+    """
 
     args_def = {"collatedType": {"req_type": str,
                                  "default": collatedType,

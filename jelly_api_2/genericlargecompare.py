@@ -11,6 +11,7 @@ Should return data about the host & return the collections for this particular h
 /genericlargecompare/ :
   x-cached-length: "Every Midnight"
   get:
+    depreciated: true
     description: |
       Generic Large Commparison against a particular hoststatus.
     responses:
@@ -146,7 +147,11 @@ def api2_genericlargecompare(exact=False, hostname=False, pop=False, srvtype=Fal
                              matchcollection_cvalue=False, mtype=False, ctype=False,
                              csubtype=False, mvalue=False, fresh=172800):
 
-    # TODO Reconsider If this is a Wise Move.
+    """
+    A lot of the Live Audit Stuff is Being Retired
+
+    This is one of them.
+    """
 
     meta_dict = dict()
     request_data = list()

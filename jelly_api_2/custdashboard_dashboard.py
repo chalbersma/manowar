@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-'''
+"""
 Copyright 2018, VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
@@ -28,7 +28,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
         required: true
 ```
 
-'''
+"""
 
 from flask import current_app, Blueprint, g, request, jsonify, send_from_directory
 import json
@@ -45,6 +45,12 @@ custdashboard_dashboard = Blueprint('api2_custdashboard_dashboard', __name__)
 @custdashboard_dashboard.route("/custdashboard/dashboard/<string:dash_name>", methods=['GET'])
 @custdashboard_dashboard.route("/custdashboard/dashboard/<string:dash_name>/", methods=['GET'])
 def api2_custdashboard_dashboard(dash_id=None, dash_name=None):
+
+    """
+    Custdashboard Creation
+    Create a New Dashboard with a Name and Description (another endpoint modifies inserted
+    Audits.
+    """
 
     meta_dict = dict()
     request_data = list()
@@ -73,40 +79,13 @@ def api2_custdashboard_dashboard(dash_id=None, dash_name=None):
     meta_dict["name"] = "Jellyfish API Version 2 Customdashboard List Single Dashboard"
     meta_dict["status"] = "In Progress"
 
-    if argument_error == False:
-        hash_string = str(where_clause_args)
-        cache_hash_object = hashlib.sha512(hash_string.encode())
-        cache_string = cache_hash_object.hexdigest()
-        meta_dict["this_cached_file"] = g.config_items["v2api"]["cachelocation"] + \
-            "/custdash_" + cache_string + ".json"
-
     meta_dict["NOW"] = g.NOW
-
-    links_dict["parent"] = g.config_items["v2api"]["preroot"] + \
-        g.config_items["v2api"]["root"] + "/custdashboard/list"
+    links_dict["parent"] = "{}{}/custdashboard/list".format(g.config_items["v2api"]["preroot"],
+                                         g.config_items["v2api"]["root"])
 
     requesttype = "customdashboard_list_dashboard"
 
     do_query = True
-
-    #print(meta_dict, argument_error)
-
-    # Check to see if a Cache File exists
-    if argument_error == False and os.path.isfile(meta_dict["this_cached_file"]) is True:
-        # There's a Cache File see if it's fresh
-        cache_file_stats = os.stat(meta_dict["this_cached_file"])
-        # Should be timestamp of file in seconds
-        cache_file_create_time = int(cache_file_stats.st_ctime)
-        if cache_file_create_time > g.MIDNIGHT:
-            # Cache is fresh as of midnight
-            with open(meta_dict["this_cached_file"]) as cached_data:
-                try:
-                    cached = json.load(cached_data)
-                except Exception as e:
-                    print("Error reading cache file: " +
-                          meta_dict["this_cached_file"] + " with error " + str(e))
-                else:
-                    return jsonify(**cached)
 
     where_clause_string = " and ".join(where_clauses)
     if len(where_clause_args) > 0:
@@ -123,11 +102,9 @@ def api2_custdashboard_dashboard(dash_id=None, dash_name=None):
                                 on fk_custdashboardid = custdashboardid
                                 JOIN audits
                                 on fk_audits_id = audit_id
-                                '''
-    list_custdashboard_query = list_custdashboard_query + \
-        where_bits + where_clause_string
-
-    print("we here")
+                                {} {}
+                                '''.format(where_bits,
+                                           where_clause_string)
 
     if do_query and argument_error == False:
         # print(audit_result_query)

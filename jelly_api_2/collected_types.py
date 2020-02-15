@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 
-'''
+"""
 Copyright 2018, VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
 /collected/types endpoint
 Designed to grab information about information as it exists on the edge
-(according to our latest collected data). 
+(according to our latest collected data).
 * Returns a list of types on the server.
 
 ```swagger-yaml
@@ -24,7 +24,7 @@ Designed to grab information about information as it exists on the edge
     tags:
       - collections
 ```
-'''
+"""
 
 import json
 import ast
@@ -42,10 +42,16 @@ collected_types = Blueprint('api2_collected_type', __name__)
 @collected_types.route("/collected/types/", methods=['GET'])
 def api2_collected_types():
 
+    """
+    As an endpoint return the Avaialble Types.
+    """
+
+
+
+
     meta_dict = dict()
     request_data = list()
     links_dict = dict()
-    error_dict = dict()
 
     meta_dict["version"] = 2
     meta_dict["name"] = "Jellyfish API Version 2 : Collected Types"

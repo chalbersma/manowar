@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 
-'''
-Copyright 2018, VDMS
+"""
+Copyright 2018, 2020 VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
 /collected/subtypes endpoint
 Designed to grab information about information as it exists on the edge
-(according to our latest collected data). 
+(according to our latest collected data).
 * Returns a list of types on the server.
 
 ```swagger-yaml
@@ -25,7 +25,7 @@ Designed to grab information about information as it exists on the edge
     parameters:
      - name: ctype
        in: path
-       description: | 
+       description: |
          The Collection Type you wish to match against. Must be equal to this item. You can get
          a list of collection types from the `/collection/type` endpoint. Can be overridden with
          query string paramter.
@@ -33,7 +33,7 @@ Designed to grab information about information as it exists on the edge
        schema:
          type: string
 ```
-'''
+"""
 
 import json
 import ast
@@ -53,9 +53,10 @@ collected_subtypes = Blueprint('api2_collected_subtype', __name__)
 @collected_subtypes.route("/collected/subtypes/<string:ctype>", methods=['GET'])
 @collected_subtypes.route("/collected/subtypes/<string:ctype>/", methods=['GET'])
 def api2_collected_types(ctype="none"):
-    '''
+
+    """
     Return the Available Subtypes for a particular type
-    '''
+    """
 
     args_def = {"ctype": {"req_type": str,
                           "default": ctype,

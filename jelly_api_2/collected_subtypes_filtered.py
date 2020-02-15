@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 
-'''
+"""
 Copyright 2018, VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
 /collected/subtypes endpoint
 Designed to grab information about information as it exists on the edge
-(according to our latest collected data). 
+(according to our latest collected data).
 * Returns a list of types on the server.
 
 ```swagger-yaml
@@ -42,7 +42,7 @@ Designed to grab information about information as it exists on the edge
       {{ hosts | indent(6, True) }}
       {{ exact | indent(6, True) }}
 ```
-'''
+"""
 
 import json
 import ast
@@ -63,9 +63,10 @@ collected_subtypes_filtered = Blueprint(
 @collected_subtypes_filtered.route("/collected/subtypes_filtered/<string:ctype>", methods=['GET'])
 @collected_subtypes_filtered.route("/collected/subtypes_filtered/<string:ctype>/", methods=['GET'])
 def api2_collected_types_filtered(ctype="none"):
-    '''
+
+    """
     A slower filtered subtype query
-    '''
+    """
 
     args_def = {"ctype": {"req_type": str,
                           "default": ctype,

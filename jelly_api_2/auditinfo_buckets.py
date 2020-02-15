@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-'''
+"""
 Copyright 2018, 2020 VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
@@ -35,7 +35,7 @@ that runs the audits and the part that displays the audits
         required: true
 ```
 
-'''
+"""
 
 import json
 import ast
@@ -51,6 +51,8 @@ auditinfo_buckets = Blueprint('api2_auditinfo_buckets', __name__)
 
 @auditinfo_buckets.route("/auditinfo/<int:audit_id>/buckets", methods=['GET'])
 @auditinfo_buckets.route("/auditinfo/<int:audit_id>/buckets/", methods=['GET'])
+@auditinfo_buckets.route("/auditinfo_buckets/<int:audit_id>", methods=['GET'])
+@auditinfo_buckets.route("/auditinfo_buckets/<int:audit_id>/", methods=['GET'])
 def api2_auditinfo_buckets(audit_id=0):
     '''
     Loads the Audit Definition from Disk and Reads in the Arbitrarily Complex

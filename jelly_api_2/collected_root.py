@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-'''
+"""
 Copyright 2018, VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
@@ -18,7 +18,7 @@ Designed as the root point for all the collected endpoints
       200:
        description: OK
 ```
-'''
+"""
 
 from flask import current_app, Blueprint, g, request, jsonify
 import json

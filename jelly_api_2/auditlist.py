@@ -61,7 +61,6 @@ def api2_auditlist(audit_name=None, audit_priority=None, audit_description=None,
     List out All the Audits that meet the Items Prescribed
     '''
 
-    # TODO add exact definitions
     args_def = {"audit_name": {"req_type": str,
                                "default": audit_name,
                                "required": False,

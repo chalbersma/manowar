@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 '''
-Copyright 2018, VDMS
+Copyright 2018, 2020 VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
 /collected/values endpoint
@@ -57,10 +57,11 @@ collected_values = Blueprint('api2_collected_values', __name__)
 @collected_values.route("/collected/values/<string:ctype>", methods=['GET'])
 @collected_values.route("/collected/values/<string:ctype>/", methods=['GET'])
 def api2_collected_values(ctype="none"):
-    '''
+
+    """
     Get's Actual Collections about a Particular Collection Type
     With Lot's of Filters
-    '''
+    """
 
     args_def = {"ctype": {"req_type": str,
                           "default": ctype,
@@ -81,11 +82,10 @@ def api2_collected_values(ctype="none"):
     links_dict = dict()
 
     meta_dict["version"] = 2
-    meta_dict["name"] = "Jellyfish API Version 2 : Collected values for type {}".format(
-        args["ctype"])
+    meta_dict["name"] = "Jellyfish API Version 2 : Collected values for type {}".format(args["ctype"])
+
     meta_dict["status"] = "In Progress"
 
-    # TODO
     links_dict["children"] = {}
 
     links_dict["parent"] = "{}{}/collected/subtypes/".format(g.config_items["v2api"]["preroot"],

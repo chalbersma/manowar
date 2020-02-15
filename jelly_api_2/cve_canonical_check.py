@@ -8,6 +8,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 /cve/canoncial_check/{cve_name}/ :
   x-cached-length: "Every Midnight"
   get:
+    depreciated: true
     description: |
       Gives you a check against a particular cve for the population you specify
       in the arguments. Accepts the non collection paramaters (as this utilizes
@@ -89,7 +90,11 @@ cve_canonical_check = Blueprint('api2_cve_canonical_check', __name__)
 def api2_cve_canonical_check(cve_name=None, hostname=False, pop=False, srvtype=False,
                              hoststatus=False, status=False, exact=False):
 
-    # TODO Modernize This (Possibly Removal)
+    """
+    Currently A Removed Function.
+
+    Proper Method at the Moment is to Simply Remove Live Audit Function here and Generalize it.
+    """
 
     meta_info = dict()
     meta_info["version"] = 2

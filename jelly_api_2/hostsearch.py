@@ -35,13 +35,7 @@ Should return data about the host & return the collections for this particular h
 ```
 '''
 
-import json
-import ast
-import time
-import os
-import hashlib
-
-from flask import current_app, Blueprint, g, request, jsonify, send_from_directory
+from flask import Blueprint, g, request, jsonify
 
 import manoward
 
@@ -51,9 +45,10 @@ hostsearch = Blueprint('api2_hostsearch', __name__)
 @hostsearch.route("/hostsearch", methods=['GET'])
 @hostsearch.route("/hostsearch/", methods=['GET'])
 def api2_hostsearch():
-    '''
+
+    """
     Execute a Search for Hosts
-    '''
+    """
 
     args_def = {"ctype": {"req_type": str,
                           "default": None,

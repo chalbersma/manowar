@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Copyright 2018, VDMS
+Copyright 2018, 2020 VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
 ```swagger-yaml
@@ -40,9 +40,10 @@ puthostjson = Blueprint('puthostjson', __name__)
 @puthostjson.route("/sapi/puthostjson", methods=['GET', 'POST'])
 @puthostjson.route("/sapi/puthostjson/", methods=['GET', 'POST'])
 def generic_puthostjson():
-    '''
+
+    """
     Runs the /puthostjson endpoint. This stores the data sent from manowar_agent
-    '''
+    """
 
     meta_dict = dict()
     #request_data = list()
@@ -60,6 +61,8 @@ def generic_puthostjson():
     meta_dict["version"] = 2
     meta_dict["name"] = "Jellyfish SAPI PutHostJSON "
     meta_dict["status"] = "In Progress"
+
+    # TODO add Links Response
 
     error = False
 

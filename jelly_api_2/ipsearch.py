@@ -61,12 +61,9 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 ```
 """
 
-import json
-import ast
-import time
 import ipaddress
 
-from flask import current_app, Blueprint, g, request, jsonify, abort
+from flask import Blueprint, g, request, jsonify, abort
 
 import manoward
 
@@ -78,12 +75,13 @@ ipsearch = Blueprint('api2_ipsearch', __name__)
 @ipsearch.route("/ip/search/<string:ip>", methods=['GET'])
 @ipsearch.route("/ip/search/<string:ip>/", methods=['GET'])
 def api2_ipsearch(ip=None):
-    '''
+
+    """
     Given a IP or Subnet, Search for that Thing and Return it.
     Can Filter by items in the standards hosts column.
 
     Respects Exact
-    '''
+    """
 
     args_def = {"hostid": {"req_type": int,
                            "default": None,

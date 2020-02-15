@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-'''
+"""
 Copyright 2018, VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
@@ -46,7 +46,7 @@ Grab the historical list of servers that failed an audit at a particular time
       {{ exact | indent(6, True) }}
 ```
 
-'''
+"""
 
 
 import json
@@ -65,9 +65,10 @@ auditresults_timestamp = Blueprint('api2_auditresults_timestamp', __name__)
 @auditresults_timestamp.route("/auditresults/<int:audit_id>/<int:request_timestamp>", methods=['GET'])
 @auditresults_timestamp.route("/auditresults/<int:audit_id>/<int:request_timestamp>/", methods=['GET'])
 def api2_auditresults_timestamp(request_timestamp=0, audit_id=0):
-    '''
+
+    """
     Return the Audit Results as they appeared at a particular time.
-    '''
+    """
 
     args_def = args_def = {"audit_id": {"req_type": int,
                                         "default": audit_id,

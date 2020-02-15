@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-'''
-Copyright 2018, VDMS
+"""
+Copyright 2018, 2020 VDMS
 Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms.
 
 API for Host Information
@@ -38,15 +38,11 @@ Should return data about the host & return the collections for this particular h
       {{ exact | indent(6, True) }}
       {{ col | indent(6, True) }}
 ```
-'''
+"""
 
 import json
-import ast
-import time
-import os
-import hashlib
 
-from flask import current_app, Blueprint, g, request, jsonify, send_from_directory, abort
+from flask import Blueprint, g, request, jsonify
 
 import manoward
 
@@ -57,6 +53,12 @@ hostcollections = Blueprint('api2_hostcollections', __name__)
 @hostcollections.route("/hostcollections/<int:host_id>", methods=['GET'])
 @hostcollections.route("/hostcollections/<int:host_id>/", methods=['GET'])
 def api2_hostcollections(host_id=0):
+
+    """
+    API2 Host Collections
+
+    Returns the Collections for a particular host.
+    """
 
     args_def = {"hostid": {"req_type": int,
                            "default": host_id,
