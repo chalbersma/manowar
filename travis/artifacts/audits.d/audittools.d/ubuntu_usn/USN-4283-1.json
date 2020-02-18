@@ -1,0 +1,169 @@
+{
+  "USN-4283-1": {
+    "auditts": 1582045006,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "qemu-system-s390x",
+          "qemu",
+          "qemu-system",
+          "qemu-system-x86",
+          "qemu-system-sparc",
+          "qemu-system-arm",
+          "qemu-system-ppc",
+          "qemu-system-mips"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:2.11+dfsg-1ubuntu7.23",
+          "1:2.11+dfsg-1ubuntu7.23",
+          "1:2.11+dfsg-1ubuntu7.23",
+          "1:2.11+dfsg-1ubuntu7.23",
+          "1:2.11+dfsg-1ubuntu7.23",
+          "1:2.11+dfsg-1ubuntu7.23",
+          "1:2.11+dfsg-1ubuntu7.23",
+          "1:2.11+dfsg-1ubuntu7.23"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "qemu-system-s390x",
+          "qemu",
+          "qemu-system",
+          "qemu-system-x86",
+          "qemu-system-sparc",
+          "qemu-system-arm",
+          "qemu-system-ppc",
+          "qemu-system-mips"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:4.0+dfsg-0ubuntu9.4",
+          "1:4.0+dfsg-0ubuntu9.4",
+          "1:4.0+dfsg-0ubuntu9.4",
+          "1:4.0+dfsg-0ubuntu9.4",
+          "1:4.0+dfsg-0ubuntu9.4",
+          "1:4.0+dfsg-0ubuntu9.4",
+          "1:4.0+dfsg-0ubuntu9.4",
+          "1:4.0+dfsg-0ubuntu9.4"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "qemu-system-s390x",
+          "qemu-system-arm",
+          "qemu-system",
+          "qemu-system-aarch64",
+          "qemu-system-x86",
+          "qemu-system-sparc",
+          "qemu",
+          "qemu-system-ppc",
+          "qemu-system-mips"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1:2.5+dfsg-5ubuntu10.43",
+          "1:2.5+dfsg-5ubuntu10.43",
+          "1:2.5+dfsg-5ubuntu10.43",
+          "1:2.5+dfsg-5ubuntu10.43",
+          "1:2.5+dfsg-5ubuntu10.43",
+          "1:2.5+dfsg-5ubuntu10.43",
+          "1:2.5+dfsg-5ubuntu10.43",
+          "1:2.5+dfsg-5ubuntu10.43",
+          "1:2.5+dfsg-5ubuntu10.43"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2020-1711_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1711.html",
+      "CVE-2020-7039_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-7039.html",
+      "CVE-2020-8608_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-8608.html",
+      "USN-4283-1": "https://usn.ubuntu.com/4283-1/"
+    },
+    "vuln-long-description": "Felipe Franciosi, Raphael Norwitz, and Peter Turschmid discovered that QEMU\nincorrectly handled iSCSI server responses. A remote attacker in control of\nthe iSCSI server could use this issue to cause QEMU to crash, leading to a\ndenial of service, or possibly execute arbitrary code. (CVE-2020-1711)\n\nIt was discovered that the QEMU libslirp component incorrectly handled\nmemory. A remote attacker could use this issue to cause QEMU to crash,\nresulting in a denial of service, or possibly execute arbitrary code.\n(CVE-2020-7039, CVE-2020-8608)\n\n\nTLDR: After a standard system update you need to restart all QEMU virtual\nmachines to make all the necessary changes.\n\n",
+    "vuln-name": "USN-4283-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4283-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in QEMU.\n"
+  }
+}

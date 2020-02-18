@@ -1,0 +1,74 @@
+{
+  "USN-4282-1": {
+    "auditts": 1582029600,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "postgresql-10"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "10.12-0ubuntu0.18.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "postgresql-11"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "11.7-0ubuntu0.19.10.1"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2020-1720_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-1720.html",
+      "USN-4282-1": "https://usn.ubuntu.com/4282-1/"
+    },
+    "vuln-long-description": "It was discovered that PostgreSQL incorrectly performed authorization\nchecks when handling the \"ALTER ... DEPENDS ON EXTENSION\" sub-commands. A\nremote attacker could possibly use this issue to drop any function,\nprocedure, materialized view, index, or trigger under certain conditions.\n\n\nTLDR: This update uses a new upstream release, which includes additional bug\nfixes. After a standard system update you need to restart PostgreSQL to\nmake all the necessary changes.\n\n",
+    "vuln-name": "USN-4282-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4282-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "PostgreSQL could allow unintended access to the database.\n"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "USN-4278-1": {
+    "auditts": 1581633085,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "firefox"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "73.0+build3-0ubuntu0.18.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "firefox"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "73.0+build3-0ubuntu0.19.10.1"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2020-6796_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-6796.html",
+      "CVE-2020-6798_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-6798.html",
+      "CVE-2020-6800_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-6800.html",
+      "CVE-2020-6801_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-6801.html",
+      "USN-4278-1": "https://usn.ubuntu.com/4278-1/"
+    },
+    "vuln-long-description": "Multiple security issues were discovered in Firefox. If a user were tricked\nin to opening a specially crafted website, an attacker could potentially\nexploit these to cause a denial of service, conduct cross-site scripting\n(XSS) attacks, or execute arbitrary code.\n\n\nTLDR: After a standard system update you need to restart Firefox to make\nall the necessary changes.\n\n",
+    "vuln-name": "USN-4278-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4278-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Firefox could be made to crash or run programs as your login if it\nopened a malicious website.\n"
+  }
+}

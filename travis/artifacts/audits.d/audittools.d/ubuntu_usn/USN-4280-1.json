@@ -1,0 +1,101 @@
+{
+  "USN-4280-1": {
+    "auditts": 1582028647,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "clamav"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.102.2+dfsg-0ubuntu0.18.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "clamav"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.102.2+dfsg-0ubuntu0.19.10.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "clamav"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.102.2+dfsg-0ubuntu0.16.04.1"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2020-3123_(Unknown)": null,
+      "USN-4280-1": "https://usn.ubuntu.com/4280-1/"
+    },
+    "vuln-long-description": "It was discovered that ClamAV incorrectly handled memory when the\nData-Loss-Prevention (DLP) feature was enabled. A remote attacker could\npossibly use this issue to cause ClamAV to crash, resulting in a denial of\nservice.\n\n\nTLDR: This update uses a new upstream release, which includes additional bug\nfixes. In general, a standard system update will make all the necessary\n\n",
+    "vuln-name": "USN-4280-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4280-1/",
+    "vuln-priority": 1,
+    "vuln-short-description": "ClamAV could be made to crash if it opened a specially crafted file.\n"
+  }
+}

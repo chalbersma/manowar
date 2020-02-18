@@ -1,0 +1,202 @@
+{
+  "USN-4279-1": {
+    "auditts": 1581963223,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "php7.2-cli",
+          "libapache2-mod-php7.2",
+          "php7.2-fpm",
+          "php7.2-cgi"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "7.2.24-0ubuntu0.18.04.3",
+          "7.2.24-0ubuntu0.18.04.3",
+          "7.2.24-0ubuntu0.18.04.3",
+          "7.2.24-0ubuntu0.18.04.3"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "php7.3-cgi",
+          "php7.3-fpm",
+          "php7.3-cli",
+          "libapache2-mod-php7.3"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "7.3.11-0ubuntu0.19.10.3",
+          "7.3.11-0ubuntu0.19.10.3",
+          "7.3.11-0ubuntu0.19.10.3",
+          "7.3.11-0ubuntu0.19.10.3"
+        ]
+      },
+      "precise-bucket": {
+        "comparison-collection-subtype": [
+          "php5-cli",
+          "php5-cgi",
+          "libapache2-mod-php5",
+          "php5-fpm"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.3.10-1ubuntu3.44",
+          "5.3.10-1ubuntu3.44",
+          "5.3.10-1ubuntu3.44",
+          "5.3.10-1ubuntu3.44"
+        ]
+      },
+      "trusty-bucket": {
+        "comparison-collection-subtype": [
+          "php5-cli",
+          "php5-cgi",
+          "libapache2-mod-php5",
+          "php5-fpm"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.5.9+dfsg-1ubuntu4.29+esm10",
+          "5.5.9+dfsg-1ubuntu4.29+esm10",
+          "5.5.9+dfsg-1ubuntu4.29+esm10",
+          "5.5.9+dfsg-1ubuntu4.29+esm10"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "php7.0-fpm",
+          "libapache2-mod-php7.0",
+          "php7.0-cli",
+          "php7.0-cgi"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "7.0.33-0ubuntu0.16.04.11",
+          "7.0.33-0ubuntu0.16.04.11",
+          "7.0.33-0ubuntu0.16.04.11",
+          "7.0.33-0ubuntu0.16.04.11"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "precise-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "precise"
+        ]
+      },
+      "trusty-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "trusty"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2015-9253_(Unknown)": null,
+      "CVE-2020-7059_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-7059.html",
+      "CVE-2020-7060_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-7060.html",
+      "USN-4279-1": "https://usn.ubuntu.com/4279-1/"
+    },
+    "vuln-long-description": "It was discovered that PHP incorrectly handled certain scripts.\nAn attacker could possibly use this issue to cause a denial of service.\nThis issue only affected Ubuntu 12.04 ESM, Ubuntu 14.04 ESM and Ubuntu 16.04 LTS.\n(CVE-2015-9253)\n\nIt was discovered that PHP incorrectly handled certain inputs. An attacker\ncould possibly use this issue to expose sensitive information.\n(CVE-2020-7059)\n\nIt was discovered that PHP incorrectly handled certain inputs.\nAn attacker could possibly use this issue to execute arbitrary code.\nThis issue only affected Ubuntu 14.04 ESM, Ubuntu 16.04 LTS, Ubuntu 18.04 LTS\nand Ubuntu 19.10. (CVE-2020-7060)\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4279-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4279-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in PHP.\n"
+  }
+}

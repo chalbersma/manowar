@@ -1,0 +1,84 @@
+{
+  "USN-4281-1": {
+    "auditts": 1582029049,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "libwebkit2gtk-4.0-37",
+          "libjavascriptcoregtk-4.0-18"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.26.4-0ubuntu0.18.04.1",
+          "2.26.4-0ubuntu0.18.04.1"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "libwebkit2gtk-4.0-37",
+          "libjavascriptcoregtk-4.0-18"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.26.4-0ubuntu0.19.10.1",
+          "2.26.4-0ubuntu0.19.10.1"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2020-3862_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-3862.html",
+      "CVE-2020-3864_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-3864.html",
+      "CVE-2020-3865_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-3865.html",
+      "CVE-2020-3867_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-3867.html",
+      "CVE-2020-3868_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-3868.html",
+      "USN-4281-1": "https://usn.ubuntu.com/4281-1/"
+    },
+    "vuln-long-description": "A large number of security issues were discovered in the WebKitGTK+ Web and\nJavaScript engines. If a user were tricked into viewing a malicious\nwebsite, a remote attacker could exploit a variety of issues related to web\nbrowser security, including cross-site scripting attacks, denial of service\nattacks, and arbitrary code execution.\n\n\nTLDR: This update uses a new upstream release, which includes additional bug\nfixes. After a standard system update you need to restart any applications\nthat use WebKitGTK+, such as Epiphany, to make all the necessary changes.\n\n",
+    "vuln-name": "USN-4281-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4281-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in WebKitGTK+.\n"
+  }
+}
