@@ -1,0 +1,56 @@
+{
+  "RHSA-2020:0521": {
+    "auditts": 1582055805,
+    "comparisons": {
+      "6-bucket": {
+        "comparison-collection-subtype": [
+          "firefox"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "68.5.0"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "6-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          6
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2020-6796": "https://access.redhat.com/security/cve/CVE-2020-6796",
+      "CVE-2020-6798": "https://access.redhat.com/security/cve/CVE-2020-6798",
+      "CVE-2020-6800": "https://access.redhat.com/security/cve/CVE-2020-6800",
+      "bz#1801916: CVE-2020-6796 Mozilla: Missing bounds check on shared memory read in the parent process": "https://bugzilla.redhat.com/show_bug.cgi?id=1801916",
+      "bz#1801918: CVE-2020-6798 Mozilla: Incorrect parsing of template tag could result in JavaScript injection": "https://bugzilla.redhat.com/show_bug.cgi?id=1801918",
+      "bz#1801920: CVE-2020-6800 Mozilla: Memory safety bugs fixed in Firefox 73 and Firefox ESR 68.5": "https://bugzilla.redhat.com/show_bug.cgi?id=1801920",
+      "https://access.redhat.com/errata/RHSA-2020:0521": "https://access.redhat.com/errata/RHSA-2020:0521",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2020-06/#CVE-2020-6796": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-06/#CVE-2020-6796",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2020-06/#CVE-2020-6798": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-06/#CVE-2020-6798",
+      "https://www.mozilla.org/en-US/security/advisories/mfsa2020-06/#CVE-2020-6800": "https://www.mozilla.org/en-US/security/advisories/mfsa2020-06/#CVE-2020-6800"
+    },
+    "vuln-long-description": "An update for firefox is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nMozilla Firefox is an open-source web browser, designed for standards compliance, performance, and portability.\nThis update upgrades Firefox to version 68.5.0 ESR.\nSecurity Fix(es):\n* Mozilla: Missing bounds check on shared memory read in the parent process (CVE-2020-6796)\n* Mozilla: Memory safety bugs fixed in Firefox 73 and Firefox ESR 68.5 (CVE-2020-6800)\n* Mozilla: Incorrect parsing of template tag could result in JavaScript injection (CVE-2020-6798)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0521",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0521",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for firefox is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

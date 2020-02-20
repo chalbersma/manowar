@@ -1,0 +1,104 @@
+{
+  "RHSA-2020:0335": {
+    "auditts": 1581665311,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "grub2-debugsource",
+          "grub2-tools-minimal",
+          "grub2-tools-extra",
+          "grub2-tools",
+          "grub2-ppc64le",
+          "grub2-tools-efi",
+          "grub2-pc",
+          "grub2-efi-x64-cdboot",
+          "grub2-efi-x64",
+          "grub2-efi-ia32-cdboot",
+          "grub2-efi-ia32",
+          "grub2-efi-aa64-cdboot",
+          "grub2-efi-aa64",
+          "grub2-ppc64le-modules",
+          "grub2-pc-modules",
+          "grub2-efi-x64-modules",
+          "grub2-efi-ia32-modules",
+          "grub2-efi-aa64-modules",
+          "grub2-common"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02",
+          "2.02"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-14865": "https://access.redhat.com/security/cve/CVE-2019-14865",
+      "bz#1764925: CVE-2019-14865 grub2: grub2-set-bootflag utility causes grubenv corruption rendering the system non-bootable": "https://bugzilla.redhat.com/show_bug.cgi?id=1764925",
+      "https://access.redhat.com/errata/RHSA-2020:0335": "https://access.redhat.com/errata/RHSA-2020:0335",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://seclists.org/oss-sec/2019/q4/101": "https://seclists.org/oss-sec/2019/q4/101"
+    },
+    "vuln-long-description": "An update for grub2 is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe grub2 packages provide version 2 of the Grand Unified Boot Loader (GRUB), a highly configurable and customizable boot loader with modular architecture. The packages support a variety of kernel formats, file systems, computer architectures, and hardware devices.\nSecurity Fix(es):\n* grub2: grub2-set-bootflag utility causes grubenv corruption rendering the system non-bootable (CVE-2019-14865)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0335",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0335",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for grub2 is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "RHSA-2020:0329": {
+    "auditts": 1581665302,
+    "comparisons": {
+      "8-bucket": {
+        "comparison-collection-subtype": [
+          "golang-bin",
+          "golang",
+          "go-toolset",
+          "golang-tests",
+          "golang-src",
+          "golang-misc",
+          "golang-docs",
+          "golang-race"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.12.12",
+          "1.12.12",
+          "1.12.12",
+          "1.12.12",
+          "1.12.12",
+          "1.12.12",
+          "1.12.12",
+          "1.12.12"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "8-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          8
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-16276": "https://access.redhat.com/security/cve/CVE-2019-16276",
+      "CVE-2019-17596": "https://access.redhat.com/security/cve/CVE-2019-17596",
+      "bz#1755969: CVE-2019-16276 golang: HTTP/1.1 headers with a space before the colon leads to filter bypass or request smuggling": "https://bugzilla.redhat.com/show_bug.cgi?id=1755969",
+      "bz#1763310: CVE-2019-17596 golang: invalid public key causes panic in dsa.Verify": "https://bugzilla.redhat.com/show_bug.cgi?id=1763310",
+      "https://access.redhat.com/errata/RHSA-2020:0329": "https://access.redhat.com/errata/RHSA-2020:0329",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate",
+      "https://groups.google.com/forum/#!msg/golang-announce/cszieYyuL9Q/g4Z7pKaqAgAJ": "https://groups.google.com/forum/#!msg/golang-announce/cszieYyuL9Q/g4Z7pKaqAgAJ",
+      "https://groups.google.com/forum/#!msg/golang-announce/lVEm7llp0w0/VbafyRkgCgAJ": "https://groups.google.com/forum/#!msg/golang-announce/lVEm7llp0w0/VbafyRkgCgAJ"
+    },
+    "vuln-long-description": "An update for the go-toolset:rhel8 module is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nGo Toolset provides the Go programming language tools and libraries. Go is alternatively known as golang.\nSecurity Fix(es):\n* golang: HTTP/1.1 headers with a space before the colon leads to filter bypass or request smuggling (CVE-2019-16276)\n* golang: invalid public key causes panic in dsa.Verify (CVE-2019-17596)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0329",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0329",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for the go-toolset:rhel8 module is now available for Red Hat Enterprise Linux 8.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

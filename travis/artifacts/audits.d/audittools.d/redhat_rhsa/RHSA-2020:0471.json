@@ -1,0 +1,64 @@
+{
+  "RHSA-2020:0471": {
+    "auditts": 1581679680,
+    "comparisons": {
+      "6-bucket": {
+        "comparison-collection-subtype": [
+          "spice-gtk-tools",
+          "spice-glib-devel",
+          "spice-gtk-devel",
+          "spice-glib",
+          "spice-gtk",
+          "spice-gtk-python"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "0.26",
+          "0.26",
+          "0.26",
+          "0.26",
+          "0.26",
+          "0.26"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "6-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          6
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2018-10893": "https://access.redhat.com/security/cve/CVE-2018-10893",
+      "bz#1598234: CVE-2018-10893 spice-client: Insufficient encoding checks for LZ can cause different integer/buffer overflows": "https://bugzilla.redhat.com/show_bug.cgi?id=1598234",
+      "https://access.redhat.com/errata/RHSA-2020:0471": "https://access.redhat.com/errata/RHSA-2020:0471",
+      "https://access.redhat.com/security/updates/classification/#moderate": "https://access.redhat.com/security/updates/classification/#moderate"
+    },
+    "vuln-long-description": "An update for spice-gtk is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe spice-gtk packages provide a GIMP Toolkit (GTK+) widget for Simple Protocol for Independent Computing Environments (SPICE) clients. Both Virtual Machine Manager and Virtual Machine Viewer can make use of this widget to access virtual machines using the SPICE protocol.\nSecurity Fix(es):\n* spice-client: Insufficient encoding checks for LZ can cause different integer/buffer overflows (CVE-2018-10893)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0471",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0471",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for spice-gtk is now available for Red Hat Enterprise Linux 6.\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

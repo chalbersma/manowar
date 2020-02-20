@@ -1,0 +1,58 @@
+{
+  "RHSA-2020:0550": {
+    "auditts": 1582166566,
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "openjpeg2-devel-docs",
+          "openjpeg2-tools",
+          "openjpeg2-devel",
+          "openjpeg2"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.3.1",
+          "2.3.1",
+          "2.3.1",
+          "2.3.1"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2020-8112": "https://access.redhat.com/security/cve/CVE-2020-8112",
+      "bz#1800535: CVE-2020-8112 openjpeg: heap-based buffer overflow in pj_t1_clbl_decode_processor in openjp2/t1.c": "https://bugzilla.redhat.com/show_bug.cgi?id=1800535",
+      "https://access.redhat.com/errata/RHSA-2020:0550": "https://access.redhat.com/errata/RHSA-2020:0550",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important"
+    },
+    "vuln-long-description": "An update for openjpeg2 is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nOpenJPEG is an open source library for reading and writing image files in JPEG2000 format.\nSecurity Fix(es):\n* openjpeg: heap-based buffer overflow in pj_t1_clbl_decode_processor in openjp2/t1.c (CVE-2020-8112)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0550",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0550",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for openjpeg2 is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

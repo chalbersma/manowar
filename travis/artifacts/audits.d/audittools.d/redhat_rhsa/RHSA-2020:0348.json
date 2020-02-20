@@ -1,6 +1,6 @@
 {
   "RHSA-2020:0348": {
-    "auditts": 1580851539,
+    "auditts": 1581665303,
     "comparisons": {
       "8-bucket": {
         "comparison-collection-subtype": [
@@ -93,6 +93,7 @@
         ]
       }
     },
+    "filename": "nofile",
     "filters": {
       "8-bucket": {
         "filter-collection-subtype": [

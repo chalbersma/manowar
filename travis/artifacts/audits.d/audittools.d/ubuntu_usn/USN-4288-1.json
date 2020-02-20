@@ -1,0 +1,101 @@
+{
+  "USN-4288-1": {
+    "auditts": 1582205874,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "ppp"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.4.7-2+2ubuntu1.2"
+        ]
+      },
+      "eoan-bucket": {
+        "comparison-collection-subtype": [
+          "ppp"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.4.7-2+4.1ubuntu4.1"
+        ]
+      },
+      "xenial-bucket": {
+        "comparison-collection-subtype": [
+          "ppp"
+        ],
+        "comparison-collection-type": [
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "2.4.7-1+2ubuntu1.16.04.2"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      },
+      "eoan-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "eoan"
+        ]
+      },
+      "xenial-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "xenial"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2020-8597_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-8597.html",
+      "USN-4288-1": "https://usn.ubuntu.com/4288-1/"
+    },
+    "vuln-long-description": "It was discovered that ppp incorrectly handled certain rhostname values. A\nremote attacker could use this issue to cause ppp to crash, resulting in a\ndenial of service, or possibly execute arbitrary code.\n\n\nTLDR: In general, a standard system update will make all the necessary changes.\n\n",
+    "vuln-name": "USN-4288-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4288-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "ppp could be made to crash or run programs if it received specially crafted\nnetwork traffic.\n"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "RHSA-2020:0540": {
+    "auditts": 1582144478,
+    "comparisons": {
+      "7-bucket": {
+        "comparison-collection-subtype": [
+          "sudo-devel",
+          "sudo"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "1.8.23",
+          "1.8.23"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "7-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os_family",
+          "os_release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "RedHat",
+          7
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-18634": "https://access.redhat.com/security/cve/CVE-2019-18634",
+      "bz#1796944: CVE-2019-18634 sudo: Stack based buffer overflow when pwfeedback is enabled": "https://bugzilla.redhat.com/show_bug.cgi?id=1796944",
+      "https://access.redhat.com/errata/RHSA-2020:0540": "https://access.redhat.com/errata/RHSA-2020:0540",
+      "https://access.redhat.com/security/updates/classification/#important": "https://access.redhat.com/security/updates/classification/#important",
+      "https://www.sudo.ws/alerts/pwfeedback.html": "https://www.sudo.ws/alerts/pwfeedback.html"
+    },
+    "vuln-long-description": "An update for sudo is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.\n\nThe sudo packages contain the sudo utility which allows system administrators to provide certain users with the permission to execute privileged commands, which are used for system management purposes, without having to log in as root.\nSecurity Fix(es):\n* sudo: Stack based buffer overflow when pwfeedback is enabled (CVE-2019-18634)\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nPlease see https://www.redhat.com/footer/terms-of-use.html",
+    "vuln-name": "RHSA-2020:0540",
+    "vuln-primary-link": "https://access.redhat.com/errata/RHSA-2020:0540",
+    "vuln-priority": 1,
+    "vuln-short-description": "An update for sudo is now available for Red Hat Enterprise Linux 7.\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section."
+  }
+}

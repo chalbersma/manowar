@@ -1,0 +1,79 @@
+{
+  "USN-4285-1": {
+    "auditts": 1582054531,
+    "comparisons": {
+      "bionic-bucket": {
+        "comparison-collection-subtype": [
+          "linux-image-5.0.0-1011-oracle",
+          "linux-image-gke-5.0",
+          "linux-image-gcp",
+          "linux-image-5.0.0-1030-gke",
+          "linux-image-5.0.0-1032-azure",
+          "linux-image-5.0.0-1031-gcp",
+          "linux-image-azure",
+          "linux-image-5.0.0-1025-aws"
+        ],
+        "comparison-collection-type": [
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages",
+          "packages"
+        ],
+        "comparison-match": "aptge",
+        "comparison-match-value": [
+          "5.0.0-1011.16",
+          "5.0.0.1030.18",
+          "5.0.0.1031.35",
+          "5.0.0-1030.31",
+          "5.0.0-1032.34",
+          "5.0.0-1031.32",
+          "5.0.0.1032.43",
+          "5.0.0-1025.28"
+        ]
+      }
+    },
+    "filename": "nofile",
+    "filters": {
+      "bionic-bucket": {
+        "filter-collection-subtype": [
+          "default",
+          "default"
+        ],
+        "filter-collection-type": [
+          "os",
+          "release"
+        ],
+        "filter-match": "is",
+        "filter-match-value": [
+          "Ubuntu",
+          "bionic"
+        ]
+      }
+    },
+    "jellyfishversion": "2.6",
+    "vuln-additional-links": {
+      "CVE-2019-14615_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-14615.html",
+      "CVE-2019-16229_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-16229.html",
+      "CVE-2019-16232_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-16232.html",
+      "CVE-2019-18786_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18786.html",
+      "CVE-2019-18809_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18809.html",
+      "CVE-2019-19057_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19057.html",
+      "CVE-2019-19063_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19063.html",
+      "CVE-2019-19947_(Low)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19947.html",
+      "CVE-2019-19965_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-19965.html",
+      "CVE-2019-20096_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-20096.html",
+      "CVE-2019-5108_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-5108.html",
+      "CVE-2020-7053_(Medium)": "https://people.canonical.com/~ubuntu-security/cve/2020/CVE-2020-7053.html",
+      "USN-4285-1": "https://usn.ubuntu.com/4285-1/"
+    },
+    "vuln-long-description": "It was discovered that the Linux kernel did not properly clear data\nstructures on context switches for certain Intel graphics processors. A\nlocal attacker could use this to expose sensitive information.\n(CVE-2019-14615)\n\nIt was discovered that the HSA Linux kernel driver for AMD GPU devices did\nnot properly check for errors in certain situations, leading to a NULL\npointer dereference. A local attacker could possibly use this to cause a\ndenial of service. (CVE-2019-16229)\n\nIt was discovered that the Marvell 8xxx Libertas WLAN device driver in the\nLinux kernel did not properly check for errors in certain situations,\nleading to a NULL pointer dereference. A local attacker could possibly use\nthis to cause a denial of service. (CVE-2019-16232)\n\nIt was discovered that the Renesas Digital Radio Interface (DRIF) driver in\nthe Linux kernel did not properly initialize data. A local attacker could\npossibly use this to expose sensitive information (kernel memory).\n(CVE-2019-18786).\n\nIt was discovered that the Afatech AF9005 DVB-T USB device driver in the\nLinux kernel did not properly deallocate memory in certain error\nconditions. A local attacker could possibly use this to cause a denial of\nservice (kernel memory exhaustion). (CVE-2019-18809)\n\nIt was discovered that multiple memory leaks existed in the Marvell WiFi-Ex\nDriver for the Linux kernel. A local attacker could possibly use this to\ncause a denial of service (kernel memory exhaustion). (CVE-2019-19057)\n\nIt was discovered that the Realtek rtlwifi USB device driver in the Linux\nkernel did not properly deallocate memory in certain error conditions. A\nlocal attacker could possibly use this to cause a denial of service (kernel\nmemory exhaustion). (CVE-2019-19063)\n\nIt was discovered that the Kvaser CAN/USB driver in the Linux kernel did\nnot properly initialize memory in certain situations. A local attacker\ncould possibly use this to expose sensitive information (kernel memory).\n(CVE-2019-19947)\n\nGao Chuan discovered that the SAS Class driver in the Linux kernel\ncontained a race condition that could lead to a NULL pointer dereference. A\nlocal attacker could possibly use this to cause a denial of service (system\ncrash). (CVE-2019-19965)\n\nIt was discovered that the Datagram Congestion Control Protocol (DCCP)\nimplementation in the Linux kernel did not properly deallocate memory in\ncertain error conditions. An attacker could possibly use this to cause a\ndenial of service (kernel memory exhaustion). (CVE-2019-20096)\n\nMitchell Frank discovered that the Wi-Fi implementation in the Linux kernel\nwhen used as an access point would send IAPP location updates for stations\nbefore client authentication had completed. A physically proximate attacker\ncould use this to cause a denial of service. (CVE-2019-5108)\n\nIt was discovered that a race condition can lead to a use-after-free while\ndestroying GEM contexts in the i915 driver for the Linux kernel. A local\nattacker could use this to cause a denial of service (system crash) or\npossibly execute arbitrary code. (CVE-2020-7053)\n\n\nTLDR: After a standard system update you need to reboot your computer to make\nall the necessary changes.\n\nATTENTION: Due to an unavoidable ABI change the kernel updates have\nbeen given a new version number, which requires you to recompile and\nreinstall all third party kernel modules you might have installed.\nUnless you manually uninstalled the standard kernel metapackages\n(e.g. linux-generic, linux-generic-lts-RELEASE, linux-virtual,\nlinux-powerpc), a standard system upgrade will automatically perform\nthis as well.\n\n",
+    "vuln-name": "USN-4285-1",
+    "vuln-primary-link": "https://usn.ubuntu.com/4285-1/",
+    "vuln-priority": 5,
+    "vuln-short-description": "Several security issues were fixed in the Linux kernel.\n"
+  }
+}
