@@ -10,9 +10,12 @@ import json
 import configparser
 import os
 import os.path
+import uuid
 
 import yaml
 import packaging.version
+
+import manoward
 
 if __name__ == "__main__" or __name__ == "audit_source":
     from verifyAudits import verifySingleAudit
@@ -47,13 +50,175 @@ class AuditSource:
                            "vuln-primary-link" : kwargs.get("vuln-primary-link", None),
                            "vuln-priority" : kwargs.get("vuln-priority", None),
                            "vuln-additional-links" : kwargs.get("vuln-additional-links", dict()),
-                           "vuln-long-description" : None,
+                           "vuln-long-description" : kwargs.get("vuln-long-description", None),
+                           "vuln-short-description" : kwargs.get("vuln-short-description", None),
                            "comparisons" : kwargs.get("comparisons", dict()),
                            "filters" : kwargs.get("filters", dict()),
-                           "jellyfishversion" : "2.6", }
-        
-        if isinstance(kwargs.get("auditts"), int):
-            self.audit_data["auditts"] = kwargs["auditts"]
+                           "jellyfishversion" : kwargs.get("jellyfishversion", "2.6")}
+
+        self.audit_uuid = kwargs.get("audit_uuid", str(uuid.uuid4()))
+        self.audit_id = kwargs.get("audit_id", None)
+
+        self.audit_data["filename"] = kwargs.get("filename", "nofile")
+
+        self.audit_data["auditts"] = kwargs.get("auditts", 1)
+
+        if kwargs.get("do_db", False):
+            self.db_load(kwargs["db_cur"])
+
+    def __str__(self):
+        """
+        String Representation of the Thing
+        """
+
+        return "Source:{} Name:{} Priority:{} Version:{}".format(self.source_key,
+                                                                 self.audit_name,
+                                                                 self.audit_data["vuln-priority"],
+                                                                 self.audit_data["jellyfishversion"])
+
+    def db_load(self, db_cur):
+
+        """
+        Use the Database to Load a DB Object for Usage
+        """
+
+        if self.audit_id is None:
+            get_query = '''select * from audits where audit_uuid = %s'''
+            query_args = [self.audit_uuid]
+        else:
+            get_query = '''select * from audits where audit_id = %s'''
+            query_args = [self.audit_id]
+
+        run_result = manoward.run_query(db_cur,
+                                        get_query,
+                                        args=query_args,
+                                        do_abort=False,
+                                        one=True,
+                                        require_results=True)
+
+        if run_result["has_error"] is True:
+            self.logger.error("Attempting to Load from DB {} or {} (first). None Found".format(audit_id, self.audit_uuid))
+            raise ValueError()
+        else:
+            this_data = run_result.get("data", dict())
+
+            self.source_key = this_data["audit_name"]
+            self.audit_name = this_data["audit_name"]
+
+            self.audit_filename = this_data["filename"]
+
+            self.audit_data = {"vuln-name": this_data["audit_name"],
+                               "vuln-primary-link": this_data["audit_primary_link"],
+                               "vuln-priority": this_data["audit_priority"],
+                               "vuln-additional-links": json.loads(this_data["audit_secondary_links"]),
+                               "vuln-long-description": this_data["audit_long_description"],
+                               "vuln-short-description": this_data["audit_short_description"],
+                               "comparisons": json.loads(this_data["audit_comparison"]),
+                               "filters": json.loads(this_data["audit_filters"]),
+                               "jellyfishversion": this_data["audit_version"],
+                               "filename" : this_data["filename"]}
+
+            self.audit_uuid = this_data["audit_uuid"]
+
+            self.audit_data["auditts"] = int(this_data["audit_ts"].timestamp())
+            self.audit_id = this_data["audit_id"]
+
+        return self.audit_uuid
+
+    def buckets(self):
+
+        """
+        Return all the matching Buckets in A List
+        """
+
+        buckets = [bucket for bucket in self.audit_data["comparisons"].keys() if bucket in self.audit_data["filters"].keys()]
+
+        return buckets
+
+    def update_db(self, db_cur, **kwargs):
+
+        """
+        Updates the Database Entry for this Audit
+        """
+
+        written = False
+        my_id = None
+        message = "Write not Attempted"
+
+        if self.validate_audit_live() is False:
+            self.logger.error("Unable to Validate Audit {} Not Writing to Database.")
+            message = "Audit Failed Validation Precheck. Not Recording to Database."
+        else:
+
+            # Let's attempt to Update Write
+            replace_sql = '''INSERT INTO audits  
+                             (audit_name, audit_uuid,
+                             audit_priority, 
+                             audit_short_description, audit_long_description,
+                             audit_primary_link, audit_secondary_links, 
+                             audit_filters, 
+                             audit_comparison,
+                             filename, 
+                             audit_version, audit_ts
+                             )
+                             VALUES ( %s, %s, 
+                             %s,
+                             %s, %s,
+                             %s, %s, 
+                             %s, 
+                             %s,
+                             %s, 
+                             %s, FROM_UNIXTIME(%s))
+                             on DUPLICATE KEY UPDATE
+                             audit_priority = %s,
+                             audit_short_description = %s, audit_long_description = %s,
+                             audit_primary_link = %s, audit_secondary_links = %s,
+                             audit_filters = %s, 
+                             audit_comparison = %s,
+                             filename = %s,
+                             audit_version = %s, audit_ts = FROM_UNIXTIME(%s)
+                             '''
+
+            replace_args = [self.audit_name, self.audit_uuid,
+                            self.audit_data["vuln-priority"],
+                            self.audit_data["vuln-short-description"][:254], self.audit_data["vuln-long-description"],
+                            self.audit_data["vuln-primary-link"], json.dumps(self.audit_data["vuln-additional-links"], sort_keys=True),
+                            json.dumps(self.audit_data["filters"], sort_keys=True),
+                            json.dumps(self.audit_data["comparisons"], sort_keys=True),
+                            self.audit_data["filename"],
+                            self.audit_data["jellyfishversion"], self.audit_data["auditts"],
+                            self.audit_data["vuln-priority"],
+                            self.audit_data["vuln-short-description"][:254], self.audit_data["vuln-long-description"],
+                            self.audit_data["vuln-primary-link"], json.dumps(self.audit_data["vuln-additional-links"], sort_keys=True),
+                            json.dumps(self.audit_data["filters"], sort_keys=True),
+                            json.dumps(self.audit_data["comparisons"], sort_keys=True),
+                            self.audit_data["filename"],
+                            self.audit_data["jellyfishversion"], self.audit_data["auditts"]]
+
+            run_result = manoward.run_query(db_cur,
+                                            replace_sql,
+                                            args=replace_args,
+                                            do_abort=False,
+                                            lastid=True,
+                                            require_results=False)
+
+            if run_result["has_error"] is True:
+                message = "Error When trying to Update Audit Info from file {}".format(self.audit_data["filename"])
+                raise ValueError()
+            elif isinstance(run_result.get("data", None), int) is False:
+                message = "Ran Query But unable to Get Audit ID, Likely an Update"
+                ## TODO Make Mariadb 10.5 with RETURNING as a requirement
+                written = True
+                my_id = -1
+            else:
+                my_id = run_result["data"]
+                written = True
+                message = "Wrote Audit {} to ID {}".format(self.audit_name, my_id)
+                self.audit_id = my_id
+
+        return dict(written=written, wid=my_id, message=message)
+
+
 
     def return_audit(self):
 

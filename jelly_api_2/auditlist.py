@@ -43,11 +43,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 ```
 """
 
-import json
-import ast
-import time
-
-from flask import current_app, Blueprint, g, request, jsonify, abort
+from flask import Blueprint, g, request, jsonify
 
 import manoward
 

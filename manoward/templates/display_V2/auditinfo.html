@@ -9,9 +9,9 @@
 </script>
 
 <div class="col-md-10">
-    <h1><a href='{{ content["data"][0]["attributes"]["audit_primary_link"] }}' >{{ content["data"][0]["attributes"]["audit_name"]|upper }}</a></h1>
+    <h1><a href='{{ content["data"][0]["attributes"]["audit_primary_link"] }}' >{{ audit_name|upper }}</a></h1>
     <h2>Description</h2>
-    <p>{{ content["data"][0]["attributes"]["audit_short_description"] }}</p>
+    <p>{{ content["data"][0]["attributes"][audit_name]["vuln-short-description"] }}</p>
 
     <h3>Historical:</h3>
     <div id="main_chart"></div>
@@ -50,23 +50,46 @@
     </script>
     <h3>Links</h3>
     <ul>
-        {% for link in content["data"][0]["attributes"]["audit_secondary_links"] %}
-            <li><a href='{{ content["data"][0]["attributes"]["audit_secondary_links"][link] }}'>{{ link }}</a></li>
+        {% for url, link_name in content["data"][0]["attributes"][audit_name]["vuln-additional-links"].items() %}
+            <li><a href="{{ url }}">{{ link_name }}</a></li>
         {% endfor %}
             <li><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/auditresults/{{ audit_id }}/?auditResult='fail'">Results Failure</a></li>
             <li><a href="{{ g.config_items["v2ui"]["preroot"] }}/display/v2/auditresults/{{ audit_id }}/">Results All</a></li>
     </ul>
 
     <h3>Long Description</h3>
-    <h4>Audit Priority :  {{ content["data"][0]["attributes"]["audit_priority"] }}</h4>
-
-    {{ content["data"][0]["attributes"]["audit_long_description"] }}
-
+    <h4>Audit Priority :  {{ content["data"][0]["attributes"][audit_name]["vuln-priority"] }}</h4>
+    <h4>Description of Issue: </h4>
+    <pre>
+    {{ content["data"][0]["attributes"][audit_name]["vuln-long-description"] }}
+    </pre>
     <h3>Host Grouping Information</h3>
     <table class="logic_table" id="host_grouping" style="border: 1px solid black; padding: 10px">
         <tr>
             <th colspan="100%" >Host Groupings</th>
         </tr>
+        {% for name, elements in content["data"][0]["attributes"][audit_name]["filters"].items() %}
+        {% set colspan = elements["filter-collection-type"]|length + 1 %}
+        <tr>
+            <th rowspan="{{colspan}}">{{ name }}</th>
+            <th>Collection Type</th>
+            <th>Collection Subtype</th>
+            <th>Match Operation</th>
+            <th>Match Value</th>
+        </tr>
+            {% for idx in range(0, colspan-1) %}
+        <tr>
+            <td>{{ elements["filter-collection-type"][idx] }}</td>
+            <td>{{ elements["filter-collection-subtype"][idx] }}</td>
+            {% if elements["filter-match"] is string %}
+            <td>{{ elements["filter-match"] }}</td>
+            {% else %}
+            <td>{{ elements["filter-match"][idx] }}</td>
+            {% endif %}
+            <td>{{ elements["filter-match-value"][idx] }}</td>
+        </tr>
+            {% endfor %}
+        {% endfor %}
     </table>
 
     <hr/>
@@ -75,141 +98,29 @@
         <tr>
         <th colspan="100%">Comparison Groupings</th>
         </tr>
+        {% for name, elements in content["data"][0]["attributes"][audit_name]["comparisons"].items() %}
+        {% set ccolspan = elements["comparison-collection-type"]|length + 1 %}
+        <tr>
+            <th rowspan="{{ccolspan}}">{{ name }}</th>
+            <th>Collection Type</th>
+            <th>Collection Subtype</th>
+            <th>Match Operation</th>
+            <th>Match Value</th>
+        </tr>
+        {% for idx in range(0, ccolspan-1) %}
+        <tr>
+            <td>{{ elements["comparison-collection-type"][idx] }}</td>
+            <td>{{ elements["comparison-collection-subtype"][idx] }}</td>
+            {% if elements["comparison-match"] is string %}
+            <td>{{ elements["comparison-match"] }}</td>
+            {% else %}
+            <td>{{ elements["comparison-match"][idx] }}</td>
+            {% endif %}
+            <td>{{ elements["comparison-match-value"][idx] }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
     </table>
-
-    <script>
-    function populate_group_tables(){
-
-	    $.getJSON("{{ g.config_items["v2ui"]["preroot"] }}/v2/auditinfo/{{ audit_id }}/buckets/", function(data){
-
-		    window.console.log(data)
-
-		    host_grouping_table_ref = document.getElementById("host_grouping").getElementsByTagName("tbody")[0]
-		    comparisons_grouping_table_ref = document.getElementById("comparisons_grouping").getElementsByTagName("tbody")[0]
-
-		    buckets = []
-
-		    for (var bucket in data["data"][0]["attributes"]["comparisons"] ) {
-			    buckets.push(bucket)
-		    }
-
-		    window.console.log(buckets)
-
-		    for (var dis_bucket_indx = 0 ; dis_bucket_indx < buckets.length; dis_bucket_indx++ ) {
-			    dis_bucket = buckets[dis_bucket_indx]
-			    window.console.log(dis_bucket)
-
-			    // Mtype
-			    this_comparisons_match_mtype = data["data"][0]["attributes"]["comparisons"][dis_bucket]["comparison-match"]
-			    this_host_grouping_match_mtype = data["data"][0]["attributes"]["filters"][dis_bucket]["filter-match"]
-
-			    // Length bits
-			    if ( typeof data["data"][0]["attributes"]["comparisons"][dis_bucket]["comparison-match-value"] != "string" ){
-				    // it's an array
-				    this_comparisons_match_amount = data["data"][0]["attributes"]["comparisons"][dis_bucket]["comparison-match-value"].length
-				    cg_do_array = true;
-			    } else {
-				    // It's a string, so only one row
-				    this_comparisons_match_amount = 1
-				    cg_do_array = false
-			    }
-
-			    if ( typeof data["data"][0]["attributes"]["filters"][dis_bucket]["filter-match-value"] != "string") {
-				    // Still an array
-				    this_host_grouping_match_amount = data["data"][0]["attributes"]["filters"][dis_bucket]["filter-match-value"].length
-				    hg_do_array = true;
-			    } else {
-				    // It's a string So only one row.
-				    this_host_grouping_match_amount = 1
-				    hg_do_array = false
-			    }
-
-			    // Do HG
-			    for (var hg_index = 0; hg_index < this_host_grouping_match_amount; hg_index++){
-
-				    hg_this_row = host_grouping_table_ref.insertRow(-1)
-
-				    if (hg_index == 0) {
-					    // Insert the First Row & Description Column
-					    hg_this_cell = hg_this_row.insertCell(0)
-					    hg_this_cell.setAttribute("rowspan", this_host_grouping_match_amount)
-					    hg_this_cell.innerHTML = dis_bucket
-				    }
-
-				    if ( hg_do_array == true) {
-					    // It's an array so take the proper element
-					    hg_this_ctype = data["data"][0]["attributes"]["filters"][dis_bucket]["filter-collection-type"][hg_index]
-					    hg_this_csub = data["data"][0]["attributes"]["filters"][dis_bucket]["filter-collection-subtype"][hg_index]
-					    hg_this_mvalue = data["data"][0]["attributes"]["filters"][dis_bucket]["filter-match-value"][hg_index]
-				    } else {
-					    // It's a string so take the whole damn thing.
-					    hg_this_ctype = data["data"][0]["attributes"]["filters"][dis_bucket]["filter-collection-type"]
-					    hg_this_csub = data["data"][0]["attributes"]["filters"][dis_bucket]["filter-collection-subtype"]
-					    hg_this_mvalue = data["data"][0]["attributes"]["filters"][dis_bucket]["filter-match-value"]
-				    }
-
-				    // No matter what add the cells At the end
-				    hg_this_ctype_cell = hg_this_row.insertCell(-1)
-				    hg_this_ctype_cell.innerHTML = hg_this_ctype
-
-				    hg_this_csub_cell = hg_this_row.insertCell(-1)
-				    hg_this_csub_cell.innerHTML = hg_this_csub
-
-				    // Always the same comparison
-				    hg_this_mtype_cell = hg_this_row.insertCell(-1)
-				    hg_this_mtype_cell.innerHTML = this_host_grouping_match_mtype
-
-				    hg_this_mvalue_cell = hg_this_row.insertCell(-1)
-				    hg_this_mvalue_cell.innerHTML = hg_this_mvalue
-
-			    }
-
-
-			    for (var cg_index = 0; cg_index < this_comparisons_match_amount; cg_index++){
-
-				    cg_this_row = comparisons_grouping_table_ref.insertRow(-1)
-
-				    if (cg_index == 0) {
-					    // Insert the First Row & Description Column
-					    cg_this_cell = cg_this_row.insertCell(0)
-					    cg_this_cell.setAttribute("rowspan", this_comparisons_match_amount)
-					    cg_this_cell.innerHTML = dis_bucket
-				    }
-
-				    if ( cg_do_array == true) {
-					    // It's an array so take the proper element
-					    cg_this_ctype = data["data"][0]["attributes"]["comparisons"][dis_bucket]["comparison-collection-type"][cg_index]
-					    cg_this_csub = data["data"][0]["attributes"]["comparisons"][dis_bucket]["comparison-collection-subtype"][cg_index]
-					    cg_this_mvalue = data["data"][0]["attributes"]["comparisons"][dis_bucket]["comparison-match-value"][cg_index]
-				    } else {
-					    // It's a string so take the whole damn thing.
-					    cg_this_ctype = data["data"][0]["attributes"]["comparisons"][dis_bucket]["comparison-collection-type"]
-					    cg_this_csub = data["data"][0]["attributes"]["comparisons"][dis_bucket]["comparison-collection-subtype"]
-					    cg_this_mvalue = data["data"][0]["attributes"]["comparisons"][dis_bucket]["comparison-match-value"]
-				    }
-
-				    // No matter what add the cells At the end
-				    cg_this_ctype_cell = cg_this_row.insertCell(-1)
-				    cg_this_ctype_cell.innerHTML = cg_this_ctype
-
-				    cg_this_csub_cell = cg_this_row.insertCell(-1)
-				    cg_this_csub_cell.innerHTML = cg_this_csub
-
-				    // Always the same comparison
-				    cg_this_mtype_cell = cg_this_row.insertCell(-1)
-				    cg_this_mtype_cell.innerHTML = this_comparisons_match_mtype
-
-				    window.console.log(this_comparisons_match_mtype)
-
-				    cg_this_mvalue_cell = cg_this_row.insertCell(-1)
-				    cg_this_mvalue_cell.innerHTML = cg_this_mvalue
-
-			    }
-
-		    }
-	    })
-    }
-    </script>
 
 {% include 'endpoint_link.html' %}
 

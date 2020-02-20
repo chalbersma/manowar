@@ -309,6 +309,7 @@
     "/auditinfo/{audit_id}/buckets/": {
       "get": {
         "description": "Get's the bucket information for a particular audit. Does not retrieve\nThe data from the database because of limitations. Instead retrieves it\nfrom \"on disk.\" This means that what is returned here may not be as\naccurate as it could be.\n",
+        "depreciated": true,
         "tags": [
           "audits"
         ],

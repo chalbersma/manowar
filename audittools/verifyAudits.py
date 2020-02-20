@@ -155,6 +155,7 @@ def load_auditfile(auditfile):
                                 audits[section][item] = ast.literal_eval("'''{}'''".format(onelinethisstuff))
                             else:
                                 audits[section][item] = ast.literal_eval(onelinethisstuff)
+
                         except Exception as ast_error:
                             logger.error("Verification ini style Failed. Use verifyAudits.py for more details")
                             logger.debug("INI Exception on AST Parsing {}:{} : {}".format(section, item, ast_error))

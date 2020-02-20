@@ -61,6 +61,9 @@ def display2_auditinfo(audit_id="0"):
         meta_dict["Endpoint"] = content_object["links"]["self"]
 
     if api_good:
-        return render_template('display_V2/auditinfo.html', audit_id=audit_id, content=content_object, meta=meta_dict)
+        return render_template('display_V2/auditinfo.html',
+                               audit_id=audit_id,
+                               audit_name=content_object["meta"]["audit_name"],
+                               content=content_object, meta=meta_dict)
     else:
         return render_template('error.html', error=error_dict)

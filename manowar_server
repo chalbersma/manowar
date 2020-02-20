@@ -34,9 +34,14 @@ if __name__ == "__main__":
     api_parser.add_argument("-d", "--flaskdebug", action='store_true', help="Turn on Flask Debugging", default=False)
 
     analyze_parser = subparsers.add_parser("analyze", help="Run an Analyze Audits Job")
-    analyze_parser.add_argument("-a", "--auditdir", help="Directory that Contains the audits", required=False, action='append')
     analyze_parser.add_argument("-p", "--print", action='store_true', help="Print Results", default=False)
     analyze_parser.add_argument("-n", "--newerthan", help="Audit Files newer than this (-1 to disable)", default=-1, type=int)
+    analyze_parser.add_argument("-s", "--shard", help="Audits have a UUID4 that you can shard against. Give me regex for the start of line and I'll match it.", default=None)
+    analyze_parser.add_argument("-r", "--name", help="Audits with Name (Regex).", default=None)
+
+    la_parser = subparsers.add_parser("load", help="Load Audits From Disk")
+    la_parser.add_argument("-a", "--auditdir", help="Directory that Contains the audits", required=False, action='append')
+    la_parser.add_argument("-p", "--print", action='store_true', help="Print Results", default=False)
 
     collate_parser = subparsers.add_parser("collate", help="Run an Collation of Audits Job")
     collate_parser.add_argument("-p", "--print", action='store_true', help="Print Results", default=False)
@@ -93,11 +98,12 @@ if __name__ == "__main__":
     if args.command == "api":
         
         from manoward.ui import ui
-        ui(CONFIG, args.flaskdebug) 
-        
-    elif args.command == "analyze":
-        from manoward.analyze import analyze
-        
+        ui(CONFIG, args.flaskdebug)
+
+    elif args.command == "load":
+
+        from manoward.analyze import audit_load
+
         configdirs = list()
         # Massage Configdir to not include trailing /
         for thisdir in args.auditdir :
@@ -110,9 +116,21 @@ if __name__ == "__main__":
         if list(configdirs) == 0:
             for this_path in ["/etc/manowar/audits.d", "./etc/manowar/audits.d"]:
                 if os.isdir(this_path) is True:
-                    CONFIGDIR.append(this_path)
+                    configdirs.append(this_path)
+
+        load_report = audit_load(configdirs, CONFIG)
+
+        if args.print is True:
+            print(json.dumps(load_report, sort_keys=True, indent=4))
+
         
-        analyze_stats = analyze(configdirs, CONFIG, newer=args.newerthan)
+    elif args.command == "analyze":
+        from manoward.analyze import analyze
+
+        analyze_stats = analyze(CONFIG,
+                                newer=args.newerthan,
+                                shard=args.shard,
+                                name_regex=args.name)
 
         if args.print is True:
             print(json.dumps(analyze_stats, sort_keys=True, indent=4))

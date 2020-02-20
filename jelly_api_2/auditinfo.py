@@ -31,11 +31,10 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 """
 
 import json
-import ast
-import time
-from flask import current_app, Blueprint, g, request, jsonify, abort
+from flask import Blueprint, g, request, jsonify, abort
 
 import manoward
+import audittools
 
 
 auditinfo = Blueprint("api2_auditinfo", __name__)
@@ -82,56 +81,28 @@ def api2_auditinfo(audit_id=0):
 
     request_data = list()
 
-    select_query = """select audit_id, audit_name, audit_priority,
-                            audit_short_description, audit_long_description,
-                            audit_primary_link,
-                            COLUMN_JSON(audit_secondary_links) as 'audit_secondary_links'
-                            from audits
-                            where audit_id = %s
-                            order by audit_priority desc, audit_id desc ;"""
+    audit_obj = audittools.AuditSource(do_db=True,
+                                       db_cur=g.cur,
+                                       audit_id=args["audit_id"])
 
-    run_result = manoward.run_query(g.cur,
-                                    select_query,
-                                    args=[args["audit_id"]],
-                                    one=True,
-                                    do_abort=True,
-                                    require_results=True)
+    meta_info["audit_name"] = audit_obj.audit_name
+    meta_info["audit_id"] = audit_obj.audit_id
 
-    if run_result["has_error"] is True:
-        g.logger.error("Error in Auditinfo Query")
-        abort(500)
-
-    requested_audit = run_result.get("data", dict())
-
-    # Parse audit_secondary_links back to JSON
-    try:
-        this_secondary_links = json.loads(
-            requested_audit["audit_secondary_links"])
-
-    except Exception as unhydrate_secondary_links_error:
-        g.logger.error(
-            "Unable to Read Audit Secondary Links on {}".format(args["audit_id"]))
-        g.logger.debug(unhydrate_secondary_links_error)
-        g.logger.debug(requested_audit["audit_secondary_links"])
-        abort(500)
-    else:
-        requested_audit["audit_secondary_links"] = this_secondary_links
 
     this_results = dict()
     this_results["type"] = requesttype
-    this_results["id"] = requested_audit["audit_id"]
-    this_results["attributes"] = requested_audit
+    this_results["id"] = args["audit_id"]
+    this_results["attributes"] = audit_obj.return_audit()
     this_results["relationships"] = dict()
     this_results["relationships"]["auditresults"] = {"pass": "{}{}/auditresults/{}?auditResult=pass".format(g.config_items["v2api"]["preroot"],
                                                                                                             g.config_items["v2api"]["root"],
-                                                                                                            requested_audit["audit_id"]),
+                                                                                                            args["audit_id"]),
                                                      "fail": "{}{}/auditresults/{}?auditResult=fail".format(g.config_items["v2api"]["preroot"],
                                                                                                             g.config_items["v2api"]["root"],
-                                                                                                            requested_audit["audit_id"]),
+                                                                                                            args["audit_id"]),
                                                      "exempt": "{}{}/auditresults/{}?auditResult=notafflicted".format(g.config_items["v2api"]["preroot"],
-                                                                                                                      g.config_items[
-                                                                                                                          "v2api"]["root"],
-                                                                                                                      requested_audit["audit_id"])
+                                                                                                                      g.config_items["v2api"]["root"],
+                                                                                                                      args["audit_id"])
                                                      }
 
     this_results["relationships"]["auditinfo_buckets"] = "{}{}/auditinfo/{}/buckets".format(g.config_items["v2api"]["preroot"],

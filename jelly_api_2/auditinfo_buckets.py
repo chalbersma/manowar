@@ -19,6 +19,7 @@ that runs the audits and the part that displays the audits
       The data from the database because of limitations. Instead retrieves it
       from "on disk." This means that what is returned here may not be as
       accurate as it could be.
+    depreciated: true
     tags:
       - audits
     responses:
@@ -34,6 +35,8 @@ that runs the audits and the part that displays the audits
           type: integer
         required: true
 ```
+
+## TODO Retire this endpoint. After the move to JSON in the Database I no longer need to query the FS direct.
 
 """
 

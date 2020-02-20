@@ -2,9 +2,12 @@
 
 set -x
 
+./manowar_server -vvv -c travis/artifacts/manoward.yaml load -a travis/artifcats/audits.d
+
 # Run Scheduler Test
-# TO Speed things up -n 14 grabs only audits from the last 14 days.
-./manowar_server -vvv -c travis/artifacts/manoward.yaml analyze -a travis/artifacts/audits.d  -n 14
+# TO Speed things up -s a which will run audits only that have an UUID starting with a, statistically
+# 1/16 of the audits loaded previously
+./manowar_server -vvv -c travis/artifacts/manoward.yaml analyze -s a
 
 analyze_good=$?
 

@@ -391,15 +391,23 @@ def run_query(db_cur, query, args=list(), **kwargs):
         else:
             if kwargs.get("one", False) is True:
                 query_results = db_cur.fetchone()
+            elif kwargs.get("lastid", False) is True:
+                query_results = db_cur.lastrowid
             else:
                 query_results = db_cur.fetchall()
 
         if kwargs.get("require_results", False) is True:
-            if query_results is None or len(query_results) == 0:
-                logger.error("No Results when Results Required.")
+            if query_results is None:
+                logger.error("No Results (None obj) when Results Required.")
                 has_error = True
-                if kwargs.get("do_abort", False) is True:
-                    abort(404)
+            elif isinstance(query_results, (dict, list)) and len(query_results) == 0:
+                logger.error("No Result set when Results Required.")
+                has_error = True
+            elif isinstance(query_results, int) and query_results <= 0:
+                logger.error("No Result ID when Results Required.")
+                has_error = True
+            if kwargs.get("do_abort", False) is True and has_error is True:
+                abort(404)
 
         results["data"] = query_results
 
