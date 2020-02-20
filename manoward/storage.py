@@ -235,6 +235,17 @@ def store_as_SAPI_host(host_id, db_conn, hostname, VERBOSE=False):
 
     return return_dictionary
 
+def null_or_value(data_to_check, VERBOSE=False):
+
+    logger = logging.getLogger("storage:null_or_value")
+
+    if data_to_check == None:
+        data = "NULL"
+        return data
+    else:
+        data = "'" + str(data_to_check) + "'"
+        return data
+
 
 def insert_update_collections(db_conn, host_id, hostdata, MAX):
     
