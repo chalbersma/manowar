@@ -13,17 +13,15 @@ from colorama import Fore, Back, Style
 import argparse
 import logging
 import multiprocessing
-import queue
-import sys
 import time
 import os
 import re
-import signal
-import random
 import hashlib
 import json
 
+
 # Pips
+import requests
 import yaml
 import saltcell.clientcollector
 
@@ -169,32 +167,58 @@ def dequeue_hosts(thread_num, host_queue, result_queue, this_configs):
                 if item not in roster_key_ban:
                     this_host_args[item] = value
 
-            collection_args = {"remote": True,
-                               "salt_ssh_basedir": this_configs["schedule"]["salt_ssh_basedir"],
-                               "remote_host_id": roster_id,
-                               "remote_timeout": this_configs["schedule"].get("indv_call_timeout", 600),
-                               "noupload": True,
-                               "host_configs": this_host_args,
-                               "ipintel_configs": {"dointel": True},
-                               "sapi_configs": {"sapi_do_api": False},
-                               "hardcrash": False,
-                               "base_config_file": this_configs["schedule"]["collection_config_file"],
-                               "local_cols": [this_configs["schedule"].get("local_collections", False),
-                                              this_configs["schedule"].get("local_collections_location", "/etc/manowar_agent/collections.d")],
-                               "relative_venv": this_configs["schedule"].get("relative_venv", False)
-                               }
+            storage_dict = dict()
 
-            logger.debug("Collection Arguments : {}".format(collection_args))
+            if this_configs["schedule"].get("strategy", "manowar_agent") == "manowar_agent":
+                collection_args = {"remote": True,
+                                   "salt_ssh_basedir": this_configs["schedule"]["salt_ssh_basedir"],
+                                   "remote_host_id": roster_id,
+                                   "remote_timeout": this_configs["schedule"].get("indv_call_timeout", 600),
+                                   "noupload": True,
+                                   "host_configs": this_host_args,
+                                   "ipintel_configs": {"dointel": True},
+                                   "sapi_configs": {"sapi_do_api": False},
+                                   "hardcrash": False,
+                                   "base_config_file": this_configs["schedule"]["collection_config_file"],
+                                   "local_cols": [this_configs["schedule"].get("local_collections", False),
+                                                  this_configs["schedule"].get("local_collections_location", "/etc/manowar_agent/collections.d")],
+                                   "relative_venv": this_configs["schedule"].get("relative_venv", False)
+                                   }
 
-            this_host = saltcell.clientcollector.Host(**collection_args)
+                logger.debug("Collection Arguments : {}".format(collection_args))
+
+                this_host = saltcell.clientcollector.Host(**collection_args)
+
+                storage_dict = this_host.todict()
+
+            elif this_configs["schedule"].get("strategy", "manowar_agent") == "api":
+                logger.error("This isn't implemented yet.")
+
+                try:
+                    query_args = this_host_args
+                    query_args = {**query_args, **this_configs["schedule"]["api_query_args"]}
+
+                    headers = {**this_configs["schedule"]["api_headers"],
+                               "Content-Type" : "application/json"}
+
+                    ## TODO allow for api Endpoint to be Jinja-fied
+
+                    api_request = requests.get(this_configs["schedule"]["api_endpoint"],
+                                               params=query_args,
+                                               headers=headers)
+                except Exception as conn_error:
+                    logger.error("Unable to Make Query for {} with Error".format(this_host_args))
+                    logger.debug("Error : {}".format(conn_error))
+                    storage_dict = dict()
+                else:
+                    ## TODO allow for arbitrary JQ in the JSON
+                    storage_dict = api_request.json()
 
             try:
-                this_store_stats = storage(this_configs,
-                                           this_host.todict())
+                this_store_stats = storage(this_configs, storage_dict)
 
             except Exception as storage_error:
-                logger.error(
-                    "Unable to Store Collected Items for {}".format(roster_id))
+                logger.error("Unable to Store Collected Items for {}".format(roster_id))
                 this_status[1] = True
             else:
                 logger.debug("Stored Results for {}".format(roster_id))
