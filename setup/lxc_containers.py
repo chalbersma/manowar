@@ -19,6 +19,21 @@ _currently_supported_platforms = {"centos8" : {"lxc" : "images:centos/8",
                                   "centos7" : {"lxc" : "images:centos/7",
                                                "prefix" : "centsev",
                                                "postfix" : "c7n"},
+                                  "centos6" : {"lxc" : "images:centos/6",
+                                               "prefix" : "centsix",
+                                               "postfix" : "c6n"},
+                                  "debbuster" : {"lxc" : "images:debian/buster",
+                                               "prefix" : "debbust",
+                                               "postfix" : "dbust"},
+                                  "debstretch" : {"lxc" : "images:alpine/3.9",
+                                                 "prefix" : "alpine39",
+                                                 "postfix" : "a39"},
+                                  "alp39" : {"lxc" : "images:debian/stretch",
+                                                  "prefix" : "debstretch",
+                                                  "postfix" : "dstch"},
+                                  "osuse151" : {"lxc" : "images:opensuse/15.1",
+                                                  "prefix" : "os151",
+                                                  "postfix" : "suse"},
                                   "ubuntubionic" :  {"lxc" : "images:ubuntu/bionic",
                                                   "prefix" : "ububionic",
                                                   "postfix" : "bio"},
@@ -95,7 +110,7 @@ if __name__ == "__main__":
             this_roster_args = {"uri" : "mown://mowtest:{}:{}::{}?owner=testowner&status=prod".format(this_location,
                                                                                                       this_platform,
                                                                                                       this_roster_id),
-                                "sudo" : platform_args.get("use_sudo", True),
+                                "sudo" : platform_args.get("use_sudo", False),
                                 "user" : "{}".format(platform_args.get("platform_user", "root"))}
                                              
             logger.info("Found Platform : {}".format(platform))
@@ -158,16 +173,38 @@ if __name__ == "__main__":
                         # Should Add Key for most unix like systems
                         # New platforms need new things
                         # God help me if windows comes to lxc
-                        dumb_key_sequence = ["yum -y install openssh-server openssh-clients python3 sudo",
-                                             "apt-get install -y openssh-server",
-                                             "service sshd start",
-                                             "service ssh start",
-                                             "mkdir -p ~/.ssh",
-                                             "touch ~/.ssh/authorized_keys",
-                                             "echo -e \"{}\" >> ~/.ssh/authorized_keys".format(pubkey_string),
-                                             "chmod go-w ~/",
-                                             "chmod 700 ~/.ssh",
-                                             "chmod 600 ~/.ssh/authorized_keys"]
+                        dks = { "centos6" : {"cmds" : ["yum -y install centos-release-scl",
+                                                      "yum -y install rh-python36",
+                                                       "scl enable rh-python36 bash",
+                                                       "echo -e \"source scl_source enable rh-python36\" > /etc/profile.d/rhpython36.sh",
+                                                       "chmod +x /etc/profile.d/rhpython36.sh"]},
+                                "centos.*": {"cmds": ["yum -y install openssh-server openssh-clients python3 sudo",
+                                                  "service sshd start",
+                                                  "chkconfig sshd on"]},
+                                "osuse.*" : {"cmds" : ["zypper -n install openssh python3",
+                                                      "systemctl enable sshd.service",
+                                                      "systemctl start sshd.service"]},
+                                 "alp.*" : {"cmds" : ["apk add openssh",
+                                                      "apk add bash",
+                                                      "apk add python3",
+                                                      "rc-update add sshd",
+                                                    "/etc/init.d/sshd start"]},
+                                 "(ubu|deb).*" : {"cmds" : ["apt install -y openssh-server python3",
+                                                          "systemctl enable ssh.service",
+                                                          "service ssh start"]},
+                                 ".*" : {"cmds" : ["mkdir -p ~/.ssh",
+                                                 "touch ~/.ssh/authorized_keys",
+                                                 "echo -e \"{}\" >> ~/.ssh/authorized_keys".format(pubkey_string),
+                                                 "chmod go-w ~/",
+                                                 "chmod 700 ~/.ssh",
+                                                 "chmod 600 ~/.ssh/authorized_keys"]}}
+
+                        dumb_key_sequence = list()
+
+                        for plat_regex, definitions in dks.items():
+
+                            if re.match(plat_regex, this_roster_id) is not None:
+                                dumb_key_sequence = [*dumb_key_sequence, *definitions["cmd"]]
                         
                         for dks in dumb_key_sequence:
                             
