@@ -19,7 +19,7 @@ that runs the audits and the part that displays the audits
       The data from the database because of limitations. Instead retrieves it
       from "on disk." This means that what is returned here may not be as
       accurate as it could be.
-    depreciated: true
+    deprecated: true
     tags:
       - audits
     responses:

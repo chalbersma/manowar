@@ -8,7 +8,7 @@ Licensed under the terms of the BSD 2-clause license. See LICENSE file for terms
 /cve/canoncial_check/{cve_name}/ :
   x-cached-length: "Every Midnight"
   get:
-    depreciated: true
+    deprecated: true
     description: |
       Gives you a check against a particular cve for the population you specify
       in the arguments. Accepts the non collection paramaters (as this utilizes
