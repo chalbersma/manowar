@@ -309,7 +309,7 @@
     "/auditinfo/{audit_id}/buckets/": {
       "get": {
         "description": "Get's the bucket information for a particular audit. Does not retrieve\nThe data from the database because of limitations. Instead retrieves it\nfrom \"on disk.\" This means that what is returned here may not be as\naccurate as it could be.\n",
-        "depreciated": true,
+        "deprecated": true,
         "tags": [
           "audits"
         ],
@@ -452,7 +452,7 @@
     "/cve/canoncial_check/{cve_name}/": {
       "x-cached-length": "Every Midnight",
       "get": {
-        "depreciated": true,
+        "deprecated": true,
         "description": "Gives you a check against a particular cve for the population you specify\nin the arguments. Accepts the non collection paramaters (as this utilizes\nthe collection paramaters) to make the check.\n",
         "tags": [
           "cve"
